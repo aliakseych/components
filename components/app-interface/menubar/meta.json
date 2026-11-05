@@ -1,0 +1,21 @@
+{
+  "name": "Menubar",
+  "summary": "A desktop-style row of menus, such as File and Edit.",
+  "tags": [
+    "menu",
+    "navigation"
+  ],
+  "useWhen": [
+    "Desktop-like tools with many commands",
+    "Editors and admin apps"
+  ],
+  "avoidWhen": [
+    "Phone screens and simple websites"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "menubar"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}

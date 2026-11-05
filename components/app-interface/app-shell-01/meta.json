@@ -1,0 +1,32 @@
+{
+  "name": "App Shell: Sidebar",
+  "summary": "A workspace switcher, navigation sections with count badges and a user menu, under a top bar with breadcrumbs, search and notifications.",
+  "tags": [
+    "app shell",
+    "sidebar",
+    "navigation",
+    "dashboard"
+  ],
+  "useWhen": [
+    "The frame around every page of an app"
+  ],
+  "avoidWhen": [
+    "A single marketing page"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "breadcrumb",
+    "button",
+    "collapsible",
+    "dropdown-menu",
+    "kbd",
+    "separator",
+    "sheet",
+    "sidebar",
+    "tooltip"
+  ],
+  "install": "@dashboardblocks/app-shell-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

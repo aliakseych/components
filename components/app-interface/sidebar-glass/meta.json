@@ -1,0 +1,29 @@
+{
+  "name": "Sidebar",
+  "summary": "The ihsp-web floating glass sidebar with a logo toggle, nested nav data, role filtering, saved state and a user panel with a profile menu.",
+  "tags": [
+    "sidebar",
+    "navigation",
+    "menu",
+    "animation"
+  ],
+  "useWhen": [
+    "An app wants a polished floating rail",
+    "Menus come from data and depend on roles"
+  ],
+  "avoidWhen": [
+    "Flat pages with nothing behind the sidebar, where the glass doesn't show",
+    "Simple sites with few pages"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "avatar",
+    "collapsible",
+    "dropdown-menu",
+    "sidebar"
+  ],
+  "source": "ihsp-web",
+  "status": "stable"
+}

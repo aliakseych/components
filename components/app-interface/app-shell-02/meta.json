@@ -1,0 +1,32 @@
+{
+  "name": "App Shell: Icon Sidebar",
+  "summary": "A sidebar that collapses to icons with tooltips, with nested sections and help and settings pinned to the bottom.",
+  "tags": [
+    "app shell",
+    "sidebar",
+    "navigation",
+    "dashboard"
+  ],
+  "useWhen": [
+    "The frame around every page of an app"
+  ],
+  "avoidWhen": [
+    "A single marketing page"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "breadcrumb",
+    "button",
+    "collapsible",
+    "dropdown-menu",
+    "kbd",
+    "separator",
+    "sheet",
+    "sidebar",
+    "tooltip"
+  ],
+  "install": "@dashboardblocks/app-shell-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

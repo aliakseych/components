@@ -1,0 +1,76 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+import type { ComponentProps } from "react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
+export type GlimpseProps = ComponentProps<typeof HoverCard>;
+
+export const Glimpse = (props: GlimpseProps) => {
+  return <HoverCard {...props} />;
+};
+
+export type GlimpseContentProps = ComponentProps<typeof HoverCardContent>;
+
+export const GlimpseContent = ({
+  className,
+  ...props
+}: GlimpseContentProps) => (
+  <HoverCardContent
+    className={cn(
+      "flex w-80 max-w-[calc(100vw-2rem)] flex-col gap-1 overflow-hidden rounded-xl bg-card p-3 text-card-foreground shadow-sm",
+      className
+    )}
+    {...props}
+  />
+);
+
+export type GlimpseTriggerProps = ComponentProps<typeof HoverCardTrigger>;
+
+export const GlimpseTrigger = (props: GlimpseTriggerProps) => (
+  <HoverCardTrigger {...props} />
+);
+
+export type GlimpseTitleProps = ComponentProps<"p">;
+
+export const GlimpseTitle = ({ className, ...props }: GlimpseTitleProps) => {
+  return (
+    <p className={cn("truncate font-medium text-sm tracking-tight", className)} {...props} />
+  );
+};
+
+export type GlimpseDescriptionProps = ComponentProps<"p">;
+
+export const GlimpseDescription = ({
+  className,
+  ...props
+}: GlimpseDescriptionProps) => {
+  return (
+    <p
+      className={cn("line-clamp-2 text-muted-foreground text-xs leading-relaxed", className)}
+      {...props}
+    />
+  );
+};
+
+export type GlimpseImageProps = ComponentProps<"img">;
+
+export const GlimpseImage = ({
+  className,
+  alt,
+  ...props
+}: GlimpseImageProps) => (
+  // biome-ignore lint/performance/noImgElement: "Kibo UI is framework agnostic"
+  <img
+    alt={alt ?? ""}
+    className={cn(
+      "-mx-3 -mt-3 mb-2 aspect-[120/63] w-[calc(100%+1.5rem)] max-w-none border-b object-cover",
+      className
+    )}
+    {...props}
+  />
+);

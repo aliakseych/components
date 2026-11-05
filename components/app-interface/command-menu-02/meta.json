@@ -1,0 +1,24 @@
+{
+  "name": "Command Menu: Record Search",
+  "summary": "Recently viewed records before you type, then customers and orders fetched as you type.",
+  "tags": [
+    "command menu",
+    "search",
+    "navigation"
+  ],
+  "useWhen": [
+    "A ⌘K dialog for pages, actions and records"
+  ],
+  "avoidWhen": [
+    "The app has only a few pages"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "command",
+    "kbd"
+  ],
+  "install": "@dashboardblocks/command-menu-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

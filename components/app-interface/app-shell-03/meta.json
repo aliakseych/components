@@ -1,0 +1,32 @@
+{
+  "name": "App Shell: Inset",
+  "summary": "The page in a card beside the sidebar, with plan usage and an upgrade link above the user menu.",
+  "tags": [
+    "app shell",
+    "sidebar",
+    "navigation",
+    "dashboard"
+  ],
+  "useWhen": [
+    "The frame around every page of an app"
+  ],
+  "avoidWhen": [
+    "A single marketing page"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "breadcrumb",
+    "button",
+    "collapsible",
+    "dropdown-menu",
+    "kbd",
+    "separator",
+    "sheet",
+    "sidebar",
+    "tooltip"
+  ],
+  "install": "@dashboardblocks/app-shell-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

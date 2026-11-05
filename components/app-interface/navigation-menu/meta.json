@@ -1,0 +1,22 @@
+{
+  "name": "Navigation Menu",
+  "summary": "A website header menu with panels of links.",
+  "tags": [
+    "menu",
+    "navigation",
+    "landing page"
+  ],
+  "useWhen": [
+    "Marketing sites with grouped pages",
+    "A top bar needs rich dropdown panels"
+  ],
+  "avoidWhen": [
+    "In-app navigation with many sections, where a sidebar fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "navigation-menu"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}

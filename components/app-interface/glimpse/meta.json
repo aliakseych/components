@@ -1,0 +1,24 @@
+{
+  "name": "Glimpse",
+  "summary": "A hover card that previews a linked page, with a server helper that reads its title, description and image.",
+  "tags": [
+    "overlay",
+    "preview",
+    "hover"
+  ],
+  "useWhen": [
+    "Links in articles or docs benefit from a preview",
+    "You already have or can fetch a page title and image"
+  ],
+  "avoidWhen": [
+    "Touch-first screens, where hover does not exist",
+    "The preview contains essential information",
+    "A plain hover preview of text or a profile, where the shadcn hover-card fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "hover-card"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

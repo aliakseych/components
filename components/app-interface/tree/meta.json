@@ -1,0 +1,26 @@
+{
+  "name": "Tree",
+  "summary": "An animated, expandable tree with lines, icons and single or multiple selection.",
+  "tags": [
+    "tree",
+    "file tree",
+    "navigation",
+    "list",
+    "animation"
+  ],
+  "useWhen": [
+    "Showing folders, files or nested categories",
+    "People browse a hierarchy and select items"
+  ],
+  "avoidWhen": [
+    "The data is flat or only one level deep",
+    "Thousands of nodes render at once, because it has no virtualization"
+  ],
+  "dependencies": [
+    "lucide-react",
+    "motion"
+  ],
+  "shadcn": [],
+  "source": "Kibo UI",
+  "status": "stable"
+}

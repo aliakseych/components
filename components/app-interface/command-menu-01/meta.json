@@ -1,0 +1,24 @@
+{
+  "name": "Command Menu: Pages and Actions",
+  "summary": "Pages and actions with their shortcuts, opened here with <kbd>⌘/</kbd> because <kbd>⌘K</kbd> opens this site's search.",
+  "tags": [
+    "command menu",
+    "search",
+    "navigation"
+  ],
+  "useWhen": [
+    "A ⌘K dialog for pages, actions and records"
+  ],
+  "avoidWhen": [
+    "The app has only a few pages"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "command",
+    "kbd"
+  ],
+  "install": "@dashboardblocks/command-menu-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

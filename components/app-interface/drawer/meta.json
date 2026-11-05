@@ -1,0 +1,25 @@
+{
+  "name": "Drawer",
+  "summary": "A panel that slides in from a screen edge and can be dragged closed.",
+  "tags": [
+    "overlay",
+    "swipe",
+    "navigation"
+  ],
+  "useWhen": [
+    "Mobile actions or details",
+    "Temporary tasks that shouldn't leave the page"
+  ],
+  "avoidWhen": [
+    "Long, complex forms that deserve their own page"
+  ],
+  "dependencies": [
+    "vaul"
+  ],
+  "shadcn": [
+    "drawer",
+    "button"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}

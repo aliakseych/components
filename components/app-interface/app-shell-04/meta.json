@@ -1,0 +1,31 @@
+{
+  "name": "App Shell: Top Navigation",
+  "summary": "Page links under the top bar instead of a sidebar, with the ones that don't fit under More on a small screen.",
+  "tags": [
+    "app shell",
+    "sidebar",
+    "navigation",
+    "dashboard"
+  ],
+  "useWhen": [
+    "The frame around every page of an app"
+  ],
+  "avoidWhen": [
+    "A single marketing page"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "breadcrumb",
+    "button",
+    "collapsible",
+    "dropdown-menu",
+    "kbd",
+    "sheet",
+    "sidebar",
+    "tooltip"
+  ],
+  "install": "@dashboardblocks/app-shell-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}
