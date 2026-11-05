@@ -1,0 +1,42 @@
+{
+  "name": "Security",
+  "summary": "The security settings of a workspace: sign-ins, sessions, posture and authentication. Choose one option for each slot.",
+  "category": "workspace",
+  "slots": [
+    {
+      "id": "activity",
+      "label": "Activity",
+      "description": "Sign-ins and the audit log",
+      "options": [
+        "workspace/security-01/default",
+        "workspace/security-02/default"
+      ]
+    },
+    {
+      "id": "sessions",
+      "label": "Sessions",
+      "description": "Active sessions to review or end",
+      "options": [
+        "workspace/security-03/default"
+      ]
+    },
+    {
+      "id": "posture",
+      "label": "Posture",
+      "description": "The security score and what to fix",
+      "options": [
+        "workspace/security-04/default"
+      ]
+    },
+    {
+      "id": "authentication",
+      "label": "Authentication",
+      "description": "Two-factor and single sign-on",
+      "options": [
+        "workspace/security-05/default",
+        "workspace/security-06/default",
+        "workspace/auth-03/default"
+      ]
+    }
+  ]
+}

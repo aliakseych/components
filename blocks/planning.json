@@ -1,0 +1,68 @@
+{
+  "name": "Planning",
+  "summary": "Different views of scheduled work. Choose the view that fits, or Roadmap for all of them.",
+  "category": "planning",
+  "slots": [
+    {
+      "id": "board",
+      "label": "Board",
+      "description": "Work as cards in columns or groups",
+      "options": [
+        "planning/kanban/default",
+        "planning/kanban-01/default",
+        "planning/kanban-02/default",
+        "planning/kanban-03/default",
+        "planning/list/default"
+      ]
+    },
+    {
+      "id": "timeline",
+      "label": "Timeline",
+      "description": "Work laid out over time",
+      "options": [
+        "planning/gantt/default",
+        "planning/roadmap/default",
+        "planning/timeline-01/default",
+        "planning/timeline-02/default",
+        "planning/timeline-03/default",
+        "planning/timeline-04/default"
+      ]
+    },
+    {
+      "id": "tasks",
+      "label": "Tasks",
+      "description": "Checklists and steps to complete",
+      "options": [
+        "planning/checklist-01/default",
+        "planning/checklist-02/default",
+        "planning/checklist-03/default",
+        "planning/checklist-04/default"
+      ]
+    },
+    {
+      "id": "calendar",
+      "label": "Calendar",
+      "description": "Seeing or choosing days",
+      "options": [
+        "planning/calendar/month",
+        "planning/calendar/day-view",
+        "planning/mini-calendar/default",
+        "planning/calendar-01/default",
+        "planning/calendar-02/default",
+        "planning/calendar-03/default",
+        "planning/calendar-04/default"
+      ]
+    },
+    {
+      "id": "agenda",
+      "label": "Agenda",
+      "description": "What is coming up",
+      "options": [
+        "planning/schedule-01/default",
+        "planning/schedule-02/default",
+        "planning/schedule-03/default",
+        "planning/schedule-04/default"
+      ]
+    }
+  ]
+}

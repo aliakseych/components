@@ -1,0 +1,119 @@
+{
+  "name": "Dashboard",
+  "summary": "The parts of a dashboard page, from the shell to the cards. Choose one option for each slot.",
+  "category": "dashboard",
+  "slots": [
+    {
+      "id": "shell",
+      "label": "App shell",
+      "description": "The frame around every page",
+      "options": [
+        "app-interface/app-shell-01/default",
+        "app-interface/app-shell-02/default",
+        "app-interface/app-shell-03/default",
+        "app-interface/app-shell-04/default",
+        "app-interface/sidebar-glass/default"
+      ]
+    },
+    {
+      "id": "header",
+      "label": "Dashboard header",
+      "description": "Title, date range, filters and export",
+      "options": [
+        "dashboard/dashboard-header-01/default",
+        "dashboard/dashboard-header-02/default",
+        "dashboard/dashboard-header-03/default",
+        "dashboard/dashboard-header-04/default",
+        "dashboard/page-header-01/default",
+        "dashboard/page-header-02/default",
+        "dashboard/page-header-03/default",
+        "dashboard/page-header-04/default"
+      ]
+    },
+    {
+      "id": "kpis",
+      "label": "Headline numbers",
+      "description": "The top row of numbers",
+      "options": [
+        "analytics/kpi-01/default",
+        "analytics/kpi-02/default",
+        "analytics/kpi-03/default",
+        "analytics/kpi-04/default",
+        "analytics/kpi-05/default",
+        "analytics/stat-group-01/default",
+        "analytics/stat-group-02/default",
+        "analytics/stat-group-03/default",
+        "analytics/stat-group-04/default",
+        "analytics/stat-group-05/default"
+      ]
+    },
+    {
+      "id": "chart",
+      "label": "Main chart",
+      "description": "The full-size chart",
+      "options": [
+        "analytics/chart-panel-01/default",
+        "analytics/chart-panel-02/default",
+        "analytics/chart-panel-03/default",
+        "analytics/chart-panel-04/default",
+        "analytics/chart-panel-05/default",
+        "analytics/chart-panel-06/default",
+        "analytics/bar-chart-kpi-01/default",
+        "analytics/line-chart-kpi-01/default",
+        "analytics/area-chart-kpi-01/default"
+      ]
+    },
+    {
+      "id": "breakdown",
+      "label": "Breakdown",
+      "description": "How a total splits",
+      "options": [
+        "analytics/breakdown-01/default",
+        "analytics/breakdown-02/default",
+        "analytics/breakdown-03/default",
+        "analytics/breakdown-04/default",
+        "analytics/leaderboard-01/default",
+        "analytics/leaderboard-02/default",
+        "analytics/leaderboard-03/default",
+        "analytics/leaderboard-04/default",
+        "analytics/leaderboard-05/default"
+      ]
+    },
+    {
+      "id": "table",
+      "label": "Table",
+      "description": "Rows of records",
+      "options": [
+        "data-display/data-table-01/default",
+        "data-display/data-table-02/default",
+        "data-display/data-table-03/default",
+        "data-display/data-table-04/default",
+        "data-display/data-table-05/default",
+        "data-display/data-table-06/default",
+        "data-display/table/default"
+      ]
+    },
+    {
+      "id": "states",
+      "label": "States",
+      "description": "Loading, empty and error",
+      "options": [
+        "dashboard/states-01/default",
+        "dashboard/states-02/default",
+        "dashboard/states-03/default",
+        "dashboard/states-04/default"
+      ]
+    },
+    {
+      "id": "assistant",
+      "label": "Assistant",
+      "description": "An AI panel beside the page",
+      "options": [
+        "ai-chat/ai-assistant-01/default",
+        "ai-chat/ai-assistant-02/default",
+        "ai-chat/ai-assistant-03/default",
+        "ai-chat/ai-assistant-04/default"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "name": "App Interface",
+  "summary": "The frame around an app's content. Choose one option for each slot.",
+  "category": "app-interface",
+  "slots": [
+    {
+      "id": "navigation",
+      "label": "Navigation",
+      "description": "Moving around nested content",
+      "options": [
+        "app-interface/sidebar-glass/default",
+        "app-interface/navigation-menu/default",
+        "app-interface/menubar/default",
+        "app-interface/tree/default"
+      ]
+    },
+    {
+      "id": "overlay",
+      "label": "Overlay",
+      "description": "Extra detail shown on demand",
+      "options": [
+        "app-interface/glimpse/default",
+        "app-interface/drawer/default",
+        "actions/dropdown-menu/default"
+      ]
+    },
+    {
+      "id": "labels",
+      "label": "Labels",
+      "description": "Compact statuses and filters",
+      "options": [
+        "data-display/pill/variants",
+        "data-display/pill/horizontal-list"
+      ]
+    },
+    {
+      "id": "input",
+      "label": "Selection",
+      "description": "Choosing from a list",
+      "options": [
+        "forms/combobox/default"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "name": "CRM Dashboard",
+  "summary": "A CRM dashboard broken into its blocks: sales stats, pipeline by stage, monthly bookings, lead conversion, quarter forecast, deal activity and stuck deals.",
+  "category": "dashboard",
+  "slots": [
+    {
+      "id": "complete",
+      "label": "Complete page",
+      "description": "The whole dashboard as one component",
+      "options": [
+        "dashboard/dashboard-04/default"
+      ]
+    },
+    {
+      "id": "header",
+      "label": "Header",
+      "description": "The header block",
+      "options": [
+        "dashboard/dashboard-header-01/default"
+      ]
+    },
+    {
+      "id": "stats",
+      "label": "Stats",
+      "description": "The stats block",
+      "options": [
+        "analytics/stat-group-02/default"
+      ]
+    },
+    {
+      "id": "pipeline",
+      "label": "Pipeline",
+      "description": "The pipeline block",
+      "options": [
+        "business/pipeline-02/default"
+      ]
+    },
+    {
+      "id": "bookings",
+      "label": "Bookings",
+      "description": "The bookings block",
+      "options": [
+        "analytics/chart-panel-04/default"
+      ]
+    },
+    {
+      "id": "conversion",
+      "label": "Conversion",
+      "description": "The conversion block",
+      "options": [
+        "analytics/funnel-03/default"
+      ]
+    },
+    {
+      "id": "forecast",
+      "label": "Forecast",
+      "description": "The forecast block",
+      "options": [
+        "business/pipeline-04/default"
+      ]
+    },
+    {
+      "id": "activity",
+      "label": "Activity",
+      "description": "The activity block",
+      "options": [
+        "workspace/activity-feed-01/default"
+      ]
+    },
+    {
+      "id": "stuck",
+      "label": "Stuck",
+      "description": "The stuck block",
+      "options": [
+        "business/pipeline-03/default"
+      ]
+    }
+  ]
+}

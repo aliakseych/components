@@ -1,0 +1,61 @@
+{
+  "name": "Actions",
+  "summary": "Ways to trigger something. Choose one option for each slot.",
+  "category": "actions",
+  "slots": [
+    {
+      "id": "primary",
+      "label": "Main button",
+      "description": "The one action people should take",
+      "options": [
+        "actions/button/default",
+        "actions/button/with-icon",
+        "actions/magnetic-button/default",
+        "actions/button/loading"
+      ]
+    },
+    {
+      "id": "secondary",
+      "label": "Secondary button",
+      "description": "Less prominent actions",
+      "options": [
+        "actions/button/secondary",
+        "actions/button/outline",
+        "actions/button/ghost",
+        "actions/button/link"
+      ]
+    },
+    {
+      "id": "danger",
+      "label": "Destructive",
+      "description": "Deleting or other risky actions",
+      "options": [
+        "actions/button/destructive"
+      ]
+    },
+    {
+      "id": "group",
+      "label": "Button group",
+      "description": "Related actions side by side",
+      "options": [
+        "actions/button-group/default"
+      ]
+    },
+    {
+      "id": "menu",
+      "label": "Action menu",
+      "description": "Extra actions behind one button",
+      "options": [
+        "actions/dropdown-menu/default"
+      ]
+    },
+    {
+      "id": "sizes",
+      "label": "Sizes",
+      "description": "How big buttons are",
+      "options": [
+        "actions/button/sizes"
+      ]
+    }
+  ]
+}

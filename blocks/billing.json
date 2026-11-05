@@ -1,0 +1,59 @@
+{
+  "name": "Billing",
+  "summary": "A billing page for a subscription product. Choose one option for each slot.",
+  "category": "business",
+  "slots": [
+    {
+      "id": "plan",
+      "label": "Current plan",
+      "description": "The plan, renewal and payment method",
+      "options": [
+        "business/billing-02/default"
+      ]
+    },
+    {
+      "id": "usage",
+      "label": "Usage",
+      "description": "How much of the plan is used",
+      "options": [
+        "business/usage-meter-01/default",
+        "business/usage-meter-02/default",
+        "business/usage-meter-03/default",
+        "business/usage-meter-04/default",
+        "business/usage-meter-05/default",
+        "business/usage-meter-06/default",
+        "business/usage-meter-07/default",
+        "business/usage-meter-08/default"
+      ]
+    },
+    {
+      "id": "invoices",
+      "label": "Invoices",
+      "description": "Past invoices",
+      "options": [
+        "business/billing-03/default",
+        "business/invoice-01/default",
+        "business/invoice-02/default",
+        "business/invoice-03/default",
+        "business/invoice-04/default"
+      ]
+    },
+    {
+      "id": "change",
+      "label": "Change plan",
+      "description": "Plans side by side",
+      "options": [
+        "business/billing-05/default"
+      ]
+    },
+    {
+      "id": "revenue",
+      "label": "Revenue",
+      "description": "For the business's own view",
+      "options": [
+        "business/billing-01/default",
+        "business/billing-04/default"
+      ]
+    }
+  ]
+}

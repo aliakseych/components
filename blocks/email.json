@@ -1,0 +1,35 @@
+{
+  "name": "Email",
+  "summary": "The transactional emails an app sends, built with React Email. Choose one option for each slot.",
+  "category": "email",
+  "slots": [
+    {
+      "id": "account",
+      "label": "Account",
+      "description": "Signing in, welcomes and invites",
+      "options": [
+        "email/email-01/default",
+        "email/email-07/default",
+        "email/email-02/default"
+      ]
+    },
+    {
+      "id": "billing",
+      "label": "Billing",
+      "description": "Receipts and failed payments",
+      "options": [
+        "email/email-03/default",
+        "email/email-04/default"
+      ]
+    },
+    {
+      "id": "lifecycle",
+      "label": "Lifecycle",
+      "description": "Trials ending and usage alerts",
+      "options": [
+        "email/email-05/default",
+        "email/email-06/default"
+      ]
+    }
+  ]
+}

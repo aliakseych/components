@@ -1,0 +1,33 @@
+{
+  "name": "Notifications",
+  "summary": "Telling people what needs their attention, from a bell to a full inbox. Choose one option for each slot.",
+  "category": "workspace",
+  "slots": [
+    {
+      "id": "bell",
+      "label": "Bell",
+      "description": "An unread count that opens the latest notifications",
+      "options": [
+        "workspace/notifications-01/default"
+      ]
+    },
+    {
+      "id": "inbox",
+      "label": "Inbox",
+      "description": "The full list, with requests to approve",
+      "options": [
+        "workspace/notifications-02/default",
+        "workspace/notifications-03/default",
+        "operations/alerts-01/default"
+      ]
+    },
+    {
+      "id": "feed",
+      "label": "Feed",
+      "description": "Notifications as a feed with unread state",
+      "options": [
+        "workspace/activity-feed-03/default"
+      ]
+    }
+  ]
+}

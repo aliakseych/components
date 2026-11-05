@@ -1,0 +1,69 @@
+{
+  "name": "Settings",
+  "summary": "The settings pages of a workspace. Choose one option for each slot.",
+  "category": "workspace",
+  "slots": [
+    {
+      "id": "profile",
+      "label": "Profile",
+      "description": "The person's own details",
+      "options": [
+        "workspace/settings-07/default"
+      ]
+    },
+    {
+      "id": "members",
+      "label": "Members",
+      "description": "Who is in the workspace",
+      "options": [
+        "workspace/settings-01/default",
+        "workspace/team-01/default",
+        "workspace/team-05/default",
+        "workspace/team-06/default"
+      ]
+    },
+    {
+      "id": "keys",
+      "label": "API keys",
+      "description": "Programmatic access",
+      "options": [
+        "workspace/settings-02/default"
+      ]
+    },
+    {
+      "id": "notifications",
+      "label": "Notifications",
+      "description": "Where notifications go",
+      "options": [
+        "workspace/settings-03/default"
+      ]
+    },
+    {
+      "id": "integrations",
+      "label": "Integrations",
+      "description": "Connected services and webhooks",
+      "options": [
+        "workspace/settings-04/default",
+        "workspace/settings-05/default"
+      ]
+    },
+    {
+      "id": "security",
+      "label": "Security",
+      "description": "Two-factor, SSO and sessions",
+      "options": [
+        "workspace/security-03/default",
+        "workspace/security-05/default",
+        "workspace/security-06/default"
+      ]
+    },
+    {
+      "id": "danger",
+      "label": "Danger zone",
+      "description": "Transfer, archive and delete",
+      "options": [
+        "workspace/settings-06/default"
+      ]
+    }
+  ]
+}

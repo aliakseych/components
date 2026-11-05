@@ -1,0 +1,79 @@
+{
+  "name": "DevOps Dashboard",
+  "summary": "A DevOps dashboard broken into its blocks: live throughput, delivery performance, response time percentiles, open alerts, uptime, build health and recent deployments.",
+  "category": "dashboard",
+  "slots": [
+    {
+      "id": "complete",
+      "label": "Complete page",
+      "description": "The whole dashboard as one component",
+      "options": [
+        "dashboard/dashboard-05/default"
+      ]
+    },
+    {
+      "id": "header",
+      "label": "Header",
+      "description": "The header block",
+      "options": [
+        "dashboard/dashboard-header-01/default"
+      ]
+    },
+    {
+      "id": "throughput",
+      "label": "Throughput",
+      "description": "The throughput block",
+      "options": [
+        "analytics/realtime-02/default"
+      ]
+    },
+    {
+      "id": "delivery",
+      "label": "Delivery",
+      "description": "The delivery block",
+      "options": [
+        "operations/deployments-03/default"
+      ]
+    },
+    {
+      "id": "percentiles",
+      "label": "Percentiles",
+      "description": "The percentiles block",
+      "options": [
+        "analytics/chart-panel-06/default"
+      ]
+    },
+    {
+      "id": "alerts",
+      "label": "Alerts",
+      "description": "The alerts block",
+      "options": [
+        "operations/alerts-01/default"
+      ]
+    },
+    {
+      "id": "uptime",
+      "label": "Uptime",
+      "description": "The uptime block",
+      "options": [
+        "operations/status-02/default"
+      ]
+    },
+    {
+      "id": "builds",
+      "label": "Builds",
+      "description": "The builds block",
+      "options": [
+        "operations/deployments-04/default"
+      ]
+    },
+    {
+      "id": "deployments",
+      "label": "Deployments",
+      "description": "The deployments block",
+      "options": [
+        "operations/deployments-01/default"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Collaboration",
+  "summary": "Ways to show other people in a shared space. Choose one option for each slot.",
+  "category": "collaboration",
+  "slots": [
+    {
+      "id": "presence",
+      "label": "Presence",
+      "description": "Who is here",
+      "options": ["collaboration/avatar-stack/default", "collaboration/cursor/default"]
+    },
+    {
+      "id": "surface",
+      "label": "Shared surface",
+      "description": "Where people work together",
+      "options": ["collaboration/collaborative-canvas/default", "forms/editor/default"]
+    }
+  ]
+}

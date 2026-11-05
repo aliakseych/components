@@ -1,0 +1,32 @@
+{
+  "name": "Files",
+  "summary": "Uploading, browsing and measuring files in a workspace. Choose one option for each slot.",
+  "category": "workspace",
+  "slots": [
+    {
+      "id": "upload",
+      "label": "Upload",
+      "description": "Adding files with progress, cancel and retry",
+      "options": [
+        "workspace/files-01/default"
+      ]
+    },
+    {
+      "id": "browse",
+      "label": "Browse",
+      "description": "Finding files in a table or folders",
+      "options": [
+        "workspace/files-02/default",
+        "workspace/files-04/default"
+      ]
+    },
+    {
+      "id": "storage",
+      "label": "Storage",
+      "description": "How much space is used and by what",
+      "options": [
+        "workspace/files-03/default"
+      ]
+    }
+  ]
+}

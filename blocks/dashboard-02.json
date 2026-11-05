@@ -1,0 +1,71 @@
+{
+  "name": "SaaS Dashboard",
+  "summary": "A SaaS dashboard broken into its blocks: metric tabs, activity heatmap, MRR by region, MRR movement, retention milestones and service status.",
+  "category": "dashboard",
+  "slots": [
+    {
+      "id": "complete",
+      "label": "Complete page",
+      "description": "The whole dashboard as one component",
+      "options": [
+        "dashboard/dashboard-02/default"
+      ]
+    },
+    {
+      "id": "header",
+      "label": "Header",
+      "description": "The header block",
+      "options": [
+        "dashboard/dashboard-header-01/default"
+      ]
+    },
+    {
+      "id": "metrics",
+      "label": "Metrics",
+      "description": "The metrics block",
+      "options": [
+        "analytics/stat-group-03/default"
+      ]
+    },
+    {
+      "id": "heatmap",
+      "label": "Heatmap",
+      "description": "The heatmap block",
+      "options": [
+        "analytics/heatmap-01/default"
+      ]
+    },
+    {
+      "id": "regions",
+      "label": "Regions",
+      "description": "The regions block",
+      "options": [
+        "analytics/geo-04/default"
+      ]
+    },
+    {
+      "id": "mrr-movement",
+      "label": "Mrr movement",
+      "description": "The mrr movement block",
+      "options": [
+        "business/billing-01/default"
+      ]
+    },
+    {
+      "id": "retention",
+      "label": "Retention",
+      "description": "The retention block",
+      "options": [
+        "analytics/retention-03/default"
+      ]
+    },
+    {
+      "id": "status",
+      "label": "Status",
+      "description": "The status block",
+      "options": [
+        "data-display/data-table-04/default"
+      ]
+    }
+  ]
+}

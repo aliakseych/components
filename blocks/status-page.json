@@ -1,0 +1,41 @@
+{
+  "name": "Status Page",
+  "summary": "A public status page: services, uptime, incidents and regions. Choose one option for each slot.",
+  "category": "operations",
+  "slots": [
+    {
+      "id": "services",
+      "label": "Services",
+      "description": "Each service and its current state",
+      "options": [
+        "operations/status-01/default"
+      ]
+    },
+    {
+      "id": "uptime",
+      "label": "Uptime",
+      "description": "Uptime history over time",
+      "options": [
+        "operations/status-02/default",
+        "operations/status-05/default"
+      ]
+    },
+    {
+      "id": "incidents",
+      "label": "Incidents",
+      "description": "Open incidents and threshold breaches",
+      "options": [
+        "operations/status-03/default",
+        "operations/alerts-02/default"
+      ]
+    },
+    {
+      "id": "regions",
+      "label": "Regions",
+      "description": "Health by region",
+      "options": [
+        "operations/status-04/default"
+      ]
+    }
+  ]
+}

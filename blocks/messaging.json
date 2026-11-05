@@ -1,0 +1,50 @@
+{
+  "name": "Messaging",
+  "summary": "The parts of a conversation between people. Choose one option for each slot.",
+  "category": "messaging",
+  "slots": [
+    {
+      "id": "message",
+      "label": "Message row",
+      "description": "One sender's message with its details",
+      "options": [
+        "messaging/message/default"
+      ]
+    },
+    {
+      "id": "bubble",
+      "label": "Bubble",
+      "description": "The look of the message text",
+      "options": [
+        "messaging/bubble/default"
+      ]
+    },
+    {
+      "id": "divider",
+      "label": "Divider",
+      "description": "Dates and events between messages",
+      "options": [
+        "messaging/marker/default"
+      ]
+    },
+    {
+      "id": "composer",
+      "label": "Composer",
+      "description": "Where people write a reply",
+      "options": [
+        "forms/editor/default"
+      ]
+    },
+    {
+      "id": "threads",
+      "label": "Threads",
+      "description": "Comments and reviews",
+      "options": [
+        "messaging/comments-01/default",
+        "messaging/comments-02/default",
+        "messaging/comments-03/default",
+        "messaging/comments-04/default"
+      ]
+    }
+  ]
+}

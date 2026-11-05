@@ -1,0 +1,31 @@
+{
+  "name": "Hero Page",
+  "summary": "The parts of a page's top section. Choose one option for each slot.",
+  "category": "hero-page",
+  "slots": [
+    {
+      "id": "background",
+      "label": "Background",
+      "description": "Sits behind the hero content",
+      "options": ["hero-page/gradient-ascii/combined", "hero-page/gradient-ascii/horizon-only", "hero-page/gradient-ascii/noise-only"]
+    },
+    {
+      "id": "mark",
+      "label": "Mark",
+      "description": "An animated logo or icon",
+      "options": ["hero-page/halftone-mark/default"]
+    },
+    {
+      "id": "headline",
+      "label": "Headline",
+      "description": "The main title effect",
+      "options": ["hero-page/decrypted-text/on-view", "hero-page/decrypted-text/on-hover"]
+    },
+    {
+      "id": "action",
+      "label": "Action",
+      "description": "The main call to action",
+      "options": ["actions/magnetic-button/default", "actions/magnetic-button/disabled"]
+    }
+  ]
+}

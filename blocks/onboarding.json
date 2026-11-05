@@ -1,0 +1,35 @@
+{
+  "name": "Onboarding",
+  "summary": "The first run of a workspace, from setup to the first checklist. Choose one option for each slot.",
+  "category": "workspace",
+  "slots": [
+    {
+      "id": "setup",
+      "label": "Setup",
+      "description": "The first-run wizard or welcome page",
+      "options": [
+        "workspace/onboarding-01/default",
+        "workspace/onboarding-02/default"
+      ]
+    },
+    {
+      "id": "connect",
+      "label": "Connect and personalise",
+      "description": "Picking a data source and preferences",
+      "options": [
+        "workspace/onboarding-03/default",
+        "workspace/onboarding-04/default"
+      ]
+    },
+    {
+      "id": "checklist",
+      "label": "Checklist",
+      "description": "Progress through the remaining steps",
+      "options": [
+        "planning/checklist-01/default",
+        "planning/checklist-02/default",
+        "planning/checklist-03/default"
+      ]
+    }
+  ]
+}

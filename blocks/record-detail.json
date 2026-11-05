@@ -1,0 +1,33 @@
+{
+  "name": "Record Detail",
+  "summary": "A page for one customer, order or ticket, with its header and history. Choose one option for each slot.",
+  "category": "workspace",
+  "slots": [
+    {
+      "id": "header",
+      "label": "Header",
+      "description": "The record's title, back link and facts",
+      "options": [
+        "dashboard/page-header-03/default"
+      ]
+    },
+    {
+      "id": "detail",
+      "label": "Detail",
+      "description": "The record's numbers, related records and properties",
+      "options": [
+        "workspace/record-detail-01/default",
+        "workspace/record-detail-02/default",
+        "workspace/record-detail-03/default"
+      ]
+    },
+    {
+      "id": "history",
+      "label": "History",
+      "description": "What happened to the record over time",
+      "options": [
+        "workspace/activity-feed-02/default"
+      ]
+    }
+  ]
+}

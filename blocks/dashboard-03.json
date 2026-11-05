@@ -1,0 +1,71 @@
+{
+  "name": "Web Analytics Dashboard",
+  "summary": "A web analytics dashboard broken into its blocks: traffic tabs, visitors right now, traffic flow, top pages, countries and browsers.",
+  "category": "dashboard",
+  "slots": [
+    {
+      "id": "complete",
+      "label": "Complete page",
+      "description": "The whole dashboard as one component",
+      "options": [
+        "dashboard/dashboard-03/default"
+      ]
+    },
+    {
+      "id": "header",
+      "label": "Header",
+      "description": "The header block",
+      "options": [
+        "dashboard/dashboard-header-01/default"
+      ]
+    },
+    {
+      "id": "traffic",
+      "label": "Traffic",
+      "description": "The traffic block",
+      "options": [
+        "analytics/chart-panel-02/default"
+      ]
+    },
+    {
+      "id": "right-now",
+      "label": "Right now",
+      "description": "The right now block",
+      "options": [
+        "analytics/realtime-01/default"
+      ]
+    },
+    {
+      "id": "flow",
+      "label": "Flow",
+      "description": "The flow block",
+      "options": [
+        "analytics/flow-01/default"
+      ]
+    },
+    {
+      "id": "pages",
+      "label": "Pages",
+      "description": "The pages block",
+      "options": [
+        "analytics/leaderboard-01/default"
+      ]
+    },
+    {
+      "id": "countries",
+      "label": "Countries",
+      "description": "The countries block",
+      "options": [
+        "analytics/geo-02/default"
+      ]
+    },
+    {
+      "id": "browsers",
+      "label": "Browsers",
+      "description": "The browsers block",
+      "options": [
+        "analytics/breakdown-01/default"
+      ]
+    }
+  ]
+}

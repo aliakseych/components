@@ -1,0 +1,45 @@
+{
+  "name": "Forms",
+  "summary": "The parts of a form, from its layout to its fields. Choose one option for each slot.",
+  "category": "forms",
+  "slots": [
+    {
+      "id": "layout",
+      "label": "Layout",
+      "description": "How the form is arranged on the page",
+      "options": [
+        "forms/forms-01/default",
+        "forms/forms-02/default",
+        "forms/forms-03/default",
+        "forms/forms-04/default"
+      ]
+    },
+    {
+      "id": "choice",
+      "label": "Choice",
+      "description": "Picking one or many options",
+      "options": [
+        "forms/forms-05/default",
+        "forms/forms-06/default",
+        "forms/combobox/default"
+      ]
+    },
+    {
+      "id": "fields",
+      "label": "Fields",
+      "description": "Specialised inputs",
+      "options": [
+        "forms/forms-07/default",
+        "forms/forms-08/default"
+      ]
+    },
+    {
+      "id": "text",
+      "label": "Rich text",
+      "description": "Long text with formatting",
+      "options": [
+        "forms/editor/default"
+      ]
+    }
+  ]
+}

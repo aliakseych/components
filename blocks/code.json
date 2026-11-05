@@ -1,0 +1,34 @@
+{
+  "name": "Code",
+  "summary": "Ways to show and run code. Choose the option that fits.",
+  "category": "code",
+  "slots": [
+    {
+      "id": "display",
+      "label": "Display",
+      "description": "Reading code",
+      "options": [
+        "code/code-block/default",
+        "code/shadcn-code-block/default",
+        "code/snippet/default"
+      ]
+    },
+    {
+      "id": "run",
+      "label": "Run",
+      "description": "Editing and running code",
+      "options": [
+        "code/sandbox/default"
+      ]
+    },
+    {
+      "id": "reference",
+      "label": "Reference",
+      "description": "Packages and APIs",
+      "options": [
+        "code/package-info/default",
+        "code/schema-display/default"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "name": "AI Chat",
+  "summary": "The parts of an AI assistant screen. Choose one option for each slot.",
+  "category": "ai-chat",
+  "slots": [
+    {
+      "id": "composer",
+      "label": "Composer",
+      "description": "Where people write to the assistant",
+      "options": [
+        "ai-chat/prompt-bar/default",
+        "ai-chat/prompt-bar/max-effort-sparks",
+        "ai-chat/prompt-bar/full-features",
+        "ai-chat/prompt-bar/busy"
+      ]
+    },
+    {
+      "id": "conversation",
+      "label": "Conversation",
+      "description": "The turns between the person and the assistant, built on the messaging parts",
+      "options": [
+        "ai-chat/conversation/default",
+        "ai-chat/conversation/failed-reply"
+      ]
+    },
+    {
+      "id": "thinking",
+      "label": "Thinking",
+      "description": "Shows that the assistant is working",
+      "options": [
+        "ai-chat/lattice-loader/states",
+        "ai-chat/lattice-loader/icon-only",
+        "ai-chat/chain-of-thought/default",
+        "ai-chat/task/default"
+      ]
+    },
+    {
+      "id": "tool-activity",
+      "label": "Tool activity",
+      "description": "Shows the actions the assistant takes",
+      "options": [
+        "ai-chat/call-chip/search-states",
+        "ai-chat/trace/default"
+      ]
+    },
+    {
+      "id": "response",
+      "label": "Response content",
+      "description": "Rich content inside an answer",
+      "options": [
+        "code/code-block/default",
+        "code/snippet/default",
+        "data-display/table/default",
+        "code/shadcn-code-block/default",
+        "code/package-info/default",
+        "code/schema-display/default"
+      ]
+    },
+    {
+      "id": "context",
+      "label": "Context usage",
+      "description": "How much of the model's context is used",
+      "options": [
+        "ai-chat/context/default"
+      ]
+    },
+    {
+      "id": "panel",
+      "label": "Dashboard assistant",
+      "description": "An assistant docked beside a page",
+      "options": [
+        "ai-chat/ai-assistant-01/default",
+        "ai-chat/ai-assistant-02/default",
+        "ai-chat/ai-assistant-03/default",
+        "ai-chat/ai-assistant-04/default"
+      ]
+    }
+  ]
+}

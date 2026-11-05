@@ -1,0 +1,79 @@
+{
+  "name": "Store Dashboard",
+  "summary": "A store dashboard broken into its blocks: header, stats, revenue, channels, products, checkout funnel, month-to-date revenue and low stock.",
+  "category": "dashboard",
+  "slots": [
+    {
+      "id": "complete",
+      "label": "Complete page",
+      "description": "The whole dashboard as one component",
+      "options": [
+        "dashboard/dashboard-01/default"
+      ]
+    },
+    {
+      "id": "header",
+      "label": "Header",
+      "description": "The header block",
+      "options": [
+        "dashboard/dashboard-header-01/default"
+      ]
+    },
+    {
+      "id": "stats",
+      "label": "Stats",
+      "description": "The stats block",
+      "options": [
+        "analytics/stat-group-02/default"
+      ]
+    },
+    {
+      "id": "revenue",
+      "label": "Revenue",
+      "description": "The revenue block",
+      "options": [
+        "analytics/chart-panel-01/default"
+      ]
+    },
+    {
+      "id": "channels",
+      "label": "Channels",
+      "description": "The channels block",
+      "options": [
+        "analytics/breakdown-01/default"
+      ]
+    },
+    {
+      "id": "products",
+      "label": "Products",
+      "description": "The products block",
+      "options": [
+        "data-display/data-table-02/default"
+      ]
+    },
+    {
+      "id": "funnel",
+      "label": "Funnel",
+      "description": "The funnel block",
+      "options": [
+        "analytics/funnel-01/default"
+      ]
+    },
+    {
+      "id": "month-to-date",
+      "label": "Month to date",
+      "description": "The month to date block",
+      "options": [
+        "analytics/forecast-03/default"
+      ]
+    },
+    {
+      "id": "low-stock",
+      "label": "Low stock",
+      "description": "The low stock block",
+      "options": [
+        "business/inventory-01/default"
+      ]
+    }
+  ]
+}
