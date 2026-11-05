@@ -1,0 +1,26 @@
+{
+  "name": "Settings: Webhooks",
+  "summary": "Endpoints with the events they receive, their recent deliveries, the delivery rate and a switch to pause each one.",
+  "tags": [
+    "settings",
+    "form",
+    "team"
+  ],
+  "useWhen": [
+    "Members, API keys, notifications, integrations and webhooks"
+  ],
+  "avoidWhen": [
+    "Settings fit on one short form"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "dropdown-menu",
+    "switch"
+  ],
+  "install": "@dashboardblocks/settings-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

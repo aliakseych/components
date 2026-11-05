@@ -1,0 +1,21 @@
+{
+  "name": "Security: Audit Log",
+  "summary": "Changes to access, keys and settings, newest first, with a toggle to show only warnings and critical changes.",
+  "tags": [
+    "security",
+    "settings"
+  ],
+  "useWhen": [
+    "Sign-in activity, audit logs, sessions, two-factor and SSO"
+  ],
+  "avoidWhen": [
+    "Security is handled entirely outside the product"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button"
+  ],
+  "install": "@dashboardblocks/security-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

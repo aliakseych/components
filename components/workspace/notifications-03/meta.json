@@ -1,0 +1,24 @@
+{
+  "name": "Notifications: Inbox",
+  "summary": "Every notification grouped by day, filtered by unread and mentions, to mark read or unread or archive.",
+  "tags": [
+    "notifications",
+    "activity",
+    "list"
+  ],
+  "useWhen": [
+    "A bell with unread notifications, requests and an inbox"
+  ],
+  "avoidWhen": [
+    "The app sends no notifications"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "popover",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/notifications-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

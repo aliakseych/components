@@ -1,0 +1,26 @@
+{
+  "name": "Activity Feed: Social Activity",
+  "summary": "Slack and GitHub activity in one timeline, with quoted messages, actions such as starting a review, and what's waiting on you.",
+  "tags": [
+    "activity",
+    "list",
+    "timeline"
+  ],
+  "useWhen": [
+    "Who did what and when, grouped by day"
+  ],
+  "avoidWhen": [
+    "Only the latest state matters, not its history"
+  ],
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/activity-feed-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

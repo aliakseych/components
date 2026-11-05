@@ -1,0 +1,28 @@
+{
+  "name": "Settings: Profile",
+  "summary": "Your photo, name, email, time zone and theme, in the same sections and save bar as the [Forms](/docs/blocks/forms) blocks.",
+  "tags": [
+    "settings",
+    "form",
+    "team"
+  ],
+  "useWhen": [
+    "Members, API keys, notifications, integrations and webhooks"
+  ],
+  "avoidWhen": [
+    "Settings fit on one short form"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "select",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/settings-07",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

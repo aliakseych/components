@@ -1,0 +1,24 @@
+{
+  "name": "Team: Member List",
+  "summary": "Members with their role, presence and when they were last active.",
+  "tags": [
+    "team",
+    "avatar",
+    "stats"
+  ],
+  "useWhen": [
+    "The people on a team: presence, workload, on-call and roles"
+  ],
+  "avoidWhen": [
+    "A single-person account"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/team-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

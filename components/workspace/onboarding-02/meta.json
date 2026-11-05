@@ -1,0 +1,27 @@
+{
+  "name": "Onboarding: Welcome",
+  "summary": "The first page of an empty workspace: quick starts, an empty dashboards list with a way in, setup progress and help.",
+  "tags": [
+    "onboarding",
+    "form",
+    "checklist"
+  ],
+  "useWhen": [
+    "The first pages of a new workspace"
+  ],
+  "avoidWhen": [
+    "People arrive with everything already set up"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "select",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/onboarding-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

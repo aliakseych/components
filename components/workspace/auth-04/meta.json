@@ -1,0 +1,25 @@
+{
+  "name": "Auth: Verify Email",
+  "summary": "A code sent by email, a resend that waits a minute between emails, and a way to fix a mistyped address.",
+  "tags": [
+    "auth",
+    "form"
+  ],
+  "useWhen": [
+    "Signing in, signing up, resetting passwords and accepting invites"
+  ],
+  "avoidWhen": [
+    "The app has no accounts"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "input",
+    "input-group"
+  ],
+  "install": "@dashboardblocks/auth-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

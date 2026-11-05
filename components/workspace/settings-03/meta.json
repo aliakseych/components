@@ -1,0 +1,23 @@
+{
+  "name": "Settings: Notifications",
+  "summary": "Each notification against each channel, grouped by topic, with a switch per channel.",
+  "tags": [
+    "settings",
+    "form",
+    "team"
+  ],
+  "useWhen": [
+    "Members, API keys, notifications, integrations and webhooks"
+  ],
+  "avoidWhen": [
+    "Settings fit on one short form"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "switch"
+  ],
+  "install": "@dashboardblocks/settings-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Onboarding: Setup Wizard",
+  "summary": "Name the workspace and pick its URL, say what it's for, then invite the team.",
+  "tags": [
+    "onboarding",
+    "form",
+    "checklist"
+  ],
+  "useWhen": [
+    "The first pages of a new workspace"
+  ],
+  "avoidWhen": [
+    "People arrive with everything already set up"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "select",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/onboarding-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

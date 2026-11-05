@@ -1,0 +1,27 @@
+{
+  "name": "Auth: Forgot Password",
+  "summary": "An email field that sends a reset link, then a check your email page with the mail apps to open and a resend that counts down.",
+  "tags": [
+    "auth",
+    "form"
+  ],
+  "useWhen": [
+    "Signing in, signing up, resetting passwords and accepting invites"
+  ],
+  "avoidWhen": [
+    "The app has no accounts"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "field",
+    "input",
+    "input-group",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/auth-06",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

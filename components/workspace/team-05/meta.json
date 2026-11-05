@@ -1,0 +1,26 @@
+{
+  "name": "Team: Roles and Permissions",
+  "summary": "A grid of permissions by role, with changes highlighted until they're saved or discarded.",
+  "tags": [
+    "team",
+    "avatar",
+    "stats"
+  ],
+  "useWhen": [
+    "The people on a team: presence, workload, on-call and roles"
+  ],
+  "avoidWhen": [
+    "A single-person account"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "checkbox",
+    "input",
+    "input-group",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/team-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

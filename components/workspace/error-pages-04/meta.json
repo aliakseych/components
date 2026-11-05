@@ -1,0 +1,22 @@
+{
+  "name": "Error Pages: Maintenance",
+  "summary": "What's being done, when it'll be back, the latest updates and an email when it's over.",
+  "tags": [
+    "error page",
+    "empty state"
+  ],
+  "useWhen": [
+    "Not found, no access, errors, maintenance and ended sessions"
+  ],
+  "avoidWhen": [
+    "Inline errors inside a form, where a field message fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "input"
+  ],
+  "install": "@dashboardblocks/error-pages-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

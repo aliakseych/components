@@ -1,0 +1,24 @@
+{
+  "name": "Files: Upload",
+  "summary": "A dropzone with the accepted types and size limit, and each upload's progress, which you can cancel, retry or remove.",
+  "tags": [
+    "files",
+    "upload",
+    "table"
+  ],
+  "useWhen": [
+    "Uploading, listing and browsing files, and storage used"
+  ],
+  "avoidWhen": [
+    "Files aren't part of the product"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card",
+    "dropdown-menu"
+  ],
+  "install": "@dashboardblocks/files-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

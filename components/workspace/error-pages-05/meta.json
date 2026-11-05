@@ -1,0 +1,21 @@
+{
+  "name": "Error Pages: Session Ended",
+  "summary": "Why the session ended, whether unsaved work was kept, and a sign-in link back to the same page.",
+  "tags": [
+    "error page",
+    "empty state"
+  ],
+  "useWhen": [
+    "Not found, no access, errors, maintenance and ended sessions"
+  ],
+  "avoidWhen": [
+    "Inline errors inside a form, where a field message fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button"
+  ],
+  "install": "@dashboardblocks/error-pages-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Security: Sign-in Activity",
+  "summary": "Failed and blocked sign-ins per day against a typical day, with the failure rate, any spike in blocked attempts and MFA coverage.",
+  "tags": [
+    "security",
+    "settings"
+  ],
+  "useWhen": [
+    "Sign-in activity, audit logs, sessions, two-factor and SSO"
+  ],
+  "avoidWhen": [
+    "Security is handled entirely outside the product"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/security-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

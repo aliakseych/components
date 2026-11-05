@@ -1,0 +1,26 @@
+{
+  "name": "Auth: Two-Factor Code",
+  "summary": "The 6-digit code from an authenticator app, with a recovery code instead, the tries left and an option to trust the device.",
+  "tags": [
+    "auth",
+    "form"
+  ],
+  "useWhen": [
+    "Signing in, signing up, resetting passwords and accepting invites"
+  ],
+  "avoidWhen": [
+    "The app has no accounts"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "input",
+    "input-group",
+    "switch"
+  ],
+  "install": "@dashboardblocks/auth-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

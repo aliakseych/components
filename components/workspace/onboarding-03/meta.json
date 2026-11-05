@@ -1,0 +1,25 @@
+{
+  "name": "Onboarding: Connect a Source",
+  "summary": "Search and pick a source, then follow it through connecting to connected.",
+  "tags": [
+    "onboarding",
+    "form",
+    "checklist"
+  ],
+  "useWhen": [
+    "The first pages of a new workspace"
+  ],
+  "avoidWhen": [
+    "People arrive with everything already set up"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "field",
+    "input-group",
+    "select"
+  ],
+  "install": "@dashboardblocks/onboarding-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

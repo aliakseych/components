@@ -1,0 +1,24 @@
+{
+  "name": "Settings: Danger Zone",
+  "summary": "Transferring, archiving and deleting the workspace.",
+  "tags": [
+    "settings",
+    "form",
+    "team"
+  ],
+  "useWhen": [
+    "Members, API keys, notifications, integrations and webhooks"
+  ],
+  "avoidWhen": [
+    "Settings fit on one short form"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu",
+    "input"
+  ],
+  "install": "@dashboardblocks/settings-06",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

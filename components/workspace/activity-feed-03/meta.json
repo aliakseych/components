@@ -1,0 +1,26 @@
+{
+  "name": "Activity Feed: Notifications",
+  "summary": "Notifications with All, Mentions and Unread tabs, marked read one at a time or all at once.",
+  "tags": [
+    "activity",
+    "list",
+    "timeline"
+  ],
+  "useWhen": [
+    "Who did what and when, grouped by day"
+  ],
+  "avoidWhen": [
+    "Only the latest state matters, not its history",
+    "A bell with an unread count that opens a panel, where workspace/notifications-01 fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/activity-feed-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

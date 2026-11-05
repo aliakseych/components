@@ -1,0 +1,25 @@
+{
+  "name": "Error Pages: Something Went Wrong",
+  "summary": "Try again, an error ID to copy for support, and the technical details folded away.",
+  "tags": [
+    "error page",
+    "empty state"
+  ],
+  "useWhen": [
+    "Not found, no access, errors, maintenance and ended sessions"
+  ],
+  "avoidWhen": [
+    "Inline errors inside a form, where a field message fits"
+  ],
+  "dependencies": [
+    "shiki"
+  ],
+  "shadcn": [
+    "button",
+    "code-block",
+    "dropdown-menu"
+  ],
+  "install": "@dashboardblocks/error-pages-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

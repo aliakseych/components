@@ -1,0 +1,24 @@
+{
+  "name": "Activity Feed: Recent Activity",
+  "summary": "What people did across a workspace, newest first and grouped by day.",
+  "tags": [
+    "activity",
+    "list",
+    "timeline"
+  ],
+  "useWhen": [
+    "Who did what and when, grouped by day"
+  ],
+  "avoidWhen": [
+    "Only the latest state matters, not its history"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/activity-feed-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

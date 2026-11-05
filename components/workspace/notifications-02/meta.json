@@ -1,0 +1,25 @@
+{
+  "name": "Notifications: Requests",
+  "summary": "Notifications that ask for a decision, such as a request to join or a refund, with a tab of the ones still waiting.",
+  "tags": [
+    "notifications",
+    "activity",
+    "list"
+  ],
+  "useWhen": [
+    "A bell with unread notifications, requests and an inbox"
+  ],
+  "avoidWhen": [
+    "The app sends no notifications"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card",
+    "popover",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/notifications-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

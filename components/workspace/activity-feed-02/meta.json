@@ -1,0 +1,22 @@
+{
+  "name": "Activity Feed: Record History",
+  "summary": "The history of one record as a timeline, oldest first, with each change from one value to the next and comments quoted in full.",
+  "tags": [
+    "activity",
+    "list",
+    "timeline"
+  ],
+  "useWhen": [
+    "Who did what and when, grouped by day"
+  ],
+  "avoidWhen": [
+    "Only the latest state matters, not its history"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/activity-feed-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

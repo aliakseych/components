@@ -1,0 +1,21 @@
+{
+  "name": "Security: Active Sessions",
+  "summary": "The devices signed in to an account, with where and when each was last active, and buttons to sign them out.",
+  "tags": [
+    "security",
+    "settings"
+  ],
+  "useWhen": [
+    "Sign-in activity, audit logs, sessions, two-factor and SSO"
+  ],
+  "avoidWhen": [
+    "Security is handled entirely outside the product"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button"
+  ],
+  "install": "@dashboardblocks/security-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

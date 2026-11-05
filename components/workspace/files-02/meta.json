@@ -1,0 +1,28 @@
+{
+  "name": "Files: File Table",
+  "summary": "Files with their type, owner, last change and size, to search, filter, sort, download or delete.",
+  "tags": [
+    "files",
+    "upload",
+    "table"
+  ],
+  "useWhen": [
+    "Uploading, listing and browsing files, and storage used"
+  ],
+  "avoidWhen": [
+    "Files aren't part of the product"
+  ],
+  "dependencies": [
+    "@tanstack/react-table"
+  ],
+  "shadcn": [
+    "avatar",
+    "button",
+    "checkbox",
+    "dropdown-menu",
+    "input"
+  ],
+  "install": "@dashboardblocks/files-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

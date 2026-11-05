@@ -1,0 +1,25 @@
+{
+  "name": "Auth: Workspace Picker",
+  "summary": "Every workspace you're in, with your role, pending invites you can join and a search once there are more than five.",
+  "tags": [
+    "auth",
+    "form"
+  ],
+  "useWhen": [
+    "Signing in, signing up, resetting passwords and accepting invites"
+  ],
+  "avoidWhen": [
+    "The app has no accounts"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "input",
+    "input-group"
+  ],
+  "install": "@dashboardblocks/auth-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

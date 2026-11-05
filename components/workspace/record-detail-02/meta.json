@@ -1,0 +1,23 @@
+{
+  "name": "Record Detail: Order",
+  "summary": "Line items with totals, a timeline of what happened, the customer, and shipping and payment.",
+  "tags": [
+    "record",
+    "table",
+    "list"
+  ],
+  "useWhen": [
+    "A page for one customer, order or ticket"
+  ],
+  "avoidWhen": [
+    "Showing many records at once, where a table fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu"
+  ],
+  "install": "@dashboardblocks/record-detail-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Settings: Integrations",
+  "summary": "Connected and available integrations, with what they do and the ones that need reconnecting.",
+  "tags": [
+    "settings",
+    "form",
+    "team"
+  ],
+  "useWhen": [
+    "Members, API keys, notifications, integrations and webhooks"
+  ],
+  "avoidWhen": [
+    "Settings fit on one short form"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "dropdown-menu",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/settings-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

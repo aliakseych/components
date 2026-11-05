@@ -1,0 +1,27 @@
+{
+  "name": "Auth: Sign In",
+  "summary": "One form to sign in or sign up, with Google, X and GitHub on one row and a row at the bottom that unfolds the sign-up fields.",
+  "tags": [
+    "auth",
+    "form"
+  ],
+  "useWhen": [
+    "Signing in, signing up, resetting passwords and accepting invites"
+  ],
+  "avoidWhen": [
+    "The app has no accounts"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "field",
+    "input",
+    "input-group",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/auth-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

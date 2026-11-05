@@ -1,0 +1,23 @@
+{
+  "name": "Team: Workload",
+  "summary": "The points assigned against the team's capacity, then each person on a shared scale, with anyone over capacity first.",
+  "tags": [
+    "team",
+    "avatar",
+    "stats"
+  ],
+  "useWhen": [
+    "The people on a team: presence, workload, on-call and roles"
+  ],
+  "avoidWhen": [
+    "A single-person account"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "card"
+  ],
+  "install": "@dashboardblocks/team-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

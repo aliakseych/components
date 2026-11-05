@@ -1,0 +1,23 @@
+{
+  "name": "Files: Folder Browser",
+  "summary": "Folders as tiles over a list of files with their size and last change, and a path back to the top.",
+  "tags": [
+    "files",
+    "upload",
+    "table"
+  ],
+  "useWhen": [
+    "Uploading, listing and browsing files, and storage used"
+  ],
+  "avoidWhen": [
+    "Files aren't part of the product"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu"
+  ],
+  "install": "@dashboardblocks/files-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

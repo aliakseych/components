@@ -1,0 +1,27 @@
+{
+  "name": "Auth: Reset Password",
+  "summary": "A new password with a strength meter and the rules it still needs, then a way back to sign in, or a new link when this one has expired.",
+  "tags": [
+    "auth",
+    "form"
+  ],
+  "useWhen": [
+    "Signing in, signing up, resetting passwords and accepting invites"
+  ],
+  "avoidWhen": [
+    "The app has no accounts"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "field",
+    "input",
+    "input-group",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/auth-07",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Onboarding: Personalise",
+  "summary": "A role, a team size and up to three goals, turned into the dashboards set up for them.",
+  "tags": [
+    "onboarding",
+    "form",
+    "checklist"
+  ],
+  "useWhen": [
+    "The first pages of a new workspace"
+  ],
+  "avoidWhen": [
+    "People arrive with everything already set up"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "select",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/onboarding-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

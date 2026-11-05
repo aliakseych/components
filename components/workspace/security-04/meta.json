@@ -1,0 +1,21 @@
+{
+  "name": "Security: Security Posture",
+  "summary": "A weighted score on a gauge, with failing checks first and what to do about each.",
+  "tags": [
+    "security",
+    "settings"
+  ],
+  "useWhen": [
+    "Sign-in activity, audit logs, sessions, two-factor and SSO"
+  ],
+  "avoidWhen": [
+    "Security is handled entirely outside the product"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/security-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

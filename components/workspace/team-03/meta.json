@@ -1,0 +1,23 @@
+{
+  "name": "Team: Who's Online",
+  "summary": "How many people are online, with their avatars, and the team split by presence.",
+  "tags": [
+    "team",
+    "avatar",
+    "stats"
+  ],
+  "useWhen": [
+    "The people on a team: presence, workload, on-call and roles"
+  ],
+  "avoidWhen": [
+    "A single-person account"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "card"
+  ],
+  "install": "@dashboardblocks/team-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

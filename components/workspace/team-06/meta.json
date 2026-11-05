@@ -1,0 +1,26 @@
+{
+  "name": "Team: Share",
+  "summary": "People invited to a dashboard with view or edit access, and who the link works for.",
+  "tags": [
+    "team",
+    "avatar",
+    "stats"
+  ],
+  "useWhen": [
+    "The people on a team: presence, workload, on-call and roles"
+  ],
+  "avoidWhen": [
+    "A single-person account"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "dropdown-menu",
+    "input",
+    "select"
+  ],
+  "install": "@dashboardblocks/team-06",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

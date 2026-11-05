@@ -1,0 +1,25 @@
+{
+  "name": "Auth: Accept Invite",
+  "summary": "The workspace, who invited you, the role you'll get and who's already there, with a prompt to switch account when the invite is for another address.",
+  "tags": [
+    "auth",
+    "form"
+  ],
+  "useWhen": [
+    "Signing in, signing up, resetting passwords and accepting invites"
+  ],
+  "avoidWhen": [
+    "The app has no accounts"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "input",
+    "input-group"
+  ],
+  "install": "@dashboardblocks/auth-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

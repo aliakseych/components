@@ -1,0 +1,25 @@
+{
+  "name": "Activity Feed: Weekly Digest",
+  "summary": "A week of activity as daily bars with the busiest day labelled, then the count of each kind of activity and the most active people.",
+  "tags": [
+    "activity",
+    "list",
+    "timeline"
+  ],
+  "useWhen": [
+    "Who did what and when, grouped by day"
+  ],
+  "avoidWhen": [
+    "Only the latest state matters, not its history"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "avatar",
+    "card"
+  ],
+  "install": "@dashboardblocks/activity-feed-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

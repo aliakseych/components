@@ -1,0 +1,25 @@
+{
+  "name": "Record Detail: Ticket",
+  "summary": "A description, activity with comments, a comment box, and properties such as priority, assignee and labels.",
+  "tags": [
+    "record",
+    "table",
+    "list"
+  ],
+  "useWhen": [
+    "A page for one customer, order or ticket"
+  ],
+  "avoidWhen": [
+    "Showing many records at once, where a table fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "dropdown-menu",
+    "textarea"
+  ],
+  "install": "@dashboardblocks/record-detail-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

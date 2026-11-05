@@ -1,0 +1,24 @@
+{
+  "name": "Team: On Call",
+  "summary": "Who is on call now and until when, who is next, and the rest of the rota.",
+  "tags": [
+    "team",
+    "avatar",
+    "stats"
+  ],
+  "useWhen": [
+    "The people on a team: presence, workload, on-call and roles"
+  ],
+  "avoidWhen": [
+    "A single-person account"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/team-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

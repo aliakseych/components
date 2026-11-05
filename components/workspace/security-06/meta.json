@@ -1,0 +1,26 @@
+{
+  "name": "Security: Single Sign-On",
+  "summary": "A SAML connection with the details for your identity provider, domains verified by TXT record, and a switch to require SSO.",
+  "tags": [
+    "security",
+    "settings"
+  ],
+  "useWhen": [
+    "Sign-in activity, audit logs, sessions, two-factor and SSO"
+  ],
+  "avoidWhen": [
+    "Security is handled entirely outside the product"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu",
+    "input",
+    "select",
+    "switch",
+    "textarea"
+  ],
+  "install": "@dashboardblocks/security-06",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

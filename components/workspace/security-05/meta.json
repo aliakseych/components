@@ -1,0 +1,23 @@
+{
+  "name": "Security: Two-Factor Authentication",
+  "summary": "An authenticator app, security keys, passkeys and recovery codes, with the last method kept while the workspace requires two-factor.",
+  "tags": [
+    "security",
+    "settings"
+  ],
+  "useWhen": [
+    "Sign-in activity, audit logs, sessions, two-factor and SSO"
+  ],
+  "avoidWhen": [
+    "Security is handled entirely outside the product"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu",
+    "input"
+  ],
+  "install": "@dashboardblocks/security-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

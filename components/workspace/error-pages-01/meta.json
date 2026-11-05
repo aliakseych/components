@@ -1,0 +1,22 @@
+{
+  "name": "Error Pages: Not Found",
+  "summary": "The path that wasn't found, a search, and the places people usually look for.",
+  "tags": [
+    "error page",
+    "empty state"
+  ],
+  "useWhen": [
+    "Not found, no access, errors, maintenance and ended sessions"
+  ],
+  "avoidWhen": [
+    "Inline errors inside a form, where a field message fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "input"
+  ],
+  "install": "@dashboardblocks/error-pages-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

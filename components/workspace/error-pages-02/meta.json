@@ -1,0 +1,23 @@
+{
+  "name": "Error Pages: No Access",
+  "summary": "Who can give access, a request with an optional message, and the account you're signed in with.",
+  "tags": [
+    "error page",
+    "empty state"
+  ],
+  "useWhen": [
+    "Not found, no access, errors, maintenance and ended sessions"
+  ],
+  "avoidWhen": [
+    "Inline errors inside a form, where a field message fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "textarea"
+  ],
+  "install": "@dashboardblocks/error-pages-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

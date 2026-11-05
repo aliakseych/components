@@ -1,0 +1,25 @@
+{
+  "name": "Settings: Members",
+  "summary": "Members and pending invites with their roles, and seats counted against the plan.",
+  "tags": [
+    "settings",
+    "form",
+    "team"
+  ],
+  "useWhen": [
+    "Members, API keys, notifications, integrations and webhooks"
+  ],
+  "avoidWhen": [
+    "Settings fit on one short form"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "dropdown-menu",
+    "input"
+  ],
+  "install": "@dashboardblocks/settings-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Notifications: Bell",
+  "summary": "The latest notifications in a panel, with mark all as read and a link to the inbox.",
+  "tags": [
+    "notifications",
+    "activity",
+    "list"
+  ],
+  "useWhen": [
+    "A bell with unread notifications, requests and an inbox"
+  ],
+  "avoidWhen": [
+    "The app sends no notifications",
+    "A full page of notifications with history, where workspace/activity-feed-03 fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card",
+    "popover"
+  ],
+  "install": "@dashboardblocks/notifications-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}
