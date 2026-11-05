@@ -1,0 +1,208 @@
+'use client'
+
+import { SearchXIcon } from 'lucide-react'
+import {
+  BlockMessage,
+  BlockReady,
+  BlockStateProvider,
+  type BlockStateProps,
+  getBlockState,
+} from '@/components/dashboardblocks/block-state'
+import { FilterChip } from '@/components/dashboardblocks/dashboard-header'
+import {
+  StatusLabel,
+  type StatusTone,
+} from '@/components/dashboardblocks/status-label'
+import {
+  DataTable,
+  DataTableBody,
+  DataTableCell,
+  DataTableHead,
+  DataTableHeader,
+  DataTableRow,
+  DataTableStateRows,
+} from '@/components/dashboardblocks/table'
+import { formatCurrency } from '@/lib/dashboardblocks/format'
+import { useState } from 'react'
+
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+
+type OrderStatus = 'Paid' | 'Pending' | 'Refunded'
+
+interface Order {
+  amount: number
+  customer: string
+  id: string
+  region: string
+  status: OrderStatus
+}
+
+interface Filter {
+  field: 'region' | 'status'
+  label: string
+  value: string
+}
+
+interface States3Props extends BlockStateProps {
+  defaultFilters: Filter[]
+  /** Leave out, or pass none, to show the empty state. */
+  orders?: Order[]
+  title: string
+}
+
+const exampleProps: States3Props = {
+  defaultFilters: [
+    { field: 'status', label: 'Status', value: 'Refunded' },
+    { field: 'region', label: 'Region', value: 'Asia Pacific' },
+  ],
+  orders: [
+    {
+      amount: 184.5,
+      customer: 'Ava Thompson',
+      id: '#4821',
+      region: 'Europe',
+      status: 'Paid',
+    },
+    {
+      amount: 62,
+      customer: 'Leo Martins',
+      id: '#4820',
+      region: 'Asia Pacific',
+      status: 'Paid',
+    },
+    {
+      amount: 311.2,
+      customer: 'Maya Chen',
+      id: '#4819',
+      region: 'North America',
+      status: 'Refunded',
+    },
+    {
+      amount: 94.99,
+      customer: 'Noah Patel',
+      id: '#4818',
+      region: 'Asia Pacific',
+      status: 'Pending',
+    },
+    {
+      amount: 48,
+      customer: 'Zoe Williams',
+      id: '#4817',
+      region: 'Europe',
+      status: 'Refunded',
+    },
+  ],
+  title: 'Orders',
+}
+
+const STATUS_TONES: Record<OrderStatus, StatusTone> = {
+  Paid: 'good',
+  Pending: 'warning',
+  Refunded: 'neutral',
+}
+
+const currency = (value: number) => formatCurrency(value, { precision: 'exact' })
+
+function describe(shown: number, total: number, filters: Filter[]) {
+  const orders = `${total} ${total === 1 ? 'order' : 'orders'}`
+  if (filters.length === 0) return `All ${orders}, newest first.`
+  const matching = filters
+    .map((filter) => `${filter.label.toLowerCase()} ${filter.value}`)
+    .join(' and ')
+  return `${shown} of ${orders} with ${matching}.`
+}
+
+const States3 = (props: States3Props) => {
+  const { defaultFilters, orders = [], errorMessage, status, title } = props
+  const [filters, setFilters] = useState(defaultFilters)
+  const state = getBlockState(status, orders)
+  const rows = orders.filter((order) =>
+    filters.every((filter) => order[filter.field] === filter.value),
+  )
+
+  return (
+    <BlockStateProvider errorMessage={errorMessage} state={state}>
+      <Card>
+        <CardContent>
+          <section className='@container/data-table flex flex-col gap-3'>
+            <header className='flex flex-col gap-0.5'>
+              <h2 className='font-semibold tracking-tight'>{title}</h2>
+              <BlockReady className='text-sm'>
+                <p aria-live='polite' className='text-muted-foreground text-sm'>
+                  {describe(rows.length, orders.length, filters)}
+                </p>
+              </BlockReady>
+            </header>
+            {filters.length > 0 && (
+              <ul aria-label='Active filters' className='flex flex-wrap gap-2'>
+                {filters.map((filter) => (
+                  <li key={filter.field} className='flex'>
+                    <FilterChip
+                      field={filter.label}
+                      value={filter.value}
+                      onRemove={() =>
+                        setFilters((current) => current.filter((item) => item !== filter))
+                      }
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+            {!state && rows.length === 0 ? (
+              <BlockMessage
+                icon={
+                  <SearchXIcon />
+                }
+                className='border-t'
+                title='No orders match these filters'
+                description='Remove a filter, or clear them all to see every order.'
+                action={
+                  <Button variant='outline' size='sm' onClick={() => setFilters([])}>
+                    Clear filters
+                  </Button>
+                }
+              />
+            ) : (
+              <DataTable caption={title}>
+                <DataTableHeader>
+                  <DataTableRow>
+                    <DataTableHead>Customer</DataTableHead>
+                    <DataTableHead>Region</DataTableHead>
+                    <DataTableHead>Status</DataTableHead>
+                    <DataTableHead align='end'>Amount</DataTableHead>
+                  </DataTableRow>
+                </DataTableHeader>
+                <DataTableBody>
+                  <DataTableStateRows colSpan={4} rows={5} />
+                  {!state &&
+                    rows.map((order) => (
+                      <DataTableRow key={order.id}>
+                        <DataTableCell primary truncate>
+                          <span className='block truncate'>{order.customer}</span>
+                          <span className='text-muted-foreground block text-xs font-normal tabular-nums'>
+                            {order.id}
+                          </span>
+                        </DataTableCell>
+                        <DataTableCell>{order.region}</DataTableCell>
+                        <DataTableCell>
+                          <StatusLabel tone={STATUS_TONES[order.status]}>
+                            {order.status}
+                          </StatusLabel>
+                        </DataTableCell>
+                        <DataTableCell align='end'>
+                          {currency(order.amount)}
+                        </DataTableCell>
+                      </DataTableRow>
+                    ))}
+                </DataTableBody>
+              </DataTable>
+            )}
+          </section>
+        </CardContent>
+      </Card>
+    </BlockStateProvider>
+  )
+}
+
+export { States3, exampleProps as states3ExampleProps, type States3Props }

@@ -1,0 +1,453 @@
+'use client'
+
+import { CheckIcon, CopyIcon, DownloadIcon, PlusIcon, RefreshCwIcon, Trash2Icon } from 'lucide-react'
+import {
+  BlockStateProvider,
+  BlockStateRows,
+  type BlockStateProps,
+  getBlockState,
+  useBlockState,
+} from '@/components/dashboardblocks/block-state'
+import {
+  CopyButton,
+  useCopyToClipboard,
+} from '@/components/dashboardblocks/settings'
+import { StatusLabel } from '@/components/dashboardblocks/status-label'
+import { formatDate } from '@/lib/dashboardblocks/format'
+import { type FormEvent, type ReactNode, startTransition, useId, useState } from 'react'
+
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+
+import { cn } from '@/lib/utils'
+
+interface SecurityKey {
+  addedAt: Date
+  id: string
+  name: string
+}
+
+interface AuthenticatorSetup {
+  /** The QR code for the authenticator app, rendered by your server or a QR library. */
+  qrCode: ReactNode
+  secret: string
+}
+
+interface Security5Props extends BlockStateProps {
+  authenticatorAddedAt?: Date
+  description: string
+  onAddSecurityKey?: () => void
+  onRemoveAuthenticator?: () => void
+  onRemoveSecurityKey?: (id: string) => void
+  /** Called when new recovery codes are shown, so the old ones can be revoked. */
+  onRegenerateRecoveryCodes?: () => void
+  onVerify?: (code: string) => boolean | Promise<boolean>
+  recoveryCodes: string[]
+  /** @default 0 */
+  recoveryCodesLeft?: number
+  /** Stops the last method being removed, when the workspace requires two-factor. */
+  required?: boolean
+  /** Leave out to show the empty state. */
+  securityKeys?: SecurityKey[]
+  setup: AuthenticatorSetup
+  title: string
+}
+
+function ExampleQrCode() {
+  const size = 21
+  const finder = (x: number, y: number) => {
+    const inside = (ox: number, oy: number) => {
+      const dx = x - ox
+      const dy = y - oy
+      if (dx < 0 || dy < 0 || dx > 6 || dy > 6) return null
+      return (
+        dx === 0 ||
+        dy === 0 ||
+        dx === 6 ||
+        dy === 6 ||
+        (dx > 1 && dx < 5 && dy > 1 && dy < 5)
+      )
+    }
+    return inside(0, 0) ?? inside(size - 7, 0) ?? inside(0, size - 7)
+  }
+  const cells: [number, number][] = []
+  for (let y = 0; y < size; y++) {
+    for (let x = 0; x < size; x++) {
+      const fixed = finder(x, y)
+      const on = fixed ?? (x * 7 + y * 13 + x * y) % 5 < 2
+      if (on) cells.push([x, y])
+    }
+  }
+  return (
+    <svg viewBox={`-2 -2 ${size + 4} ${size + 4}`} role='img' aria-label='QR code'>
+      <rect x={-2} y={-2} width={size + 4} height={size + 4} fill='white' />
+      {cells.map(([x, y]) => (
+        <rect key={`${x}-${y}`} x={x} y={y} width={1} height={1} fill='black' />
+      ))}
+    </svg>
+  )
+}
+
+const exampleProps: Security5Props = {
+  description:
+    'A second step at sign-in, so a password alone can’t get into your account.',
+  recoveryCodes: [
+    'k7p2-9xqm',
+    'hd4w-ja8e',
+    'r3tn-vb6c',
+    'm9fz-2ksl',
+    'q5ye-ut7g',
+    'w8cd-n4rp',
+    'b2xh-6jwa',
+    'z6le-p3mt',
+  ],
+  recoveryCodesLeft: 8,
+  securityKeys: [
+    { addedAt: new Date(Date.UTC(2026, 2, 4)), id: 'k1', name: 'YubiKey 5C' },
+    { addedAt: new Date(Date.UTC(2026, 6, 19)), id: 'k2', name: 'MacBook Touch ID' },
+  ],
+  setup: { qrCode: <ExampleQrCode />, secret: 'JBSW Y3DP EHPK 3PXP' },
+  title: 'Two-factor authentication',
+}
+
+type Step = 'idle' | 'setup' | 'codes'
+
+function TwoFactorSettings(props: Security5Props) {
+  const {
+    description,
+    onAddSecurityKey,
+    onRegenerateRecoveryCodes,
+    onRemoveAuthenticator,
+    onRemoveSecurityKey,
+    onVerify,
+    recoveryCodes,
+    required = false,
+    setup,
+    title,
+  } = props
+  const id = useId()
+  const [authenticator, setAuthenticator] = useState(props.authenticatorAddedAt)
+  const state = useBlockState()
+  const [keys, setKeys] = useState(props.securityKeys ?? [])
+  const [codesLeft, setCodesLeft] = useState(props.recoveryCodesLeft ?? 0)
+  const [step, setStep] = useState<Step>('idle')
+  const [code, setCode] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [verifying, setVerifying] = useState(false)
+  const { copied, copy } = useCopyToClipboard()
+
+  const methods = (authenticator ? 1 : 0) + keys.length
+  const enabled = methods > 0
+  const locked = required && methods === 1
+
+  const verify = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const digits = code.replace(/\s/g, '')
+    if (!/^\d{6}$/.test(digits)) return setError('Enter the 6-digit code from the app.')
+    setVerifying(true)
+    const ok = onVerify ? await onVerify(digits) : true
+    startTransition(() => {
+      setVerifying(false)
+      if (!ok) {
+        setError(
+          'That code didn’t work. Codes change every 30 seconds, so try the newest one.',
+        )
+        return
+      }
+      setAuthenticator(new Date())
+      setCodesLeft(recoveryCodes.length)
+      setCode('')
+      setError(null)
+      setStep('codes')
+    })
+  }
+
+  const download = () => {
+    const blob = new Blob([`${recoveryCodes.join('\n')}\n`], { type: 'text/plain' })
+    const link = document.createElement('a')
+    link.href = URL.createObjectURL(blob)
+    link.download = 'recovery-codes.txt'
+    link.click()
+    URL.revokeObjectURL(link.href)
+  }
+
+  if (state) {
+    return (
+      <section className='@container flex flex-col gap-3'>
+        <header className='flex flex-col gap-0.5'>
+          <h2 className='font-semibold tracking-tight'>{title}</h2>
+          <p className='text-muted-foreground text-sm'>{description}</p>
+        </header>
+        <BlockStateRows className='border-t' rows={3} />
+      </section>
+    )
+  }
+
+  return (
+    <section className='@container flex flex-col gap-3'>
+      <header className='flex items-start justify-between gap-3'>
+        <div className='flex min-w-0 flex-col gap-0.5'>
+          <h2 className='font-semibold tracking-tight'>{title}</h2>
+          <p className='text-muted-foreground text-sm'>{description}</p>
+        </div>
+        <StatusLabel className='mt-0.5' tone={enabled ? 'good' : 'warning'}>
+          {enabled ? 'On' : 'Off'}
+        </StatusLabel>
+      </header>
+      <ul className='flex flex-col divide-y border-t'>
+        <li className='flex flex-col gap-4 py-3'>
+          <div className='flex items-start gap-3'>
+            <div className='flex min-w-0 flex-1 flex-col gap-0.5'>
+              <span id={`${id}-app`} className='text-sm font-medium'>
+                Authenticator app
+              </span>
+              <span className='text-muted-foreground text-sm'>
+                {authenticator ? (
+                  <>
+                    Added{' '}
+                    <time dateTime={authenticator.toISOString()}>
+                      {formatDate(authenticator, 'date')}
+                    </time>
+                  </>
+                ) : (
+                  'Codes from an app like 1Password, Authy or Google Authenticator.'
+                )}
+              </span>
+            </div>
+            {authenticator ? (
+              <Button
+                variant='ghost'
+                size='sm'
+                disabled={locked}
+                aria-describedby={locked ? `${id}-required` : undefined}
+                onClick={() => {
+                  setAuthenticator(undefined)
+                  onRemoveAuthenticator?.()
+                }}
+              >
+                <Trash2Icon data-icon='inline-start' />
+                Remove
+              </Button>
+            ) : (
+              step === 'idle' && (
+                <Button variant='outline' size='sm' onClick={() => setStep('setup')}>
+                  Set up
+                </Button>
+              )
+            )}
+          </div>
+
+          {step === 'setup' && (
+            <form
+              method='post'
+              onSubmit={(event) => void verify(event)}
+              noValidate
+              aria-labelledby={`${id}-app`}
+              className='flex flex-col gap-4 rounded-xl border p-4 @md:flex-row'
+            >
+              <div className='size-36 shrink-0 self-center overflow-hidden rounded-md border bg-white p-1 @md:self-start [&_svg]:size-full'>
+                {setup.qrCode}
+              </div>
+              <div className='flex min-w-0 flex-1 flex-col gap-3'>
+                <p className='text-sm'>
+                  Scan the code with your authenticator app, or enter this key:
+                </p>
+                <div className='bg-background flex items-center gap-1 rounded-md border py-1 pr-1 pl-3'>
+                  <code className='min-w-0 flex-1 truncate font-mono text-sm'>
+                    {setup.secret}
+                  </code>
+                  <CopyButton
+                    label='Copy setup key'
+                    value={setup.secret.replace(/\s/g, '')}
+                  />
+                </div>
+                <div className='flex flex-col gap-2'>
+                  <label htmlFor={`${id}-code`} className='text-sm font-medium'>
+                    Code from the app
+                  </label>
+                  <div className='flex gap-2'>
+                    <Input
+                      id={`${id}-code`}
+                      inputMode='numeric'
+                      autoComplete='one-time-code'
+                      maxLength={7}
+                      placeholder='123 456'
+                      value={code}
+                      onChange={(event) => setCode(event.target.value)}
+                      aria-invalid={error ? true : undefined}
+                      aria-describedby={error ? `${id}-code-error` : undefined}
+                      className='w-32 font-mono tracking-widest tabular-nums'
+                    />
+                    <Button type='submit' disabled={verifying}>
+                      {verifying ? 'Checking…' : 'Verify'}
+                    </Button>
+                    <Button
+                      type='button'
+                      variant='ghost'
+                      onClick={() => {
+                        setStep('idle')
+                        setCode('')
+                        setError(null)
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                  {error && (
+                    <p id={`${id}-code-error`} className='text-destructive text-sm'>
+                      {error}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </form>
+          )}
+        </li>
+
+        <li className='flex flex-col gap-3 py-3'>
+          <div className='flex items-start gap-3'>
+            <div className='flex min-w-0 flex-1 flex-col gap-0.5'>
+              <span className='text-sm font-medium'>Security keys and passkeys</span>
+              <span className='text-muted-foreground text-sm'>
+                A hardware key, or your device’s fingerprint or face unlock.
+              </span>
+            </div>
+            <Button variant='outline' size='sm' onClick={onAddSecurityKey}>
+              <PlusIcon data-icon='inline-start' />
+              Add
+            </Button>
+          </div>
+          {keys.length > 0 && (
+            <ul className='flex flex-col gap-2'>
+              {keys.map((key) => (
+                <li key={key.id} className='flex items-center gap-3'>
+                  <div className='flex min-w-0 flex-1 flex-col'>
+                    <span className='truncate text-sm'>{key.name}</span>
+                    <span className='text-muted-foreground text-xs'>
+                      Added{' '}
+                      <time dateTime={key.addedAt.toISOString()}>
+                        {formatDate(key.addedAt, 'date')}
+                      </time>
+                    </span>
+                  </div>
+                  <Button
+                    variant='ghost'
+                    size='sm'
+                    disabled={locked}
+                    aria-label={`Remove ${key.name}`}
+                    aria-describedby={locked ? `${id}-required` : undefined}
+                    onClick={() => {
+                      setKeys((current) => current.filter((item) => item.id !== key.id))
+                      onRemoveSecurityKey?.(key.id)
+                    }}
+                  >
+                    <Trash2Icon data-icon='inline-start' />
+                    Remove
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+
+        {enabled && (
+          <li className='flex flex-col gap-4 py-3'>
+            <div className='flex items-start gap-3'>
+              <div className='flex min-w-0 flex-1 flex-col gap-0.5'>
+                <span id={`${id}-codes`} className='text-sm font-medium'>
+                  Recovery codes
+                </span>
+                <span
+                  className={cn(
+                    'text-sm',
+                    codesLeft <= 2
+                      ? 'text-orange-700 dark:text-orange-400'
+                      : 'text-muted-foreground',
+                  )}
+                >
+                  {codesLeft} left. Each works once, if you lose your other methods.
+                </span>
+              </div>
+              {step !== 'codes' && (
+                <Button
+                  variant='outline'
+                  size='sm'
+                  onClick={() => {
+                    setCodesLeft(recoveryCodes.length)
+                    setStep('codes')
+                    onRegenerateRecoveryCodes?.()
+                  }}
+                >
+                  <RefreshCwIcon data-icon='inline-start' />
+                  New codes
+                </Button>
+              )}
+            </div>
+            {step === 'codes' && (
+              <section
+                aria-labelledby={`${id}-codes`}
+                className='bg-muted/50 flex flex-col gap-3 rounded-xl p-4'
+              >
+                <p className='text-sm'>
+                  Save these somewhere safe. They won’t be shown again, and any older
+                  codes no longer work.
+                </p>
+                <ol className='bg-background grid grid-cols-2 gap-x-6 gap-y-1 rounded-md border p-3 font-mono text-sm @md:grid-cols-4'>
+                  {recoveryCodes.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ol>
+                <div className='flex flex-wrap gap-2'>
+                  <Button
+                    variant='outline'
+                    size='sm'
+                    onClick={() => void copy(recoveryCodes.join('\n'))}
+                  >
+                    {copied ? (
+                      <CheckIcon data-icon='inline-start' />
+                    ) : (
+                      <CopyIcon data-icon='inline-start' />
+                    )}
+                    {copied ? 'Copied' : 'Copy'}
+                  </Button>
+                  <Button variant='outline' size='sm' onClick={download}>
+                    <DownloadIcon data-icon='inline-start' />
+                    Download
+                  </Button>
+                  <Button size='sm' className='ml-auto' onClick={() => setStep('idle')}>
+                    I’ve saved them
+                  </Button>
+                </div>
+              </section>
+            )}
+          </li>
+        )}
+      </ul>
+      {locked && (
+        <p id={`${id}-required`} className='text-muted-foreground text-sm'>
+          Your workspace requires two-factor, so add another method before removing this
+          one.
+        </p>
+      )}
+    </section>
+  )
+}
+
+const Security5 = (props: Security5Props) => {
+  const { securityKeys, errorMessage, status } = props
+  const state = getBlockState(status, securityKeys)
+
+  return (
+    <BlockStateProvider errorMessage={errorMessage} state={state}>
+      <TwoFactorSettings key={state ?? 'ready'} {...props} />
+    </BlockStateProvider>
+  )
+}
+
+export {
+  Security5,
+  exampleProps as security5ExampleProps,
+  type AuthenticatorSetup,
+  type Security5Props,
+  type SecurityKey,
+}

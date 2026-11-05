@@ -1,0 +1,1034 @@
+'use client'
+
+import { CheckIcon, CircleCheckIcon, EllipsisIcon, PencilIcon, ReplyIcon, SmilePlusIcon, Trash2Icon } from 'lucide-react'
+import {
+  ActivityIcon,
+  ActivityTime,
+  activityToneClasses,
+} from '@/components/dashboardblocks/activity-feed'
+import {
+  type FormEvent,
+  Fragment,
+  type KeyboardEvent,
+  type ReactNode,
+  startTransition,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupTextarea,
+} from '@/components/ui/input-group'
+
+import { cn } from '@/lib/utils'
+
+interface CommentAuthor {
+  avatar?: string
+  name: string
+}
+
+interface CommentReaction {
+  count: number
+  emoji: string
+  reacted: boolean
+}
+
+interface ThreadComment {
+  at: Date
+  author: CommentAuthor
+  body: string
+  edited?: boolean
+  id: string
+  reactions?: CommentReaction[]
+  replies?: ThreadComment[]
+  resolved?: boolean
+}
+
+interface ReactionChoice {
+  emoji: string
+  label: string
+}
+
+const defaultReactions: ReactionChoice[] = [
+  { emoji: '👍', label: 'Thumbs up' },
+  { emoji: '❤️', label: 'Heart' },
+  { emoji: '🎉', label: 'Hooray' },
+  { emoji: '😄', label: 'Laugh' },
+  { emoji: '👀', label: 'Eyes' },
+  { emoji: '🚀', label: 'Rocket' },
+]
+
+function toggleReaction(reactions: CommentReaction[] = [], emoji: string) {
+  if (!reactions.some((reaction) => reaction.emoji === emoji)) {
+    return [...reactions, { count: 1, emoji, reacted: true }]
+  }
+  return reactions
+    .map((reaction) =>
+      reaction.emoji === emoji
+        ? {
+            ...reaction,
+            count: reaction.count + (reaction.reacted ? -1 : 1),
+            reacted: !reaction.reacted,
+          }
+        : reaction,
+    )
+    .filter((reaction) => reaction.count > 0)
+}
+
+function updateComment<T extends ThreadComment>(
+  comments: T[],
+  id: string,
+  update: (comment: ThreadComment) => ThreadComment | null,
+): T[] {
+  return comments.flatMap((comment) => {
+    if (comment.id === id) {
+      const next = update(comment)
+      return next ? [next as T] : []
+    }
+    if (!comment.replies) return [comment]
+    return [{ ...comment, replies: updateComment(comment.replies, id, update) }]
+  })
+}
+
+interface MentionSegment {
+  mention?: string
+  text: string
+}
+
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function parseMentions(text: string, names?: string[]) {
+  const name = names?.length
+    ? [...names]
+        .sort((a, b) => b.length - a.length)
+        .map(escapeRegExp)
+        .join('|')
+    : '[\\p{L}\\p{N}_]+'
+  const pattern = new RegExp(`(?<![\\p{L}\\p{N}_@.])@(${name})(?![\\p{L}\\p{N}_])`, 'gu')
+  const segments: MentionSegment[] = []
+  let last = 0
+  for (const match of text.matchAll(pattern)) {
+    if (match.index > last) segments.push({ text: text.slice(last, match.index) })
+    segments.push({ mention: match[1], text: match[0] })
+    last = match.index + match[0].length
+  }
+  if (last < text.length) segments.push({ text: text.slice(last) })
+  return segments
+}
+
+function getMentions(text: string, names?: string[]) {
+  return [
+    ...new Set(
+      parseMentions(text, names).flatMap((segment) =>
+        segment.mention ? [segment.mention] : [],
+      ),
+    ),
+  ]
+}
+
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join('')
+}
+
+function CommentAvatar({
+  author,
+  className,
+  size = 'default',
+}: {
+  author: CommentAuthor
+  className?: string
+  size?: 'default' | 'sm'
+}) {
+  return (
+    <Avatar aria-hidden size={size} className={className}>
+      {author.avatar && <AvatarImage src={author.avatar} alt='' />}
+      <AvatarFallback>{initials(author.name)}</AvatarFallback>
+    </Avatar>
+  )
+}
+
+function CommentBody({
+  body,
+  className,
+  people,
+}: {
+  body: string
+  className?: string
+  people?: CommentAuthor[]
+}) {
+  return (
+    <p className={cn('text-sm break-words whitespace-pre-wrap', className)}>
+      {parseMentions(
+        body,
+        people?.map((person) => person.name),
+      ).map((segment, index) =>
+        segment.mention ? (
+          <span
+            key={index}
+            className={cn('rounded-sm px-0.5 font-medium', activityToneClasses.info)}
+          >
+            {segment.text}
+          </span>
+        ) : (
+          <Fragment key={index}>{segment.text}</Fragment>
+        ),
+      )}
+    </p>
+  )
+}
+
+interface ReactionBarProps {
+  choices?: ReactionChoice[]
+  className?: string
+  onToggle?: (emoji: string) => void
+  reactions: CommentReaction[]
+}
+
+function ReactionBar({
+  choices = defaultReactions,
+  className,
+  onToggle,
+  reactions,
+}: ReactionBarProps) {
+  const id = useId()
+  const [picking, setPicking] = useState(false)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const pickerRef = useRef<HTMLDivElement>(null)
+  const labelOf = (emoji: string) =>
+    choices.find((choice) => choice.emoji === emoji)?.label ?? emoji
+
+  useEffect(() => {
+    if (picking) pickerRef.current?.querySelector('button')?.focus()
+  }, [picking])
+
+  function close() {
+    setPicking(false)
+    triggerRef.current?.focus()
+  }
+
+  function onPickerKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const buttons = [...(pickerRef.current?.querySelectorAll('button') ?? [])]
+    const index = buttons.indexOf(document.activeElement as HTMLButtonElement)
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      close()
+    } else if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+      event.preventDefault()
+      const step = event.key === 'ArrowRight' ? 1 : -1
+      buttons[(index + step + buttons.length) % buttons.length]?.focus()
+    }
+  }
+
+  if (!onToggle && reactions.length === 0) return null
+
+  return (
+    <div className={cn('flex flex-wrap items-center gap-1', className)}>
+      {reactions.map((reaction) =>
+        onToggle ? (
+          <Button
+            key={reaction.emoji}
+            type='button'
+            variant='outline'
+            size='xs'
+            aria-pressed={reaction.reacted}
+            aria-label={`${labelOf(reaction.emoji)}: ${reaction.count}`}
+            className='tabular-nums aria-pressed:border-sky-500/40 aria-pressed:bg-sky-500/10'
+            onClick={() => onToggle(reaction.emoji)}
+          >
+            <span aria-hidden>{reaction.emoji}</span>
+            <span aria-hidden>{reaction.count}</span>
+          </Button>
+        ) : (
+          <span
+            key={reaction.emoji}
+            role='img'
+            aria-label={`${labelOf(reaction.emoji)}: ${reaction.count}`}
+            className='bg-muted flex h-6 items-center gap-1 rounded-full px-2 text-xs tabular-nums'
+          >
+            <span aria-hidden>{reaction.emoji}</span>
+            <span aria-hidden>{reaction.count}</span>
+          </span>
+        ),
+      )}
+      {onToggle && (
+        <div
+          className='flex items-center gap-1'
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+              setPicking(false)
+          }}
+        >
+          <Button
+            ref={triggerRef}
+            type='button'
+            variant='ghost'
+            size='icon-xs'
+            aria-label='Add reaction'
+            aria-expanded={picking}
+            aria-controls={picking ? `${id}-picker` : undefined}
+            onClick={() => setPicking(!picking)}
+          >
+            <SmilePlusIcon />
+          </Button>
+          {picking && (
+            <div
+              ref={pickerRef}
+              id={`${id}-picker`}
+              role='toolbar'
+              tabIndex={-1}
+              aria-label='Reactions'
+              className='bg-popover text-popover-foreground ring-foreground/10 flex items-center gap-0.5 rounded-md p-0.5 shadow-xs ring-1'
+              onKeyDown={onPickerKeyDown}
+              // Safari doesn't focus a button on click, so pressing one would blur the picker and close it before the click lands.
+              onMouseDown={(event) => event.preventDefault()}
+            >
+              {choices.map((choice) => (
+                <Button
+                  key={choice.emoji}
+                  type='button'
+                  variant='ghost'
+                  size='icon-xs'
+                  aria-label={choice.label}
+                  aria-pressed={
+                    reactions.find((reaction) => reaction.emoji === choice.emoji)
+                      ?.reacted ?? false
+                  }
+                  className='text-sm aria-pressed:bg-sky-500/10'
+                  onClick={() => {
+                    onToggle(choice.emoji)
+                    close()
+                  }}
+                >
+                  {choice.emoji}
+                </Button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+interface CommentMenuItem {
+  icon?: ReactNode
+  label: string
+  onSelect: () => void
+  variant?: 'default' | 'destructive'
+}
+
+function CommentMenu({
+  items,
+  label = 'More actions',
+}: {
+  items: CommentMenuItem[]
+  label?: string
+}) {
+  const firstDestructive = items.findIndex((item) => item.variant === 'destructive')
+  return (
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger asChild>
+        <Button variant='ghost' size='icon-xs' aria-label={label}>
+          <EllipsisIcon />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align='end' className='w-auto min-w-36'>
+        {items.map((item, index) => (
+          <Fragment key={item.label}>
+            {index === firstDestructive && index > 0 && <DropdownMenuSeparator />}
+            <DropdownMenuItem variant={item.variant} onClick={item.onSelect}>
+              {item.icon}
+              {item.label}
+            </DropdownMenuItem>
+          </Fragment>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+interface CommentItemProps {
+  actions?: ReactNode
+  badge?: ReactNode
+  className?: string
+  comment: ThreadComment
+  editor?: ReactNode
+  menu?: ReactNode
+  /** Pass a fixed date, so times render the same on the server and in the browser. */
+  now: Date
+  onReact?: (emoji: string) => void
+  people?: CommentAuthor[]
+  size?: 'default' | 'sm'
+  /** @default 'UTC' */
+  timeZone?: string
+}
+
+function CommentItem({
+  actions,
+  badge,
+  className,
+  comment,
+  editor,
+  menu,
+  now,
+  onReact,
+  people,
+  size = 'default',
+  timeZone = 'UTC',
+}: CommentItemProps) {
+  const id = useId()
+  const reactions = comment.reactions ?? []
+  return (
+    <article
+      aria-labelledby={`${id}-author ${id}-time`}
+      data-comment-id={comment.id}
+      className={cn('flex gap-3', className)}
+    >
+      <CommentAvatar author={comment.author} size={size} />
+      <div className='flex min-w-0 flex-1 flex-col gap-1'>
+        <div
+          className={cn('flex items-center gap-2', size === 'sm' ? 'min-h-6' : 'min-h-8')}
+        >
+          <div className='flex min-w-0 flex-1 flex-wrap items-center gap-x-2'>
+            <span
+              id={`${id}-author`}
+              title={comment.author.name}
+              className='truncate text-sm font-medium'
+            >
+              {comment.author.name}
+            </span>
+            {badge}
+            <span id={`${id}-time`} className='flex items-center gap-1'>
+              <ActivityTime date={comment.at} now={now} timeZone={timeZone} />
+              {comment.edited && (
+                <span className='text-muted-foreground text-xs'>(edited)</span>
+              )}
+            </span>
+          </div>
+          {menu}
+        </div>
+        {editor || (
+          <>
+            <CommentBody body={comment.body} people={people} />
+            {(reactions.length > 0 || onReact || actions) && (
+              <div className='mt-1 flex flex-wrap items-center gap-1'>
+                <ReactionBar reactions={reactions} onToggle={onReact} />
+                {actions}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </article>
+  )
+}
+
+function findMentionQuery(text: string, caret: number) {
+  const match = /(?:^|[\s(])@([\p{L}\p{M}'’.-]*(?: [\p{L}\p{M}'’.-]*)?)$/u.exec(
+    text.slice(0, caret),
+  )
+  if (!match) return null
+  return { query: match[1], start: caret - match[1].length - 1 }
+}
+
+interface CommentComposerProps {
+  focusOnMount?: boolean
+  className?: string
+  defaultValue?: string
+  disabled?: boolean
+  /** Shown when someone submits nothing. @default 'Write something first.' */
+  emptyMessage?: string
+  footer?: ReactNode
+  label?: string
+  /** Shows a Cancel button, and Escape cancels too. */
+  onCancel?: () => void
+  /** Resolve to a message to show it as an error and keep what was typed. */
+  onSubmit: (body: string) => void | string | Promise<void | string>
+  onValueChange?: (value: string) => void
+  pendingLabel?: string
+  people?: CommentAuthor[]
+  /** @default 'Leave a comment' */
+  placeholder?: string
+  /** @default 'Comment' */
+  submitLabel?: string
+  value?: string
+}
+
+function CommentComposer({
+  className,
+  defaultValue = '',
+  disabled = false,
+  emptyMessage = 'Write something first.',
+  focusOnMount = false,
+  footer,
+  label = 'Comment',
+  onCancel,
+  onSubmit,
+  onValueChange,
+  pendingLabel = 'Posting…',
+  people = [],
+  placeholder = 'Leave a comment',
+  submitLabel = 'Comment',
+  value,
+}: CommentComposerProps) {
+  const id = useId()
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const pendingCaret = useRef<number | null>(null)
+  const [uncontrolled, setUncontrolled] = useState(defaultValue)
+  const [caret, setCaret] = useState(0)
+  const [active, setActive] = useState(0)
+  const [dismissed, setDismissed] = useState<number | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string>()
+  const text = value ?? uncontrolled
+
+  const match = findMentionQuery(text, caret)
+  const query = match?.query.toLowerCase() ?? ''
+  const suggestions =
+    match && match.start !== dismissed
+      ? people
+          .filter((person) => {
+            const name = person.name.toLowerCase()
+            return (
+              name.startsWith(query) ||
+              name.split(/\s+/).some((part) => part.startsWith(query))
+            )
+          })
+          .slice(0, 6)
+      : []
+  const open = suggestions.length > 0
+  const activeIndex = Math.min(active, suggestions.length - 1)
+
+  useEffect(() => {
+    const textarea = textareaRef.current
+    if (!focusOnMount || !textarea) return
+    textarea.focus()
+    textarea.setSelectionRange(textarea.value.length, textarea.value.length)
+    setCaret(textarea.value.length)
+  }, [focusOnMount])
+
+  useLayoutEffect(() => {
+    if (pendingCaret.current === null) return
+    textareaRef.current?.setSelectionRange(pendingCaret.current, pendingCaret.current)
+    pendingCaret.current = null
+  }, [text])
+
+  function change(next: string) {
+    if (value === undefined) setUncontrolled(next)
+    onValueChange?.(next)
+    setError(undefined)
+  }
+
+  function insert(person: CommentAuthor) {
+    if (!match) return
+    const mention = `@${person.name} `
+    const end = match.start + mention.length
+    change(text.slice(0, match.start) + mention + text.slice(caret).replace(/^ /, ''))
+    pendingCaret.current = end
+    setCaret(end)
+  }
+
+  async function submit(event?: FormEvent<HTMLFormElement>) {
+    event?.preventDefault()
+    const body = text.trim()
+    if (isSubmitting || disabled) return
+    if (!body) {
+      setError(emptyMessage)
+      return textareaRef.current?.focus()
+    }
+    setIsSubmitting(true)
+    try {
+      const refused = await onSubmit(body)
+      startTransition(() => {
+        if (typeof refused === 'string') return setError(refused)
+        change('')
+        setCaret(0)
+      })
+    } catch {
+      startTransition(() => setError('Something went wrong. Try again.'))
+    } finally {
+      startTransition(() => setIsSubmitting(false))
+    }
+  }
+
+  function onKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
+      event.preventDefault()
+      void submit()
+    } else if (open && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+      event.preventDefault()
+      const step = event.key === 'ArrowDown' ? 1 : -1
+      setActive((activeIndex + step + suggestions.length) % suggestions.length)
+    } else if (open && (event.key === 'Enter' || event.key === 'Tab')) {
+      event.preventDefault()
+      insert(suggestions[activeIndex])
+    } else if (open && event.key === 'Escape') {
+      event.preventDefault()
+      setDismissed(match?.start ?? null)
+    } else if (event.key === 'Escape' && onCancel) {
+      event.preventDefault()
+      onCancel()
+    }
+  }
+
+  return (
+    <form
+      method='post'
+      onSubmit={(event) => void submit(event)}
+      className={cn('flex flex-col gap-1.5', className)}
+    >
+      <InputGroup>
+        <InputGroupTextarea
+          ref={textareaRef}
+          aria-label={label}
+          aria-describedby={error ? `${id}-hint ${id}-error` : `${id}-hint`}
+          aria-autocomplete={people.length > 0 ? 'list' : undefined}
+          aria-controls={open ? `${id}-people` : undefined}
+          aria-activedescendant={open ? `${id}-person-${activeIndex}` : undefined}
+          aria-invalid={error ? true : undefined}
+          placeholder={placeholder}
+          value={text}
+          disabled={disabled}
+          readOnly={isSubmitting}
+          onChange={(event) => {
+            change(event.target.value)
+            setCaret(event.target.selectionStart)
+            setActive(0)
+          }}
+          onSelect={(event) => setCaret(event.currentTarget.selectionStart)}
+          onKeyDown={onKeyDown}
+        />
+        {open && (
+          <div
+            id={`${id}-people`}
+            role='listbox'
+            aria-label='People'
+            className='w-full border-t p-1'
+          >
+            {suggestions.map((person, index) => (
+              // oxlint-disable-next-line jsx-a11y/click-events-have-key-events -- the textarea's keydown handler picks options, as the APG combobox pattern does
+              <div
+                key={person.name}
+                id={`${id}-person-${index}`}
+                role='option'
+                tabIndex={-1}
+                aria-selected={index === activeIndex}
+                className='aria-selected:bg-accent aria-selected:text-accent-foreground flex cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-sm'
+                onMouseDown={(event) => event.preventDefault()}
+                onMouseMove={() => setActive(index)}
+                onClick={() => insert(person)}
+              >
+                <CommentAvatar author={person} size='sm' />
+                <span className='truncate'>{person.name}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <InputGroupAddon align='block-end'>
+          <div className='min-w-0 flex-1 text-xs font-normal'>{footer}</div>
+          {onCancel && (
+            <Button
+              type='button'
+              variant='ghost'
+              size='sm'
+              disabled={isSubmitting}
+              onClick={onCancel}
+            >
+              Cancel
+            </Button>
+          )}
+          <Button type='submit' size='sm' disabled={disabled || isSubmitting}>
+            {isSubmitting ? pendingLabel : submitLabel}
+          </Button>
+        </InputGroupAddon>
+      </InputGroup>
+      <p id={`${id}-hint`} className='sr-only'>
+        {people.length > 0 && 'Type @ to mention someone. '}
+        Press Command or Control and Enter to submit.
+      </p>
+      <p aria-live='polite' className='sr-only'>
+        {open &&
+          `${suggestions.length} ${suggestions.length === 1 ? 'person' : 'people'} found`}
+      </p>
+      {error && (
+        <p id={`${id}-error`} role='alert' className='text-destructive text-sm'>
+          {error}
+        </p>
+      )}
+    </form>
+  )
+}
+
+interface CommentThreadProps {
+  className?: string
+  comment: ThreadComment
+  currentUser: CommentAuthor
+  header?: ReactNode
+  /** Pass a fixed date, so times render the same on the server and in the browser. */
+  now: Date
+  onDelete?: (commentId: string) => void
+  onEdit?: (commentId: string, body: string) => Promise<void> | void
+  onReact?: (commentId: string, emoji: string) => void
+  onReply?: (body: string) => Promise<void> | void
+  onResolve?: (resolved: boolean) => void
+  people?: CommentAuthor[]
+  renderBadge?: (comment: ThreadComment) => ReactNode
+  /** @default 'UTC' */
+  timeZone?: string
+}
+
+function CommentThread({
+  className,
+  comment,
+  currentUser,
+  header,
+  now,
+  onDelete,
+  onEdit,
+  onReact,
+  onReply,
+  onResolve,
+  people,
+  renderBadge,
+  timeZone = 'UTC',
+}: CommentThreadProps) {
+  const id = useId()
+  const [replying, setReplying] = useState(false)
+  const [draft, setDraft] = useState('')
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [expanded, setExpanded] = useState(false)
+  const [status, setStatus] = useState('')
+  const pendingFocus = useRef<'reopen' | 'resolve' | null>(null)
+  const [focusTarget, setFocusTarget] = useState<{ selector: string } | null>(null)
+  const focusedTarget = useRef<typeof focusTarget>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const replies = comment.replies ?? []
+  const resolved = Boolean(comment.resolved)
+  const canReply = Boolean(onReply) && !resolved
+
+  useEffect(() => {
+    const target = pendingFocus.current
+    if (target && resolved === (target === 'reopen')) {
+      document.getElementById(`${id}-${target}`)?.focus()
+      pendingFocus.current = null
+    }
+  }, [id, resolved])
+
+  useEffect(() => {
+    if (!focusTarget || focusTarget === focusedTarget.current) return
+    focusedTarget.current = focusTarget
+    rootRef.current?.querySelector<HTMLElement>(focusTarget.selector)?.focus()
+  }, [focusTarget])
+
+  function focusReply() {
+    requestAnimationFrame(() => document.getElementById(`${id}-reply`)?.focus())
+  }
+
+  function startReply(to?: CommentAuthor) {
+    const mention = to && to.name !== currentUser.name ? `@${to.name} ` : ''
+    setDraft((current) =>
+      mention && !current.includes(mention.trim())
+        ? `${current}${current && !/\s$/.test(current) ? ' ' : ''}${mention}`
+        : current,
+    )
+    if (!replying) return setReplying(true)
+    requestAnimationFrame(() => {
+      const textarea = document
+        .getElementById(`${id}-composer`)
+        ?.querySelector('textarea')
+      textarea?.focus()
+      textarea?.setSelectionRange(textarea.value.length, textarea.value.length)
+    })
+  }
+
+  function stopReply() {
+    setReplying(false)
+    setDraft('')
+    setFocusTarget({ selector: `#${CSS.escape(`${id}-reply`)}` })
+  }
+
+  function stopEditing(commentId: string) {
+    setEditingId(null)
+    setFocusTarget({
+      selector: `[data-comment-id="${CSS.escape(commentId)}"] [aria-label^="More actions"]`,
+    })
+  }
+
+  function resolve(next: boolean) {
+    pendingFocus.current = next ? 'reopen' : 'resolve'
+    setStatus(next ? 'Thread resolved' : 'Thread reopened')
+    setExpanded(false)
+    onResolve?.(next)
+  }
+
+  function renderComment(item: ThreadComment, isReply: boolean) {
+    const own = item.author.name === currentUser.name
+    const editing = editingId === item.id
+    const menuItems: CommentMenuItem[] = []
+    if (own && onEdit) {
+      menuItems.push({
+        icon: (
+          <PencilIcon />
+        ),
+        label: 'Edit',
+        onSelect: () => setEditingId(item.id),
+      })
+    }
+    if (own && onDelete) {
+      menuItems.push({
+        icon: (
+          <Trash2Icon />
+        ),
+        label: 'Delete',
+        onSelect: () => {
+          onDelete(item.id)
+          setStatus('Comment deleted')
+          if (isReply) focusReply()
+        },
+        variant: 'destructive',
+      })
+    }
+    return (
+      <CommentItem
+        comment={item}
+        now={now}
+        timeZone={timeZone}
+        people={people}
+        size={isReply ? 'sm' : 'default'}
+        badge={renderBadge?.(item)}
+        menu={
+          menuItems.length > 0 &&
+          !editing && (
+            <CommentMenu
+              items={menuItems}
+              label={`More actions for comment by ${item.author.name}`}
+            />
+          )
+        }
+        onReact={onReact && ((emoji) => onReact(item.id, emoji))}
+        editor={
+          editing &&
+          onEdit && (
+            <CommentComposer
+              focusOnMount
+              className='mt-1'
+              defaultValue={item.body}
+              label='Edit comment'
+              people={people}
+              submitLabel='Save'
+              pendingLabel='Saving…'
+              onCancel={() => stopEditing(item.id)}
+              onSubmit={async (body) => {
+                await onEdit(item.id, body)
+                startTransition(() => {
+                  stopEditing(item.id)
+                  setStatus('Comment saved')
+                })
+              }}
+            />
+          )
+        }
+        actions={
+          <>
+            {canReply && (
+              <Button
+                id={isReply ? undefined : `${id}-reply`}
+                type='button'
+                variant='ghost'
+                size='xs'
+                aria-label={isReply ? `Reply to ${item.author.name}` : undefined}
+                onClick={() => startReply(isReply ? item.author : undefined)}
+              >
+                <ReplyIcon />
+                Reply
+              </Button>
+            )}
+            {!isReply && !resolved && onResolve && (
+              <Button
+                id={`${id}-resolve`}
+                type='button'
+                variant='ghost'
+                size='xs'
+                onClick={() => resolve(true)}
+              >
+                <CircleCheckIcon />
+                Resolve
+              </Button>
+            )}
+          </>
+        }
+      />
+    )
+  }
+
+  const showComposer = replying && canReply
+  const connected = replies.length > 0 || showComposer
+
+  function connector(isLast: boolean) {
+    return (
+      <>
+        <span
+          aria-hidden
+          className='border-border absolute top-0 left-[calc(1rem-0.5px)] h-7 w-6 rounded-bl-[0.625rem] border-b border-l'
+        />
+        {!isLast && (
+          <span
+            aria-hidden
+            className='bg-border absolute top-[1.125rem] bottom-0 left-[calc(1rem-0.5px)] w-px'
+          />
+        )}
+      </>
+    )
+  }
+
+  return (
+    <div ref={rootRef} className={cn('flex flex-col gap-3', className)}>
+      {resolved && (
+        <div className='bg-muted/50 flex flex-wrap items-center gap-x-3 gap-y-2 rounded-lg px-3 py-2'>
+          <p className='flex min-w-0 flex-1 basis-48 items-center gap-2 text-sm'>
+            <ActivityIcon
+              tone='success'
+              className='ring-0 [--activity-marker:1.25rem] [&_svg]:size-3'
+              icon={
+                <CheckIcon />
+              }
+            />
+            <span className='font-medium'>Resolved</span>
+            <span className='text-muted-foreground min-w-0 truncate'>
+              {comment.author.name}: {comment.body}
+            </span>
+          </p>
+          <div className='ml-auto flex items-center gap-1'>
+            <Button
+              type='button'
+              variant='ghost'
+              size='xs'
+              aria-expanded={expanded}
+              aria-controls={expanded ? `${id}-thread` : undefined}
+              onClick={() => setExpanded(!expanded)}
+            >
+              {expanded
+                ? 'Hide'
+                : replies.length > 0
+                  ? `Show ${replies.length + 1} comments`
+                  : 'Show'}
+            </Button>
+            {onResolve && (
+              <Button
+                id={`${id}-reopen`}
+                type='button'
+                variant='outline'
+                size='xs'
+                onClick={() => resolve(false)}
+              >
+                Reopen
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
+      {(!resolved || expanded) && (
+        <div id={`${id}-thread`} className='flex flex-col gap-3'>
+          {header}
+          <div>
+            <div className='relative'>
+              {connected && (
+                <span
+                  aria-hidden
+                  className='bg-border absolute top-10 bottom-0 left-[calc(1rem-0.5px)] w-px'
+                />
+              )}
+              {renderComment(comment, false)}
+            </div>
+            {replies.length > 0 && (
+              <ul aria-label={`Replies to ${comment.author.name}`}>
+                {replies.map((reply, index) => (
+                  <li key={reply.id} className='relative pt-4 pl-11'>
+                    {connector(index === replies.length - 1 && !showComposer)}
+                    {renderComment(reply, true)}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {showComposer && (
+              <div id={`${id}-composer`} className='relative flex gap-3 pt-4 pl-11'>
+                {connector(true)}
+                <CommentAvatar author={currentUser} size='sm' />
+                <CommentComposer
+                  focusOnMount
+                  className='min-w-0 flex-1'
+                  label={`Reply to ${comment.author.name}`}
+                  placeholder='Reply'
+                  submitLabel='Reply'
+                  people={people}
+                  value={draft}
+                  onValueChange={setDraft}
+                  onCancel={stopReply}
+                  onSubmit={async (body) => {
+                    await onReply?.(body)
+                    startTransition(() => {
+                      setStatus('Reply posted')
+                      stopReply()
+                    })
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+      <p aria-live='polite' className='sr-only'>
+        {status}
+      </p>
+    </div>
+  )
+}
+
+export {
+  CommentAvatar,
+  CommentBody,
+  CommentComposer,
+  CommentItem,
+  CommentMenu,
+  CommentThread,
+  ReactionBar,
+  defaultReactions,
+  getMentions,
+  parseMentions,
+  toggleReaction,
+  updateComment,
+}
+
+export type {
+  CommentAuthor,
+  CommentComposerProps,
+  CommentItemProps,
+  CommentMenuItem,
+  CommentReaction,
+  CommentThreadProps,
+  MentionSegment,
+  ReactionBarProps,
+  ReactionChoice,
+  ThreadComment,
+}

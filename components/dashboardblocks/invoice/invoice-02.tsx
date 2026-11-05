@@ -1,0 +1,297 @@
+'use client'
+
+import { DownloadIcon, MailIcon } from 'lucide-react'
+import {
+  InvoiceStatusLabel,
+  formatBillingDate,
+} from '@/components/dashboardblocks/billing'
+import {
+  BlockReady,
+  BlockStateProvider,
+  type BlockStateProps,
+  getBlockState,
+} from '@/components/dashboardblocks/block-state'
+import { Details } from '@/components/dashboardblocks/details'
+import {
+  DocumentBrand,
+  DocumentFooter,
+  DocumentHeader,
+  DocumentHeadline,
+  DocumentLayout,
+  DocumentMeta,
+  DocumentPage,
+  DocumentSection,
+  DocumentSummary,
+  DocumentToolbar,
+  DocumentTotals,
+  type DocumentLine,
+  type DocumentTotalRow,
+  LineItemsTable,
+  PrintButton,
+  formatDocumentAmount,
+  getCurrencyDigits,
+  getDocumentTotals,
+  getTotalRows,
+  toMinorUnits,
+} from '@/components/dashboardblocks/invoice'
+import { StatusLabel } from '@/components/dashboardblocks/status-label'
+import { startTransition, useState } from 'react'
+
+import { Button } from '@/components/ui/button'
+
+interface Refund {
+  amount: number
+  date: Date
+  reason: string
+}
+
+interface Invoice2Props extends BlockStateProps {
+  brand: { name: string; website: string }
+  /** @default 'USD' */
+  currency?: string
+  email: string
+  /** Facts about the sender, printed at the foot of the page. */
+  footer: string[]
+  /** Leave out, or pass none, to show the empty state. */
+  lines?: DocumentLine[]
+  number: string
+  onDownload?: () => void
+  onEmail?: () => Promise<void>
+  orderNumber: string
+  paidAt: Date
+  paymentMethod: string
+  refunds: Refund[]
+  shipping?: number
+  shippingMethod: string
+  supportEmail: string
+  taxRate?: number
+}
+
+const exampleProps: Invoice2Props = {
+  brand: { name: 'Fernhill Coffee Roasters', website: 'fernhill.coffee' },
+  email: 'maya.okafor@fastmail.com',
+  footer: ['Fernhill Coffee Roasters LLC', '1180 Folsom Street, San Francisco, CA 94103'],
+  lines: [
+    {
+      description: 'Ethiopia Guji, whole bean',
+      detail: '340 g, not taxed',
+      id: 'guji',
+      quantity: 2,
+      taxRate: 0,
+      unitPrice: 21,
+    },
+    {
+      description: 'Stovetop gooseneck kettle',
+      detail: 'Matte black, 1 L',
+      id: 'kettle',
+      quantity: 1,
+      unitPrice: 56,
+    },
+    {
+      description: 'Ceramic pour-over dripper',
+      detail: 'Size 02, white',
+      id: 'dripper',
+      quantity: 1,
+      unitPrice: 28,
+    },
+    {
+      description: 'Paper filters',
+      detail: 'Size 02, pack of 100',
+      id: 'filters',
+      quantity: 2,
+      unitPrice: 7.5,
+    },
+  ],
+  number: 'RCPT-58210',
+  orderNumber: '#FH-20931',
+  paidAt: new Date(Date.UTC(2026, 8, 14, 17, 42)),
+  paymentMethod: 'Visa •••• 4242',
+  refunds: [
+    {
+      amount: 60.06,
+      date: new Date(Date.UTC(2026, 8, 22)),
+      reason: 'Kettle returned',
+    },
+  ],
+  shipping: 8.95,
+  shippingMethod: 'USPS Priority Mail',
+  supportEmail: 'orders@fernhill.coffee',
+  taxRate: 0.0725,
+}
+
+function emailReceipt() {
+  return new Promise<void>((resolve) => setTimeout(resolve, 600))
+}
+
+const logo = (
+  <svg viewBox='0 0 36 36' fill='none' aria-hidden>
+    <circle cx='18' cy='18' r='17' stroke='currentColor' strokeWidth='2' />
+    <path
+      d='M18 8c-5 4-5 16 0 20M18 8c5 4 5 16 0 20'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+    />
+  </svg>
+)
+
+const Invoice2 = (props: Invoice2Props) => {
+  const {
+    brand,
+    currency = 'USD',
+    email,
+    footer,
+    lines = [],
+    number,
+    onDownload = () => {},
+    onEmail = emailReceipt,
+    orderNumber,
+    paidAt,
+    paymentMethod,
+    refunds,
+    shipping,
+    shippingMethod,
+    errorMessage,
+    status,
+    supportEmail,
+    taxRate,
+  } = props
+  const state = getBlockState(status, lines)
+  const [emailState, setEmailState] = useState<'idle' | 'sending' | 'sent'>('idle')
+  const amounts = getDocumentTotals(lines, { currency, shipping, taxRate })
+  const unit = 10 ** getCurrencyDigits(currency)
+  const refunded =
+    refunds.reduce((sum, refund) => sum + toMinorUnits(refund.amount, currency), 0) / unit
+  const netPaid =
+    (toMinorUnits(amounts.total, currency) - toMinorUnits(refunded, currency)) / unit
+
+  const rows: DocumentTotalRow[] = [
+    ...getTotalRows(amounts).map((row) =>
+      row.id === 'total' ? { ...row, emphasis: 'total' as const } : row,
+    ),
+    ...refunds.map((refund, index) => ({
+      id: `refund-${index}`,
+      label: (
+        <>
+          Refunded {formatBillingDate(refund.date)}
+          <span className='block text-xs'>{refund.reason}</span>
+        </>
+      ),
+      value: -refund.amount,
+    })),
+  ]
+  if (refunds.length > 0) {
+    rows.push({ emphasis: 'due', id: 'net', label: 'Net paid', value: netPaid })
+  }
+
+  const sendEmail = async () => {
+    setEmailState('sending')
+    try {
+      await onEmail()
+      startTransition(() => setEmailState('sent'))
+    } catch {
+      startTransition(() => setEmailState('idle'))
+    }
+  }
+
+  return (
+    <BlockStateProvider errorMessage={errorMessage} state={state}>
+      <DocumentLayout className='max-w-md'>
+        <DocumentToolbar
+          description={
+            <p role='status' className={emailState === 'sent' ? undefined : 'sr-only'}>
+              {emailState === 'sent' ? `Sent to ${email}` : ''}
+            </p>
+          }
+        >
+          <PrintButton />
+          <Button variant='outline' size='sm' disabled={!!state} onClick={onDownload}>
+            <DownloadIcon aria-hidden />
+            <span className='sr-only'>Download </span>
+            PDF
+          </Button>
+          <Button
+            variant='outline'
+            size='sm'
+            disabled={!!state || emailState === 'sending'}
+            onClick={sendEmail}
+          >
+            <MailIcon aria-hidden />
+            {emailState === 'sending' ? 'Sending…' : 'Email'}
+          </Button>
+        </DocumentToolbar>
+        <DocumentPage>
+          <DocumentHeader
+            brand={<DocumentBrand logo={logo} name={brand.name} detail={brand.website} />}
+            title='Receipt'
+            number={number}
+            status={
+              <Details>
+                <InvoiceStatusLabel variant='text' status='paid' />
+                {refunded > 0 && (
+                  <StatusLabel variant='text' tone='neutral'>
+                    {refunded >= amounts.total ? 'Refunded' : 'Partially refunded'}
+                  </StatusLabel>
+                )}
+              </Details>
+            }
+          />
+          <DocumentSummary>
+            <DocumentHeadline
+              label='Amount paid'
+              value={formatDocumentAmount(amounts.total, currency)}
+            >
+              {refunded > 0 ? (
+                <>
+                  <span className='tabular-nums'>
+                    {formatDocumentAmount(refunded, currency)}
+                  </span>{' '}
+                  refunded, so you paid{' '}
+                  <span className='text-foreground font-medium tabular-nums'>
+                    {formatDocumentAmount(netPaid, currency)}
+                  </span>
+                  .
+                </>
+              ) : (
+                `Paid with ${paymentMethod}.`
+              )}
+            </DocumentHeadline>
+            <DocumentMeta
+              items={[
+                { label: 'Date paid', value: formatBillingDate(paidAt) },
+                { label: 'Order', value: orderNumber },
+                { label: 'Payment method', value: paymentMethod },
+                { label: 'Shipping', value: shippingMethod },
+              ]}
+            />
+          </DocumentSummary>
+          {state !== 'empty' && state !== 'error' && (
+            <>
+              <div className='flex flex-col gap-6'>
+                <LineItemsTable currency={currency} lines={lines} />
+                <DocumentTotals className='max-w-none' currency={currency} rows={rows} />
+              </div>
+              <DocumentSection title='Questions about your order?'>
+                <BlockReady>
+                  <p className='text-muted-foreground'>
+                    Reply to your receipt email or write to{' '}
+                    <a
+                      href={`mailto:${supportEmail}`}
+                      className='text-foreground underline underline-offset-4'
+                    >
+                      {supportEmail}
+                    </a>
+                    . Returns are free within 30 days.
+                  </p>
+                </BlockReady>
+              </DocumentSection>
+            </>
+          )}
+          <DocumentFooter parts={footer} />
+        </DocumentPage>
+      </DocumentLayout>
+    </BlockStateProvider>
+  )
+}
+
+export { Invoice2, exampleProps as invoice2ExampleProps, type Invoice2Props }

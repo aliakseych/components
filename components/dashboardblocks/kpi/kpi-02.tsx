@@ -1,0 +1,64 @@
+'use client'
+
+import {
+  BlockStateProvider,
+  type BlockStateProps,
+  getBlockState,
+} from '@/components/dashboardblocks/block-state'
+import {
+  KPI,
+  KPIChange,
+  KPIContent,
+  KPITitle,
+  type KPIFormat,
+  KPIValue,
+} from '@/components/dashboardblocks/kpi'
+
+import { Card, CardContent } from '@/components/ui/card'
+
+interface KPI2Props extends BlockStateProps {
+  comparison: string
+  format?: KPIFormat
+  previous?: number
+  title: string
+  /** Leave out to show the empty state. */
+  value?: number
+}
+
+const exampleProps: KPI2Props = {
+  comparison: 'last week',
+  format: 'number',
+  previous: 2_151,
+  title: 'Active users',
+  value: 2_420,
+}
+
+const KPI2 = (props: KPI2Props) => {
+  const { comparison, format, previous, errorMessage, status, title, value } = props
+
+  return (
+    <BlockStateProvider errorMessage={errorMessage} state={getBlockState(status, value)}>
+      <Card>
+        <CardContent>
+          <KPI>
+            <KPIContent className='gap-1'>
+              <div className='flex items-baseline justify-between gap-3'>
+                <KPITitle className='truncate'>{title}</KPITitle>
+                <KPIChange
+                  className='shrink-0'
+                  comparison={comparison}
+                  previous={previous}
+                  value={value}
+                  variant='short'
+                />
+              </div>
+              <KPIValue value={value} format={format} animated />
+            </KPIContent>
+          </KPI>
+        </CardContent>
+      </Card>
+    </BlockStateProvider>
+  )
+}
+
+export { KPI2, exampleProps as kpi2ExampleProps, type KPI2Props }

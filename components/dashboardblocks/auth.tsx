@@ -1,0 +1,626 @@
+'use client'
+
+import { ArrowRightIcon, CircleCheckIcon, EyeIcon, EyeOffIcon, Loader2Icon, SendIcon } from 'lucide-react'
+import { RollingText } from '@/components/dashboardblocks/rolling-text'
+import { getAvatarColor, getInitials } from '@/components/dashboardblocks/team'
+import { formatList } from '@/lib/dashboardblocks/format'
+import {
+  type ClipboardEvent,
+  type ComponentProps,
+  type KeyboardEvent,
+  type ReactNode,
+  startTransition,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
+
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group'
+
+import { cn } from '@/lib/utils'
+
+interface AuthLayoutProps {
+  children: ReactNode
+  className?: string
+  description?: ReactNode
+  /** Above the title, such as an `AuthIcon` or the workspace's avatar. */
+  media?: ReactNode
+  title: ReactNode
+}
+
+function AuthLayout({ children, className, description, media, title }: AuthLayoutProps) {
+  return (
+    <div className={cn('@container/page flex min-h-svh flex-col', className)}>
+      <main className='flex flex-1 flex-col items-center justify-center px-4 py-12 sm:px-6'>
+        <Card className='w-full max-w-sm'>
+          <CardContent className='flex flex-col gap-6'>
+            <div className='flex flex-col items-start gap-4'>
+              {media}
+              <div className='flex flex-col gap-2'>
+                <h1 className='text-2xl font-semibold tracking-tight text-balance'>
+                  {title}
+                </h1>
+                {description && (
+                  <p className='text-muted-foreground text-pretty'>{description}</p>
+                )}
+              </div>
+            </div>
+            {children}
+          </CardContent>
+        </Card>
+      </main>
+    </div>
+  )
+}
+
+/** The icon above an auth page's title. `waiting` pulses while the page waits on the person, such as for a passkey; `done` draws a tick for a step that just finished. */
+function AuthIcon({
+  children,
+  className,
+  tone = 'default',
+}: {
+  children?: ReactNode
+  className?: string
+  /** @default 'default' */
+  tone?: 'default' | 'waiting' | 'done'
+}) {
+  return (
+    <span
+      data-slot='auth-icon'
+      data-tone={tone}
+      className={cn(
+        'relative flex size-12 shrink-0 items-center justify-center rounded-xl transition-colors duration-200 [&_svg]:size-6',
+        tone === 'done'
+          ? 'animate-in zoom-in-75 fade-in bg-emerald-500/10 text-emerald-700 duration-300 ease-out motion-reduce:animate-none dark:text-emerald-400'
+          : tone === 'waiting'
+            ? 'bg-muted text-foreground'
+            : 'bg-muted text-muted-foreground',
+        className,
+      )}
+    >
+      {tone === 'waiting' && (
+        <span className='absolute -end-1 -top-1 flex size-2.5 text-(--color-chart-2)'>
+          <span className='absolute inline-flex size-full animate-ping rounded-full bg-current opacity-60 motion-reduce:animate-none' />
+          <span className='relative inline-flex size-full rounded-full bg-current' />
+        </span>
+      )}
+      {tone === 'done' ? (
+        <CircleCheckIcon aria-hidden />
+      ) : (
+        children
+      )}
+    </span>
+  )
+}
+
+type WorkspaceAvatarSize = 'sm' | 'default' | 'lg'
+
+const workspaceAvatarSize: Record<WorkspaceAvatarSize, string> = {
+  default: 'size-9 rounded-lg text-xs',
+  lg: 'size-12 rounded-xl text-base',
+  sm: 'size-6 rounded-md text-xs',
+}
+
+function WorkspaceAvatar({
+  className,
+  logo,
+  mark,
+  name,
+  size = 'default',
+}: {
+  className?: string
+  /** An image of the workspace's logo. */
+  logo?: string
+  /** The workspace's mark, drawn in the primary colour, such as an SVG with `fill='currentColor'`. */
+  mark?: ReactNode
+  name: string
+  /** @default 'default' */
+  size?: WorkspaceAvatarSize
+}) {
+  const [failed, setFailed] = useState(false)
+  const image = logo && !failed
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        'flex shrink-0 items-center justify-center overflow-hidden font-semibold [&_svg]:size-1/2',
+        workspaceAvatarSize[size],
+        image
+          ? 'bg-muted'
+          : mark
+            ? 'bg-primary text-primary-foreground'
+            : getAvatarColor(name),
+        className,
+      )}
+    >
+      {image ? (
+        // oxlint-disable-next-line nextjs/no-img-element -- blocks install into any React project
+        <img
+          src={logo}
+          alt=''
+          className='size-full object-cover'
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        (mark ?? getInitials(name))
+      )}
+    </span>
+  )
+}
+
+interface OtpInputProps {
+  'aria-label'?: string
+  'aria-describedby'?: string
+  focusOnMount?: boolean
+  className?: string
+  disabled?: boolean
+  invalid?: boolean
+  /** @default 6 */
+  length?: number
+  onChange: (value: string) => void
+  /** Called once every box is filled, such as to submit. */
+  onComplete?: (value: string) => void
+  value: string
+}
+
+function resolveTypedDigits(current: string, entered: string) {
+  if (!current || entered.length !== 2) return entered
+  return entered.startsWith(current) ? entered[1] : entered[0]
+}
+
+function OtpInput({
+  'aria-describedby': describedBy,
+  'aria-label': label = 'Verification code',
+  focusOnMount = false,
+  className,
+  disabled = false,
+  invalid = false,
+  length = 6,
+  onChange,
+  onComplete,
+  value,
+}: OtpInputProps) {
+  const inputs = useRef<(HTMLInputElement | null)[]>([])
+  const digits = Array.from({ length }, (_, index) => value[index] ?? '')
+
+  useEffect(() => {
+    if (focusOnMount) inputs.current[0]?.focus()
+  }, [focusOnMount])
+
+  const set = (next: string, focus: number) => {
+    const clean = next.replace(/\D/g, '').slice(0, length)
+    onChange(clean)
+    inputs.current[Math.min(focus, length - 1)]?.focus()
+    if (clean.length === length) onComplete?.(clean)
+  }
+
+  const isDigitInvalid = (index: number) =>
+    invalid && (value.length === length || index >= value.length)
+
+  const type = (index: number, typed: string) => {
+    const entered = resolveTypedDigits(digits[index], typed.replace(/\D/g, ''))
+    if (!entered) return
+    if (entered.length > 1) return set(entered, entered.length)
+    const next = [...digits]
+    next[index] = entered
+    set(next.join(''), index + 1)
+  }
+
+  const keyDown = (index: number, event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Backspace') {
+      event.preventDefault()
+      const at = digits[index] ? index : index - 1
+      if (at < 0) return
+      set(digits.slice(0, at).join(''), at)
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      inputs.current[Math.max(0, index - 1)]?.focus()
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      inputs.current[Math.min(value.length, index + 1, length - 1)]?.focus()
+    }
+  }
+
+  const paste = (event: ClipboardEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    const pasted = event.clipboardData.getData('text').replace(/\D/g, '')
+    if (pasted) set(pasted, pasted.length)
+  }
+
+  return (
+    <div
+      role='group'
+      aria-label={label}
+      aria-describedby={describedBy}
+      className={cn('flex justify-center gap-2', className)}
+    >
+      {digits.map((digit, index) => (
+        <Input
+          key={index}
+          ref={(node) => {
+            inputs.current[index] = node
+          }}
+          aria-label={`Digit ${index + 1} of ${length}`}
+          aria-invalid={isDigitInvalid(index) || undefined}
+          autoComplete={index === 0 ? 'one-time-code' : 'off'}
+          inputMode='numeric'
+          pattern='[0-9]*'
+          disabled={disabled}
+          value={digit}
+          tabIndex={index <= value.length ? 0 : -1}
+          onChange={(event) => type(index, event.target.value)}
+          onKeyDown={(event) => keyDown(index, event)}
+          onPaste={paste}
+          onFocus={(event) => event.target.select()}
+          className='h-11 w-11 min-w-0 shrink p-0 text-center font-mono text-base tabular-nums'
+        />
+      ))}
+    </div>
+  )
+}
+
+function maskEmail(email: string) {
+  const [name, domain] = email.split('@')
+  if (!domain) return email
+  return `${name[0]}${'•'.repeat(Math.min(3, Math.max(1, name.length - 1)))}@${domain}`
+}
+
+/** Unfolds what it holds, such as the fields only signing up needs, and keeps it out of the tab order while folded. */
+function AuthReveal({
+  children,
+  className,
+  open,
+}: {
+  children: ReactNode
+  className?: string
+  open: boolean
+}) {
+  return (
+    <div
+      data-slot='auth-reveal'
+      data-open={open || undefined}
+      inert={!open}
+      className={cn(
+        '-mx-4 grid grid-cols-[minmax(0,1fr)] transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none',
+        open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
+      )}
+    >
+      <div className='min-h-0 overflow-clip'>
+        <div className={cn('px-4 pt-1', className)}>{children}</div>
+      </div>
+    </div>
+  )
+}
+
+function PasswordInput({ className, ...props }: Omit<ComponentProps<'input'>, 'type'>) {
+  const [shown, setShown] = useState(false)
+  return (
+    <InputGroup className={className}>
+      <InputGroupInput type={shown ? 'text' : 'password'} {...props} />
+      <InputGroupAddon align='inline-end'>
+        <InputGroupButton
+          size='icon-xs'
+          aria-label='Show password'
+          aria-pressed={shown}
+          disabled={props.disabled}
+          onClick={() => setShown((current) => !current)}
+        >
+          {shown ? (
+            <EyeOffIcon />
+          ) : (
+            <EyeIcon />
+          )}
+        </InputGroupButton>
+      </InputGroupAddon>
+    </InputGroup>
+  )
+}
+
+interface PasswordRule {
+  /** What the password still needs, read as part of a sentence: "a number". */
+  label: string
+  test: (password: string) => boolean
+}
+
+const passwordRules: PasswordRule[] = [
+  { label: '8 or more characters', test: (password) => password.length >= 8 },
+  { label: 'a number', test: (password) => /\d/.test(password) },
+  { label: 'an uppercase letter', test: (password) => /[A-Z]/.test(password) },
+]
+
+function getMissingPasswordRules(password: string, rules = passwordRules) {
+  return rules.filter((rule) => !rule.test(password))
+}
+
+function describeMissingPasswordRules(password: string, rules = passwordRules) {
+  const missing = getMissingPasswordRules(password, rules)
+  return missing.length ? `Add ${formatList(missing.map((rule) => rule.label))}.` : ''
+}
+
+const strengthWords = ['Too weak', 'Weak', 'Good', 'Strong']
+
+function PasswordStrength({
+  className,
+  id,
+  password,
+  rules = passwordRules,
+}: {
+  className?: string
+  id?: string
+  password: string
+  rules?: PasswordRule[]
+}) {
+  const met = rules.length - getMissingPasswordRules(password, rules).length
+  const word =
+    strengthWords[
+      Math.round((met / Math.max(rules.length, 1)) * (strengthWords.length - 1))
+    ]
+  return (
+    <div data-slot='password-strength' className={cn('flex flex-col gap-2', className)}>
+      <div
+        aria-hidden
+        className='grid gap-1.5'
+        style={{
+          gridTemplateColumns: `repeat(${rules.length}, minmax(0, 1fr))`,
+        }}
+      >
+        {rules.map((rule, index) => (
+          <span key={rule.label} className='bg-muted h-1 overflow-hidden rounded-full'>
+            <span
+              className='block h-full origin-left rounded-full bg-(--color-chart-2) transition-transform duration-500 ease-out motion-reduce:transition-none'
+              style={{ transform: `scaleX(${index < met ? 1 : 0})` }}
+            />
+          </span>
+        ))}
+      </div>
+      <p id={id} className='text-muted-foreground text-sm text-pretty'>
+        {password ? (
+          <>
+            <span className='text-foreground font-medium'>{word}.</span>{' '}
+            {describeMissingPasswordRules(password, rules) || 'Good to go.'}
+          </>
+        ) : (
+          `Use ${formatList(rules.map((rule) => rule.label))}.`
+        )}
+      </p>
+    </div>
+  )
+}
+
+interface AuthProvider {
+  icon: ReactNode
+  id: string
+  name: string
+}
+
+interface AuthProviderButtonsProps {
+  className?: string
+  disabled?: boolean
+  /** Send the person to the provider. A throw shows that the provider couldn't be reached. */
+  onSelect?: (id: string) => void | Promise<void>
+  providers: AuthProvider[]
+}
+
+function AuthProviderButtons({
+  className,
+  disabled = false,
+  onSelect,
+  providers,
+}: AuthProviderButtonsProps) {
+  const [pending, setPending] = useState<string | null>(null)
+  const [failed, setFailed] = useState<string | null>(null)
+
+  const select = async (provider: AuthProvider) => {
+    if (pending) return
+    setPending(provider.id)
+    setFailed(null)
+    try {
+      await onSelect?.(provider.id)
+    } catch {
+      startTransition(() => {
+        setPending(null)
+        setFailed(`We couldn’t reach ${provider.name}. Try again.`)
+      })
+    }
+  }
+
+  return (
+    <div
+      data-slot='auth-provider-buttons'
+      className={cn('flex flex-col gap-2', className)}
+    >
+      <div
+        className='grid gap-2'
+        style={{
+          gridTemplateColumns: `repeat(${providers.length}, minmax(0, 1fr))`,
+        }}
+      >
+        {providers.map((provider) => {
+          const isPending = pending === provider.id
+          return (
+            <button
+              key={provider.id}
+              type='button'
+              aria-label={`Continue with ${provider.name}`}
+              aria-disabled={disabled || (pending !== null && !isPending) || undefined}
+              data-pending={isPending || undefined}
+              onClick={() => {
+                if (!disabled) void select(provider)
+              }}
+              className='border-input bg-background hover:bg-muted focus-visible:border-ring focus-visible:ring-ring/50 dark:bg-input/30 dark:hover:bg-input/50 flex h-10 min-w-0 items-center justify-center rounded-lg border outline-none transition-[background-color,opacity] duration-200 focus-visible:ring-3 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-pending:bg-muted [&_svg]:size-5'
+            >
+              <span aria-hidden className='flex size-5 items-center justify-center'>
+                {isPending ? (
+                  <Loader2Icon className='animate-spin motion-reduce:animate-none' />
+                ) : (
+                  provider.icon
+                )}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+      {failed && (
+        <p role='alert' className='text-destructive text-sm'>
+          {failed}
+        </p>
+      )}
+    </div>
+  )
+}
+
+function AuthDivider({ children = 'or' }: { children?: ReactNode }) {
+  return (
+    <div className='text-muted-foreground flex items-center gap-3 text-xs'>
+      <span aria-hidden className='bg-border h-px flex-1' />
+      {children}
+      <span aria-hidden className='bg-border h-px flex-1' />
+    </div>
+  )
+}
+
+const formatWait = (seconds: number) =>
+  `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
+
+function CountdownRing({ seconds, total }: { seconds: number; total: number }) {
+  const circumference = 2 * Math.PI * 7
+  return (
+    <svg viewBox='0 0 18 18' aria-hidden className='size-4 -rotate-90'>
+      <circle cx='9' cy='9' r='7' fill='none' strokeWidth='2' className='stroke-muted' />
+      <circle
+        cx='9'
+        cy='9'
+        r='7'
+        fill='none'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeDasharray={circumference}
+        strokeDashoffset={circumference * (1 - seconds / Math.max(total, 1))}
+        className='stroke-(--color-chart-2) transition-[stroke-dashoffset] duration-1000 ease-linear motion-reduce:transition-none'
+      />
+    </svg>
+  )
+}
+
+interface AuthResendButtonProps {
+  className?: string
+  /** Seconds left before it can send again; a ring counts them down. */
+  cooldown: number
+  onClick: () => void
+  pending?: boolean
+  /** The full wait in seconds, so the ring starts full. */
+  total: number
+}
+
+/** Sends an email again, once its wait has run out. */
+function AuthResendButton({
+  className,
+  cooldown,
+  onClick,
+  pending = false,
+  total,
+}: AuthResendButtonProps) {
+  const waiting = cooldown > 0
+  return (
+    <Button
+      type='button'
+      variant='ghost'
+      size='sm'
+      className={cn('tabular-nums aria-disabled:opacity-100', className)}
+      aria-disabled={waiting || pending || undefined}
+      onClick={() => {
+        if (!waiting && !pending) onClick()
+      }}
+    >
+      {waiting ? (
+        <CountdownRing seconds={cooldown} total={total} />
+      ) : (
+        <SendIcon data-icon='inline-start' />
+      )}
+      {waiting
+        ? `Send again in ${formatWait(cooldown)}`
+        : pending
+          ? 'Sending…'
+          : 'Send again'}
+    </Button>
+  )
+}
+
+interface AuthSwitchProps {
+  className?: string
+  description: string
+  /** A link to another page; leave it out and pass `onClick` to switch in place. */
+  href?: string
+  onClick?: () => void
+  title: string
+}
+
+/** The last row of an auth page, leading to the other way in: from signing in to signing up, or back to sign-in. */
+function AuthSwitch({ className, description, href, onClick, title }: AuthSwitchProps) {
+  const content = (
+    <>
+      <span className='flex min-w-0 flex-1 flex-col gap-0.5'>
+        <RollingText text={title} wrap className='text-sm font-medium' />
+        <RollingText text={description} wrap className='text-muted-foreground text-sm' />
+      </span>
+      <span
+        aria-hidden
+        className='bg-primary text-primary-foreground flex size-8 shrink-0 items-center justify-center rounded-full transition-transform duration-200 ease-out group-hover/switch:translate-x-0.5 motion-reduce:transition-none [&_svg]:size-4'
+      >
+        <ArrowRightIcon />
+      </span>
+    </>
+  )
+  const rowClassName =
+    'group/switch hover:bg-muted/60 focus-visible:ring-ring/50 -mx-3 flex w-[calc(100%+1.5rem)] items-center gap-3 rounded-lg px-3 py-2.5 text-start outline-none transition-colors duration-200 focus-visible:ring-3'
+  return (
+    <div data-slot='auth-switch' className={cn('border-t pt-3', className)}>
+      {href ? (
+        <a href={href} className={rowClassName}>
+          {content}
+        </a>
+      ) : (
+        <button type='button' onClick={onClick} className={rowClassName}>
+          {content}
+        </button>
+      )}
+    </div>
+  )
+}
+
+export {
+  AuthDivider,
+  AuthIcon,
+  AuthLayout,
+  AuthProviderButtons,
+  AuthResendButton,
+  AuthReveal,
+  AuthSwitch,
+  OtpInput,
+  PasswordInput,
+  PasswordStrength,
+  WorkspaceAvatar,
+  describeMissingPasswordRules,
+  getMissingPasswordRules,
+  maskEmail,
+  passwordRules,
+}
+
+export type {
+  AuthLayoutProps,
+  AuthProvider,
+  AuthProviderButtonsProps,
+  AuthResendButtonProps,
+  AuthSwitchProps,
+  OtpInputProps,
+  PasswordRule,
+  WorkspaceAvatarSize,
+}

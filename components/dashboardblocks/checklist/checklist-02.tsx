@@ -1,0 +1,125 @@
+'use client'
+
+import { ArrowRightIcon } from 'lucide-react'
+import {
+  BlockReady,
+  BlockStateProvider,
+  BlockStateRows,
+  type BlockStateProps,
+  getBlockState,
+} from '@/components/dashboardblocks/block-state'
+import {
+  type StepState,
+  StepIndicator,
+  getChecklistProgress,
+  getNextStep,
+  stepStateConfig,
+} from '@/components/dashboardblocks/checklist'
+
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+
+import { cn } from '@/lib/utils'
+
+interface SetupStage {
+  id: string
+  state: StepState
+  title: string
+}
+
+interface Checklist2Props extends BlockStateProps {
+  /** @default 'Continue setup' */
+  continueLabel?: string
+  description: string
+  onContinue?: () => void
+  /** Leave out, or pass none, to show the empty state. */
+  stages?: SetupStage[]
+  title: string
+}
+
+const exampleProps: Checklist2Props = {
+  description: 'Sync your production database into the warehouse.',
+  stages: [
+    { id: 'source', state: 'done', title: 'Choose source' },
+    { id: 'connect', state: 'done', title: 'Connect' },
+    { id: 'tables', state: 'current', title: 'Select tables' },
+    { id: 'schedule', state: 'todo', title: 'Schedule sync' },
+    { id: 'review', state: 'todo', title: 'Review and launch' },
+  ],
+  title: 'New connection',
+}
+
+const Checklist2 = (props: Checklist2Props) => {
+  const {
+    continueLabel = 'Continue setup',
+    description,
+    onContinue,
+    stages = [],
+    errorMessage,
+    status,
+    title,
+  } = props
+  const state = getBlockState(status, stages)
+  const progress = getChecklistProgress(stages)
+  const next = getNextStep(stages)
+  const position = next ? stages.indexOf(next) + 1 : stages.length
+
+  return (
+    <BlockStateProvider errorMessage={errorMessage} state={state}>
+      <Card>
+        <CardContent>
+          <section className='@container flex flex-col gap-4'>
+            <header className='flex flex-wrap items-start justify-between gap-3'>
+              <div className='flex min-w-0 flex-col gap-0.5'>
+                <h2 className='font-semibold tracking-tight'>{title}</h2>
+                <p className='text-muted-foreground text-sm'>
+                  {description}{' '}
+                  <BlockReady className='text-sm'>
+                    {progress.remaining === 0
+                      ? 'Every stage is done.'
+                      : `Stage ${position} of ${stages.length}.`}
+                  </BlockReady>
+                </p>
+              </div>
+              {(state || progress.remaining > 0) && (
+                <Button size='sm' disabled={state !== undefined} onClick={onContinue}>
+                  {continueLabel}
+                  <ArrowRightIcon data-icon='inline-end' />
+                </Button>
+              )}
+            </header>
+            <BlockStateRows className='border-t' rows={stages.length || 5} />
+            {!state && (
+              <ol aria-label='Setup stages' className='flex flex-col gap-3 @xl:flex-row'>
+                {stages.map((stage, index) => (
+                  <li
+                    key={stage.id}
+                    aria-current={stage.state === 'current' ? 'step' : undefined}
+                    data-state={stage.state}
+                    className='border-border data-[state=current]:border-foreground data-[state=done]:border-chart-2 flex min-w-0 items-start gap-2 border-l-2 pl-3 text-sm data-[state=skipped]:border-dashed @xl:flex-1 @xl:border-t-2 @xl:border-l-0 @xl:pt-3 @xl:pl-0'
+                  >
+                    <StepIndicator index={index + 1} state={stage.state} />
+                    <span
+                      className={cn(
+                        'min-w-0 font-medium break-words',
+                        (stage.state === 'todo' || stage.state === 'skipped') &&
+                          'text-muted-foreground',
+                      )}
+                    >
+                      {stage.title}
+                      <span className='sr-only'>
+                        , {stepStateConfig[stage.state].label}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            )}
+          </section>
+        </CardContent>
+      </Card>
+    </BlockStateProvider>
+  )
+}
+
+export { Checklist2, exampleProps as checklist2ExampleProps, type Checklist2Props }

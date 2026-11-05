@@ -1,0 +1,220 @@
+'use client'
+
+import { CreditCardIcon, MessageSquareIcon, PauseIcon, PlayIcon, Undo2Icon, UserPlusIcon } from 'lucide-react'
+import {
+  ActivityFeed,
+  ActivityFeedItem,
+  ActivityIcon,
+  type ActivityTone,
+} from '@/components/dashboardblocks/activity-feed'
+import {
+  BlockStateProvider,
+  BlockStateRows,
+  type BlockStateProps,
+  getBlockState,
+} from '@/components/dashboardblocks/block-state'
+import { LiveBadge, formatAgo } from '@/components/dashboardblocks/realtime'
+import { type ReactNode, useState } from 'react'
+
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+
+import { cn } from '@/lib/utils'
+
+type LiveEventKind = 'order' | 'signup' | 'refund' | 'message'
+
+interface LiveEvent {
+  at: Date
+  detail: string
+  id: string
+  kind: LiveEventKind
+  label: string
+}
+
+interface Realtime3Props extends BlockStateProps {
+  description: string
+  /** Newest first. Leave out, or pass none, to show the empty state. */
+  events?: LiveEvent[]
+  limit?: number
+  /** Pass a fixed date, so the block renders the same on the server and in the browser. */
+  now: Date
+  title: string
+}
+
+const noEvents: LiveEvent[] = []
+
+const kindConfig: Record<LiveEventKind, { icon: ReactNode; tone: ActivityTone }> = {
+  message: {
+    tone: 'neutral',
+    icon: (
+      <MessageSquareIcon aria-hidden />
+    ),
+  },
+  order: {
+    tone: 'success',
+    icon: (
+      <CreditCardIcon aria-hidden />
+    ),
+  },
+  refund: {
+    tone: 'warning',
+    icon: (
+      <Undo2Icon aria-hidden />
+    ),
+  },
+  signup: {
+    tone: 'info',
+    icon: (
+      <UserPlusIcon aria-hidden />
+    ),
+  },
+}
+
+const NOW = new Date(Date.UTC(2026, 8, 26, 14, 30, 0))
+const secondsAgo = (seconds: number) => new Date(NOW.getTime() - seconds * 1000)
+
+const exampleProps: Realtime3Props = {
+  description: 'Every order, sign-up, refund and support chat as it happens.',
+  events: [
+    {
+      at: secondsAgo(3),
+      detail: '$84.00, 2 items',
+      id: 'e6',
+      kind: 'order',
+      label: 'Order #10482',
+    },
+    {
+      at: secondsAgo(18),
+      detail: 'Pro trial, from Google',
+      id: 'e5',
+      kind: 'signup',
+      label: 'New sign-up',
+    },
+    {
+      at: secondsAgo(41),
+      detail: '"Can I change my plan mid-cycle?"',
+      id: 'e4',
+      kind: 'message',
+      label: 'Support chat',
+    },
+    {
+      at: secondsAgo(75),
+      detail: '$212.50, 5 items',
+      id: 'e3',
+      kind: 'order',
+      label: 'Order #10481',
+    },
+    {
+      at: secondsAgo(130),
+      detail: '$39.00, damaged in transit',
+      id: 'e2',
+      kind: 'refund',
+      label: 'Refund #3310',
+    },
+    {
+      at: secondsAgo(205),
+      detail: 'Team plan, from a referral',
+      id: 'e1',
+      kind: 'signup',
+      label: 'New sign-up',
+    },
+  ],
+  now: NOW,
+  title: 'Live activity',
+}
+
+const Realtime3 = (props: Realtime3Props) => {
+  const {
+    description,
+    events: loadedEvents = noEvents,
+    limit = 6,
+    errorMessage,
+    status,
+    title,
+  } = props
+  const [held, setHeld] = useState<{ events: LiveEvent[]; now: Date } | null>(null)
+  const [firstIds] = useState(() => new Set(loadedEvents.map((event) => event.id)))
+  const paused = held !== null
+  const events = held?.events ?? loadedEvents.slice(0, limit)
+  const now = held?.now ?? props.now
+  const state = getBlockState(status, events)
+
+  return (
+    <BlockStateProvider errorMessage={errorMessage} state={state}>
+      <Card>
+        <CardContent>
+          <section className='@container flex flex-col gap-4'>
+            <header className='flex items-start justify-between gap-3'>
+              <div className='flex min-w-0 flex-col gap-0.5'>
+                <h2 className='font-semibold tracking-tight'>{title}</h2>
+                <p className='text-muted-foreground text-sm'>{description}</p>
+              </div>
+              <div className='flex shrink-0 items-center gap-3'>
+                {!state && <LiveBadge paused={paused} />}
+                <Button
+                  disabled={Boolean(state)}
+                  size='sm'
+                  variant='outline'
+                  onClick={() => setHeld(paused ? null : { events, now })}
+                >
+                  {paused ? (
+                    <PlayIcon className='fill-current' data-icon='inline-start' />
+                  ) : (
+                    <PauseIcon className='fill-current' data-icon='inline-start' />
+                  )}
+                  {paused ? 'Resume' : 'Pause'}
+                </Button>
+              </div>
+            </header>
+            {state && (
+              <div className='border-t'>
+                <BlockStateRows rows={limit} />
+              </div>
+            )}
+            {!state && (
+              <ActivityFeed className='border-t pt-1'>
+                {events.map((event, index) => {
+                  const config = kindConfig[event.kind]
+                  return (
+                    <ActivityFeedItem
+                      key={event.id}
+                      className={cn(
+                        'items-center border-b py-2.5 last:border-b-0',
+                        index === 0 &&
+                          !firstIds.has(event.id) &&
+                          'motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-1',
+                      )}
+                    >
+                      <ActivityIcon icon={config.icon} tone={config.tone} />
+                      <div className='flex min-w-0 flex-1 flex-col'>
+                        <span className='truncate text-sm font-medium'>
+                          {event.label}
+                        </span>
+                        <span className='text-muted-foreground truncate text-sm'>
+                          {event.detail}
+                        </span>
+                      </div>
+                      <time
+                        className='text-muted-foreground shrink-0 text-xs tabular-nums'
+                        dateTime={event.at.toISOString()}
+                      >
+                        {formatAgo(event.at, now)}
+                      </time>
+                    </ActivityFeedItem>
+                  )
+                })}
+              </ActivityFeed>
+            )}
+          </section>
+        </CardContent>
+      </Card>
+    </BlockStateProvider>
+  )
+}
+
+export {
+  Realtime3,
+  exampleProps as realtime3ExampleProps,
+  type LiveEvent,
+  type Realtime3Props,
+}

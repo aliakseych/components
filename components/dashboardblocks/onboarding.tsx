@@ -1,0 +1,477 @@
+'use client'
+
+import { ArrowRightIcon, PlusIcon, XIcon } from 'lucide-react'
+import { isEmail } from '@/components/dashboardblocks/forms'
+import { Link } from '@/components/dashboardblocks/link'
+import { OptionSelect } from '@/components/dashboardblocks/option-select'
+import {
+  type ClipboardEvent,
+  type FormEvent,
+  type ReactNode,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react'
+
+import { Button } from '@/components/ui/button'
+import { FieldError } from '@/components/ui/field'
+import { Input } from '@/components/ui/input'
+
+import { cn } from '@/lib/utils'
+
+interface OnboardingLayoutProps {
+  aside?: ReactNode
+  brand: ReactNode
+  children: ReactNode
+  className?: string
+  description?: ReactNode
+  footer?: ReactNode
+  /** Wraps the content and footer in a form, so Enter and a submit button in the footer run it. */
+  onSubmit?: (event: FormEvent<HTMLFormElement>) => void
+  progress?: ReactNode
+  step?: number | string
+  title: ReactNode
+}
+
+function OnboardingLayout({
+  aside,
+  brand,
+  children,
+  className,
+  description,
+  footer,
+  onSubmit,
+  progress,
+  step,
+  title,
+}: OnboardingLayoutProps) {
+  const headingRef = useRef<HTMLHeadingElement>(null)
+  const shownStep = useRef(step)
+
+  useEffect(() => {
+    if (shownStep.current === step) return
+    shownStep.current = step
+    headingRef.current?.focus()
+  }, [step])
+
+  const body = (
+    <>
+      {progress && <div className='mb-8'>{progress}</div>}
+      <div className='mb-8 flex flex-col gap-2'>
+        <h1
+          ref={headingRef}
+          tabIndex={-1}
+          className='text-xl font-semibold tracking-tight text-balance outline-none sm:text-2xl'
+        >
+          {title}
+        </h1>
+        {description && (
+          <p className='text-muted-foreground text-pretty'>{description}</p>
+        )}
+      </div>
+      <div className='flex-1'>{children}</div>
+      {footer && (
+        <div
+          data-floating-bar
+          className='bg-background sticky bottom-0 z-10 mt-8 border-t py-4'
+        >
+          {footer}
+        </div>
+      )}
+    </>
+  )
+  const bodyClassName =
+    'mx-auto flex w-full max-w-xl flex-1 flex-col pt-4 sm:mb-12 sm:flex-none sm:pt-10'
+
+  return (
+    <div className={cn('bg-background flex min-h-svh flex-col', className)}>
+      <header className='flex h-16 shrink-0 items-center justify-between gap-4 px-4 sm:px-6'>
+        <div className='flex min-w-0 items-center gap-2 text-sm font-medium'>{brand}</div>
+        {aside && (
+          <div className='text-muted-foreground flex min-w-0 items-center gap-3 text-sm'>
+            {aside}
+          </div>
+        )}
+      </header>
+      <main className='flex flex-1 flex-col px-4 sm:px-6'>
+        {onSubmit ? (
+          <form method='post' noValidate onSubmit={onSubmit} className={bodyClassName}>
+            {body}
+          </form>
+        ) : (
+          <div className={bodyClassName}>{body}</div>
+        )}
+      </main>
+    </div>
+  )
+}
+
+interface OnboardingActionsProps {
+  /** @default 'Back' */
+  backLabel?: string
+  className?: string
+  /** @default 'Continue' */
+  continueLabel?: string
+  /** Leave out on the first step to hide Back. */
+  onBack?: () => void
+  /** Leave out to make Continue submit the form. */
+  onContinue?: () => void
+  /** Leave out to hide Skip. */
+  onSkip?: () => void
+  /** Disables the buttons and shows `pendingLabel` while the step saves. */
+  pending?: boolean
+  /** @default 'Saving…' */
+  pendingLabel?: string
+  /** @default 'Skip for now' */
+  skipLabel?: string
+}
+
+function OnboardingActions({
+  backLabel = 'Back',
+  className,
+  continueLabel = 'Continue',
+  onBack,
+  onContinue,
+  onSkip,
+  pending = false,
+  pendingLabel = 'Saving…',
+  skipLabel = 'Skip for now',
+}: OnboardingActionsProps) {
+  return (
+    <div className={cn('flex items-center gap-2', className)}>
+      {onBack && (
+        <Button type='button' variant='ghost' disabled={pending} onClick={onBack}>
+          {backLabel}
+        </Button>
+      )}
+      <div className='ml-auto flex items-center gap-2'>
+        {onSkip && (
+          <Button type='button' variant='ghost' disabled={pending} onClick={onSkip}>
+            {skipLabel}
+          </Button>
+        )}
+        <Button
+          type={onContinue ? 'button' : 'submit'}
+          disabled={pending}
+          onClick={onContinue}
+        >
+          {pending ? pendingLabel : continueLabel}
+          {!pending && (
+            <ArrowRightIcon data-icon='inline-end' />
+          )}
+        </Button>
+      </div>
+    </div>
+  )
+}
+
+interface Invite {
+  email: string
+  id: string
+  role: string
+}
+
+interface InviteListProps {
+  /** @default 'Add another' */
+  addLabel?: string
+  className?: string
+  errors?: Partial<Record<string, string>>
+  /** Starts each email input's id, `${id}-${invite.id}`, so validation can focus a row. */
+  id?: string
+  max?: number
+  onValueChange: (invites: Invite[]) => void
+  /** @default 'name@company.com' */
+  placeholder?: string
+  roles: { label: string; value: string }[]
+  /** Keep at least one row. */
+  value: Invite[]
+}
+
+function InviteList({
+  addLabel = 'Add another',
+  className,
+  errors = {},
+  id,
+  max = 10,
+  onValueChange,
+  placeholder = 'name@company.com',
+  roles,
+  value,
+}: InviteListProps) {
+  const baseId = useId()
+  const created = useRef(0)
+  const focusNext = useRef<string | null>(null)
+  const [announcement, setAnnouncement] = useState('')
+
+  const emailId = (invite: Invite) => `${id ?? baseId}-${invite.id}`
+
+  useEffect(() => {
+    if (!focusNext.current) return
+    document.getElementById(focusNext.current)?.focus()
+    focusNext.current = null
+  }, [value])
+
+  function createInvite(email: string, role: string): Invite {
+    created.current += 1
+    return { email, id: `${baseId}-new-${created.current}`, role }
+  }
+
+  function update(index: number, change: Partial<Invite>) {
+    onValueChange(
+      value.map((invite, i) => (i === index ? { ...invite, ...change } : invite)),
+    )
+  }
+
+  function add() {
+    const role = value.at(-1)?.role ?? roles[0]?.value ?? ''
+    const invite = createInvite('', role)
+    focusNext.current = emailId(invite)
+    onValueChange([...value, invite])
+  }
+
+  function remove(index: number) {
+    const next = value.filter((_, i) => i !== index)
+    focusNext.current = emailId(next[Math.min(index, next.length - 1)])
+    onValueChange(next)
+    setAnnouncement(
+      value[index].email
+        ? `Removed ${value[index].email}`
+        : `Removed invite ${index + 1}`,
+    )
+  }
+
+  function paste(event: ClipboardEvent<HTMLInputElement>, index: number) {
+    const emails = event.clipboardData
+      .getData('text')
+      .split(/[\s,;]+/)
+      .map((part) => part.replace(/^<|>$/g, ''))
+      .filter(Boolean)
+    if (emails.length < 2) return
+    event.preventDefault()
+    const current = value[index]
+    const room = max - value.length + 1
+    const added = emails
+      .slice(0, room)
+      .map((email, i) =>
+        i === 0 ? { ...current, email } : createInvite(email, current.role),
+      )
+    onValueChange([...value.slice(0, index), ...added, ...value.slice(index + 1)])
+    setAnnouncement(
+      emails.length > room
+        ? `Added ${added.length} of ${emails.length} addresses. You can invite up to ${max} people at once.`
+        : `Added ${added.length} addresses`,
+    )
+  }
+
+  return (
+    <div className={cn('@container', className)}>
+      <div className='grid grid-cols-[minmax(0,1fr)_6.5rem_auto] gap-x-2 gap-y-3 @sm:grid-cols-[minmax(0,1fr)_8rem_auto]'>
+        <span aria-hidden className='text-sm font-medium'>
+          Email
+        </span>
+        <span aria-hidden className='col-span-2 text-sm font-medium'>
+          Role
+        </span>
+        <ul className='col-span-full grid grid-cols-subgrid gap-y-3'>
+          {value.map((invite, index) => {
+            const inputId = emailId(invite)
+            const error = errors[invite.id]
+            const label = invite.email.trim() || `invite ${index + 1}`
+            return (
+              <li
+                key={invite.id}
+                className='col-span-full grid grid-cols-subgrid items-start gap-y-2'
+              >
+                <Input
+                  id={inputId}
+                  type='email'
+                  autoComplete='off'
+                  spellCheck={false}
+                  aria-label={`Email ${index + 1}`}
+                  aria-invalid={error ? true : undefined}
+                  aria-describedby={error ? `${inputId}-error` : undefined}
+                  placeholder={placeholder}
+                  value={invite.email}
+                  onChange={(event) => update(index, { email: event.target.value })}
+                  onPaste={(event) => paste(event, index)}
+                />
+                <OptionSelect
+                  className='w-full'
+                  aria-label={`Role for ${label}`}
+                  value={invite.role}
+                  options={roles}
+                  onValueChange={(role) => update(index, { role })}
+                />
+                <Button
+                  type='button'
+                  variant='ghost'
+                  size='icon'
+                  aria-label={`Remove ${label}`}
+                  className={cn(value.length === 1 && 'invisible')}
+                  onClick={() => remove(index)}
+                >
+                  <XIcon />
+                </Button>
+                <FieldError id={`${inputId}-error`} className='col-span-full'>
+                  {error}
+                </FieldError>
+              </li>
+            )
+          })}
+        </ul>
+        <Button
+          type='button'
+          variant='outline'
+          size='sm'
+          className='col-span-full justify-self-start'
+          disabled={value.length >= max}
+          onClick={add}
+        >
+          <PlusIcon data-icon='inline-start' />
+          {addLabel}
+        </Button>
+      </div>
+      <p role='status' className='sr-only'>
+        {announcement}
+      </p>
+    </div>
+  )
+}
+
+function getInviteErrors(
+  invites: Invite[],
+  { members = [] }: { members?: string[] } = {},
+) {
+  const errors: Partial<Record<string, string>> = {}
+  const memberEmails = new Set(members.map((email) => email.toLowerCase()))
+  const seen = new Set<string>()
+  for (const invite of invites) {
+    const email = invite.email.trim().toLowerCase()
+    if (!email) continue
+    if (!isEmail(email)) {
+      errors[invite.id] = 'Enter an email address like name@example.com.'
+    } else if (memberEmails.has(email)) {
+      errors[invite.id] = `${invite.email.trim()} is already in the workspace.`
+    } else if (seen.has(email)) {
+      errors[invite.id] = "You've already added this address."
+    }
+    seen.add(email)
+  }
+  return errors
+}
+
+function getFilledInvites(invites: Invite[]) {
+  return invites
+    .map((invite) => ({ ...invite, email: invite.email.trim() }))
+    .filter((invite) => invite.email)
+}
+
+interface ActionCardProps {
+  badge?: ReactNode
+  className?: string
+  description?: ReactNode
+  href?: string
+  icon?: ReactNode
+  meta?: ReactNode
+  onClick?: () => void
+  title: string
+}
+
+function ActionCard({
+  badge,
+  className,
+  description,
+  href,
+  icon,
+  meta,
+  onClick,
+  title,
+}: ActionCardProps) {
+  const id = useId()
+  const target = (
+    <>
+      <span aria-hidden className='absolute inset-0' />
+      {title}
+    </>
+  )
+  const describedBy = description ? `${id}-description` : undefined
+  return (
+    <div
+      data-slot='action-card'
+      className={cn(
+        'group/action has-[:focus-visible]:ring-ring/50 relative flex h-full items-start gap-3 border-t pt-3 pb-1 has-[:focus-visible]:ring-3',
+        className,
+      )}
+    >
+      {icon && (
+        <span
+          aria-hidden
+          className='text-muted-foreground group-hover/action:text-foreground mt-0.5 flex shrink-0 transition-colors [&_svg]:size-5'
+        >
+          {icon}
+        </span>
+      )}
+      <div className='flex min-w-0 flex-1 flex-col gap-0.5'>
+        <span className='flex flex-wrap items-baseline gap-x-2'>
+          {href ? (
+            <Link
+              href={href}
+              onClick={onClick}
+              aria-describedby={describedBy}
+              className='text-sm font-medium underline-offset-4 outline-none group-hover/action:underline'
+            >
+              {target}
+            </Link>
+          ) : (
+            <button
+              type='button'
+              onClick={onClick}
+              aria-describedby={describedBy}
+              className='text-left text-sm font-medium underline-offset-4 outline-none group-hover/action:underline'
+            >
+              {target}
+            </button>
+          )}
+          {badge && <span className='text-muted-foreground text-xs'>{badge}</span>}
+        </span>
+        {description && (
+          <p id={describedBy} className='text-muted-foreground text-sm text-pretty'>
+            {description}
+          </p>
+        )}
+        {meta && <p className='text-muted-foreground text-sm'>{meta}</p>}
+      </div>
+      <ArrowRightIcon aria-hidden className='text-muted-foreground group-hover/action:text-foreground mt-0.5 size-4 shrink-0 transition-[color,translate] group-hover/action:translate-x-0.5 motion-reduce:transition-none' />
+    </div>
+  )
+}
+
+/** "Fernhill & Co." → "fernhill-co": lowercase letters, numbers and single dashes, for a URL. */
+function slugify(text: string, maxLength = 32) {
+  return text
+    .normalize('NFKD')
+    .replace(/[̀-ͯ]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .slice(0, maxLength)
+    .replace(/^-+|-+$/g, '')
+}
+
+export {
+  ActionCard,
+  getFilledInvites,
+  getInviteErrors,
+  InviteList,
+  OnboardingActions,
+  OnboardingLayout,
+  slugify,
+}
+
+export type {
+  ActionCardProps,
+  Invite,
+  InviteListProps,
+  OnboardingActionsProps,
+  OnboardingLayoutProps,
+}

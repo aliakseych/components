@@ -1,0 +1,895 @@
+'use client'
+
+import { PrinterIcon } from 'lucide-react'
+import {
+  BlockStateText,
+  SkeletonText,
+  useBlockState,
+} from '@/components/dashboardblocks/block-state'
+import { Details } from '@/components/dashboardblocks/details'
+import {
+  DataTable,
+  DataTableBody,
+  DataTableCell,
+  DataTableHead,
+  DataTableHeader,
+  DataTableRow,
+  DataTableStateRows,
+} from '@/components/dashboardblocks/table'
+import {
+  formatCurrency,
+  formatPercent,
+  formatSigned,
+  getCurrencyDigits,
+  toMinorUnits,
+} from '@/lib/dashboardblocks/format'
+import { type ComponentProps, type ReactNode, useId } from 'react'
+
+import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
+
+import { cn } from '@/lib/utils'
+
+interface DocumentLine {
+  detail?: string
+  description: string
+  id: string
+  optional?: boolean
+  quantity: number
+  sku?: string
+  /** This line's tax rate, 0.2 for 20%, instead of the document's. */
+  taxRate?: number
+  unit?: string
+  unitPrice: number
+}
+
+interface DocumentTotalsOptions {
+  /** Amounts round to its smallest unit, cents for USD. */
+  currency?: string
+  discount?: number
+  /** A share off the subtotal, 0.1 for 10%. */
+  discountRate?: number
+  paid?: number
+  /** Added after tax and not taxed. */
+  shipping?: number
+  /** The rate for lines without their own, 0.2 for 20%. */
+  taxRate?: number
+}
+
+interface DocumentTax {
+  amount: number
+  rate: number
+  taxable: number
+}
+
+interface DocumentAmounts {
+  balanceDue: number
+  /** A positive amount. */
+  discount: number
+  paid: number
+  shipping: number
+  subtotal: number
+  tax: number
+  /** One entry per rate above zero, in the order the rates first appear. */
+  taxes: DocumentTax[]
+  total: number
+}
+
+function formatDocumentAmount(value: number, currency = 'USD') {
+  const format = (amount: number) =>
+    formatCurrency(amount, { currency, precision: 'exact' })
+  return value < 0 ? formatSigned(value, format) : format(value)
+}
+
+function getLineAmount(
+  line: Pick<DocumentLine, 'quantity' | 'unitPrice'>,
+  currency = 'USD',
+) {
+  const scale = 10 ** getCurrencyDigits(currency)
+  return toMinorUnits(line.quantity * line.unitPrice, currency) / scale
+}
+
+function getDocumentTotals(
+  lines: Pick<DocumentLine, 'quantity' | 'taxRate' | 'unitPrice'>[],
+  options: DocumentTotalsOptions = {},
+): DocumentAmounts {
+  const {
+    currency = 'USD',
+    discount,
+    discountRate = 0,
+    paid = 0,
+    shipping = 0,
+    taxRate = 0,
+  } = options
+  const scale = 10 ** getCurrencyDigits(currency)
+  const minor = (value: number) => toMinorUnits(value, currency)
+
+  const groups = new Map<number, number>()
+  let subtotal = 0
+  for (const line of lines) {
+    const amount = minor(line.quantity * line.unitPrice)
+    const rate = line.taxRate ?? taxRate
+    groups.set(rate, (groups.get(rate) ?? 0) + amount)
+    subtotal += amount
+  }
+
+  const requested =
+    discount !== undefined ? minor(discount) : minor((subtotal / scale) * discountRate)
+  const discountTotal = Math.min(Math.max(requested, 0), Math.max(subtotal, 0))
+
+  const taxes: DocumentTax[] = []
+  let allocated = 0
+  let tax = 0
+  const entries = [...groups]
+  entries.forEach(([rate, base], index) => {
+    const share =
+      index === entries.length - 1
+        ? discountTotal - allocated
+        : subtotal === 0
+          ? 0
+          : Math.round((discountTotal * base) / subtotal)
+    allocated += share
+    const taxable = base - share
+    const amount = minor((taxable / scale) * rate)
+    tax += amount
+    if (rate > 0) taxes.push({ amount: amount / scale, rate, taxable: taxable / scale })
+  })
+
+  const shippingTotal = minor(shipping)
+  const total = subtotal - discountTotal + tax + shippingTotal
+  const paidTotal = minor(paid)
+
+  return {
+    balanceDue: (total - paidTotal) / scale,
+    discount: discountTotal / scale,
+    paid: paidTotal / scale,
+    shipping: shippingTotal / scale,
+    subtotal: subtotal / scale,
+    tax: tax / scale,
+    taxes,
+    total: total / scale,
+  }
+}
+
+function formatRate(rate: number) {
+  return formatPercent(rate, { maximumFractionDigits: 3 })
+}
+
+interface DocumentTotalRow {
+  /** `total` rules a line above the row. */
+  emphasis?: 'due' | 'total'
+  id: string
+  label: ReactNode
+  /** Negative for amounts taken off, such as a discount or a payment. */
+  value: number
+}
+
+interface DocumentTotalLabels {
+  /** @default 'Discount' */
+  discount?: string
+  /** @default 'Balance due' */
+  due?: string
+  /** @default 'Amount paid' */
+  paid?: string
+  /** @default 'Shipping' */
+  shipping?: string
+  /** Followed by the rate. */
+  tax?: string
+  /** @default 'Total' */
+  total?: string
+}
+
+function getTotalRows(amounts: DocumentAmounts, labels: DocumentTotalLabels = {}) {
+  const rows: DocumentTotalRow[] = []
+  if (amounts.discount > 0 || amounts.taxes.length > 0 || amounts.shipping > 0) {
+    rows.push({ id: 'subtotal', label: 'Subtotal', value: amounts.subtotal })
+  }
+  if (amounts.discount > 0) {
+    rows.push({
+      id: 'discount',
+      label: labels.discount ?? 'Discount',
+      value: -amounts.discount,
+    })
+  }
+  for (const tax of amounts.taxes) {
+    rows.push({
+      id: `tax-${tax.rate}`,
+      label: `${labels.tax ?? 'Tax'} (${formatRate(tax.rate)})`,
+      value: tax.amount,
+    })
+  }
+  if (amounts.shipping > 0) {
+    rows.push({
+      id: 'shipping',
+      label: labels.shipping ?? 'Shipping',
+      value: amounts.shipping,
+    })
+  }
+  if (amounts.paid === 0) {
+    rows.push({
+      emphasis: 'due',
+      id: 'total',
+      label: labels.total ?? 'Total',
+      value: amounts.total,
+    })
+    return rows
+  }
+  rows.push(
+    {
+      emphasis: 'total',
+      id: 'total',
+      label: labels.total ?? 'Total',
+      value: amounts.total,
+    },
+    { id: 'paid', label: labels.paid ?? 'Amount paid', value: -amounts.paid },
+    {
+      emphasis: 'due',
+      id: 'due',
+      label: labels.due ?? 'Balance due',
+      value: amounts.balanceDue,
+    },
+  )
+  return rows
+}
+
+function DocumentLayout({
+  children,
+  className,
+}: {
+  children: ReactNode
+  className?: string
+}) {
+  return (
+    <div
+      className={cn(
+        'mx-auto flex w-full max-w-3xl flex-col gap-4 print:max-w-none print:gap-0',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  )
+}
+
+function DocumentToolbar({
+  children,
+  className,
+  description,
+}: {
+  children: ReactNode
+  className?: string
+  description?: ReactNode
+}) {
+  return (
+    <div
+      className={cn(
+        'flex flex-wrap items-center justify-end gap-x-4 gap-y-3 print:hidden',
+        className,
+      )}
+    >
+      {description && (
+        <div className='text-muted-foreground mr-auto min-w-0 text-sm text-pretty'>
+          {description}
+        </div>
+      )}
+      <div className='flex flex-wrap items-center gap-2'>{children}</div>
+    </div>
+  )
+}
+
+function PrintButton({
+  children = 'Print',
+  className,
+  onPrint,
+}: {
+  /** @default 'Print' */
+  children?: ReactNode
+  className?: string
+  /** Replaces `window.print()`, for example to print a server-rendered PDF. */
+  onPrint?: () => void
+}) {
+  const state = useBlockState()
+  return (
+    <Button
+      variant='outline'
+      size='sm'
+      className={className}
+      disabled={!!state}
+      onClick={() => (onPrint ? onPrint() : window.print())}
+    >
+      <PrinterIcon aria-hidden />
+      {children}
+    </Button>
+  )
+}
+
+const printColors =
+  'print:[color-scheme:light] print:[--background:#fff] print:[--border:#d4d4d4] print:[--card-foreground:#000] print:[--card:#fff] print:[--foreground:#000] print:[--input:#a3a3a3] print:[--muted-foreground:#525252] print:[--muted:#f5f5f5] print:[--primary-foreground:#fff] print:[--primary:#000]'
+
+function DocumentPage({
+  children,
+  className,
+  ...props
+}: {
+  children: ReactNode
+  className?: string
+} & Pick<ComponentProps<'article'>, 'aria-label' | 'aria-labelledby'>) {
+  return (
+    <article
+      {...props}
+      className={cn(
+        '@container/document flex flex-col gap-8 border-t pt-6 print:border-0 print:pt-0',
+        printColors,
+        className,
+      )}
+    >
+      {children}
+    </article>
+  )
+}
+
+function DocumentBrand({
+  className,
+  detail,
+  logo,
+  name,
+}: {
+  className?: string
+  detail?: ReactNode
+  /** Print-safe: an SVG or image, not a coloured background with light text. */
+  logo?: ReactNode
+  name: string
+}) {
+  return (
+    <div className={cn('flex min-w-0 items-center gap-3', className)}>
+      {logo && <span className='flex shrink-0 [&_svg]:size-9'>{logo}</span>}
+      <div className='flex min-w-0 flex-col'>
+        <span className='font-semibold'>{name}</span>
+        {detail && <span className='text-muted-foreground text-sm'>{detail}</span>}
+      </div>
+    </div>
+  )
+}
+
+function DocumentHeader({
+  brand,
+  children,
+  className,
+  number,
+  status,
+  title,
+}: {
+  brand: ReactNode
+  children?: ReactNode
+  className?: string
+  number: string
+  status?: ReactNode
+  title: string
+}) {
+  const state = useBlockState()
+  return (
+    <header
+      className={cn(
+        'flex flex-col gap-6 break-inside-avoid @xl/document:flex-row @xl/document:items-start @xl/document:justify-between print:flex-row print:items-start print:justify-between',
+        className,
+      )}
+    >
+      {brand}
+      <div className='flex flex-col gap-1 @xl/document:items-end @xl/document:text-right print:items-end print:text-right'>
+        <div className='flex flex-wrap items-center gap-x-3 gap-y-1 @xl/document:flex-row-reverse print:flex-row-reverse'>
+          <h1 className='text-2xl/6 font-semibold tracking-tight'>{title}</h1>
+          {status && !state && <span className='print:*:text-black!'>{status}</span>}
+        </div>
+        {state === 'loading' ? (
+          <SkeletonText className='w-28 text-sm' />
+        ) : (
+          !state && <p className='text-muted-foreground font-mono text-sm'>{number}</p>
+        )}
+        {!state && children}
+      </div>
+    </header>
+  )
+}
+
+function DocumentHeadline({
+  children,
+  className,
+  label,
+  value,
+}: {
+  children?: ReactNode
+  className?: string
+  label: string
+  value: ReactNode
+}) {
+  const state = useBlockState()
+  return (
+    <div className={cn('flex min-w-0 flex-col gap-1 break-inside-avoid', className)}>
+      <p className='text-muted-foreground text-sm'>{label}</p>
+      <div className='text-4xl font-light tracking-tight tabular-nums'>
+        {state === 'loading' ? (
+          <SkeletonText className='w-[4.5em]' />
+        ) : state ? (
+          <BlockStateText variant='short' />
+        ) : (
+          value
+        )}
+      </div>
+      {state === 'loading' ? (
+        <BlockStateText className='text-sm' />
+      ) : (
+        !state &&
+        children && (
+          <p className='text-muted-foreground text-sm text-pretty'>{children}</p>
+        )
+      )}
+    </div>
+  )
+}
+
+function DocumentSummary({
+  children,
+  className,
+}: {
+  children: ReactNode
+  className?: string
+}) {
+  return (
+    <div
+      className={cn(
+        'grid gap-6 border-y py-6 break-inside-avoid @xl/document:grid-cols-2 print:grid-cols-2',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  )
+}
+
+interface DocumentMetaItem {
+  label: string
+  note?: ReactNode
+  value: ReactNode
+}
+
+function DocumentMeta({
+  className,
+  items,
+}: {
+  className?: string
+  items: DocumentMetaItem[]
+}) {
+  const state = useBlockState()
+  if (state === 'empty' || state === 'error') return null
+  return (
+    <dl
+      className={cn(
+        'grid grid-cols-2 content-start gap-x-6 gap-y-4 break-inside-avoid',
+        className,
+      )}
+    >
+      {items.map((item) => (
+        <div key={item.label} className='flex min-w-0 flex-col gap-1'>
+          <dt className='text-muted-foreground text-sm'>{item.label}</dt>
+          <dd className='text-sm font-medium break-words tabular-nums'>
+            {state === 'loading' ? <SkeletonText className='w-20' /> : item.value}
+          </dd>
+          {item.note && !state && (
+            <dd className='text-muted-foreground text-xs'>{item.note}</dd>
+          )}
+        </div>
+      ))}
+    </dl>
+  )
+}
+
+interface DocumentParty {
+  label: string
+  lines: string[]
+  name: string
+}
+
+function DocumentParties({
+  className,
+  parties,
+}: {
+  className?: string
+  parties: DocumentParty[]
+}) {
+  const state = useBlockState()
+  if (state === 'empty' || state === 'error') return null
+  return (
+    <div
+      className={cn(
+        'grid gap-6 break-inside-avoid @md/document:grid-cols-2 @2xl/document:auto-cols-fr @2xl/document:grid-flow-col @2xl/document:grid-cols-none print:auto-cols-fr print:grid-flow-col print:grid-cols-none',
+        className,
+      )}
+    >
+      {parties.map((party) => (
+        <section key={party.label} className='flex min-w-0 flex-col gap-1.5 text-sm'>
+          <h2 className='text-muted-foreground'>{party.label}</h2>
+          {state === 'loading' ? (
+            <span className='flex flex-col gap-1.5'>
+              <SkeletonText className='w-32' />
+              <SkeletonText className='w-40' />
+              <SkeletonText className='w-28' />
+            </span>
+          ) : (
+            <address className='not-italic'>
+              <span className='block font-medium'>{party.name}</span>
+              {party.lines.map((line, index) => (
+                <span key={index} className='text-muted-foreground block break-words'>
+                  {line}
+                </span>
+              ))}
+            </address>
+          )}
+        </section>
+      ))}
+    </div>
+  )
+}
+
+interface LineSelection {
+  isSelectable?: (line: DocumentLine) => boolean
+  label: (line: DocumentLine) => string
+  onChange: (id: string, selected: boolean) => void
+  selected: string[]
+}
+
+interface LineItemsTableProps {
+  caption?: string
+  className?: string
+  /** @default 'USD' */
+  currency?: string
+  hidePrices?: boolean
+  lines: DocumentLine[]
+  selection?: LineSelection
+}
+
+function LineItemsTable({
+  caption = 'Line items',
+  className,
+  currency = 'USD',
+  hidePrices = false,
+  lines,
+  selection,
+}: LineItemsTableProps) {
+  const state = useBlockState()
+  const selected = new Set(selection?.selected)
+  const hasSelection = Boolean(selection)
+  const wide = 'hidden @md/line-items:table-cell print:table-cell'
+
+  return (
+    <div className={cn('@container/line-items print:*:overflow-visible', className)}>
+      <DataTable caption={caption} density='compact'>
+        <DataTableHeader>
+          <DataTableRow>
+            {hasSelection && (
+              <DataTableHead className='w-8 pe-0'>
+                <span className='sr-only'>Selected</span>
+              </DataTableHead>
+            )}
+            <DataTableHead>Description</DataTableHead>
+            <DataTableHead align='end' className={cn(!hidePrices && wide)}>
+              Qty
+            </DataTableHead>
+            {!hidePrices && (
+              <>
+                <DataTableHead align='end' className={wide}>
+                  Unit price
+                </DataTableHead>
+                <DataTableHead align='end'>Amount</DataTableHead>
+              </>
+            )}
+          </DataTableRow>
+        </DataTableHeader>
+        <DataTableBody>
+          <DataTableStateRows
+            colSpan={(hasSelection ? 1 : 0) + (hidePrices ? 2 : 4)}
+            rows={Math.min(Math.max(lines.length, 3), 6)}
+          />
+          {!state &&
+            lines.map((line) => {
+              const isSelectable = selection && (selection.isSelectable?.(line) ?? true)
+              const isExcluded = isSelectable && line.optional && !selected.has(line.id)
+              const quantity = `${line.quantity}${line.unit ? ` ${line.unit}` : ''}`
+              return (
+                <DataTableRow key={line.id} className='break-inside-avoid'>
+                  {hasSelection && (
+                    <DataTableCell className='pe-0 align-top'>
+                      {isSelectable && (
+                        <Checkbox
+                          aria-label={selection.label(line)}
+                          checked={selected.has(line.id)}
+                          onCheckedChange={(checked) =>
+                            selection.onChange(line.id, checked === true)
+                          }
+                          className='mt-0.5 print:bg-transparent! print:[&_svg]:text-black!'
+                        />
+                      )}
+                    </DataTableCell>
+                  )}
+                  <DataTableCell className='align-top'>
+                    <span className='block font-medium'>{line.description}</span>
+                    {(line.sku || line.optional || line.detail) && (
+                      <Details className='text-muted-foreground mt-0.5 block text-xs'>
+                        {line.sku && <span className='font-mono'>{line.sku}</span>}
+                        {line.optional && 'Optional'}
+                        {line.detail}
+                      </Details>
+                    )}
+                    {!hidePrices && (
+                      <span className='text-muted-foreground mt-0.5 block text-xs tabular-nums @md/line-items:hidden print:hidden'>
+                        {quantity} × {formatDocumentAmount(line.unitPrice, currency)}
+                      </span>
+                    )}
+                  </DataTableCell>
+                  <DataTableCell
+                    align='end'
+                    className={cn('align-top', !hidePrices && wide)}
+                  >
+                    {quantity}
+                  </DataTableCell>
+                  {!hidePrices && (
+                    <>
+                      <DataTableCell align='end' className={cn('align-top', wide)}>
+                        {formatDocumentAmount(line.unitPrice, currency)}
+                      </DataTableCell>
+                      <DataTableCell
+                        align='end'
+                        className={cn(
+                          'align-top font-medium',
+                          isExcluded && 'text-muted-foreground font-normal',
+                        )}
+                      >
+                        {formatDocumentAmount(getLineAmount(line, currency), currency)}
+                        {isExcluded && <span className='sr-only'>, not included</span>}
+                      </DataTableCell>
+                    </>
+                  )}
+                </DataTableRow>
+              )
+            })}
+        </DataTableBody>
+      </DataTable>
+    </div>
+  )
+}
+
+function DocumentTotals({
+  className,
+  currency = 'USD',
+  rows,
+}: {
+  className?: string
+  /** @default 'USD' */
+  currency?: string
+  rows: DocumentTotalRow[]
+}) {
+  const state = useBlockState()
+  if (state === 'empty' || state === 'error') return null
+  return (
+    <dl
+      className={cn(
+        'ml-auto flex w-full max-w-sm flex-col gap-2.5 text-sm break-inside-avoid',
+        className,
+      )}
+    >
+      {rows.map((row) => (
+        <div
+          key={row.id}
+          className={cn(
+            'flex items-baseline justify-between gap-4 px-[var(--data-table-inset,0.75rem)]',
+            row.emphasis && 'border-t pt-2.5 font-medium',
+          )}
+        >
+          <dt className={cn(!row.emphasis && 'text-muted-foreground')}>{row.label}</dt>
+          <dd className='text-right tabular-nums'>
+            {state === 'loading' ? (
+              <SkeletonText className='w-16' />
+            ) : (
+              formatDocumentAmount(row.value, currency)
+            )}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
+
+function DocumentSection({
+  children,
+  className,
+  title,
+}: {
+  children: ReactNode
+  className?: string
+  title: string
+}) {
+  const id = useId()
+  return (
+    <section
+      aria-labelledby={id}
+      className={cn('flex min-w-0 flex-col gap-2 text-sm break-inside-avoid', className)}
+    >
+      <h2 id={id} className='font-medium'>
+        {title}
+      </h2>
+      {children}
+    </section>
+  )
+}
+
+function DocumentFooter({
+  children,
+  className,
+  parts,
+}: {
+  children?: ReactNode
+  className?: string
+  /** Short facts about the sender, such as the legal name, address and tax ID. */
+  parts?: string[]
+}) {
+  return (
+    <footer
+      className={cn(
+        'text-muted-foreground border-t pt-6 text-xs text-pretty break-inside-avoid',
+        className,
+      )}
+    >
+      {parts && (
+        <Details>
+          {parts.map((part) => (
+            <span key={part}>{part}</span>
+          ))}
+        </Details>
+      )}
+      {children}
+    </footer>
+  )
+}
+
+const code39: Record<string, string> = {
+  ' ': '011000100',
+  $: '010101000',
+  '%': '000101010',
+  '*': '010010100',
+  '+': '010001010',
+  '-': '010000101',
+  '.': '110000100',
+  '/': '010100010',
+  '0': '000110100',
+  '1': '100100001',
+  '2': '001100001',
+  '3': '101100000',
+  '4': '000110001',
+  '5': '100110000',
+  '6': '001110000',
+  '7': '000100101',
+  '8': '100100100',
+  '9': '001100100',
+  A: '100001001',
+  B: '001001001',
+  C: '101001000',
+  D: '000011001',
+  E: '100011000',
+  F: '001011000',
+  G: '000001101',
+  H: '100001100',
+  I: '001001100',
+  J: '000011100',
+  K: '100000011',
+  L: '001000011',
+  M: '101000010',
+  N: '000010011',
+  O: '100010010',
+  P: '001010010',
+  Q: '000000111',
+  R: '100000110',
+  S: '001000110',
+  T: '000010110',
+  U: '110000001',
+  V: '011000001',
+  W: '111000000',
+  X: '010010001',
+  Y: '110010000',
+  Z: '011010000',
+}
+
+const QUIET_ZONE = 10
+const WIDE = 3
+const INTER_CHARACTER_GAP = 1
+
+function getBarcodeBars(value: string) {
+  const text = value
+    .toUpperCase()
+    .split('')
+    .filter((char) => char !== '*' && char in code39)
+  const bars: { width: number; x: number }[] = []
+  let x = QUIET_ZONE
+  for (const char of ['*', ...text, '*']) {
+    const pattern = code39[char]
+    for (let index = 0; index < pattern.length; index++) {
+      const width = pattern[index] === '1' ? WIDE : 1
+      if (index % 2 === 0) bars.push({ width, x })
+      x += width
+    }
+    x += INTER_CHARACTER_GAP
+  }
+  return {
+    bars,
+    text: text.join(''),
+    width: x - INTER_CHARACTER_GAP + QUIET_ZONE,
+  }
+}
+
+function Barcode({
+  className,
+  moduleWidth = 1.5,
+  value,
+}: {
+  className?: string
+  /** The width of a narrow bar in pixels. */
+  moduleWidth?: number
+  value: string
+}) {
+  const { bars, text, width } = getBarcodeBars(value)
+  return (
+    <div className={cn('flex flex-col items-center gap-1', className)}>
+      <svg
+        aria-hidden
+        className='h-12 max-w-full'
+        fill='currentColor'
+        preserveAspectRatio='none'
+        shapeRendering='crispEdges'
+        viewBox={`0 0 ${width} 1`}
+        width={width * moduleWidth}
+      >
+        {bars.map((bar) => (
+          <rect key={bar.x} height={1} width={bar.width} x={bar.x} y={0} />
+        ))}
+      </svg>
+      <span className='font-mono text-xs tracking-[0.3em]'>{text}</span>
+    </div>
+  )
+}
+
+export {
+  Barcode,
+  DocumentBrand,
+  DocumentFooter,
+  DocumentHeader,
+  DocumentHeadline,
+  DocumentLayout,
+  DocumentMeta,
+  DocumentPage,
+  DocumentParties,
+  DocumentSection,
+  DocumentSummary,
+  DocumentTotals,
+  DocumentToolbar,
+  LineItemsTable,
+  PrintButton,
+  formatDocumentAmount,
+  formatRate,
+  getBarcodeBars,
+  getCurrencyDigits,
+  getDocumentTotals,
+  getLineAmount,
+  getTotalRows,
+  toMinorUnits,
+}
+
+export type {
+  DocumentAmounts,
+  DocumentLine,
+  DocumentMetaItem,
+  DocumentParty,
+  DocumentTax,
+  DocumentTotalLabels,
+  DocumentTotalRow,
+  DocumentTotalsOptions,
+  LineItemsTableProps,
+  LineSelection,
+}

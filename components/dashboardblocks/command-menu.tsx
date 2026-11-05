@@ -1,0 +1,257 @@
+'use client'
+
+import { SearchIcon } from 'lucide-react'
+import { type ReactNode, useEffect, useState } from 'react'
+
+import { Button } from '@/components/ui/button'
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandShortcut,
+} from '@/components/ui/command'
+import { Kbd } from '@/components/ui/kbd'
+
+import { cn } from '@/lib/utils'
+
+interface CommandMenuItem {
+  description?: string
+  href?: string
+  icon?: ReactNode
+  /** Unique across every group. */
+  id: string
+  keywords?: string[]
+  /** Leaves the menu open when picked, for an item that changes what the menu shows. */
+  keepOpen?: boolean
+  label: string
+  /** Shown at the end of the row, such as an order's total. */
+  meta?: string
+  onSelect?: () => void
+  shortcut?: string
+}
+
+interface CommandMenuGroup {
+  heading: string
+  items: CommandMenuItem[]
+}
+
+const PANEL_KEYS = new Set(['ArrowDown', 'ArrowUp', 'End', 'Enter', 'Home'])
+
+function filterCommandGroups(groups: CommandMenuGroup[], query: string) {
+  const needle = query.trim().toLowerCase()
+  if (!needle) return groups
+  return groups
+    .map((group) => ({
+      ...group,
+      items: group.items.filter((item) =>
+        [item.label, item.description, ...(item.keywords ?? [])].some((text) =>
+          text?.toLowerCase().includes(needle),
+        ),
+      ),
+    }))
+    .filter((group) => group.items.length > 0)
+}
+
+function useCommandMenuShortcut(onOpen: () => void, key = 'k') {
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      // Chrome's autofill sends keydown events without a key.
+      if (event.key?.toLowerCase() === key && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault()
+        onOpen()
+      }
+    }
+    window.addEventListener('keydown', onKeyDown, { capture: true })
+    return () => window.removeEventListener('keydown', onKeyDown, { capture: true })
+  }, [key, onOpen])
+}
+
+interface CommandMenuProps {
+  /** Defaults to a sentence that quotes the search text. */
+  emptyMessage?: string
+  groups: CommandMenuGroup[]
+  loading?: boolean
+  onNavigate?: (href: string) => void
+  onOpenChange: (open: boolean) => void
+  /** Fetch results yourself: the menu shows `groups` as they are, without filtering. */
+  onQueryChange?: (query: string) => void
+  open: boolean
+  /** Shown between the search field and the results, such as an answer to what was typed. The empty message is left out while it's there. */
+  panel?: ReactNode
+  /** @default 'Search' */
+  placeholder?: string
+  /** The search text, when you pass `onQueryChange`. */
+  query?: string
+  title?: string
+}
+
+function CommandMenu({
+  emptyMessage,
+  groups,
+  loading = false,
+  onNavigate = (href) => window.location.assign(href),
+  onOpenChange,
+  onQueryChange,
+  open,
+  panel,
+  placeholder = 'Search',
+  query: controlledQuery,
+  title = 'Search',
+}: CommandMenuProps) {
+  const [ownQuery, setOwnQuery] = useState('')
+  const query = controlledQuery ?? ownQuery
+  const setQuery = onQueryChange ?? setOwnQuery
+  const results = onQueryChange ? groups : filterCommandGroups(groups, query)
+  // cmdk picks the first item only when the text changes, so results that arrive later, above
+  // the item it picked, would leave Enter on that item.
+  const first = results[0]?.items[0]?.id ?? ''
+  const [picked, setPicked] = useState({ first, value: first })
+  if (picked.first !== first) setPicked({ first, value: first })
+  const empty =
+    emptyMessage ??
+    (query.trim() ? `No results for “${query.trim()}”.` : 'Nothing here yet.')
+
+  function changeOpen(next: boolean) {
+    onOpenChange(next)
+    if (!next) setQuery('')
+  }
+
+  function select(item: CommandMenuItem) {
+    if (!item.keepOpen) changeOpen(false)
+    if (item.onSelect) item.onSelect()
+    else if (item.href) onNavigate(item.href)
+  }
+
+  return (
+    <CommandDialog
+      open={open}
+      onOpenChange={changeOpen}
+      title={title}
+      description={placeholder}
+    >
+      <Command
+        shouldFilter={false}
+        className='max-h-[calc(66dvh-1rem)]'
+        value={picked.value}
+        onValueChange={(value) => setPicked({ first, value })}
+      >
+        <CommandInput value={query} onValueChange={setQuery} placeholder={placeholder} />
+        {panel !== undefined && (
+          <div
+            data-slot='command-menu-panel'
+            role='presentation'
+            className='overflow-y-auto'
+            onKeyDown={(event) => {
+              if (PANEL_KEYS.has(event.key)) event.stopPropagation()
+            }}
+          >
+            {panel}
+          </div>
+        )}
+        <CommandList>
+          {loading ? (
+            <p role='status' className='text-muted-foreground py-6 text-center text-sm'>
+              Searching…
+            </p>
+          ) : (
+            panel === undefined && <CommandEmpty>{empty}</CommandEmpty>
+          )}
+          {results.map((group) => (
+            <CommandGroup key={group.heading} heading={group.heading}>
+              {group.items.map((item) => (
+                <CommandItem
+                  key={item.id}
+                  value={item.id}
+                  onMouseDown={(event) => {
+                    if (item.keepOpen) event.preventDefault()
+                  }}
+                  onSelect={() => select(item)}
+                >
+                  {item.icon}
+                  <span className='flex min-w-0 flex-1 flex-col'>
+                    <span className='truncate'>{item.label}</span>
+                    {item.description && (
+                      <span className='text-muted-foreground truncate text-xs'>
+                        {item.description}
+                      </span>
+                    )}
+                  </span>
+                  {item.meta && (
+                    <span className='text-muted-foreground shrink-0 text-xs tabular-nums'>
+                      {item.meta}
+                    </span>
+                  )}
+                  {item.shortcut && <CommandShortcut>{item.shortcut}</CommandShortcut>}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          ))}
+        </CommandList>
+        <CommandMenuKeys />
+      </Command>
+    </CommandDialog>
+  )
+}
+
+function CommandMenuKeys() {
+  return (
+    <div
+      aria-hidden
+      className='text-muted-foreground flex items-center gap-4 border-t px-3 py-2 text-xs max-sm:hidden'
+    >
+      <span className='flex items-center gap-1.5'>
+        <Kbd>↑</Kbd>
+        <Kbd>↓</Kbd>
+        to move
+      </span>
+      <span className='flex items-center gap-1.5'>
+        <Kbd>↵</Kbd>
+        to choose
+      </span>
+      <span className='ms-auto flex items-center gap-1.5'>
+        <Kbd>Esc</Kbd>
+        to close
+      </span>
+    </div>
+  )
+}
+
+function CommandMenuTrigger({
+  className,
+  onClick,
+  placeholder = 'Search',
+  shortcut = '⌘K',
+}: {
+  className?: string
+  onClick: () => void
+  /** @default 'Search' */
+  placeholder?: string
+  shortcut?: string | null
+}) {
+  return (
+    <Button
+      variant='outline'
+      onClick={onClick}
+      className={cn(
+        'max-sm:aspect-square max-sm:px-0 sm:w-64 sm:justify-start',
+        className,
+      )}
+    >
+      <SearchIcon />
+      <span className='truncate max-sm:sr-only'>{placeholder}</span>
+      {shortcut && (
+        <Kbd aria-hidden className='ml-auto max-sm:hidden'>
+          {shortcut}
+        </Kbd>
+      )}
+    </Button>
+  )
+}
+
+export { CommandMenu, CommandMenuTrigger, filterCommandGroups, useCommandMenuShortcut }
+
+export type { CommandMenuGroup, CommandMenuItem, CommandMenuProps }

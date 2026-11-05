@@ -1,0 +1,1596 @@
+'use client'
+
+import { ChevronDownIcon, ChevronUpIcon, ChevronsUpIcon, EllipsisIcon, FoldHorizontalIcon, ListChecksIcon, MessageSquareIcon, MinusIcon, PaperclipIcon, PlusIcon, TriangleAlertIcon, UnfoldHorizontalIcon } from 'lucide-react'
+import type { ActivityTone } from '@/components/dashboardblocks/activity-feed'
+import {
+  BlockStateText,
+  Skeleton,
+  useBlockState,
+} from '@/components/dashboardblocks/block-state'
+import {
+  UrgencyLabel,
+  getDay,
+  getDayOffset,
+  getUrgency,
+} from '@/components/dashboardblocks/schedule'
+import { statusToneClasses } from '@/components/dashboardblocks/status-label'
+import { Tag } from '@/components/dashboardblocks/tag'
+import { formatDate, formatList } from '@/lib/dashboardblocks/format'
+import {
+  type FormEvent,
+  type KeyboardEvent,
+  type MouseEvent,
+  type PointerEvent,
+  type ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react'
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
+} from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+import { Kbd } from '@/components/ui/kbd'
+
+import { cn } from '@/lib/utils'
+
+interface KanbanColumnDef {
+  color?: string
+  /** Drawn before the title, such as a status's icon. */
+  icon?: ReactNode
+  id: string
+  title: string
+  wipLimit?: number
+}
+
+interface KanbanItem {
+  column: string
+  id: string
+  title: string
+}
+
+/** `warn` lets cards into a column at its WIP limit and flags the column when it goes over. */
+type KanbanWipLimitMode = 'block' | 'warn'
+
+interface KanbanTarget {
+  blocked?: boolean
+  column: string
+  index: number
+}
+
+interface KanbanDrag {
+  id: string
+  mode: 'keyboard' | 'pointer'
+  origin: KanbanTarget
+  /** The lifted card's height, which its landing slot takes. */
+  size: number
+  target: KanbanTarget | null
+}
+
+function getSlot(drag: KanbanDrag | null): KanbanTarget | null {
+  if (!drag) return null
+  const { mode, origin, target } = drag
+  const open = target && !target.blocked ? target : null
+  if (mode === 'pointer') return open ?? origin
+  return open && !isSameTarget(open, origin) ? open : null
+}
+
+function getColumnItems<T extends KanbanItem>(
+  items: T[],
+  column: string,
+  without?: string,
+) {
+  return items.filter((item) => item.column === column && item.id !== without)
+}
+
+function moveItem<T extends KanbanItem>(
+  items: T[],
+  id: string,
+  column: string,
+  index: number,
+): T[] {
+  const item = items.find((candidate) => candidate.id === id)
+  if (!item) return items
+  const rest = items.filter((candidate) => candidate.id !== id)
+  const siblings = rest.filter((candidate) => candidate.column === column)
+  const before = siblings[Math.max(0, index)]
+  const at = before
+    ? rest.indexOf(before)
+    : siblings.length > 0
+      ? rest.indexOf(siblings[siblings.length - 1]) + 1
+      : rest.length
+  return [...rest.slice(0, at), { ...item, column }, ...rest.slice(at)]
+}
+
+interface KanbanState {
+  columns: KanbanColumnDef[]
+  items: KanbanItem[]
+  onMove: KanbanMove
+  onOpen?: (id: string) => void
+  wipLimitMode: KanbanWipLimitMode
+}
+
+function canDrop(state: KanbanState, id: string, column: string) {
+  const item = state.items.find((candidate) => candidate.id === id)
+  const limit = state.columns.find((candidate) => candidate.id === column)?.wipLimit
+  if (!item || item.column === column || limit === undefined) return true
+  return (
+    state.wipLimitMode !== 'block' || getColumnItems(state.items, column).length < limit
+  )
+}
+
+function exceedsLimit(state: KanbanState, id: string, column: string) {
+  const item = state.items.find((candidate) => candidate.id === id)
+  const limit = state.columns.find((candidate) => candidate.id === column)?.wipLimit
+  return (
+    item !== undefined &&
+    item.column !== column &&
+    limit !== undefined &&
+    getColumnItems(state.items, column).length >= limit
+  )
+}
+
+function describePosition(state: KanbanState, id: string, target: KanbanTarget) {
+  const column = state.columns.find((candidate) => candidate.id === target.column)
+  const count = getColumnItems(state.items, target.column, id).length + 1
+  return `${column?.title ?? target.column}, position ${target.index + 1} of ${count}`
+}
+
+function isSameTarget(a: KanbanTarget | null, b: KanbanTarget | null) {
+  return a?.column === b?.column && a?.index === b?.index && a?.blocked === b?.blocked
+}
+
+/** Return `false` to refuse the move: the card stays where it was, and a screen reader hears that it's back. Say why yourself, with a toast or a dialog. */
+type KanbanMove = (id: string, column: string, index: number) => boolean | void
+
+interface KanbanContextValue {
+  canDrop: (id: string, column: string) => boolean
+  columns: KanbanColumnDef[]
+  drag: KanbanDrag | null
+  exceedsLimit: (id: string, column: string) => boolean
+  instructionsId: string
+  itemName: KanbanItemName
+  items: KanbanItem[]
+  moveFromMenu: (id: string, column: string, index: number) => void
+  onHandleBlur: (id: string) => void
+  onHandleClick: (event: MouseEvent<HTMLButtonElement>, id: string) => void
+  onHandleKeyDown: (event: KeyboardEvent<HTMLButtonElement>, id: string) => void
+  onPointerDown: (event: PointerEvent<HTMLElement>, id: string) => void
+  opens: boolean
+  registerHandle: (id: string, element: HTMLButtonElement | null) => void
+}
+
+const KanbanContext = createContext<KanbanContextValue | null>(null)
+
+function useKanban() {
+  const context = useContext(KanbanContext)
+  if (!context) throw new Error('Kanban parts must be inside a KanbanBoard.')
+  return context
+}
+
+const KanbanCardContext = createContext<KanbanItem | null>(null)
+
+function useKanbanCard() {
+  const item = useContext(KanbanCardContext)
+  if (!item) throw new Error('Kanban card parts must be inside a KanbanCard.')
+  return item
+}
+
+interface KanbanItemName {
+  one: string
+  other: string
+}
+
+interface PointerSession {
+  active: boolean
+  frame: number
+  id: string
+  offsetX: number
+  offsetY: number
+  pointerId: number
+  removeListeners: () => void
+  startX: number
+  startY: number
+  surface: HTMLElement
+  timer?: ReturnType<typeof setTimeout>
+  x: number
+  y: number
+}
+
+const MOUSE_DRAG_DISTANCE_PX = 4
+const TOUCH_HOLD_MS = 250
+const TOUCH_SCROLL_TOLERANCE_PX = 8
+const SCROLL_EDGE_PX = 56
+const MOVE_MS = 300
+const MOVE_EASING = 'cubic-bezier(0.2, 0, 0, 1)'
+
+const INTERACTIVE =
+  'a, button, input, select, textarea, [contenteditable], [role="button"], [role="menuitem"]'
+
+interface KanbanBoardProps {
+  /** `KanbanColumn`s, one per column in `columns`, in the same order. */
+  children: ReactNode
+  className?: string
+  columns: KanbanColumnDef[]
+  itemName?: KanbanItemName
+  items: KanbanItem[]
+  label: string
+  onMove: KanbanMove
+  /** Opens a card: a click or tap on it, or Enter on its title. Space then picks a card up to move it. */
+  onOpen?: (id: string) => void
+  /** @default 'warn' */
+  wipLimitMode?: KanbanWipLimitMode
+}
+
+function KanbanBoard({
+  children,
+  className,
+  columns,
+  itemName = { one: 'card', other: 'cards' },
+  items,
+  label,
+  onMove,
+  onOpen,
+  wipLimitMode = 'warn',
+}: KanbanBoardProps) {
+  const id = useId()
+  const instructionsId = `${id}-instructions`
+  const scrollerRef = useRef<HTMLDivElement>(null)
+  const handles = useRef(new Map<string, HTMLButtonElement>())
+  const [drag, setDragState] = useState<KanbanDrag | null>(null)
+  const [announcement, setAnnouncement] = useState('')
+  const dragRef = useRef<KanbanDrag | null>(null)
+  const session = useRef<PointerSession | null>(null)
+  const pendingFocus = useRef<{ id: string; onlyIfLost: boolean } | null>(null)
+  const latest = useRef<KanbanState>({ columns, items, onMove, onOpen, wipLimitMode })
+  const wasDragging = useRef(false)
+  const places = useRef(new Map<string, { x: number; y: number }>())
+  const landing = useRef<{ id: string; x: number; y: number } | null>(null)
+  const moves = useRef(new Map<string, Animation>())
+
+  useEffect(() => {
+    latest.current = { columns, items, onMove, onOpen, wipLimitMode }
+  })
+
+  useLayoutEffect(() => {
+    const root = scrollerRef.current
+    const dragged = wasDragging.current
+    wasDragging.current = drag !== null
+    placeSurface()
+    if (!root) return
+    const before = places.current
+    const after = measurePlaces()
+    places.current = after
+    const from = landing.current
+    landing.current = null
+    if (
+      (!drag && !dragged) ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+      return
+    for (const card of root.querySelectorAll<HTMLElement>('[data-kanban-card]')) {
+      const cardId = card.dataset.kanbanCard ?? ''
+      const surface = card.firstElementChild
+      if (!(surface instanceof HTMLElement)) continue
+      if (drag?.mode === 'pointer' && drag.id === cardId) continue
+      const running = moves.current.get(cardId)
+      let offsetX = 0
+      let offsetY = 0
+      if (running) {
+        const shown = surface.getBoundingClientRect()
+        const place = card.getBoundingClientRect()
+        offsetX = shown.left - place.left
+        offsetY = shown.top - place.top
+        running.cancel()
+        moves.current.delete(cardId)
+      }
+      const start =
+        from?.id === cardId
+          ? from
+          : (() => {
+              const place = before.get(cardId)
+              return place && { x: place.x + offsetX, y: place.y + offsetY }
+            })()
+      const end = after.get(cardId)
+      if (!start || !end) continue
+      const x = start.x - end.x
+      const y = start.y - end.y
+      if (Math.abs(x) < 1 && Math.abs(y) < 1) continue
+      const animation = surface.animate(
+        [{ transform: `translate(${x}px, ${y}px)` }, { transform: 'none' }],
+        { duration: MOVE_MS, easing: MOVE_EASING },
+      )
+      moves.current.set(cardId, animation)
+      animation.onfinish = () => {
+        if (moves.current.get(cardId) === animation) moves.current.delete(cardId)
+      }
+    }
+  }, [drag, items])
+
+  useEffect(() => {
+    const pending = pendingFocus.current
+    if (!pending) return
+    pendingFocus.current = null
+    const frame = requestAnimationFrame(() => {
+      const active = document.activeElement
+      if (pending.onlyIfLost && active && active !== document.body) return
+      const handle = handles.current.get(pending.id)
+      if (handle) {
+        handle.focus()
+        return
+      }
+      const column = items.find((item) => item.id === pending.id)?.column
+      const collapsed =
+        column &&
+        scrollerRef.current?.querySelector<HTMLElement>(
+          `[data-kanban-column="${CSS.escape(column)}"][data-collapsed]`,
+        )
+      if (collapsed) (collapsed.querySelector('button') ?? collapsed).focus()
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [items])
+
+  useEffect(() => {
+    if (drag?.mode !== 'keyboard' || !drag.target) return
+    const root = scrollerRef.current
+    const target =
+      root?.querySelector('[data-kanban-indicator]') ??
+      root?.querySelector(
+        `[data-kanban-column="${CSS.escape(drag.target.column)}"][data-collapsed]`,
+      ) ??
+      root?.querySelector(`[data-kanban-card="${CSS.escape(drag.id)}"]`)
+    target?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+  }, [drag])
+
+  useEffect(
+    () => () => {
+      const current = session.current
+      if (!current) return
+      cancelAnimationFrame(current.frame)
+      clearTimeout(current.timer)
+      current.removeListeners()
+    },
+    [],
+  )
+
+  function toPlace(rect: DOMRect) {
+    const root = scrollerRef.current
+    const bounds = root?.getBoundingClientRect()
+    return {
+      x: rect.left - (bounds?.left ?? 0) + (root?.scrollLeft ?? 0),
+      y: rect.top - (bounds?.top ?? 0),
+    }
+  }
+
+  function measurePlaces() {
+    const next = new Map<string, { x: number; y: number }>()
+    const root = scrollerRef.current
+    if (!root) return next
+    for (const card of root.querySelectorAll<HTMLElement>('[data-kanban-card]'))
+      next.set(card.dataset.kanbanCard ?? '', toPlace(card.getBoundingClientRect()))
+    return next
+  }
+
+  function measureSize(cardId: string) {
+    const surface = scrollerRef.current?.querySelector(
+      `[data-kanban-card="${CSS.escape(cardId)}"] > *`,
+    )
+    return surface instanceof HTMLElement ? surface.offsetHeight : 0
+  }
+
+  function setDrag(next: KanbanDrag | null) {
+    dragRef.current = next
+    setDragState(next)
+  }
+
+  function announce(text: string) {
+    setAnnouncement((current) => (current === text ? `${text}\u00a0` : text))
+  }
+
+  function titleOf(cardId: string) {
+    return latest.current.items.find((item) => item.id === cardId)?.title ?? 'Card'
+  }
+
+  function limitNote(cardId: string, column: string) {
+    const state = latest.current
+    if (!exceedsLimit(state, cardId, column)) return ''
+    const def = state.columns.find((candidate) => candidate.id === column)
+    return ` That puts ${def?.title} over its limit of ${def?.wipLimit}.`
+  }
+
+  function lift(cardId: string) {
+    const state = latest.current
+    const item = state.items.find((candidate) => candidate.id === cardId)
+    if (!item) return
+    const origin = {
+      column: item.column,
+      index: getColumnItems(state.items, item.column).indexOf(item),
+    }
+    places.current = measurePlaces()
+    setDrag({
+      id: cardId,
+      mode: 'keyboard',
+      origin,
+      size: measureSize(cardId),
+      target: origin,
+    })
+    announce(
+      `Picked up ${item.title}. ${describePosition(state, cardId, origin)}. Use the arrow keys to move it, Space or Enter to drop it, Escape to cancel.`,
+    )
+  }
+
+  function drop() {
+    const current = dragRef.current
+    if (!current) return
+    const state = latest.current
+    const title = titleOf(current.id)
+    setDrag(null)
+    const { origin, target } = current
+    if (!target || target.blocked) {
+      const def = state.columns.find((candidate) => candidate.id === target?.column)
+      announce(
+        `${target?.blocked ? `${def?.title} is at its limit of ${def?.wipLimit}. ` : ''}${title} is back in ${describePosition(state, current.id, origin)}.`,
+      )
+      return
+    }
+    if (isSameTarget(target, origin)) {
+      announce(
+        `Dropped ${title} where it was, ${describePosition(state, current.id, origin)}.`,
+      )
+      return
+    }
+    const note = `Dropped ${title} in ${describePosition(state, current.id, target)}.${limitNote(current.id, target.column)}`
+    if (state.onMove(current.id, target.column, target.index) === false) {
+      announce(`${title} is back in ${describePosition(state, current.id, origin)}.`)
+      return
+    }
+    if (current.mode === 'keyboard')
+      pendingFocus.current = { id: current.id, onlyIfLost: false }
+    announce(note)
+  }
+
+  function cancel() {
+    const current = dragRef.current
+    if (!current) return
+    setDrag(null)
+    announce(
+      `Move cancelled. ${titleOf(current.id)} is back in ${describePosition(latest.current, current.id, current.origin)}.`,
+    )
+  }
+
+  function moveKeyboardTarget(key: string) {
+    const current = dragRef.current
+    if (!current?.target) return
+    const state = latest.current
+    const { target } = current
+    let next: KanbanTarget = target
+    let skipped: string[] = []
+    if (key === 'ArrowUp' || key === 'ArrowDown') {
+      const count = getColumnItems(state.items, target.column, current.id).length
+      const index = target.index + (key === 'ArrowUp' ? -1 : 1)
+      next = { ...target, index: Math.max(0, Math.min(count, index)) }
+    } else {
+      const step = key === 'ArrowLeft' ? -1 : 1
+      let position =
+        state.columns.findIndex((column) => column.id === target.column) + step
+      const passed: string[] = []
+      while (
+        position >= 0 &&
+        position < state.columns.length &&
+        !canDrop(state, current.id, state.columns[position].id)
+      ) {
+        passed.push(state.columns[position].title)
+        position += step
+      }
+      const column = state.columns[position]
+      if (column) {
+        const count = getColumnItems(state.items, column.id, current.id).length
+        next = { column: column.id, index: Math.min(target.index, count) }
+        skipped = passed
+      }
+    }
+    setDrag({ ...current, target: next })
+    const title = titleOf(current.id)
+    const edge =
+      isSameTarget(next, target) && key !== 'ArrowUp' && key !== 'ArrowDown'
+        ? `${title} can't move further ${key === 'ArrowLeft' ? 'left' : 'right'}. `
+        : ''
+    const skip =
+      skipped.length > 0
+        ? `Skipped ${skipped.join(' and ')}, at ${skipped.length === 1 ? 'its' : 'their'} limit. `
+        : ''
+    announce(
+      `${edge}${skip}${describePosition(state, current.id, next)}.${limitNote(current.id, next.column)}`,
+    )
+  }
+
+  function onHandleClick(event: MouseEvent<HTMLButtonElement>, cardId: string) {
+    if (event.detail !== 0) return
+    event.preventDefault()
+    const current = dragRef.current
+    if (!current) lift(cardId)
+    else if (current.mode === 'keyboard' && current.id === cardId) drop()
+  }
+
+  function onHandleKeyDown(event: KeyboardEvent<HTMLButtonElement>, cardId: string) {
+    const current = dragRef.current
+    const open = latest.current.onOpen
+    if (!current && open && event.key === 'Enter') {
+      event.preventDefault()
+      open(cardId)
+      return
+    }
+    if (current?.mode !== 'keyboard' || current.id !== cardId) return
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      event.stopPropagation()
+      cancel()
+    } else if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+      event.preventDefault()
+      moveKeyboardTarget(event.key)
+    }
+  }
+
+  function onHandleBlur(cardId: string) {
+    const current = dragRef.current
+    if (current?.mode === 'keyboard' && current.id === cardId) cancel()
+  }
+
+  function moveFromMenu(cardId: string, column: string, index: number) {
+    const state = latest.current
+    const note = `Moved ${titleOf(cardId)} to ${describePosition(state, cardId, { column, index })}.${limitNote(cardId, column)}`
+    if (state.onMove(cardId, column, index) === false) return
+    pendingFocus.current = { id: cardId, onlyIfLost: true }
+    announce(note)
+  }
+
+  function findTarget(cardId: string, x: number, y: number): KanbanTarget | null {
+    const root = scrollerRef.current
+    if (!root) return null
+    const bounds = root.getBoundingClientRect()
+    if (y < bounds.top - SCROLL_EDGE_PX || y > bounds.bottom + SCROLL_EDGE_PX) return null
+    const clampedX = Math.max(bounds.left + 1, Math.min(bounds.right - 1, x))
+    let closest: HTMLElement | null = null
+    let distance = Infinity
+    for (const element of root.querySelectorAll<HTMLElement>('[data-kanban-column]')) {
+      const rect = element.getBoundingClientRect()
+      const gap =
+        clampedX < rect.left ? rect.left - clampedX : Math.max(0, clampedX - rect.right)
+      if (gap < distance) {
+        closest = element
+        distance = gap
+      }
+    }
+    const column = closest?.dataset.kanbanColumn
+    if (!closest || column === undefined) return null
+    if (!canDrop(latest.current, cardId, column))
+      return { blocked: true, column, index: 0 }
+    if (closest.dataset.collapsed !== undefined) return { column, index: 0 }
+    let index = 0
+    for (const card of closest.querySelectorAll<HTMLElement>('[data-kanban-card]')) {
+      if (card.dataset.kanbanCard === cardId) continue
+      const rect = card.getBoundingClientRect()
+      if (rect.top + rect.height / 2 < y) index++
+    }
+    return { column, index }
+  }
+
+  function endPointer(commit: boolean, released = false) {
+    const current = session.current
+    if (!current) return
+    session.current = null
+    cancelAnimationFrame(current.frame)
+    clearTimeout(current.timer)
+    current.removeListeners()
+    if (current.active)
+      landing.current = {
+        id: current.id,
+        ...toPlace(current.surface.getBoundingClientRect()),
+      }
+    current.surface.style.transform = ''
+    if (!current.active) {
+      if (released) latest.current.onOpen?.(current.id)
+      return
+    }
+    if (commit) drop()
+    else cancel()
+  }
+
+  function tick() {
+    const current = session.current
+    const root = scrollerRef.current
+    if (!current?.active || !root) return
+    const { x, y } = current
+    const bounds = root.getBoundingClientRect()
+
+    const edge = Math.min(SCROLL_EDGE_PX, bounds.width / 5)
+    const speed = (depth: number) => Math.min(20, Math.ceil((depth / edge) * 14))
+    if (x < bounds.left + edge) root.scrollLeft -= speed(bounds.left + edge - x)
+    else if (x > bounds.right - edge) root.scrollLeft += speed(x - bounds.right + edge)
+    if (y < SCROLL_EDGE_PX) window.scrollBy(0, -speed(SCROLL_EDGE_PX - y))
+    else if (y > window.innerHeight - SCROLL_EDGE_PX)
+      window.scrollBy(0, speed(y - window.innerHeight + SCROLL_EDGE_PX))
+
+    placeSurface()
+
+    const target = findTarget(current.id, x, y)
+    const drag = dragRef.current
+    if (drag && !isSameTarget(drag.target, target)) setDrag({ ...drag, target })
+    current.frame = requestAnimationFrame(tick)
+  }
+
+  function placeSurface() {
+    const current = session.current
+    const root = scrollerRef.current
+    if (!current?.active || !root) return
+    const bounds = root.getBoundingClientRect()
+    const anchor = (
+      current.surface.parentElement ?? current.surface
+    ).getBoundingClientRect()
+    const inset = 6
+    const left = Math.max(
+      bounds.left + inset,
+      Math.min(
+        bounds.left + root.clientWidth - current.surface.offsetWidth - inset,
+        current.x - current.offsetX,
+      ),
+    )
+    const top = Math.max(
+      bounds.top + inset,
+      Math.min(
+        bounds.top + root.clientHeight - current.surface.offsetHeight - inset,
+        current.y - current.offsetY,
+      ),
+    )
+    current.surface.style.transform = `translate(${left - anchor.left}px, ${top - anchor.top}px)`
+  }
+
+  function activate() {
+    const current = session.current
+    const state = latest.current
+    const item = state.items.find((candidate) => candidate.id === current?.id)
+    if (!current || !item) return
+    current.active = true
+    const rect = current.surface.getBoundingClientRect()
+    current.offsetX = current.startX - rect.left
+    current.offsetY = current.startY - rect.top
+    const origin = {
+      column: item.column,
+      index: getColumnItems(state.items, item.column).indexOf(item),
+    }
+    const height = measureSize(item.id)
+    places.current = measurePlaces()
+    setDrag({ id: item.id, mode: 'pointer', origin, size: height, target: origin })
+    announce(`Picked up ${item.title}.`)
+    current.frame = requestAnimationFrame(tick)
+  }
+
+  function onPointerDown(event: PointerEvent<HTMLElement>, cardId: string) {
+    if (event.button !== 0 || dragRef.current || session.current) return
+    const target = event.target as HTMLElement
+    if (!target.closest('[data-kanban-handle]') && target.closest(INTERACTIVE)) return
+    const isTouch = event.pointerType === 'touch'
+
+    const onPointerMove = (moveEvent: globalThis.PointerEvent) => {
+      const current = session.current
+      if (!current || moveEvent.pointerId !== current.pointerId) return
+      if (moveEvent.pointerType === 'mouse' && moveEvent.buttons === 0) {
+        endPointer(true)
+        return
+      }
+      current.x = moveEvent.clientX
+      current.y = moveEvent.clientY
+      if (current.active) return
+      const distance = Math.hypot(current.x - current.startX, current.y - current.startY)
+      if (isTouch && distance > TOUCH_SCROLL_TOLERANCE_PX) endPointer(false)
+      else if (!isTouch && distance > MOUSE_DRAG_DISTANCE_PX) activate()
+    }
+    const onUp = (upEvent: globalThis.PointerEvent) => {
+      if (upEvent.pointerId === session.current?.pointerId) endPointer(true, true)
+    }
+    const onCancel = (cancelEvent: globalThis.PointerEvent) => {
+      if (cancelEvent.pointerId === session.current?.pointerId) endPointer(false)
+    }
+    const onKey = (keyEvent: globalThis.KeyboardEvent) => {
+      if (keyEvent.key !== 'Escape' || !session.current?.active) return
+      keyEvent.preventDefault()
+      endPointer(false)
+    }
+    const onTouchMove = (touchEvent: TouchEvent) => {
+      if (session.current?.active && touchEvent.cancelable) touchEvent.preventDefault()
+    }
+    const onContextMenu = (menuEvent: Event) => menuEvent.preventDefault()
+    const onBlur = () => endPointer(false)
+
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onUp)
+    window.addEventListener('pointercancel', onCancel)
+    window.addEventListener('keydown', onKey, { capture: true })
+    window.addEventListener('touchmove', onTouchMove, { passive: false })
+    window.addEventListener('contextmenu', onContextMenu)
+    window.addEventListener('blur', onBlur)
+
+    session.current = {
+      active: false,
+      frame: 0,
+      id: cardId,
+      offsetX: 0,
+      offsetY: 0,
+      pointerId: event.pointerId,
+      removeListeners: () => {
+        window.removeEventListener('pointermove', onPointerMove)
+        window.removeEventListener('pointerup', onUp)
+        window.removeEventListener('pointercancel', onCancel)
+        window.removeEventListener('keydown', onKey, { capture: true })
+        window.removeEventListener('touchmove', onTouchMove)
+        window.removeEventListener('contextmenu', onContextMenu)
+        window.removeEventListener('blur', onBlur)
+      },
+      startX: event.clientX,
+      startY: event.clientY,
+      surface: event.currentTarget,
+      timer: isTouch ? setTimeout(activate, TOUCH_HOLD_MS) : undefined,
+      x: event.clientX,
+      y: event.clientY,
+    }
+  }
+
+  function registerHandle(cardId: string, element: HTMLButtonElement | null) {
+    if (element) handles.current.set(cardId, element)
+    else handles.current.delete(cardId)
+  }
+
+  const context: KanbanContextValue = {
+    canDrop: (cardId, column) =>
+      canDrop({ columns, items, onMove, wipLimitMode }, cardId, column),
+    columns,
+    drag,
+    exceedsLimit: (cardId, column) =>
+      exceedsLimit({ columns, items, onMove, wipLimitMode }, cardId, column),
+    instructionsId,
+    itemName,
+    items,
+    moveFromMenu,
+    onHandleBlur,
+    onHandleClick,
+    onHandleKeyDown,
+    onPointerDown,
+    opens: onOpen !== undefined,
+    registerHandle,
+  }
+
+  return (
+    <KanbanContext.Provider value={context}>
+      <div className='relative min-w-0'>
+        <p id={instructionsId} className='sr-only'>
+          {onOpen
+            ? `Press Enter to open a ${itemName.one}. To move it, press Space, use the arrow keys to choose a column and a position, then press Space to drop it, or Escape to cancel.`
+            : `To move a ${itemName.one} with the keyboard, press Space or Enter on it, use the arrow keys to choose a column and a position, then press Space or Enter to drop it, or Escape to cancel. Each ${itemName.one} also has a Move menu.`}
+        </p>
+        <p role='status' className='sr-only'>
+          {announcement}
+        </p>
+        <div
+          ref={scrollerRef}
+          role='region'
+          aria-label={label}
+          data-dragging={drag?.mode}
+          // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- a scrolling region must be focusable so keyboard users can reach the columns that don't fit
+          tabIndex={0}
+          className={cn(
+            'focus-visible:ring-ring/50 @container relative flex snap-x snap-proximity items-start gap-4 overflow-x-auto outline-none focus-visible:ring-3 focus-visible:ring-inset data-dragging:snap-none data-dragging:select-none data-[dragging=pointer]:**:cursor-grabbing',
+            className,
+          )}
+        >
+          <BlockStateText className='sr-only' />
+          {children}
+        </div>
+        {drag?.mode === 'keyboard' && (
+          <div aria-hidden className='pointer-events-none sticky bottom-4 z-20 h-0'>
+            <div className='bg-popover text-popover-foreground absolute inset-x-4 bottom-4 mx-auto flex w-fit max-w-[calc(100%-2rem)] flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-lg px-3 py-2 text-xs shadow-md ring-1 ring-foreground/10'>
+              <span className='flex items-center gap-1'>
+                <Kbd>←</Kbd>
+                <Kbd>→</Kbd>
+                Column
+              </span>
+              <span className='flex items-center gap-1'>
+                <Kbd>↑</Kbd>
+                <Kbd>↓</Kbd>
+                Position
+              </span>
+              <span className='flex items-center gap-1'>
+                <Kbd>Space</Kbd>
+                Drop
+              </span>
+              <span className='flex items-center gap-1'>
+                <Kbd>Esc</Kbd>
+                Cancel
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+    </KanbanContext.Provider>
+  )
+}
+
+function KanbanCount({
+  className,
+  count,
+  itemName = { one: 'card', other: 'cards' },
+  limit,
+}: {
+  className?: string
+  count: number
+  itemName?: KanbanItemName
+  limit?: number
+}) {
+  const state =
+    limit === undefined
+      ? 'none'
+      : count > limit
+        ? 'over'
+        : count === limit
+          ? 'at'
+          : 'under'
+  return (
+    <Tag
+      data-state={state}
+      className={cn('[&_svg]:size-3.5 [&_svg]:shrink-0', className)}
+      indicator={
+        state === 'over' && (
+          <TriangleAlertIcon aria-hidden />
+        )
+      }
+      tone={state === 'over' ? 'bad' : state === 'at' ? 'warning' : 'neutral'}
+    >
+      <span aria-hidden>{limit === undefined ? count : `${count} / ${limit}`}</span>
+      <span className='sr-only'>
+        {count} {count === 1 ? itemName.one : itemName.other}
+        {limit !== undefined && `, limit ${limit}`}
+        {state === 'over' && ', over the limit'}
+        {state === 'at' && ', at the limit'}
+      </span>
+    </Tag>
+  )
+}
+
+interface KanbanColumnProps {
+  action?: ReactNode
+  children?: ReactNode
+  className?: string
+  collapsed?: boolean
+  column: KanbanColumnDef
+  empty?: ReactNode
+  footer?: ReactNode
+  /** Adds a button that collapses and expands the column. */
+  onCollapsedChange?: (collapsed: boolean) => void
+  summary?: ReactNode
+}
+
+function KanbanColumn({
+  action,
+  children,
+  className,
+  collapsed = false,
+  column,
+  empty,
+  footer,
+  onCollapsedChange,
+  summary,
+}: KanbanColumnProps) {
+  const headingId = useId()
+  const { drag, exceedsLimit: exceeds, items, itemName } = useKanban()
+  const loading = useBlockState() === 'loading'
+  const count = getColumnItems(items, column.id).length
+  const target = drag?.target?.column === column.id ? drag.target : null
+  const slot = getSlot(drag)
+  const slotAtEnd =
+    drag !== null &&
+    slot?.column === column.id &&
+    slot.index >= getColumnItems(items, column.id, drag.id).length
+  const isOver =
+    target !== null && !target.blocked && !isSameTarget(target, drag?.origin ?? null)
+  const dot = column.color && (
+    <span
+      aria-hidden
+      className='size-2.5 shrink-0 rounded-full'
+      style={{ backgroundColor: column.color }}
+    />
+  )
+  const icon = column.icon && (
+    <span aria-hidden className='flex shrink-0 [&_svg]:size-4'>
+      {column.icon}
+    </span>
+  )
+  const toggle = onCollapsedChange && (
+    <Button
+      aria-expanded={!collapsed}
+      aria-label={`${collapsed ? 'Expand' : 'Collapse'} ${column.title}`}
+      size='icon-xs'
+      variant='ghost'
+      onClick={() => onCollapsedChange(!collapsed)}
+    >
+      {collapsed ? (
+        <UnfoldHorizontalIcon />
+      ) : (
+        <FoldHorizontalIcon />
+      )}
+    </Button>
+  )
+  const columnClassName =
+    'flex shrink-0 snap-start flex-col border-t pt-3 transition-colors data-over:border-sidebar-accent data-blocked:border-red-500'
+
+  if (collapsed) {
+    return (
+      <section
+        aria-labelledby={headingId}
+        data-kanban-column={column.id}
+        data-collapsed=''
+        tabIndex={-1}
+        data-over={isOver ? '' : undefined}
+        data-blocked={target?.blocked ? '' : undefined}
+        className={cn(columnClassName, 'w-9 items-center gap-3', className)}
+      >
+        {toggle}
+        {!loading && (
+          <KanbanCount count={count} itemName={itemName} limit={column.wipLimit} />
+        )}
+        <h3
+          id={headingId}
+          className='flex items-center gap-2 text-sm font-medium whitespace-nowrap [writing-mode:vertical-rl]'
+        >
+          {dot}
+          {icon}
+          {column.title}
+        </h3>
+      </section>
+    )
+  }
+
+  return (
+    <section
+      aria-labelledby={headingId}
+      data-kanban-column={column.id}
+      data-over={isOver ? '' : undefined}
+      data-blocked={target?.blocked ? '' : undefined}
+      className={cn(columnClassName, 'w-72 max-w-[calc(100cqw-2.5rem)] gap-3', className)}
+    >
+      <div className='flex min-h-7 items-center gap-2'>
+        <div className='flex min-w-0 flex-1 flex-col gap-0.5'>
+          <h3
+            id={headingId}
+            className='flex min-w-0 items-center gap-2 text-sm font-medium'
+          >
+            {dot}
+            {icon}
+            <span className='truncate'>{column.title}</span>
+          </h3>
+          {summary && !loading && (
+            <div
+              className={cn(
+                'text-muted-foreground text-xs tabular-nums',
+                dot && 'pl-4.5',
+              )}
+            >
+              {summary}
+            </div>
+          )}
+        </div>
+        {!loading && (
+          <KanbanCount count={count} itemName={itemName} limit={column.wipLimit} />
+        )}
+        {(action || toggle) && (
+          <div className='-my-1 flex shrink-0 items-center'>
+            {action}
+            {toggle}
+          </div>
+        )}
+      </div>
+      {target?.blocked && (
+        <p aria-hidden className='text-xs text-red-700 dark:text-red-400'>
+          At its limit of {column.wipLimit}
+        </p>
+      )}
+      {loading ? (
+        <div aria-hidden className='flex flex-col gap-2'>
+          <Skeleton className='h-24 rounded-xl' />
+          <Skeleton className='h-24 rounded-xl' />
+        </div>
+      ) : count > 0 ? (
+        <ul aria-labelledby={headingId} className='flex flex-col gap-2'>
+          {children}
+          {slotAtEnd && (
+            <DropSlot height={drag.size} over={exceeds(drag.id, column.id)} />
+          )}
+        </ul>
+      ) : (
+        <div
+          data-kanban-indicator={isOver ? '' : undefined}
+          style={isOver && drag ? { minHeight: drag.size } : undefined}
+          className={cn(
+            'text-muted-foreground flex min-h-20 items-center justify-center rounded-xl border border-dashed px-3 py-6 text-center text-xs transition-colors',
+            isOver &&
+              drag &&
+              (exceeds(drag.id, column.id)
+                ? 'border-red-500/60 bg-red-500/5'
+                : 'border-foreground/25 bg-muted/60'),
+          )}
+        >
+          {empty ?? `No ${itemName.other}`}
+        </div>
+      )}
+      {!loading && footer}
+    </section>
+  )
+}
+
+function DropSlot({ height, over }: { height: number; over: boolean }) {
+  return (
+    <li
+      aria-hidden
+      data-kanban-indicator=''
+      style={{ height }}
+      className={cn(
+        'animate-in fade-in rounded-xl border border-dashed duration-200 motion-reduce:animate-none',
+        over ? 'border-red-500/60 bg-red-500/5' : 'border-foreground/25 bg-muted/60',
+      )}
+    />
+  )
+}
+
+interface KanbanCardProps {
+  children: ReactNode
+  className?: string
+  item: KanbanItem
+}
+
+function KanbanCard({ children, className, item }: KanbanCardProps) {
+  const { drag, exceedsLimit: exceeds, items, onPointerDown, opens } = useKanban()
+  const lifted = drag?.id === item.id ? drag.mode : undefined
+  const slot = getSlot(drag)
+  const slotBefore =
+    drag !== null &&
+    !lifted &&
+    slot?.column === item.column &&
+    getColumnItems(items, item.column, drag.id).findIndex(
+      (sibling) => sibling.id === item.id,
+    ) === slot.index
+
+  return (
+    <>
+      {slotBefore && <DropSlot height={drag.size} over={exceeds(drag.id, item.column)} />}
+      <li
+        data-kanban-card={item.id}
+        data-lifted={lifted}
+        className={cn('relative', lifted === 'pointer' && '-mb-2 h-0')}
+      >
+        <KanbanCardContext.Provider value={item}>
+          <div
+            onPointerDown={(event) => onPointerDown(event, item.id)}
+            className={cn(
+              'bg-muted/50 relative flex cursor-grab flex-col gap-2.5 rounded-xl p-3 text-sm transition-[box-shadow,translate,scale] select-none [--kanban-card-surface:color-mix(in_oklab,var(--color-muted)_50%,var(--color-background))] [-webkit-touch-callout:none]',
+              lifted === 'pointer' &&
+                'bg-muted pointer-events-none [--kanban-card-surface:var(--color-muted)] z-30 scale-[1.02] shadow-lg ring-1 ring-foreground/10 transition-none',
+              lifted === 'keyboard' && '-translate-y-0.5 ring-2 ring-primary',
+              !lifted &&
+                'has-[[data-kanban-handle]:focus-visible]:ring-3 has-[[data-kanban-handle]:focus-visible]:ring-ring/50',
+              opens &&
+                !lifted &&
+                'hover:bg-muted cursor-pointer hover:[--kanban-card-surface:var(--color-muted)]',
+              className,
+            )}
+          >
+            {children}
+          </div>
+        </KanbanCardContext.Provider>
+      </li>
+    </>
+  )
+}
+
+function KanbanCardTitle({
+  children,
+  className,
+}: {
+  /** @default the item's `title` */
+  children?: ReactNode
+  className?: string
+}) {
+  const item = useKanbanCard()
+  const { instructionsId, onHandleBlur, onHandleClick, onHandleKeyDown, registerHandle } =
+    useKanban()
+  return (
+    <p className={cn('leading-snug font-medium', className)}>
+      <button
+        ref={(element) => registerHandle(item.id, element)}
+        type='button'
+        data-kanban-handle=''
+        aria-describedby={instructionsId}
+        onBlur={() => onHandleBlur(item.id)}
+        onClick={(event) => onHandleClick(event, item.id)}
+        onKeyDown={(event) => onHandleKeyDown(event, item.id)}
+        className='cursor-[inherit] text-left outline-none'
+      >
+        {children ?? item.title}
+      </button>
+    </p>
+  )
+}
+
+function KanbanCardMenu({ className }: { className?: string }) {
+  const item = useKanbanCard()
+  const { canDrop: canMoveTo, columns, items, moveFromMenu } = useKanban()
+  const siblings = getColumnItems(items, item.column)
+  const index = siblings.findIndex((sibling) => sibling.id === item.id)
+  return (
+    <DropdownMenu modal={false}>
+      <DropdownMenuTrigger asChild>
+        <Button
+          aria-label={`Move ${item.title}`}
+          className={className}
+          size='icon-xs'
+          variant='ghost'
+        >
+          <EllipsisIcon />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align='end' className='w-auto min-w-44'>
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>Move to</DropdownMenuLabel>
+          {columns
+            .filter((column) => column.id !== item.column)
+            .map((column) => {
+              const full = !canMoveTo(item.id, column.id)
+              return (
+                <DropdownMenuItem
+                  key={column.id}
+                  disabled={full}
+                  onClick={() => moveFromMenu(item.id, column.id, 0)}
+                >
+                  {column.title}
+                  {full && (
+                    <span className='text-muted-foreground ml-auto pl-4 text-xs'>
+                      Full
+                    </span>
+                  )}
+                </DropdownMenuItem>
+              )
+            })}
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          disabled={index <= 0}
+          onClick={() => moveFromMenu(item.id, item.column, index - 1)}
+        >
+          Move up
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          disabled={index === siblings.length - 1}
+          onClick={() => moveFromMenu(item.id, item.column, index + 1)}
+        >
+          Move down
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+interface KanbanLabelDef {
+  name: string
+  /** @default 'neutral' */
+  tone?: ActivityTone
+}
+
+const labelDotClasses: Record<ActivityTone, string> = {
+  accent: 'bg-chart-2',
+  danger: 'bg-red-500',
+  info: 'bg-sky-500',
+  neutral: 'bg-muted-foreground',
+  success: 'bg-emerald-500',
+  warning: 'bg-orange-500',
+}
+
+function KanbanLabel({ label }: { label: KanbanLabelDef }) {
+  return (
+    <Tag
+      className='gap-1.5'
+      indicator={
+        <span
+          aria-hidden
+          className={cn(
+            'size-1.5 shrink-0 rounded-full',
+            labelDotClasses[label.tone ?? 'neutral'],
+          )}
+        />
+      }
+    >
+      {label.name}
+    </Tag>
+  )
+}
+
+function KanbanLabels({
+  className,
+  labels,
+}: {
+  className?: string
+  labels: KanbanLabelDef[]
+}) {
+  return (
+    <ul aria-label='Labels' className={cn('flex flex-wrap gap-1.5 text-xs', className)}>
+      {labels.map((label) => (
+        <li key={label.name} className='flex'>
+          <KanbanLabel label={label} />
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function getInitials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase())
+    .join('')
+}
+
+function KanbanAssignees({
+  className,
+  max = 3,
+  names,
+}: {
+  className?: string
+  /** @default 3 */
+  max?: number
+  names: string[]
+}) {
+  if (names.length === 0) return null
+  const shown = names.length > max ? names.slice(0, max - 1) : names
+  const rest = names.length - shown.length
+  return (
+    <span className={cn('inline-flex', className)}>
+      <AvatarGroup
+        aria-hidden
+        className='-space-x-1 *:data-[slot=avatar]:ring-[var(--kanban-card-surface,var(--color-background))]'
+      >
+        {shown.map((name) => (
+          <Avatar key={name} size='sm' title={name}>
+            <AvatarFallback>{getInitials(name)}</AvatarFallback>
+          </Avatar>
+        ))}
+        {rest > 0 && (
+          <AvatarGroupCount
+            // Not the primitive's colour: the ring cuts the count out of the card behind it
+            className='ring-[var(--kanban-card-surface,var(--color-background))]'
+          >
+            +{rest}
+          </AvatarGroupCount>
+        )}
+      </AvatarGroup>
+      <span className='sr-only'>Assigned to {formatList(names)}</span>
+    </span>
+  )
+}
+
+/** How a due date reads on a card: `Today`, `Tomorrow`, `Yesterday`, else `Nov 6`. */
+function getDueDateLabel(date: Date, now: Date, timeZone = 'UTC') {
+  const offset = getDayOffset(date, now, timeZone)
+  if (offset === 0) return 'Today'
+  if (offset === 1) return 'Tomorrow'
+  if (offset === -1) return 'Yesterday'
+  return formatDate(getDay(date, timeZone), 'day')
+}
+
+function KanbanDueDate({
+  className,
+  date,
+  done = false,
+  now,
+  soonDays = 2,
+  timeZone = 'UTC',
+}: {
+  className?: string
+  date: Date
+  done?: boolean
+  /** Pass a fixed date, so the label renders the same on the server and in the browser. */
+  now: Date
+  /** @default 2 */
+  soonDays?: number
+  /** @default 'UTC' */
+  timeZone?: string
+}) {
+  const label = getDueDateLabel(date, now, timeZone)
+  const urgency = done ? 'later' : getUrgency(date, now, timeZone, soonDays)
+  return (
+    <span className={cn('inline-flex', className)}>
+      <span className='sr-only'>Due </span>
+      <UrgencyLabel className='text-xs' urgency={urgency} label={label} />
+      {urgency === 'overdue' && <span className='sr-only'>, overdue</span>}
+    </span>
+  )
+}
+
+type KanbanPriorityLevel = 'high' | 'low' | 'medium' | 'urgent'
+
+const priorityConfig: Record<
+  KanbanPriorityLevel,
+  { className: string; icon: ReactNode; label: string }
+> = {
+  high: {
+    className: 'text-orange-700 dark:text-orange-400',
+    icon: (
+      <ChevronUpIcon aria-hidden />
+    ),
+    label: 'High',
+  },
+  low: {
+    className: 'text-muted-foreground',
+    icon: (
+      <ChevronDownIcon aria-hidden />
+    ),
+    label: 'Low',
+  },
+  medium: {
+    className: 'text-muted-foreground',
+    icon: (
+      <MinusIcon aria-hidden />
+    ),
+    label: 'Medium',
+  },
+  urgent: {
+    className: 'text-red-700 dark:text-red-400',
+    icon: (
+      <ChevronsUpIcon aria-hidden />
+    ),
+    label: 'Urgent',
+  },
+}
+
+function KanbanPriority({
+  className,
+  priority,
+  showLabel = false,
+}: {
+  className?: string
+  priority: KanbanPriorityLevel
+  showLabel?: boolean
+}) {
+  const config = priorityConfig[priority]
+  return (
+    <span
+      title={showLabel ? undefined : `${config.label} priority`}
+      className={cn(
+        'inline-flex items-center gap-1 text-xs font-medium [&_svg]:size-4 [&_svg]:shrink-0',
+        config.className,
+        className,
+      )}
+    >
+      {config.icon}
+      <span className={cn(!showLabel && 'sr-only')}>
+        {config.label}
+        <span className='sr-only'> priority</span>
+      </span>
+    </span>
+  )
+}
+
+function KanbanCardStat({
+  className,
+  icon,
+  label,
+  value,
+}: {
+  className?: string
+  icon: ReactNode
+  label: string
+  value: ReactNode
+}) {
+  return (
+    <span
+      className={cn(
+        'text-muted-foreground inline-flex items-center gap-1 text-xs tabular-nums [&_svg]:size-3.5 [&_svg]:shrink-0',
+        className,
+      )}
+    >
+      {icon}
+      <span aria-hidden>{value}</span>
+      <span className='sr-only'>{label}</span>
+    </span>
+  )
+}
+
+function KanbanComments({ className, count }: { className?: string; count: number }) {
+  return (
+    <KanbanCardStat
+      className={className}
+      icon={
+        <MessageSquareIcon aria-hidden />
+      }
+      label={`${count} ${count === 1 ? 'comment' : 'comments'}`}
+      value={count}
+    />
+  )
+}
+
+function KanbanAttachments({ className, count }: { className?: string; count: number }) {
+  return (
+    <KanbanCardStat
+      className={className}
+      icon={
+        <PaperclipIcon aria-hidden />
+      }
+      label={`${count} ${count === 1 ? 'attachment' : 'attachments'}`}
+      value={count}
+    />
+  )
+}
+
+function KanbanSubtasks({
+  className,
+  done,
+  total,
+}: {
+  className?: string
+  done: number
+  total: number
+}) {
+  return (
+    <KanbanCardStat
+      className={cn(done === total && statusToneClasses.good, className)}
+      icon={
+        <ListChecksIcon aria-hidden />
+      }
+      label={`${done} of ${total} subtasks done`}
+      value={`${done}/${total}`}
+    />
+  )
+}
+
+interface KanbanAddCardProps {
+  className?: string
+  /** @default 'Add card' */
+  label?: string
+  /** Called with the trimmed title. */
+  onAdd: (title: string) => void
+  /** @default 'Title' */
+  placeholder?: string
+}
+
+function KanbanAddCard({
+  className,
+  label = 'Add card',
+  onAdd,
+  placeholder = 'Title',
+}: KanbanAddCardProps) {
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState('')
+  const [status, setStatus] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const wasOpen = useRef(false)
+
+  useEffect(() => {
+    if (open) inputRef.current?.focus()
+    else if (wasOpen.current) buttonRef.current?.focus()
+    wasOpen.current = open
+  }, [open])
+
+  function close() {
+    setOpen(false)
+    setValue('')
+  }
+
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const title = value.trim()
+    if (!title) return inputRef.current?.focus()
+    onAdd(title)
+    setValue('')
+    setStatus(`Added ${title}`)
+  }
+
+  if (!open) {
+    return (
+      <Button
+        ref={buttonRef}
+        variant='ghost'
+        size='sm'
+        className={cn('justify-start', className)}
+        onClick={() => setOpen(true)}
+      >
+        <PlusIcon />
+        {label}
+      </Button>
+    )
+  }
+
+  return (
+    <form
+      method='post'
+      onSubmit={submit}
+      className={cn('flex flex-col gap-2', className)}
+    >
+      <Input
+        ref={inputRef}
+        aria-label={label}
+        placeholder={placeholder}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key !== 'Escape') return
+          event.preventDefault()
+          close()
+        }}
+      />
+      <p role='status' className='sr-only'>
+        {status}
+      </p>
+      <div className='flex items-center gap-2'>
+        <Button type='submit' size='sm'>
+          {label}
+        </Button>
+        <Button type='button' variant='ghost' size='sm' onClick={close}>
+          Cancel
+        </Button>
+      </div>
+    </form>
+  )
+}
+
+export {
+  KanbanAddCard,
+  KanbanAssignees,
+  KanbanAttachments,
+  KanbanBoard,
+  KanbanCard,
+  KanbanCardMenu,
+  KanbanCardStat,
+  KanbanCardTitle,
+  KanbanColumn,
+  KanbanComments,
+  KanbanCount,
+  KanbanDueDate,
+  KanbanLabel,
+  KanbanLabels,
+  KanbanPriority,
+  KanbanSubtasks,
+  getColumnItems,
+  getDueDateLabel,
+  labelDotClasses,
+  moveItem,
+}
+
+export type {
+  KanbanAddCardProps,
+  KanbanBoardProps,
+  KanbanCardProps,
+  KanbanColumnDef,
+  KanbanColumnProps,
+  KanbanItem,
+  KanbanItemName,
+  KanbanLabelDef,
+  KanbanMove,
+  KanbanPriorityLevel,
+  KanbanWipLimitMode,
+}

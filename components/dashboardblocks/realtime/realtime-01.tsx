@@ -1,0 +1,174 @@
+'use client'
+
+import {
+  BlockStateProvider,
+  BlockStateRows,
+  type BlockStateProps,
+  getBlockState,
+} from '@/components/dashboardblocks/block-state'
+import { KPIValue } from '@/components/dashboardblocks/kpi'
+import {
+  Leaderboard,
+  LeaderboardBar,
+  LeaderboardItem,
+  LeaderboardLabel,
+  LeaderboardValue,
+} from '@/components/dashboardblocks/leaderboard'
+import {
+  LiveBadge,
+  LiveNumber,
+  RollingBars,
+  createRandom,
+} from '@/components/dashboardblocks/realtime'
+
+import { Card, CardContent } from '@/components/ui/card'
+
+interface ActivePage {
+  path: string
+  users: number
+}
+
+interface Realtime1Props extends BlockStateProps {
+  /** Leave out to show the empty state. */
+  activeUsers?: number
+  description: string
+  /** Page views per second over the last minute, oldest first. */
+  pageViews?: number[]
+  pages?: ActivePage[]
+  title: string
+}
+
+const seed = createRandom(7)
+
+const exampleProps: Realtime1Props = {
+  activeUsers: 1_284,
+  description: 'People on the site in the last 5 minutes, and the pages they are on.',
+  pageViews: Array.from({ length: 60 }, () => Math.round(28 + seed() * 34)),
+  pages: [
+    { path: '/pricing', users: 312 },
+    { path: '/', users: 268 },
+    { path: '/docs/quickstart', users: 194 },
+    { path: '/blog/launch-week', users: 151 },
+    { path: '/changelog', users: 87 },
+  ],
+  title: 'Right now',
+}
+
+const noViews: number[] = []
+const noPages: ActivePage[] = []
+
+const Realtime1 = (props: Realtime1Props) => {
+  const {
+    activeUsers: users = 0,
+    description,
+    pageViews: views = noViews,
+    pages = noPages,
+    errorMessage,
+    status,
+    title,
+  } = props
+  const state = getBlockState(status, props.activeUsers)
+
+  const perMinute = views.slice(-60).reduce((sum, value) => sum + value, 0)
+  const top = Math.max(1, ...pages.map((page) => page.users))
+
+  return (
+    <BlockStateProvider errorMessage={errorMessage} state={state}>
+      <Card>
+        <CardContent>
+          <section className='@container flex flex-col gap-4'>
+            <header className='flex items-start justify-between gap-3'>
+              <div className='flex min-w-0 flex-col gap-0.5'>
+                <h2 className='font-semibold tracking-tight'>{title}</h2>
+                <p className='text-muted-foreground text-sm'>{description}</p>
+              </div>
+              {!state && <LiveBadge />}
+            </header>
+            <div className='flex flex-col gap-3 border-t pt-4'>
+              <div className='flex flex-wrap items-end justify-between gap-x-4 gap-y-2'>
+                <div className='flex flex-col gap-1'>
+                  <span className='text-muted-foreground text-sm'>Active users</span>
+                  {state ? (
+                    <KPIValue />
+                  ) : (
+                    <span className='text-4xl font-light tracking-tight'>
+                      <LiveNumber value={users} />
+                    </span>
+                  )}
+                </div>
+                {state !== 'error' && state !== 'empty' && (
+                  <div className='flex flex-col items-end gap-1'>
+                    <span className='text-muted-foreground text-sm'>
+                      Page views, last minute
+                    </span>
+                    {state ? (
+                      <KPIValue className='text-2xl' />
+                    ) : (
+                      <span className='text-2xl font-light tracking-tight'>
+                        <LiveNumber value={perMinute} />
+                      </span>
+                    )}
+                  </div>
+                )}
+              </div>
+              <div className='flex flex-col gap-1'>
+                <RollingBars
+                  height={56}
+                  labels={views.map((_, index) => `${views.length - 1 - index}s ago`)}
+                  values={views}
+                />
+                {!state && (
+                  <div
+                    aria-hidden
+                    className='text-muted-foreground flex justify-between text-xs'
+                  >
+                    <span>{views.length}s ago</span>
+                    <span>Now</span>
+                  </div>
+                )}
+              </div>
+            </div>
+            {state !== 'error' && state !== 'empty' && (
+              <div className='flex flex-col gap-1.5'>
+                <div className='text-muted-foreground flex justify-between px-2 text-xs'>
+                  <span>Top pages</span>
+                  <span>Users</span>
+                </div>
+                {state === 'loading' && <BlockStateRows rows={5} />}
+                {!state && (
+                  <Leaderboard>
+                    {pages.map((page, index) => (
+                      <LeaderboardItem key={page.path}>
+                        <LeaderboardBar
+                          className={
+                            index === 0
+                              ? 'bg-[color-mix(in_oklab,var(--color-chart-2)_32%,transparent)]'
+                              : undefined
+                          }
+                          value={(page.users / top) * 100}
+                        />
+                        <LeaderboardLabel className='truncate'>
+                          {page.path}
+                        </LeaderboardLabel>
+                        <LeaderboardValue>
+                          <LiveNumber value={page.users} />
+                        </LeaderboardValue>
+                      </LeaderboardItem>
+                    ))}
+                  </Leaderboard>
+                )}
+              </div>
+            )}
+          </section>
+        </CardContent>
+      </Card>
+    </BlockStateProvider>
+  )
+}
+
+export {
+  Realtime1,
+  exampleProps as realtime1ExampleProps,
+  type ActivePage,
+  type Realtime1Props,
+}

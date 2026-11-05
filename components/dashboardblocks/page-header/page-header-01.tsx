@@ -1,0 +1,83 @@
+'use client'
+
+import { DownloadIcon, PlusIcon } from 'lucide-react'
+import {
+  BlockStateProvider,
+  BlockStateText,
+  type BlockStateProps,
+  getBlockState,
+} from '@/components/dashboardblocks/block-state'
+import {
+  PageHeader,
+  PageHeaderActions,
+  PageHeaderHeading,
+  PageHeaderRow,
+} from '@/components/dashboardblocks/page-header'
+
+import { Button } from '@/components/ui/button'
+
+interface PageHeader1Props extends BlockStateProps {
+  /** Names the main action; `null` leaves the main action out. @default 'New order' */
+  createLabel?: string | null
+  /** Leave out to show the empty state. */
+  description?: string
+  /** Names the export action; `null` leaves it out. @default 'Export' */
+  exportLabel?: string | null
+  onCreate?: () => void
+  onExport?: () => void
+  title: string
+}
+
+const exampleProps: PageHeader1Props = {
+  description: '1,284 orders this month, 38 of them waiting to ship.',
+  title: 'Orders',
+}
+
+const PageHeader1 = (props: PageHeader1Props) => {
+  const {
+    createLabel = 'New order',
+    description,
+    exportLabel = 'Export',
+    onCreate = () => {},
+    onExport = () => {},
+    errorMessage,
+    status,
+    title,
+  } = props
+  const state = getBlockState(status, description)
+
+  return (
+    <BlockStateProvider errorMessage={errorMessage} state={state}>
+      <PageHeader>
+        <PageHeaderRow className='@2xl/page-header:items-end'>
+          <PageHeaderHeading
+            title={title}
+            description={state ? <BlockStateText /> : description}
+          />
+          {(exportLabel !== null || createLabel !== null) && (
+            <PageHeaderActions>
+              {exportLabel !== null && (
+                <Button
+                  variant='outline'
+                  disabled={state !== undefined}
+                  onClick={onExport}
+                >
+                  <DownloadIcon data-icon='inline-start' />
+                  {exportLabel}
+                </Button>
+              )}
+              {createLabel !== null && (
+                <Button onClick={onCreate}>
+                  <PlusIcon data-icon='inline-start' />
+                  {createLabel}
+                </Button>
+              )}
+            </PageHeaderActions>
+          )}
+        </PageHeaderRow>
+      </PageHeader>
+    </BlockStateProvider>
+  )
+}
+
+export { PageHeader1, exampleProps as pageHeader1ExampleProps, type PageHeader1Props }

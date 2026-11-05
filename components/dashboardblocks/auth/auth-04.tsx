@@ -1,0 +1,279 @@
+'use client'
+
+import { MailIcon, PencilIcon } from 'lucide-react'
+import {
+  AuthIcon,
+  AuthLayout,
+  AuthResendButton,
+  AuthReveal,
+  OtpInput,
+} from '@/components/dashboardblocks/auth'
+import { RollingText } from '@/components/dashboardblocks/rolling-text'
+import {
+  type FormEvent,
+  startTransition,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react'
+
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+
+interface Auth4Props {
+  email: string
+  focusOnMount?: boolean
+  onChangeEmail?: (email: string) => void | Promise<void>
+  onResend?: () => void | Promise<void>
+  onVerified?: () => void
+  onVerify?: (code: string) => boolean | Promise<boolean>
+  /** Seconds before another email can be sent. @default 60 */
+  resendAfter?: number
+}
+
+const exampleProps: Auth4Props = {
+  email: 'amara@acme.co',
+}
+
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+const Auth4 = (props: Auth4Props) => {
+  const {
+    focusOnMount = false,
+    onChangeEmail,
+    onResend,
+    onVerified,
+    onVerify,
+    resendAfter = 60,
+  } = props
+  const id = useId()
+  const [email, setEmail] = useState(props.email)
+  const [code, setCode] = useState('')
+  const [checking, setChecking] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [sendError, setSendError] = useState<string | null>(null)
+  const [status, setStatus] = useState('')
+  const [cooldown, setCooldown] = useState(0)
+  const [resending, setResending] = useState(false)
+  const [editing, setEditing] = useState(false)
+  const [draft, setDraft] = useState(props.email)
+  const [verified, setVerified] = useState(false)
+  const [failures, setFailures] = useState(0)
+  const formsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (cooldown <= 0) return
+    const timer = setTimeout(() => setCooldown((seconds) => seconds - 1), 1000)
+    return () => clearTimeout(timer)
+  }, [cooldown])
+
+  useEffect(() => {
+    if (failures && !checking)
+      formsRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()
+  }, [failures, checking])
+
+  const fail = (message: string) => {
+    setError(message)
+    setFailures((count) => count + 1)
+  }
+
+  const verify = async (value: string) => {
+    if (checking) return
+    if (!/^\d{6}$/.test(value)) return fail('Enter all 6 digits from the email.')
+    setChecking(true)
+    setError(null)
+    setSendError(null)
+    try {
+      const ok = onVerify ? await onVerify(value) : value === '123456'
+      startTransition(() => {
+        if (ok) {
+          setVerified(true)
+          onVerified?.()
+        } else {
+          setCode('')
+          fail('That code didn’t work. Check the newest email, or send a new code.')
+        }
+      })
+    } catch {
+      startTransition(() => fail('We couldn’t check the code. Try again.'))
+    } finally {
+      startTransition(() => setChecking(false))
+    }
+  }
+
+  const resend = async () => {
+    setResending(true)
+    setError(null)
+    setSendError(null)
+    setStatus('')
+    try {
+      await onResend?.()
+      startTransition(() => {
+        setCooldown(resendAfter)
+        setStatus(`We sent a new code to ${email}.`)
+      })
+    } catch {
+      startTransition(() =>
+        setSendError('We couldn’t send the email. Try again in a moment.'),
+      )
+    } finally {
+      startTransition(() => setResending(false))
+    }
+  }
+
+  const saveEmail = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const address = draft.trim().toLowerCase()
+    if (!EMAIL.test(address)) return fail('Enter an email address.')
+    setError(null)
+    setSendError(null)
+    try {
+      await onChangeEmail?.(address)
+      startTransition(() => {
+        setEmail(address)
+        setEditing(false)
+        setCode('')
+        setCooldown(resendAfter)
+        setStatus(`We sent a code to ${address}.`)
+      })
+    } catch {
+      startTransition(() => fail('We couldn’t change the address. Try again.'))
+    }
+  }
+
+  return (
+    <AuthLayout
+      media={
+        verified ? (
+          <AuthIcon tone='done' />
+        ) : (
+          <AuthIcon>
+            <MailIcon aria-hidden />
+          </AuthIcon>
+        )
+      }
+      title={<RollingText text={verified ? 'Email verified' : 'Check your email'} wrap />}
+      description={
+        <RollingText
+          wrap
+          text={
+            verified
+              ? 'Taking you to your workspace…'
+              : `We sent a 6-digit code to ${email}. It expires in 10 minutes.`
+          }
+        />
+      }
+    >
+      <AuthReveal open={!verified}>
+        <div ref={formsRef} className='flex flex-col gap-4'>
+          {editing ? (
+            <form
+              method='post'
+              noValidate
+              onSubmit={(event) => void saveEmail(event)}
+              className='flex flex-col gap-2'
+            >
+              <label htmlFor={`${id}-email`} className='text-sm font-medium'>
+                Email
+              </label>
+              <Input
+                id={`${id}-email`}
+                type='email'
+                autoComplete='email'
+                value={draft}
+                onChange={(event) => setDraft(event.target.value)}
+                aria-invalid={error ? true : undefined}
+                aria-describedby={error ? `${id}-error` : undefined}
+              />
+              <div className='mt-2 flex flex-col gap-2'>
+                <Button type='submit'>Send code</Button>
+                <Button
+                  type='button'
+                  variant='ghost'
+                  onClick={() => {
+                    setEditing(false)
+                    setDraft(email)
+                    setError(null)
+                    setSendError(null)
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </form>
+          ) : (
+            <form
+              method='post'
+              noValidate
+              onSubmit={(event) => {
+                event.preventDefault()
+                void verify(code)
+              }}
+              className='flex flex-col gap-4'
+            >
+              <OtpInput
+                aria-label='Code from the email'
+                aria-describedby={error ? `${id}-error` : undefined}
+                focusOnMount={focusOnMount}
+                value={code}
+                onChange={(next) => {
+                  setCode(next)
+                  setError(null)
+                  setSendError(null)
+                }}
+                onComplete={(next) => void verify(next)}
+                invalid={Boolean(error)}
+                disabled={checking}
+              />
+              <Button type='submit' disabled={checking}>
+                {checking ? 'Checking…' : 'Verify email'}
+              </Button>
+            </form>
+          )}
+          {!editing && (
+            <div className='flex flex-col gap-4'>
+              <p className='text-muted-foreground text-sm text-pretty'>
+                Not in your inbox? Check your spam folder, or send it again.
+              </p>
+              <div className='-mx-2.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-1'>
+                <Button
+                  type='button'
+                  variant='ghost'
+                  size='sm'
+                  onClick={() => {
+                    setEditing(true)
+                    setError(null)
+                    setSendError(null)
+                  }}
+                >
+                  <PencilIcon data-icon='inline-start' aria-hidden />
+                  Use another email
+                </Button>
+                <AuthResendButton
+                  cooldown={cooldown}
+                  total={resendAfter}
+                  pending={resending}
+                  onClick={() => void resend()}
+                />
+              </div>
+            </div>
+          )}
+          {(error ?? sendError) && (
+            <p id={`${id}-error`} role='alert' className='text-destructive text-sm'>
+              {error ?? sendError}
+            </p>
+          )}
+          <p role='status' className='text-muted-foreground text-sm empty:sr-only'>
+            {status}
+          </p>
+        </div>
+      </AuthReveal>
+      <p role='status' className='sr-only'>
+        {verified ? 'Email verified' : ''}
+      </p>
+    </AuthLayout>
+  )
+}
+
+export { Auth4, exampleProps as auth4ExampleProps, type Auth4Props }

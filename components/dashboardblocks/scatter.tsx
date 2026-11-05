@@ -1,0 +1,160 @@
+'use client'
+
+import {
+  ChartTooltipFrame,
+  ChartTooltipItem,
+} from '@/components/dashboardblocks/chart'
+import type { ReactNode } from 'react'
+
+import { cn } from '@/lib/utils'
+
+interface ScatterPoint {
+  x: number
+  y: number
+}
+
+interface LineFit {
+  intercept: number
+  r: number
+  slope: number
+}
+
+function fitLine(points: ScatterPoint[]): LineFit {
+  const n = points.length
+  if (n < 2) return { intercept: points[0]?.y ?? 0, r: 0, slope: 0 }
+  const meanX = points.reduce((sum, point) => sum + point.x, 0) / n
+  const meanY = points.reduce((sum, point) => sum + point.y, 0) / n
+  let sxx = 0
+  let syy = 0
+  let sxy = 0
+  for (const point of points) {
+    sxx += (point.x - meanX) ** 2
+    syy += (point.y - meanY) ** 2
+    sxy += (point.x - meanX) * (point.y - meanY)
+  }
+  const slope = sxx > 0 ? sxy / sxx : 0
+  return {
+    intercept: meanY - slope * meanX,
+    r: sxx > 0 && syy > 0 ? sxy / Math.sqrt(sxx * syy) : 0,
+    slope,
+  }
+}
+
+function describeCorrelation(r: number) {
+  const size = Math.abs(r)
+  const strength =
+    size >= 0.7 ? 'strong' : size >= 0.4 ? 'moderate' : size >= 0.2 ? 'weak' : 'no clear'
+  if (strength === 'no clear') return 'no clear relationship'
+  return `${strength} ${r > 0 ? 'positive' : 'negative'}`
+}
+
+function getMedian(values: number[]) {
+  if (values.length === 0) return 0
+  const sorted = [...values].sort((a, b) => a - b)
+  const middle = Math.floor(sorted.length / 2)
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2
+}
+
+const scatterPalette = [
+  'var(--color-chart-2)',
+  'var(--color-chart-3)',
+  'var(--color-chart-4)',
+  'var(--color-chart-5)',
+  'var(--color-chart-1)',
+]
+
+interface ScatterTooltipRow {
+  label: string
+  value: string
+}
+
+function ScatterTooltipContent({
+  color,
+  rows,
+  title,
+}: {
+  color?: string
+  rows: ScatterTooltipRow[]
+  title: ReactNode
+}) {
+  return (
+    <ChartTooltipFrame>
+      <span className='flex items-center gap-1.5 font-medium'>
+        {color && (
+          <span
+            aria-hidden
+            className='size-2.5 shrink-0 rounded-full'
+            style={{ backgroundColor: color }}
+          />
+        )}
+        {title}
+      </span>
+      {rows.map((row) => (
+        <ChartTooltipItem key={row.label} name={row.label} value={row.value} />
+      ))}
+    </ChartTooltipFrame>
+  )
+}
+
+type RiskLevel = 'low' | 'medium' | 'high' | 'critical'
+
+function getRiskLevel(likelihood: number, impact: number): RiskLevel {
+  const score = likelihood * impact
+  if (score >= 15) return 'critical'
+  if (score >= 8) return 'high'
+  if (score >= 4) return 'medium'
+  return 'low'
+}
+
+const riskLevelConfig: Record<RiskLevel, { cell: string; label: string; text: string }> =
+  {
+    critical: {
+      cell: 'bg-red-500/25 dark:bg-red-500/30',
+      label: 'Critical',
+      text: 'text-red-700 dark:text-red-400',
+    },
+    high: {
+      cell: 'bg-orange-400/25 dark:bg-orange-500/25',
+      label: 'High',
+      text: 'text-orange-700 dark:text-orange-400',
+    },
+    low: {
+      cell: 'bg-emerald-500/15 dark:bg-emerald-500/15',
+      label: 'Low',
+      text: 'text-emerald-700 dark:text-emerald-400',
+    },
+    medium: {
+      cell: 'bg-amber-400/20 dark:bg-amber-400/20',
+      label: 'Medium',
+      text: 'text-amber-700 dark:text-amber-400',
+    },
+  }
+
+function RiskLevelLabel({ className, level }: { className?: string; level: RiskLevel }) {
+  const config = riskLevelConfig[level]
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center gap-1.5 text-xs font-medium whitespace-nowrap',
+        config.text,
+        className,
+      )}
+    >
+      <span aria-hidden className={cn('size-2.5 rounded-[3px]', config.cell)} />
+      {config.label}
+    </span>
+  )
+}
+
+export {
+  RiskLevelLabel,
+  ScatterTooltipContent,
+  describeCorrelation,
+  fitLine,
+  getMedian,
+  getRiskLevel,
+  riskLevelConfig,
+  scatterPalette,
+}
+
+export type { LineFit, RiskLevel, ScatterPoint, ScatterTooltipRow }

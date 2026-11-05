@@ -1,0 +1,409 @@
+'use client'
+
+import { CircleCheckIcon, LoaderCircleIcon, PlugIcon, RefreshCwIcon, SearchIcon, SearchXIcon, TriangleAlertIcon } from 'lucide-react'
+import {
+  BlockMessage,
+  BlockReady,
+  BlockStateProvider,
+  BlockStateRows,
+  type BlockStateProps,
+  getBlockState,
+} from '@/components/dashboardblocks/block-state'
+import {
+  type ChoiceCardOption,
+  ChoiceCards,
+} from '@/components/dashboardblocks/choice-cards'
+import { Link } from '@/components/dashboardblocks/link'
+import { OptionSelect } from '@/components/dashboardblocks/option-select'
+import {
+  type FormEvent,
+  type ReactNode,
+  startTransition,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react'
+
+import { Button } from '@/components/ui/button'
+import { FieldError } from '@/components/ui/field'
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group'
+
+interface DataSource {
+  category: string
+  description: string
+  id: string
+  logo?: ReactNode
+  name: string
+  popular?: boolean
+}
+
+interface Onboarding3Props extends BlockStateProps {
+  onConnect?: (id: string) => Promise<void>
+  onContinue?: (id: string) => void
+  requestHref: string
+  /** Leave out, or pass none, to show the empty state. */
+  sources?: DataSource[]
+}
+
+const exampleProps: Onboarding3Props = {
+  requestHref: '/sources/request',
+  sources: [
+    {
+      category: 'Databases',
+      description: 'Tables and views from Postgres 12 or later.',
+      id: 'postgres',
+      name: 'PostgreSQL',
+      popular: true,
+    },
+    {
+      category: 'Payments',
+      description: 'Charges, subscriptions, refunds and payouts.',
+      id: 'stripe',
+      name: 'Stripe',
+      popular: true,
+    },
+    {
+      category: 'Warehouses',
+      description: 'Datasets from any Google Cloud project.',
+      id: 'bigquery',
+      name: 'BigQuery',
+    },
+    {
+      category: 'Warehouses',
+      description: 'Databases and schemas through a key pair.',
+      id: 'snowflake',
+      name: 'Snowflake',
+    },
+    {
+      category: 'CRM',
+      description: 'Contacts, companies, deals and pipelines.',
+      id: 'hubspot',
+      name: 'HubSpot',
+    },
+    {
+      category: 'CRM',
+      description: 'Accounts, opportunities and custom objects.',
+      id: 'salesforce',
+      name: 'Salesforce',
+    },
+    {
+      category: 'E-commerce',
+      description: 'Orders, products, customers and inventory.',
+      id: 'shopify',
+      name: 'Shopify',
+    },
+    {
+      category: 'Marketing',
+      description: 'Sessions, events and conversions from GA4.',
+      id: 'ga4',
+      name: 'Google Analytics',
+    },
+    {
+      category: 'Spreadsheets',
+      description: 'Any sheet you can open, synced every hour.',
+      id: 'sheets',
+      name: 'Google Sheets',
+    },
+  ],
+}
+
+async function connectSource(id: string) {
+  await new Promise((resolve) => setTimeout(resolve, 1500))
+  if (id === 'snowflake') {
+    throw new Error(
+      'Snowflake rejected the key pair. Check the user has USAGE on the warehouse.',
+    )
+  }
+}
+
+type Status =
+  | { state: 'picking' }
+  | { id: string; state: 'connecting' | 'connected' }
+  | { id: string; message: string; state: 'failed' }
+
+function toOption(source: DataSource): ChoiceCardOption {
+  return {
+    badge: source.popular ? 'Popular' : undefined,
+    description: source.description,
+    icon: source.logo ?? <span className='text-sm font-semibold'>{source.name[0]}</span>,
+    title: source.name,
+    value: source.id,
+  }
+}
+
+const Onboarding3 = (props: Onboarding3Props) => {
+  const {
+    onConnect = connectSource,
+    onContinue,
+    requestHref,
+    sources = [],
+    errorMessage,
+    status: blockStatus,
+  } = props
+  const blockState = getBlockState(blockStatus, sources)
+  const id = useId()
+  const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('')
+  const [selected, setSelected] = useState('')
+  const [error, setError] = useState<string>()
+  const [status, setStatus] = useState<Status>({ state: 'picking' })
+  const attempt = useRef(0)
+  const messageRef = useRef<HTMLDivElement>(null)
+  const shownState = useRef(status.state)
+
+  const categories = [...new Set(sources.map((source) => source.category))]
+  const search = query.trim().toLowerCase()
+  const visible = sources.filter(
+    (source) =>
+      (!category || source.category === category) &&
+      (!search ||
+        `${source.name} ${source.category} ${source.description}`
+          .toLowerCase()
+          .includes(search)),
+  )
+  const source = sources.find(
+    (item) => item.id === (status.state === 'picking' ? selected : status.id),
+  )
+
+  useEffect(() => {
+    const from = shownState.current
+    shownState.current = status.state
+    if (from === status.state) return
+    const message = messageRef.current
+    if (status.state === 'picking') document.getElementById(`${id}-search`)?.focus()
+    else if (message && !message.contains(document.activeElement)) message.focus()
+  }, [id, status.state])
+
+  async function connect(sourceId: string) {
+    attempt.current += 1
+    const current = attempt.current
+    setStatus({ id: sourceId, state: 'connecting' })
+    try {
+      await onConnect(sourceId)
+      if (current === attempt.current)
+        startTransition(() => setStatus({ id: sourceId, state: 'connected' }))
+    } catch (caught) {
+      if (current !== attempt.current) return
+      startTransition(() =>
+        setStatus({
+          id: sourceId,
+          message:
+            caught instanceof Error ? caught.message : 'Something went wrong. Try again.',
+          state: 'failed',
+        }),
+      )
+    }
+  }
+
+  function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!selected) {
+      setError('Pick a source to connect.')
+      document.getElementById(`${id}-sources`)?.focus()
+      return
+    }
+    void connect(selected)
+  }
+
+  function cancelPendingConnection() {
+    attempt.current += 1
+  }
+
+  function backToSources() {
+    cancelPendingConnection()
+    setStatus({ state: 'picking' })
+  }
+
+  const announcement =
+    status.state === 'connecting'
+      ? `Connecting to ${source?.name}`
+      : status.state === 'connected'
+        ? `${source?.name} is connected`
+        : status.state === 'failed'
+          ? `Couldn't connect to ${source?.name}`
+          : ''
+
+  return (
+    <BlockStateProvider errorMessage={errorMessage} state={blockState}>
+      <section className='@container flex flex-col gap-4'>
+        <header className='flex flex-col gap-0.5'>
+          <h2 id={`${id}-title`} className='font-semibold tracking-tight'>
+            Connect a data source
+          </h2>
+          <BlockReady className='text-sm'>
+            <p className='text-muted-foreground text-sm'>
+              Pick one of {sources.length} sources to start. You can add more later.
+            </p>
+          </BlockReady>
+        </header>
+        <p role='status' className='sr-only'>
+          {announcement}
+        </p>
+        {status.state === 'picking' ? (
+          <form
+            method='post'
+            noValidate
+            onSubmit={onSubmit}
+            className='flex flex-col gap-4'
+          >
+            <div className='flex flex-col gap-4'>
+              <div className='flex flex-col gap-2 @md:flex-row'>
+                <InputGroup className='@md:flex-1'>
+                  <InputGroupAddon>
+                    <SearchIcon />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    id={`${id}-search`}
+                    type='search'
+                    aria-label='Search sources'
+                    aria-controls={`${id}-results`}
+                    placeholder='Search sources'
+                    disabled={blockState !== undefined}
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                  />
+                </InputGroup>
+                <OptionSelect
+                  aria-label='Category'
+                  className='w-full @md:w-44'
+                  disabled={blockState !== undefined}
+                  value={category || 'all'}
+                  options={[
+                    { label: 'All categories', value: 'all' },
+                    ...categories.map((item) => ({ label: item, value: item })),
+                  ]}
+                  onValueChange={(value) => setCategory(value === 'all' ? '' : value)}
+                />
+              </div>
+              <p role='status' className='sr-only'>
+                {blockState
+                  ? ''
+                  : visible.length === 1
+                    ? '1 source'
+                    : `${visible.length} sources`}
+              </p>
+              <div id={`${id}-results`}>
+                {blockState ? (
+                  <BlockStateRows className='border-t' rows={6} />
+                ) : visible.length > 0 ? (
+                  <ChoiceCards
+                    id={`${id}-sources`}
+                    aria-labelledby={`${id}-title`}
+                    aria-invalid={error ? true : undefined}
+                    aria-describedby={error ? `${id}-error` : undefined}
+                    className='@lg:grid-cols-2 @3xl:grid-cols-3'
+                    options={visible.map(toOption)}
+                    value={selected}
+                    onValueChange={(value) => {
+                      setSelected(value)
+                      setError(undefined)
+                    }}
+                  />
+                ) : (
+                  <BlockMessage
+                    className='rounded-lg border border-dashed'
+                    icon={
+                      <SearchXIcon />
+                    }
+                    title='No sources match'
+                    description='Check the spelling or try another category.'
+                    action={
+                      <Button
+                        type='button'
+                        variant='outline'
+                        size='sm'
+                        onClick={() => {
+                          setQuery('')
+                          setCategory('')
+                          document.getElementById(`${id}-search`)?.focus()
+                        }}
+                      >
+                        Clear filters
+                      </Button>
+                    }
+                  />
+                )}
+              </div>
+              <FieldError id={`${id}-error`}>{error}</FieldError>
+            </div>
+            <div className='flex flex-col items-stretch gap-3 border-t pt-4 @md:flex-row @md:items-center @md:justify-between'>
+              <p className='text-muted-foreground text-sm'>
+                Can&apos;t find yours?{' '}
+                <Link
+                  href={requestHref}
+                  className='text-foreground font-medium underline underline-offset-4'
+                >
+                  Request a source
+                </Link>
+              </p>
+              <Button type='submit' disabled={blockState !== undefined}>
+                {source ? `Connect ${source.name}` : 'Connect'}
+              </Button>
+            </div>
+          </form>
+        ) : (
+          <div className='border-t pt-4'>
+            <div ref={messageRef} tabIndex={-1} className='outline-none'>
+              {status.state === 'connecting' && (
+                <BlockMessage
+                  icon={
+                    <LoaderCircleIcon className='animate-spin motion-reduce:animate-none' />
+                  }
+                  title={`Connecting to ${source?.name}…`}
+                  description='Approve access in the window that opened. It usually takes less than a minute.'
+                  action={
+                    <Button variant='ghost' size='sm' onClick={backToSources}>
+                      Cancel
+                    </Button>
+                  }
+                />
+              )}
+              {status.state === 'connected' && (
+                <BlockMessage
+                  icon={
+                    <CircleCheckIcon className='text-emerald-700 dark:text-emerald-400' />
+                  }
+                  title={`${source?.name} is connected`}
+                  description="We're importing the last 90 days. Your first dashboard will be ready in a few minutes."
+                  action={
+                    <div className='flex flex-wrap justify-center gap-2'>
+                      <Button onClick={() => onContinue?.(status.id)}>Continue</Button>
+                      <Button variant='outline' onClick={backToSources}>
+                        <PlugIcon data-icon='inline-start' />
+                        Connect another
+                      </Button>
+                    </div>
+                  }
+                />
+              )}
+              {status.state === 'failed' && (
+                <BlockMessage
+                  tone='error'
+                  icon={
+                    <TriangleAlertIcon />
+                  }
+                  title={`Couldn't connect to ${source?.name}`}
+                  description={status.message}
+                  action={
+                    <div className='flex flex-wrap justify-center gap-2'>
+                      <Button onClick={() => void connect(status.id)}>
+                        <RefreshCwIcon data-icon='inline-start' />
+                        Try again
+                      </Button>
+                      <Button variant='outline' onClick={backToSources}>
+                        Pick another source
+                      </Button>
+                    </div>
+                  }
+                />
+              )}
+            </div>
+          </div>
+        )}
+      </section>
+    </BlockStateProvider>
+  )
+}
+
+export { Onboarding3, exampleProps as onboarding3ExampleProps, type Onboarding3Props }

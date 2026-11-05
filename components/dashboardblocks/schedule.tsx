@@ -1,0 +1,500 @@
+'use client'
+
+import {
+  StatusLabel,
+  type StatusTone,
+} from '@/components/dashboardblocks/status-label'
+import {
+  dayIn,
+  formatDate,
+  formatDayHeading,
+  formatRelativeDays,
+  formatRelativeTime,
+  joinDetails,
+  zonedParts,
+} from '@/lib/dashboardblocks/format'
+import {
+  type CSSProperties,
+  type KeyboardEvent,
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
+
+import { cn } from '@/lib/utils'
+
+interface ScheduleEvent {
+  allDay?: boolean
+  calendar?: string
+  /** @default 'var(--color-chart-2)' */
+  color?: string
+  /** Leave out for a point in time, such as a deadline. */
+  end?: Date
+  id: string
+  location?: string
+  start: Date
+  title: string
+}
+
+const DAY = 86_400_000
+
+function getDay(date: Date, timeZone = 'UTC') {
+  const { day, month, year } = zonedParts(date, timeZone)
+  return new Date(Date.UTC(year, month - 1, day))
+}
+
+function addDays(day: Date, days: number) {
+  return new Date(day.getTime() + days * DAY)
+}
+
+function getDayOffset(date: Date, now: Date, timeZone = 'UTC') {
+  return Math.round(
+    (getDay(date, timeZone).getTime() - getDay(now, timeZone).getTime()) / DAY,
+  )
+}
+
+function formatTime(date: Date, timeZone = 'UTC') {
+  return formatDate(date, 'time', timeZone)
+}
+
+function formatTimeRange(start: Date, end: Date | undefined, timeZone = 'UTC') {
+  const from = formatTime(start, timeZone)
+  if (!end) return from
+  const to = formatTime(end, timeZone)
+  if (from.slice(-2) === to.slice(-2)) return `${from.slice(0, -3)}–${to}`
+  return `${from}–${to}`
+}
+
+function formatDuration(start: Date, end: Date) {
+  const minutes = Math.max(0, Math.round((end.getTime() - start.getTime()) / 60_000))
+  const hours = Math.floor(minutes / 60)
+  const rest = minutes % 60
+  if (hours === 0) return `${rest} min`
+  return rest === 0 ? `${hours} hr` : `${hours} hr ${rest} min`
+}
+
+function formatCountdown(date: Date, now: Date, timeZone = 'UTC') {
+  const offset = getDayOffset(date, now, timeZone)
+  if (offset !== 0) return formatRelativeDays(offset)
+  if (Math.abs(date.getTime() - now.getTime()) < 60_000) return 'now'
+  return formatRelativeTime(date, now, { style: 'long', timeZone })
+}
+
+interface ScheduleDay<T extends ScheduleEvent> {
+  day: Date
+  events: T[]
+  key: string
+  label: string
+}
+
+function groupByDay<T extends ScheduleEvent>(events: T[], now: Date, timeZone = 'UTC') {
+  const days = new Map<string, ScheduleDay<T>>()
+  for (const event of [...events].sort((a, b) => a.start.getTime() - b.start.getTime())) {
+    const key = dayIn(event.start, timeZone)
+    const group = days.get(key) ?? {
+      day: getDay(event.start, timeZone),
+      events: [],
+      key,
+      label: formatDayHeading(event.start, now, timeZone),
+    }
+    group.events.push(event)
+    days.set(key, group)
+  }
+  return [...days.values()]
+}
+
+function getMonthWeeks(month: Date, weekStartsOn: 0 | 1 = 0) {
+  const first = new Date(Date.UTC(month.getUTCFullYear(), month.getUTCMonth(), 1))
+  const start = addDays(first, -((first.getUTCDay() - weekStartsOn + 7) % 7))
+  return Array.from({ length: 6 }, (_, week) =>
+    Array.from({ length: 7 }, (_, weekday) => addDays(start, week * 7 + weekday)),
+  )
+}
+
+/** Tints an event chip with its colour over `surface`, the colour behind it, and fades it once it has ended. */
+function getEventStyle(
+  event: ScheduleEvent,
+  ended = false,
+  surface = 'var(--color-card)',
+): CSSProperties {
+  const color = event.color ?? 'var(--color-chart-2)'
+  return {
+    backgroundColor: `color-mix(in oklab, ${color} ${ended ? 12 : 24}%, ${surface})`,
+    borderColor: ended ? `color-mix(in oklab, ${color} 45%, ${surface})` : color,
+  }
+}
+
+function EventSwatch({ className, color }: { className?: string; color?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={cn('size-2 shrink-0 rounded-full', className)}
+      style={{ backgroundColor: color ?? 'var(--color-chart-2)' }}
+    />
+  )
+}
+
+interface EventRowProps {
+  action?: ReactNode
+  className?: string
+  event: ScheduleEvent
+  /** Dims events that have ended and marks the one in progress. */
+  now?: Date
+  /** Tints the row and keeps its small text at full contrast on the tint. */
+  selected?: boolean
+  /** @default 'UTC' */
+  timeZone?: string
+}
+
+function EventRow({
+  action,
+  className,
+  event,
+  now,
+  selected = false,
+  timeZone = 'UTC',
+}: EventRowProps) {
+  const muted = !selected && 'text-muted-foreground'
+  const ended = now !== undefined && (event.end ?? event.start) <= now
+  const live =
+    now !== undefined &&
+    !event.allDay &&
+    event.end !== undefined &&
+    event.start <= now &&
+    now < event.end
+  const meta = joinDetails(event.calendar, event.location)
+
+  return (
+    <li className={cn('flex items-stretch gap-3', selected && 'bg-muted', className)}>
+      <div className='flex w-16 shrink-0 flex-col pt-px text-xs tabular-nums'>
+        {event.allDay ? (
+          <span className={cn('font-medium', muted)}>All day</span>
+        ) : (
+          <>
+            <time
+              dateTime={event.start.toISOString()}
+              className={cn('font-medium', ended && muted)}
+            >
+              {formatTime(event.start, timeZone)}
+            </time>
+            {event.end && (
+              <span className={cn(muted)}>{formatDuration(event.start, event.end)}</span>
+            )}
+          </>
+        )}
+      </div>
+      <span
+        aria-hidden
+        className={cn('w-1 shrink-0 rounded-full', ended && 'opacity-40')}
+        style={{ backgroundColor: event.color ?? 'var(--color-chart-2)' }}
+      />
+      <div className='flex min-w-0 flex-1 flex-col gap-0.5'>
+        <p
+          className={cn(
+            'flex flex-wrap items-center gap-x-2 text-sm font-medium',
+            ended && muted,
+          )}
+        >
+          <span className='min-w-0 break-words'>{event.title}</span>
+          {live && (
+            <StatusLabel tone='good' className='text-xs'>
+              Now
+            </StatusLabel>
+          )}
+          {ended && <span className='sr-only'>(ended)</span>}
+        </p>
+        {meta && <p className={cn('truncate text-xs', muted)}>{meta}</p>}
+      </div>
+      {action && <div className='flex shrink-0 items-start'>{action}</div>}
+    </li>
+  )
+}
+
+type Urgency = 'overdue' | 'today' | 'soon' | 'later'
+
+const urgencyConfig: Record<Urgency, { label: string; text: string }> = {
+  later: {
+    label: 'Upcoming',
+    text: 'text-muted-foreground',
+  },
+  overdue: {
+    label: 'Overdue',
+    text: 'text-red-700 dark:text-red-400',
+  },
+  soon: {
+    label: 'Due soon',
+    text: 'text-orange-700 dark:text-orange-400',
+  },
+  today: {
+    label: 'Today',
+    text: 'text-orange-700 dark:text-orange-400',
+  },
+}
+
+/** How pressing a deadline is by calendar day: overdue, today, within `soonDays` (default 7) or later. */
+function getUrgency(date: Date, now: Date, timeZone = 'UTC', soonDays = 7): Urgency {
+  const offset = getDayOffset(date, now, timeZone)
+  if (offset < 0) return 'overdue'
+  if (offset === 0) return 'today'
+  return offset <= soonDays ? 'soon' : 'later'
+}
+
+const urgencyTones: Record<Urgency, StatusTone> = {
+  later: 'neutral',
+  overdue: 'bad',
+  soon: 'warning',
+  today: 'warning',
+}
+
+function UrgencyLabel({
+  className,
+  label,
+  urgency,
+}: {
+  className?: string
+  label?: string
+  urgency: Urgency
+}) {
+  return (
+    <StatusLabel tone={urgencyTones[urgency]} className={className} variant='text'>
+      {label ?? urgencyConfig[urgency].label}
+    </StatusLabel>
+  )
+}
+
+interface MonthCalendarProps {
+  className?: string
+  /** Events to mark with dots, up to three per day. */
+  events: ScheduleEvent[]
+  label: string
+  /** The month shown, as a plain day from `getDay`. */
+  month: Date
+  onMonthChange: (month: Date) => void
+  onSelect: (day: Date) => void
+  now: Date
+  selected?: Date
+  /** @default 'UTC' */
+  timeZone?: string
+  /** 0 for Sunday, 1 for Monday. */
+  weekStartsOn?: 0 | 1
+}
+
+function MonthCalendar({
+  className,
+  events,
+  label,
+  month,
+  now,
+  onMonthChange,
+  onSelect,
+  selected,
+  timeZone = 'UTC',
+  weekStartsOn = 0,
+}: MonthCalendarProps) {
+  const grid = useRef<HTMLTableElement>(null)
+  const [cursor, setCursor] = useState<Date | null>(null)
+  const shouldFocus = useRef(false)
+
+  const weeks = getMonthWeeks(month, weekStartsOn)
+  const today = getDay(now, timeZone).getTime()
+  const inMonth = (day: Date) =>
+    day.getUTCFullYear() === month.getUTCFullYear() &&
+    day.getUTCMonth() === month.getUTCMonth()
+  const fallback =
+    selected && inMonth(selected)
+      ? selected
+      : inMonth(new Date(today))
+        ? new Date(today)
+        : new Date(Date.UTC(month.getUTCFullYear(), month.getUTCMonth(), 1))
+  const active = cursor && inMonth(cursor) ? cursor : fallback
+
+  const eventsByDay = new Map<string, ScheduleEvent[]>()
+  for (const event of events) {
+    const key = dayIn(event.start, timeZone)
+    eventsByDay.set(key, [...(eventsByDay.get(key) ?? []), event])
+  }
+
+  useEffect(() => {
+    if (!shouldFocus.current) return
+    shouldFocus.current = false
+    grid.current
+      ?.querySelector<HTMLElement>(`[data-day="${active.toISOString().slice(0, 10)}"]`)
+      ?.focus()
+  })
+
+  const moveTo = (day: Date) => {
+    setCursor(day)
+    shouldFocus.current = true
+    if (!inMonth(day))
+      onMonthChange(new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), 1)))
+  }
+
+  const moveMonths = (months: number) => {
+    const target = new Date(
+      Date.UTC(active.getUTCFullYear(), active.getUTCMonth() + months, 1),
+    )
+    const lastDay = new Date(
+      Date.UTC(target.getUTCFullYear(), target.getUTCMonth() + 1, 0),
+    ).getUTCDate()
+    target.setUTCDate(Math.min(active.getUTCDate(), lastDay))
+    moveTo(target)
+  }
+
+  const onKeyDown = (event: KeyboardEvent<HTMLTableElement>) => {
+    const weekday = (active.getUTCDay() - weekStartsOn + 7) % 7
+    switch (event.key) {
+      case 'ArrowRight':
+        moveTo(addDays(active, 1))
+        break
+      case 'ArrowLeft':
+        moveTo(addDays(active, -1))
+        break
+      case 'ArrowDown':
+        moveTo(addDays(active, 7))
+        break
+      case 'ArrowUp':
+        moveTo(addDays(active, -7))
+        break
+      case 'Home':
+        moveTo(addDays(active, -weekday))
+        break
+      case 'End':
+        moveTo(addDays(active, 6 - weekday))
+        break
+      case 'PageDown':
+        moveMonths(event.shiftKey ? 12 : 1)
+        break
+      case 'PageUp':
+        moveMonths(event.shiftKey ? -12 : -1)
+        break
+      default:
+        return
+    }
+    event.preventDefault()
+  }
+
+  const weekdays = weeks[0].map((day) => ({
+    long: formatDate(day, 'weekday-long'),
+    short: formatDate(day, 'weekday').slice(0, 2),
+  }))
+
+  return (
+    // Not a data table: a calendar month, drawn as the ARIA date grid pattern.
+    <table
+      ref={grid}
+      // oxlint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role -- the ARIA date grid pattern is a table with the grid role
+      role='grid'
+      aria-label={label}
+      onKeyDown={onKeyDown}
+      className={cn('w-full table-fixed border-collapse', className)}
+    >
+      <thead>
+        <tr>
+          {weekdays.map((weekday) => (
+            <th
+              key={weekday.long}
+              scope='col'
+              abbr={weekday.long}
+              className='text-muted-foreground pb-1 text-xs font-normal'
+            >
+              {weekday.short}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {weeks.map((week) => (
+          <tr key={week[0].getTime()}>
+            {week.map((day) => {
+              const key = day.toISOString().slice(0, 10)
+              const dayEvents = eventsByDay.get(key) ?? []
+              const isToday = day.getTime() === today
+              const isSelected = selected?.getTime() === day.getTime()
+              const isActive = active.getTime() === day.getTime()
+              const outside = !inMonth(day)
+              const name = [
+                formatDate(day, 'weekday-long-day'),
+                isToday ? 'today' : '',
+                dayEvents.length === 0
+                  ? 'no events'
+                  : `${dayEvents.length} ${dayEvents.length === 1 ? 'event' : 'events'}`,
+              ]
+                .filter(Boolean)
+                .join(', ')
+              return (
+                <td key={key} aria-selected={isSelected} className='p-0.5 text-center'>
+                  <button
+                    type='button'
+                    data-day={key}
+                    tabIndex={isActive ? 0 : -1}
+                    aria-label={name}
+                    aria-current={isToday ? 'date' : undefined}
+                    onClick={() => {
+                      setCursor(day)
+                      if (outside) {
+                        onMonthChange(
+                          new Date(Date.UTC(day.getUTCFullYear(), day.getUTCMonth(), 1)),
+                        )
+                      }
+                      onSelect(day)
+                    }}
+                    className={cn(
+                      'focus-visible:ring-ring/50 relative mx-auto flex h-10 w-full max-w-10 flex-col items-center justify-center gap-0.5 rounded-md text-sm tabular-nums outline-none focus-visible:ring-[3px]',
+                      outside ? 'text-muted-foreground' : 'hover:bg-muted',
+                      isToday &&
+                        !isSelected &&
+                        'text-foreground font-semibold ring-1 ring-border',
+                      isSelected &&
+                        'bg-primary text-primary-foreground hover:bg-primary font-semibold',
+                    )}
+                  >
+                    <span aria-hidden className='leading-none'>
+                      {day.getUTCDate()}
+                    </span>
+                    <span aria-hidden className='flex h-1.5 items-center gap-0.5'>
+                      {dayEvents.slice(0, 3).map((event) => (
+                        <span
+                          key={event.id}
+                          className={cn(
+                            'size-1 rounded-full',
+                            isSelected && 'ring-primary-foreground/80 ring-1',
+                          )}
+                          style={{
+                            backgroundColor: event.color ?? 'var(--color-chart-2)',
+                          }}
+                        />
+                      ))}
+                    </span>
+                  </button>
+                </td>
+              )
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+}
+
+export {
+  EventRow,
+  EventSwatch,
+  MonthCalendar,
+  UrgencyLabel,
+  addDays,
+  formatCountdown,
+  formatDuration,
+  formatTime,
+  formatTimeRange,
+  getDay,
+  getDayOffset,
+  getEventStyle,
+  getMonthWeeks,
+  getUrgency,
+  groupByDay,
+  urgencyConfig,
+  urgencyTones,
+}
+
+export type { EventRowProps, MonthCalendarProps, ScheduleDay, ScheduleEvent, Urgency }
