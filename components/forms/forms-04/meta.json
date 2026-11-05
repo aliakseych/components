@@ -1,0 +1,25 @@
+{
+  "name": "Forms: Inline Edit",
+  "summary": "One value edited at a time, in place.",
+  "tags": [
+    "form",
+    "input",
+    "select"
+  ],
+  "useWhen": [
+    "Settings sections, side-sheet forms, wizards and inline editing"
+  ],
+  "avoidWhen": [
+    "A single search field"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "input",
+    "input-group",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/forms-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

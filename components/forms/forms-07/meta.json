@@ -1,0 +1,26 @@
+{
+  "name": "Forms: Number and Money",
+  "summary": "Numbers with their unit or currency, formatted when you leave the field, and minus and plus for a count.",
+  "tags": [
+    "form",
+    "input",
+    "select"
+  ],
+  "useWhen": [
+    "Settings sections, side-sheet forms, wizards and inline editing"
+  ],
+  "avoidWhen": [
+    "A single search field"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/forms-07",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

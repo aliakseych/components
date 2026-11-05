@@ -1,0 +1,29 @@
+{
+  "name": "Forms: Address",
+  "summary": "An address whose fields follow the country: a state and ZIP code in the US, a postcode in the UK, the postal code before the city in Germany.",
+  "tags": [
+    "form",
+    "input",
+    "select"
+  ],
+  "useWhen": [
+    "Settings sections, side-sheet forms, wizards and inline editing"
+  ],
+  "avoidWhen": [
+    "A single search field"
+  ],
+  "dependencies": [
+    "country-flag-icons"
+  ],
+  "shadcn": [
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "select",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/forms-08",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

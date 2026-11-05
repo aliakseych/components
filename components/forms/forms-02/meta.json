@@ -1,0 +1,28 @@
+{
+  "name": "Forms: Sheet",
+  "summary": "A record created in a panel that slides in from the side.",
+  "tags": [
+    "form",
+    "input",
+    "select"
+  ],
+  "useWhen": [
+    "Settings sections, side-sheet forms, wizards and inline editing"
+  ],
+  "avoidWhen": [
+    "A single search field"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "select",
+    "sheet",
+    "textarea"
+  ],
+  "install": "@dashboardblocks/forms-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

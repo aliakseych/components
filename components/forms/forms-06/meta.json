@@ -1,0 +1,26 @@
+{
+  "name": "Forms: Choice Cards",
+  "summary": "One or several options drawn as cards, each with its price and a line of detail.",
+  "tags": [
+    "form",
+    "input",
+    "select"
+  ],
+  "useWhen": [
+    "Settings sections, side-sheet forms, wizards and inline editing"
+  ],
+  "avoidWhen": [
+    "A single search field"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "sheet"
+  ],
+  "install": "@dashboardblocks/forms-06",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

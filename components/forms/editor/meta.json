@@ -1,0 +1,48 @@
+{
+  "name": "Rich Text Editor",
+  "summary": "A Tiptap editor with a slash menu, formatting bubble menu, tables, code blocks, task lists and a character count.",
+  "tags": [
+    "editor",
+    "rich text",
+    "markdown",
+    "input",
+    "form"
+  ],
+  "useWhen": [
+    "People write long, formatted content, such as documents or comments",
+    "You need slash commands and tables"
+  ],
+  "avoidWhen": [
+    "A plain textarea is enough",
+    "Bundle size matters, because it brings in Tiptap and ProseMirror"
+  ],
+  "dependencies": [
+    "@tiptap/core",
+    "@tiptap/extension-code-block-lowlight",
+    "@tiptap/extension-list",
+    "@tiptap/extension-subscript",
+    "@tiptap/extension-superscript",
+    "@tiptap/extension-table",
+    "@tiptap/extension-text-style",
+    "@tiptap/extension-typography",
+    "@tiptap/extensions",
+    "@tiptap/pm",
+    "@tiptap/react",
+    "@tiptap/starter-kit",
+    "@tiptap/suggestion",
+    "fuse.js",
+    "lowlight",
+    "lucide-react",
+    "tippy.js"
+  ],
+  "shadcn": [
+    "button",
+    "command",
+    "dropdown-menu",
+    "popover",
+    "separator",
+    "tooltip"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

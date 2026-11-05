@@ -1,0 +1,29 @@
+{
+  "name": "Forms: Wizard",
+  "summary": "A form in steps, each checked before moving on, with a review of everything before it's created.",
+  "tags": [
+    "form",
+    "input",
+    "select"
+  ],
+  "useWhen": [
+    "Settings sections, side-sheet forms, wizards and inline editing"
+  ],
+  "avoidWhen": [
+    "A single search field"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "select",
+    "sheet",
+    "switch",
+    "textarea"
+  ],
+  "install": "@dashboardblocks/forms-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

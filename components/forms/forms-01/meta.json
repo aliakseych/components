@@ -1,0 +1,29 @@
+{
+  "name": "Forms: Sections",
+  "summary": "Fields grouped into titled sections, with a save bar that counts unsaved changes.",
+  "tags": [
+    "form",
+    "input",
+    "select"
+  ],
+  "useWhen": [
+    "Settings sections, side-sheet forms, wizards and inline editing"
+  ],
+  "avoidWhen": [
+    "A single search field"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "field",
+    "input",
+    "input-group",
+    "select",
+    "sheet",
+    "switch",
+    "textarea"
+  ],
+  "install": "@dashboardblocks/forms-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

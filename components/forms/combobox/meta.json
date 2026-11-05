@@ -1,0 +1,30 @@
+{
+  "name": "Combobox",
+  "summary": "A searchable dropdown for choosing from a list, with an option to create new values.",
+  "tags": [
+    "form",
+    "select",
+    "search",
+    "autocomplete",
+    "input"
+  ],
+  "useWhen": [
+    "A list is too long for a plain select",
+    "People may need to add a value that does not exist yet"
+  ],
+  "avoidWhen": [
+    "There are only a few options, where radio buttons are clearer",
+    "Several values must be chosen at once"
+  ],
+  "dependencies": [
+    "@radix-ui/react-use-controllable-state",
+    "lucide-react"
+  ],
+  "shadcn": [
+    "button",
+    "command",
+    "popover"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}
