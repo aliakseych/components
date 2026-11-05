@@ -1,0 +1,21 @@
+{
+  "name": "Email: Invite",
+  "summary": "Who invited them, to which workspace and with what role, with Accept on the panel and the date the invite runs out.",
+  "tags": [
+    "email",
+    "marketing"
+  ],
+  "useWhen": [
+    "Transactional emails such as sign-in codes, invites and receipts"
+  ],
+  "avoidWhen": [
+    "In-app messages, which don't need email templates"
+  ],
+  "dependencies": [
+    "react-email"
+  ],
+  "shadcn": [],
+  "install": "@dashboardblocks/email-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

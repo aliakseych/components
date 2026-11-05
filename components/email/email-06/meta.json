@@ -1,0 +1,21 @@
+{
+  "name": "Email: Usage Alert",
+  "summary": "How much of the limit is used, with a meter on the panel, when it resets, and which projects used it.",
+  "tags": [
+    "email",
+    "marketing"
+  ],
+  "useWhen": [
+    "Transactional emails such as sign-in codes, invites and receipts"
+  ],
+  "avoidWhen": [
+    "In-app messages, which don't need email templates"
+  ],
+  "dependencies": [
+    "react-email"
+  ],
+  "shadcn": [],
+  "install": "@dashboardblocks/email-06",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

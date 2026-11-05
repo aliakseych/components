@@ -1,0 +1,21 @@
+{
+  "name": "Email: Sign-in Code",
+  "summary": "The code on a dark panel, how long it works, and who asked for it, so someone who didn't can ignore it.",
+  "tags": [
+    "email",
+    "marketing"
+  ],
+  "useWhen": [
+    "Transactional emails such as sign-in codes, invites and receipts"
+  ],
+  "avoidWhen": [
+    "In-app messages, which don't need email templates"
+  ],
+  "dependencies": [
+    "react-email"
+  ],
+  "shadcn": [],
+  "install": "@dashboardblocks/email-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

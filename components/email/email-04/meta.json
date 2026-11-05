@@ -1,0 +1,21 @@
+{
+  "name": "Email: Payment Failed",
+  "summary": "The amount due on the panel with the card and the bank's reason, Update card, and when the card is tried again before the plan stops.",
+  "tags": [
+    "email",
+    "marketing"
+  ],
+  "useWhen": [
+    "Transactional emails such as sign-in codes, invites and receipts"
+  ],
+  "avoidWhen": [
+    "In-app messages, which don't need email templates"
+  ],
+  "dependencies": [
+    "react-email"
+  ],
+  "shadcn": [],
+  "install": "@dashboardblocks/email-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}
