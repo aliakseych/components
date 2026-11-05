@@ -1,0 +1,25 @@
+{
+  "name": "Pipeline: Board",
+  "summary": "A column per stage with its item count and total value, and a card per item with its owner, moved from its menu.",
+  "tags": [
+    "pipeline",
+    "stats",
+    "kanban"
+  ],
+  "useWhen": [
+    "Work in flight across stages, such as deals or tickets"
+  ],
+  "avoidWhen": [
+    "People need to drag items between stages, where a kanban fits",
+    "Dragging deals between stages, where planning/kanban-02 fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "dropdown-menu"
+  ],
+  "install": "@dashboardblocks/pipeline-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

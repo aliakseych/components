@@ -1,0 +1,22 @@
+{
+  "name": "Usage Meter: Storage Ring",
+  "summary": "Storage used as a ring in its status colour, with the space that's free.",
+  "tags": [
+    "usage",
+    "progress",
+    "billing"
+  ],
+  "useWhen": [
+    "How much of a quota, plan limit or credit balance is used"
+  ],
+  "avoidWhen": [
+    "There is no limit to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/usage-meter-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

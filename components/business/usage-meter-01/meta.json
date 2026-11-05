@@ -1,0 +1,22 @@
+{
+  "name": "Usage Meter: Quota",
+  "summary": "An API quota with its status, when it resets, the usage it's on pace for and the date it would hit the limit.",
+  "tags": [
+    "usage",
+    "progress",
+    "billing"
+  ],
+  "useWhen": [
+    "How much of a quota, plan limit or credit balance is used"
+  ],
+  "avoidWhen": [
+    "There is no limit to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/usage-meter-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

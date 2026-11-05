@@ -1,0 +1,24 @@
+{
+  "name": "Pipeline: Stuck Items",
+  "summary": "Items over their expected time in stage, longest over first, with how long they've waited and who owns them.",
+  "tags": [
+    "pipeline",
+    "stats",
+    "kanban"
+  ],
+  "useWhen": [
+    "Work in flight across stages, such as deals or tickets"
+  ],
+  "avoidWhen": [
+    "People need to drag items between stages, where a kanban fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/pipeline-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

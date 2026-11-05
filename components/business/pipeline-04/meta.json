@@ -1,0 +1,23 @@
+{
+  "name": "Pipeline: Weighted Forecast",
+  "summary": "Closed plus open deals weighted by the chance their stage closes, per owner, against quota.",
+  "tags": [
+    "pipeline",
+    "stats",
+    "kanban"
+  ],
+  "useWhen": [
+    "Work in flight across stages, such as deals or tickets"
+  ],
+  "avoidWhen": [
+    "People need to drag items between stages, where a kanban fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "card"
+  ],
+  "install": "@dashboardblocks/pipeline-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

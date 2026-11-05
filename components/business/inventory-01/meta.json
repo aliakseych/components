@@ -1,0 +1,22 @@
+{
+  "name": "Inventory: Low Stock",
+  "summary": "Items at or near their reorder point, soonest to run out first, with how much to order and which will run out before an order arrives.",
+  "tags": [
+    "inventory",
+    "stats",
+    "table"
+  ],
+  "useWhen": [
+    "Stock levels, reorders and warehouse capacity"
+  ],
+  "avoidWhen": [
+    "The product sells nothing physical"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/inventory-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

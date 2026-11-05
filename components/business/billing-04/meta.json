@@ -1,0 +1,26 @@
+{
+  "name": "Billing: Revenue Summary",
+  "summary": "MRR, ARR, ARPU and net revenue retention, each with its change from the previous month written out.",
+  "tags": [
+    "billing",
+    "pricing",
+    "invoice"
+  ],
+  "useWhen": [
+    "Subscription revenue, plans, invoices and plan changes"
+  ],
+  "avoidWhen": [
+    "The product has no subscriptions"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/billing-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

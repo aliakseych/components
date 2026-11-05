@@ -1,0 +1,25 @@
+{
+  "name": "Inventory: Stock Projection",
+  "summary": "One item's stock day by day at its current demand, with incoming orders, the reorder point and the day it runs out.",
+  "tags": [
+    "inventory",
+    "stats",
+    "table"
+  ],
+  "useWhen": [
+    "Stock levels, reorders and warehouse capacity"
+  ],
+  "avoidWhen": [
+    "The product sells nothing physical"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/inventory-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

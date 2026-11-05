@@ -1,0 +1,23 @@
+{
+  "name": "Usage Meter: Liquid Gauge",
+  "summary": "What's left as a liquid that drains as usage grows, turning orange and then red.",
+  "tags": [
+    "usage",
+    "progress",
+    "billing"
+  ],
+  "useWhen": [
+    "How much of a quota, plan limit or credit balance is used"
+  ],
+  "avoidWhen": [
+    "There is no limit to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/usage-meter-07",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Inventory: Stock Health",
+  "summary": "The value of stock on hand and how many times a year it turns over, then every SKU by status.",
+  "tags": [
+    "inventory",
+    "stats",
+    "table"
+  ],
+  "useWhen": [
+    "Stock levels, reorders and warehouse capacity"
+  ],
+  "avoidWhen": [
+    "The product sells nothing physical"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/inventory-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

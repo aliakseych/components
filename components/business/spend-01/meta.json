@@ -1,0 +1,22 @@
+{
+  "name": "Spend: Monthly Budget",
+  "summary": "Spend so far against the month's budget, with the projected month end and what's left to spend per day.",
+  "tags": [
+    "spend",
+    "chart",
+    "forecast"
+  ],
+  "useWhen": [
+    "Budget against actual spend, burn and runway"
+  ],
+  "avoidWhen": [
+    "Spend isn't tracked against a plan"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/spend-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

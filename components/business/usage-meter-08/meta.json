@@ -1,0 +1,23 @@
+{
+  "name": "Usage Meter: Liquid Ring",
+  "summary": "What's left as a round wave that drains as usage grows, with used, free and the days until reset below.",
+  "tags": [
+    "usage",
+    "progress",
+    "billing"
+  ],
+  "useWhen": [
+    "How much of a quota, plan limit or credit balance is used"
+  ],
+  "avoidWhen": [
+    "There is no limit to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/usage-meter-08",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

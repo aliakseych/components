@@ -1,0 +1,25 @@
+{
+  "name": "Billing: Invoices",
+  "summary": "Recent invoices with their status and amount, what's outstanding, and a PDF download for each.",
+  "tags": [
+    "billing",
+    "pricing",
+    "invoice"
+  ],
+  "useWhen": [
+    "Subscription revenue, plans, invoices and plan changes"
+  ],
+  "avoidWhen": [
+    "The product has no subscriptions"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/billing-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Usage Meter: Storage Breakdown",
+  "summary": "Storage by category as one segmented bar, with each category's size and share, and the space that's free.",
+  "tags": [
+    "usage",
+    "progress",
+    "billing"
+  ],
+  "useWhen": [
+    "How much of a quota, plan limit or credit balance is used"
+  ],
+  "avoidWhen": [
+    "There is no limit to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/usage-meter-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

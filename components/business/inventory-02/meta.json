@@ -1,0 +1,22 @@
+{
+  "name": "Inventory: Warehouse Capacity",
+  "summary": "Units stored against capacity in each warehouse, with what arrives this week and where a warehouse counts as nearly full.",
+  "tags": [
+    "inventory",
+    "stats",
+    "table"
+  ],
+  "useWhen": [
+    "Stock levels, reorders and warehouse capacity"
+  ],
+  "avoidWhen": [
+    "The product sells nothing physical"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/inventory-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

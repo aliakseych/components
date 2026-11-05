@@ -1,0 +1,25 @@
+{
+  "name": "Billing: MRR Movement",
+  "summary": "Ending MRR against the start of the month, net new MRR and net revenue retention, over a waterfall of the steps between them.",
+  "tags": [
+    "billing",
+    "pricing",
+    "invoice"
+  ],
+  "useWhen": [
+    "Subscription revenue, plans, invoices and plan changes"
+  ],
+  "avoidWhen": [
+    "The product has no subscriptions"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/billing-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

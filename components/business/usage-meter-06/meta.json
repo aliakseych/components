@@ -1,0 +1,23 @@
+{
+  "name": "Usage Meter: Plan Limits",
+  "summary": "Every limit on a plan, flagging the ones nearly reached and prompting an upgrade.",
+  "tags": [
+    "usage",
+    "progress",
+    "billing"
+  ],
+  "useWhen": [
+    "How much of a quota, plan limit or credit balance is used"
+  ],
+  "avoidWhen": [
+    "There is no limit to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/usage-meter-06",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

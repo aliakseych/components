@@ -1,0 +1,22 @@
+{
+  "name": "Spend: Spend by Service",
+  "summary": "The total spent and where it's heading, with a budget bar per service and the ones over or on pace to go over.",
+  "tags": [
+    "spend",
+    "chart",
+    "forecast"
+  ],
+  "useWhen": [
+    "Budget against actual spend, burn and runway"
+  ],
+  "avoidWhen": [
+    "Spend isn't tracked against a plan"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/spend-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

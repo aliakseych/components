@@ -1,0 +1,25 @@
+{
+  "name": "Invoice: Invoice",
+  "summary": "An overdue invoice with a discount, sales tax, a deposit and the balance due, how to pay, and a reminder you can send.",
+  "tags": [
+    "invoice",
+    "billing",
+    "record"
+  ],
+  "useWhen": [
+    "Invoices, receipts, quotes and packing slips that print cleanly"
+  ],
+  "avoidWhen": [
+    "Amounts don't need to add up to the cent"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "checkbox"
+  ],
+  "install": "@dashboardblocks/invoice-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

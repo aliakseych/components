@@ -1,0 +1,25 @@
+{
+  "name": "Billing: Current Plan",
+  "summary": "The plan and its price, when it renews, the next invoice and the payment method on file, with actions to manage them.",
+  "tags": [
+    "billing",
+    "pricing",
+    "invoice"
+  ],
+  "useWhen": [
+    "Subscription revenue, plans, invoices and plan changes"
+  ],
+  "avoidWhen": [
+    "The product has no subscriptions"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/billing-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

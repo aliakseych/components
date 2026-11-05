@@ -1,0 +1,25 @@
+{
+  "name": "Invoice: Receipt",
+  "summary": "A paid receipt with the payment method, a partial refund and the net amount paid.",
+  "tags": [
+    "invoice",
+    "billing",
+    "record"
+  ],
+  "useWhen": [
+    "Invoices, receipts, quotes and packing slips that print cleanly"
+  ],
+  "avoidWhen": [
+    "Amounts don't need to add up to the cent"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "checkbox"
+  ],
+  "install": "@dashboardblocks/invoice-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

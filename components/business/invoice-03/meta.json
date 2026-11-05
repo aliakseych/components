@@ -1,0 +1,25 @@
+{
+  "name": "Invoice: Quote",
+  "summary": "Optional items to tick before accepting, with totals that follow, an expiry date and a signature block on the printed copy.",
+  "tags": [
+    "invoice",
+    "billing",
+    "record"
+  ],
+  "useWhen": [
+    "Invoices, receipts, quotes and packing slips that print cleanly"
+  ],
+  "avoidWhen": [
+    "Amounts don't need to add up to the cent"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "checkbox"
+  ],
+  "install": "@dashboardblocks/invoice-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

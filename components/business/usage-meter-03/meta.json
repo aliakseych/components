@@ -1,0 +1,22 @@
+{
+  "name": "Usage Meter: Metered Billing",
+  "summary": "The estimated overage, then usage against what the plan includes for each meter, with what each overage costs.",
+  "tags": [
+    "usage",
+    "progress",
+    "billing"
+  ],
+  "useWhen": [
+    "How much of a quota, plan limit or credit balance is used"
+  ],
+  "avoidWhen": [
+    "There is no limit to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/usage-meter-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

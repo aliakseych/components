@@ -1,0 +1,27 @@
+{
+  "name": "Pipeline: Stage Summary",
+  "summary": "The open value, with each stage as a segment of one bar sized by value or by count.",
+  "tags": [
+    "pipeline",
+    "stats",
+    "kanban"
+  ],
+  "useWhen": [
+    "Work in flight across stages, such as deals or tickets"
+  ],
+  "avoidWhen": [
+    "People need to drag items between stages, where a kanban fits"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "avatar",
+    "button",
+    "button-group",
+    "card"
+  ],
+  "install": "@dashboardblocks/pipeline-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}
