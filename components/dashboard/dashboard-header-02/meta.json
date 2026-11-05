@@ -1,0 +1,23 @@
+{
+  "name": "Dashboard Header: Compact",
+  "summary": "The date range as part of the title, with the exact dates under it and export beside it.",
+  "tags": [
+    "dashboard",
+    "page header"
+  ],
+  "useWhen": [
+    "The top of a dashboard with date ranges, filters and export"
+  ],
+  "avoidWhen": [
+    "A page with no filters or ranges, where a page header fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu",
+    "switch"
+  ],
+  "install": "@dashboardblocks/dashboard-header-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

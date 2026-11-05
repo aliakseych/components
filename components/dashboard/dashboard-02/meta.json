@@ -1,0 +1,33 @@
+{
+  "name": "Dashboard: SaaS dashboard",
+  "summary": "A SaaS dashboard: metric tabs, an activity heatmap, MRR by region, MRR movement, retention milestones and service status, filtered by plan.",
+  "tags": [
+    "dashboard",
+    "kpi",
+    "chart",
+    "table"
+  ],
+  "useWhen": [
+    "A complete dashboard page to start from"
+  ],
+  "avoidWhen": [
+    "You need only one or two cards"
+  ],
+  "dependencies": [
+    "@tanstack/react-table",
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card",
+    "checkbox",
+    "dropdown-menu",
+    "input",
+    "switch",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/dashboard-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

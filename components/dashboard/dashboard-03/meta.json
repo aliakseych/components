@@ -1,0 +1,31 @@
+{
+  "name": "Dashboard: Web analytics dashboard",
+  "summary": "A web analytics dashboard: traffic tabs, visitors right now, a traffic flow, top pages, top countries and browsers, filtered by device.",
+  "tags": [
+    "dashboard",
+    "kpi",
+    "chart",
+    "table"
+  ],
+  "useWhen": [
+    "A complete dashboard page to start from"
+  ],
+  "avoidWhen": [
+    "You need only one or two cards"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "country-flag-icons",
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card",
+    "dropdown-menu",
+    "switch",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/dashboard-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

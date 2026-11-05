@@ -1,0 +1,26 @@
+{
+  "name": "States: Skeleton",
+  "summary": "Placeholders sized to match the loaded stats, so nothing shifts when the data arrives.",
+  "tags": [
+    "loading",
+    "empty state",
+    "dashboard"
+  ],
+  "useWhen": [
+    "Loading, refreshing, empty and error states that keep a block's layout"
+  ],
+  "avoidWhen": [
+    "The block never loads data"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/states-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

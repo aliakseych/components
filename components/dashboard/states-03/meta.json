@@ -1,0 +1,25 @@
+{
+  "name": "States: Empty",
+  "summary": "A filtered table with no matching rows that says why it's empty and offers a way out.",
+  "tags": [
+    "loading",
+    "empty state",
+    "dashboard"
+  ],
+  "useWhen": [
+    "Loading, refreshing, empty and error states that keep a block's layout"
+  ],
+  "avoidWhen": [
+    "The block never loads data"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card",
+    "dropdown-menu",
+    "switch"
+  ],
+  "install": "@dashboardblocks/states-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

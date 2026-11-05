@@ -1,0 +1,30 @@
+{
+  "name": "Dashboard: DevOps dashboard",
+  "summary": "A DevOps dashboard: live throughput, delivery performance, response time percentiles, open alerts, uptime, build health and recent deployments, filtered by service.",
+  "tags": [
+    "dashboard",
+    "kpi",
+    "chart",
+    "table"
+  ],
+  "useWhen": [
+    "A complete dashboard page to start from"
+  ],
+  "avoidWhen": [
+    "You need only one or two cards"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "dropdown-menu",
+    "switch"
+  ],
+  "install": "@dashboardblocks/dashboard-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

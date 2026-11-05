@@ -1,0 +1,31 @@
+{
+  "name": "Dashboard: CRM dashboard",
+  "summary": "A CRM dashboard: sales stats, open pipeline by stage, monthly bookings, lead conversion, a quarter forecast by rep, deal activity and stuck deals, filtered by segment.",
+  "tags": [
+    "dashboard",
+    "kpi",
+    "chart",
+    "table"
+  ],
+  "useWhen": [
+    "A complete dashboard page to start from"
+  ],
+  "avoidWhen": [
+    "You need only one or two cards"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "avatar",
+    "button",
+    "button-group",
+    "card",
+    "dropdown-menu",
+    "switch"
+  ],
+  "install": "@dashboardblocks/dashboard-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

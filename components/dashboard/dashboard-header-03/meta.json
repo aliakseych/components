@@ -1,0 +1,24 @@
+{
+  "name": "Dashboard Header: Segmented Presets",
+  "summary": "Date range presets as a segmented control, with a compare switch and a filter tag.",
+  "tags": [
+    "dashboard",
+    "page header"
+  ],
+  "useWhen": [
+    "The top of a dashboard with date ranges, filters and export"
+  ],
+  "avoidWhen": [
+    "A page with no filters or ranges, where a page header fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "button-group",
+    "dropdown-menu",
+    "switch"
+  ],
+  "install": "@dashboardblocks/dashboard-header-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

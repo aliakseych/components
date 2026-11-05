@@ -1,0 +1,22 @@
+{
+  "name": "Page Header: Actions",
+  "summary": "A title and description with a secondary and a main action.",
+  "tags": [
+    "page header",
+    "navigation"
+  ],
+  "useWhen": [
+    "The top of a page with its title, actions, tabs or search"
+  ],
+  "avoidWhen": [
+    "Dashboard pages with date ranges, where a dashboard header fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu"
+  ],
+  "install": "@dashboardblocks/page-header-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

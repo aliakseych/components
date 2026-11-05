@@ -1,0 +1,23 @@
+{
+  "name": "Dashboard Header: Last Updated",
+  "summary": "A description, the time of the last update and a refresh button, beside the date range and export.",
+  "tags": [
+    "dashboard",
+    "page header"
+  ],
+  "useWhen": [
+    "The top of a dashboard with date ranges, filters and export"
+  ],
+  "avoidWhen": [
+    "A page with no filters or ranges, where a page header fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu",
+    "switch"
+  ],
+  "install": "@dashboardblocks/dashboard-header-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

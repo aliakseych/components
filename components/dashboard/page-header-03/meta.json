@@ -1,0 +1,23 @@
+{
+  "name": "Page Header: Record",
+  "summary": "A back link, a photo, the customer's key numbers in a row and a menu for less common actions.",
+  "tags": [
+    "page header",
+    "navigation"
+  ],
+  "useWhen": [
+    "The top of a page with its title, actions, tabs or search"
+  ],
+  "avoidWhen": [
+    "Dashboard pages with date ranges, where a dashboard header fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "dropdown-menu"
+  ],
+  "install": "@dashboardblocks/page-header-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

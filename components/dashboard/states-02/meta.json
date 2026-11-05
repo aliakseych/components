@@ -1,0 +1,25 @@
+{
+  "name": "States: Refresh",
+  "summary": "A chart that stays in place, dimmed, while it refreshes.",
+  "tags": [
+    "loading",
+    "empty state",
+    "dashboard"
+  ],
+  "useWhen": [
+    "Loading, refreshing, empty and error states that keep a block's layout"
+  ],
+  "avoidWhen": [
+    "The block never loads data"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/states-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

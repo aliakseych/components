@@ -1,0 +1,22 @@
+{
+  "name": "Page Header: Tabs",
+  "summary": "The status as a badge beside the title, and links to the page's sections with their counts.",
+  "tags": [
+    "page header",
+    "navigation"
+  ],
+  "useWhen": [
+    "The top of a page with its title, actions, tabs or search"
+  ],
+  "avoidWhen": [
+    "Dashboard pages with date ranges, where a dashboard header fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu"
+  ],
+  "install": "@dashboardblocks/page-header-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

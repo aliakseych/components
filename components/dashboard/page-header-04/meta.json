@@ -1,0 +1,23 @@
+{
+  "name": "Page Header: List",
+  "summary": "The count beside the title, with search and the main action on the same row.",
+  "tags": [
+    "page header",
+    "navigation"
+  ],
+  "useWhen": [
+    "The top of a page with its title, actions, tabs or search"
+  ],
+  "avoidWhen": [
+    "Dashboard pages with date ranges, where a dashboard header fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "dropdown-menu",
+    "input-group"
+  ],
+  "install": "@dashboardblocks/page-header-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

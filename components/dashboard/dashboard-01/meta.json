@@ -1,0 +1,29 @@
+{
+  "name": "Dashboard: Store dashboard",
+  "summary": "A store dashboard: header filters scope stats, revenue, channels, products, a checkout funnel and month-to-date revenue, with low stock alongside.",
+  "tags": [
+    "dashboard",
+    "kpi",
+    "chart",
+    "table"
+  ],
+  "useWhen": [
+    "A complete dashboard page to start from"
+  ],
+  "avoidWhen": [
+    "You need only one or two cards"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card",
+    "dropdown-menu",
+    "switch"
+  ],
+  "install": "@dashboardblocks/dashboard-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}
