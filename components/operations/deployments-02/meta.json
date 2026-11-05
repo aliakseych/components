@@ -1,0 +1,22 @@
+{
+  "name": "Deployments: Environments",
+  "summary": "What each environment is running and how many commits are waiting to be promoted to the next.",
+  "tags": [
+    "deployments",
+    "status",
+    "stats"
+  ],
+  "useWhen": [
+    "Recent deploys, environments, DORA metrics and build health"
+  ],
+  "avoidWhen": [
+    "The product has no delivery pipeline"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/deployments-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

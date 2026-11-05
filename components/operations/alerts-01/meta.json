@@ -1,0 +1,23 @@
+{
+  "name": "Alerts: Inbox",
+  "summary": "Alerts, most recent first, each with a button to acknowledge it and a count of what still needs a response.",
+  "tags": [
+    "alerts",
+    "status",
+    "notifications"
+  ],
+  "useWhen": [
+    "Alert inboxes, threshold breaches and alert rules"
+  ],
+  "avoidWhen": [
+    "Notifications for people, where the notifications family fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/alerts-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

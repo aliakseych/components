@@ -1,0 +1,23 @@
+{
+  "name": "Alerts: Summary",
+  "summary": "A slim strip with open alerts by severity and the latest one, for the top of a dashboard.",
+  "tags": [
+    "alerts",
+    "status",
+    "notifications"
+  ],
+  "useWhen": [
+    "Alert inboxes, threshold breaches and alert rules"
+  ],
+  "avoidWhen": [
+    "Notifications for people, where the notifications family fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/alerts-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

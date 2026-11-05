@@ -1,0 +1,25 @@
+{
+  "name": "Alerts: Threshold Breach",
+  "summary": "The metric over the last hour against its threshold, with the line turning red above it and how far over it is now.",
+  "tags": [
+    "alerts",
+    "status",
+    "notifications"
+  ],
+  "useWhen": [
+    "Alert inboxes, threshold breaches and alert rules"
+  ],
+  "avoidWhen": [
+    "Notifications for people, where the notifications family fits"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/alerts-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

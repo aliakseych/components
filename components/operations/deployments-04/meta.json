@@ -1,0 +1,22 @@
+{
+  "name": "Deployments: Build Health",
+  "summary": "The last runs of each pipeline as a strip, with the pass rate, median duration and the pipeline that fails most.",
+  "tags": [
+    "deployments",
+    "status",
+    "stats"
+  ],
+  "useWhen": [
+    "Recent deploys, environments, DORA metrics and build health"
+  ],
+  "avoidWhen": [
+    "The product has no delivery pipeline"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/deployments-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

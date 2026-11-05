@@ -1,0 +1,24 @@
+{
+  "name": "Alerts: Rules",
+  "summary": "Alert rules with their conditions, severities and channels, which one fired last, and a switch to pause each one.",
+  "tags": [
+    "alerts",
+    "status",
+    "notifications"
+  ],
+  "useWhen": [
+    "Alert inboxes, threshold breaches and alert rules"
+  ],
+  "avoidWhen": [
+    "Notifications for people, where the notifications family fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card",
+    "switch"
+  ],
+  "install": "@dashboardblocks/alerts-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

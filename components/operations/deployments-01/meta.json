@@ -1,0 +1,23 @@
+{
+  "name": "Deployments: Recent Deployments",
+  "summary": "The latest builds with their commit, environment, author, duration and status.",
+  "tags": [
+    "deployments",
+    "status",
+    "stats"
+  ],
+  "useWhen": [
+    "Recent deploys, environments, DORA metrics and build health"
+  ],
+  "avoidWhen": [
+    "The product has no delivery pipeline"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "card"
+  ],
+  "install": "@dashboardblocks/deployments-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

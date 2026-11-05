@@ -1,0 +1,25 @@
+{
+  "name": "Status: Incident",
+  "summary": "An active incident with its severity, the services it affects and its updates, newest first.",
+  "tags": [
+    "status",
+    "realtime",
+    "alerts"
+  ],
+  "useWhen": [
+    "Service status, uptime, incidents and regional health"
+  ],
+  "avoidWhen": [
+    "Nothing is monitored"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/status-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

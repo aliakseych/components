@@ -1,0 +1,24 @@
+{
+  "name": "Status: Service List",
+  "summary": "Each service with its current status, the worst one above the title and every service that isn't operational named.",
+  "tags": [
+    "status",
+    "realtime",
+    "alerts"
+  ],
+  "useWhen": [
+    "Service status, uptime, incidents and regional health"
+  ],
+  "avoidWhen": [
+    "Nothing is monitored"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/status-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Deployments: Delivery Performance",
+  "summary": "The four DORA metrics with the change on the period before and the band each one falls in.",
+  "tags": [
+    "deployments",
+    "status",
+    "stats"
+  ],
+  "useWhen": [
+    "Recent deploys, environments, DORA metrics and build health"
+  ],
+  "avoidWhen": [
+    "The product has no delivery pipeline"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/deployments-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

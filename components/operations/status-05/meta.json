@@ -1,0 +1,24 @@
+{
+  "name": "Status: Service Uptime",
+  "summary": "One service's uptime, incident count and downtime, with its daily history and recent incidents.",
+  "tags": [
+    "status",
+    "realtime",
+    "alerts"
+  ],
+  "useWhen": [
+    "Service status, uptime, incidents and regional health"
+  ],
+  "avoidWhen": [
+    "Nothing is monitored"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/status-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}
