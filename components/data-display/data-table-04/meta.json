@@ -1,0 +1,28 @@
+{
+  "name": "Data Table: Status",
+  "summary": "Services with their status, latency and error rate, worst status first.",
+  "tags": [
+    "table",
+    "sortable",
+    "list"
+  ],
+  "useWhen": [
+    "Records people sort, search, filter and page through"
+  ],
+  "avoidWhen": [
+    "A handful of values, where a metric list fits"
+  ],
+  "dependencies": [
+    "@tanstack/react-table",
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "checkbox",
+    "dropdown-menu",
+    "input"
+  ],
+  "install": "@dashboardblocks/data-table-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

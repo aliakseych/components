@@ -1,0 +1,27 @@
+{
+  "name": "Data Table: Pagination",
+  "summary": "Recent orders, five to a page.",
+  "tags": [
+    "table",
+    "sortable",
+    "list"
+  ],
+  "useWhen": [
+    "Records people sort, search, filter and page through"
+  ],
+  "avoidWhen": [
+    "A handful of values, where a metric list fits"
+  ],
+  "dependencies": [
+    "@tanstack/react-table"
+  ],
+  "shadcn": [
+    "button",
+    "checkbox",
+    "dropdown-menu",
+    "input"
+  ],
+  "install": "@dashboardblocks/data-table-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

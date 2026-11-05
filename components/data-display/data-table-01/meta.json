@@ -1,0 +1,27 @@
+{
+  "name": "Data Table: Sortable",
+  "summary": "A table you sort by any column, with a second click reversing the order.",
+  "tags": [
+    "table",
+    "sortable",
+    "list"
+  ],
+  "useWhen": [
+    "Records people sort, search, filter and page through"
+  ],
+  "avoidWhen": [
+    "A handful of values, where a metric list fits"
+  ],
+  "dependencies": [
+    "@tanstack/react-table"
+  ],
+  "shadcn": [
+    "button",
+    "checkbox",
+    "dropdown-menu",
+    "input"
+  ],
+  "install": "@dashboardblocks/data-table-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

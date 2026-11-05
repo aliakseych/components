@@ -1,0 +1,30 @@
+{
+  "name": "Data Grid",
+  "summary": "A composable, sortable table built on TanStack Table with column header menus.",
+  "tags": [
+    "data grid",
+    "sortable",
+    "list"
+  ],
+  "useWhen": [
+    "Showing records people compare and sort",
+    "Columns have clear types such as dates or names"
+  ],
+  "avoidWhen": [
+    "Very large data sets, because it has no built-in virtualization",
+    "Narrow screens, unless you plan for horizontal scrolling",
+    "Sorting, filters, row selection and pagination, where data-display/data-table-06 fits better"
+  ],
+  "dependencies": [
+    "@tanstack/react-table-v8",
+    "jotai",
+    "lucide-react"
+  ],
+  "shadcn": [
+    "button",
+    "dropdown-menu",
+    "table"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

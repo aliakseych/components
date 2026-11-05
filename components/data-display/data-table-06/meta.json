@@ -1,0 +1,28 @@
+{
+  "name": "Data Table: Full Featured",
+  "summary": "Search, filters with counts, a column menu, page sizes, multi-column sorting and selected rows to export or email.",
+  "tags": [
+    "table",
+    "sortable",
+    "list"
+  ],
+  "useWhen": [
+    "Records people sort, search, filter and page through"
+  ],
+  "avoidWhen": [
+    "A handful of values, where a metric list fits",
+    "A small static grid with no sorting or filters, where data-display/table fits better"
+  ],
+  "dependencies": [
+    "@tanstack/react-table"
+  ],
+  "shadcn": [
+    "button",
+    "checkbox",
+    "dropdown-menu",
+    "input"
+  ],
+  "install": "@dashboardblocks/data-table-06",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

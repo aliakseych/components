@@ -1,0 +1,25 @@
+{
+  "name": "Data Table: Trends",
+  "summary": "Campaign conversions and cost per conversion with their change, plus a 14-day sparkline.",
+  "tags": [
+    "table",
+    "sortable",
+    "list"
+  ],
+  "useWhen": [
+    "Records people sort, search, filter and page through"
+  ],
+  "avoidWhen": [
+    "A handful of values, where a metric list fits"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "button"
+  ],
+  "install": "@dashboardblocks/data-table-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

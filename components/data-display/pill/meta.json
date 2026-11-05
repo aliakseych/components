@@ -1,0 +1,29 @@
+{
+  "name": "Pill",
+  "summary": "Rounded labels with optional avatars, status dots, change indicators, icons and buttons.",
+  "tags": [
+    "pill",
+    "badge",
+    "status",
+    "avatar",
+    "chip"
+  ],
+  "useWhen": [
+    "Showing compact statuses, filters, people or metrics",
+    "Building a horizontal row of filters or tags"
+  ],
+  "avoidWhen": [
+    "A full button is the clearer action",
+    "Labels are long sentences"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "avatar",
+    "badge",
+    "button"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

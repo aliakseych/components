@@ -1,0 +1,22 @@
+{
+  "name": "Data Table: Inline Bars",
+  "summary": "Revenue by product, with a bar scaled to the top product and each product's share of the total.",
+  "tags": [
+    "table",
+    "sortable",
+    "list"
+  ],
+  "useWhen": [
+    "Records people sort, search, filter and page through"
+  ],
+  "avoidWhen": [
+    "A handful of values, where a metric list fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button"
+  ],
+  "install": "@dashboardblocks/data-table-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}
