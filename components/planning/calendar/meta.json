@@ -1,0 +1,36 @@
+{
+  "name": "Calendar",
+  "summary": "A month calendar where clicking a day opens a day strip and an hour-by-hour timeline, and dragging across days adds a multi-day event.",
+  "tags": [
+    "calendar",
+    "timeline",
+    "project management",
+    "date picker"
+  ],
+  "useWhen": [
+    "Showing events in a month and drilling into one day",
+    "Scheduling where the time of day matters",
+    "People add events that span several days"
+  ],
+  "avoidWhen": [
+    "People only need to pick a date in a form",
+    "Several independent calendars on one page, because the month state is shared globally",
+    "A month of events inside a dashboard, where planning/calendar-01 fits better"
+  ],
+  "dependencies": [
+    "date-fns",
+    "jotai",
+    "lucide-react"
+  ],
+  "shadcn": [
+    "button",
+    "command",
+    "input",
+    "popover"
+  ],
+  "source": "Kibo UI",
+  "status": "stable",
+  "composes": [
+    "planning/mini-calendar"
+  ]
+}

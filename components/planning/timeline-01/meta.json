@@ -1,0 +1,26 @@
+{
+  "name": "Timeline: Roadmap",
+  "summary": "Projects grouped by team, each a bar from start to end filled to its progress, with a today line.",
+  "tags": [
+    "timeline",
+    "roadmap",
+    "project management",
+    "gantt"
+  ],
+  "useWhen": [
+    "Roadmaps, milestones, release cadence and plan against actual"
+  ],
+  "avoidWhen": [
+    "Work has no dates",
+    "Dependencies and a critical path between items, where planning/gantt fits better"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/timeline-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Kanban: Support Queue",
+  "summary": "Tickets with priority and time left to their SLA, with a full column that refuses more tickets.",
+  "tags": [
+    "kanban",
+    "drag and drop",
+    "project management",
+    "cards"
+  ],
+  "useWhen": [
+    "Complete sprint, deals and support boards you can edit"
+  ],
+  "avoidWhen": [
+    "A read-only view of stages, where a pipeline fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "dropdown-menu",
+    "input",
+    "kbd"
+  ],
+  "install": "@dashboardblocks/kanban-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

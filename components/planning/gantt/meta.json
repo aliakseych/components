@@ -1,0 +1,35 @@
+{
+  "name": "Gantt",
+  "summary": "A draggable project timeline with a sidebar, zoom, markers and daily, monthly or quarterly ranges.",
+  "tags": [
+    "gantt",
+    "timeline",
+    "project management",
+    "drag and drop",
+    "roadmap"
+  ],
+  "useWhen": [
+    "Planning work with start and end dates",
+    "People need to see overlaps and move dates by dragging"
+  ],
+  "avoidWhen": [
+    "Items have no dates",
+    "Phone screens, where the timeline is too cramped",
+    "A roadmap of initiatives by quarter, where planning/timeline-01 fits better"
+  ],
+  "dependencies": [
+    "@dnd-kit/core",
+    "@dnd-kit/modifiers",
+    "@uidotdev/usehooks",
+    "date-fns",
+    "jotai",
+    "lodash.throttle",
+    "lucide-react"
+  ],
+  "shadcn": [
+    "card",
+    "context-menu"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

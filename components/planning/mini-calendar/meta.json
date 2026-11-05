@@ -1,0 +1,28 @@
+{
+  "name": "Mini Calendar",
+  "summary": "A compact, scrollable row of days for selecting a date.",
+  "tags": [
+    "calendar",
+    "date picker",
+    "navigation"
+  ],
+  "useWhen": [
+    "Choosing a nearby date in limited space",
+    "Moving between days above a schedule"
+  ],
+  "avoidWhen": [
+    "Selecting dates far in the future or past",
+    "Date ranges"
+  ],
+  "dependencies": [
+    "@radix-ui/react-use-controllable-state",
+    "date-fns",
+    "lucide-react",
+    "radix-ui"
+  ],
+  "shadcn": [
+    "button"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

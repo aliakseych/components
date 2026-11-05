@@ -1,0 +1,22 @@
+{
+  "name": "Schedule: Calendar",
+  "summary": "A month calendar with a dot for each event, listing the selected day's events.",
+  "tags": [
+    "schedule",
+    "calendar",
+    "list"
+  ],
+  "useWhen": [
+    "What's coming up: agendas, deadlines and the week ahead"
+  ],
+  "avoidWhen": [
+    "Past events, where an activity feed fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button"
+  ],
+  "install": "@dashboardblocks/schedule-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

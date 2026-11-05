@@ -1,0 +1,22 @@
+{
+  "name": "Checklist: Task List",
+  "summary": "Tasks grouped by team, with owners, due dates and checkboxes, and overdue tasks in red.",
+  "tags": [
+    "checklist",
+    "progress",
+    "list"
+  ],
+  "useWhen": [
+    "Steps people tick off, setup steppers and task lists"
+  ],
+  "avoidWhen": [
+    "Numeric targets, where goals fit"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/checklist-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

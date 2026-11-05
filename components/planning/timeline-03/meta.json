@@ -1,0 +1,25 @@
+{
+  "name": "Timeline: Release Cadence",
+  "summary": "Every release on one line, sized by major, minor and patch, with the median gap and when the next one is due.",
+  "tags": [
+    "timeline",
+    "roadmap",
+    "project management",
+    "gantt"
+  ],
+  "useWhen": [
+    "Roadmaps, milestones, release cadence and plan against actual"
+  ],
+  "avoidWhen": [
+    "Work has no dates"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/timeline-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

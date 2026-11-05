@@ -1,0 +1,26 @@
+{
+  "name": "Calendar: Month",
+  "summary": "A month of team events, launches, travel and holidays, with the selected day's events listed beside the grid.",
+  "tags": [
+    "calendar",
+    "schedule",
+    "timeline"
+  ],
+  "useWhen": [
+    "Month and week calendars with events, planners and room bookings"
+  ],
+  "avoidWhen": [
+    "Only a date needs picking, where a date picker fits",
+    "Switching between month and day views, where planning/calendar fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "button-group",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/calendar-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

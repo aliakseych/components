@@ -1,0 +1,39 @@
+{
+  "name": "Roadmap",
+  "summary": "One set of features shown as switchable Gantt, calendar, list, kanban and table views.",
+  "tags": [
+    "roadmap",
+    "project management",
+    "gantt",
+    "kanban",
+    "calendar",
+    "timeline"
+  ],
+  "useWhen": [
+    "A product roadmap needs several views of the same work",
+    "Teams want to plan by date and by status"
+  ],
+  "avoidWhen": [
+    "A single view is enough, where its smaller component is lighter",
+    "A public read-only roadmap, because it is built for editing"
+  ],
+  "dependencies": [
+    "@dnd-kit/core",
+    "lodash.groupby",
+    "lucide-react"
+  ],
+  "shadcn": [
+    "avatar",
+    "context-menu",
+    "tabs"
+  ],
+  "source": "Kibo UI",
+  "status": "stable",
+  "composes": [
+    "data-display/table",
+    "planning/calendar",
+    "planning/gantt",
+    "planning/kanban",
+    "planning/list"
+  ]
+}

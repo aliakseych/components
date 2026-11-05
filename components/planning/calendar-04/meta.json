@@ -1,0 +1,25 @@
+{
+  "name": "Calendar: Rooms",
+  "summary": "A day of meeting room bookings, with a column per room and whether it's free right now.",
+  "tags": [
+    "calendar",
+    "schedule",
+    "timeline"
+  ],
+  "useWhen": [
+    "Month and week calendars with events, planners and room bookings"
+  ],
+  "avoidWhen": [
+    "Only a date needs picking, where a date picker fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "button-group",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/calendar-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Calendar: Week",
+  "summary": "A week on an hour axis that opens at working hours, with all-day events at the top and the selected event's details.",
+  "tags": [
+    "calendar",
+    "schedule",
+    "timeline"
+  ],
+  "useWhen": [
+    "Month and week calendars with events, planners and room bookings"
+  ],
+  "avoidWhen": [
+    "Only a date needs picking, where a date picker fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "button-group",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/calendar-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Checklist: Stepper",
+  "summary": "The stages of a multi-stage setup, side by side when there's room and stacked when narrow.",
+  "tags": [
+    "checklist",
+    "progress",
+    "list"
+  ],
+  "useWhen": [
+    "Steps people tick off, setup steppers and task lists"
+  ],
+  "avoidWhen": [
+    "Numeric targets, where goals fit"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/checklist-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Kanban",
+  "summary": "A drag-and-drop board of columns and cards on the dashboardblocks kanban, with buttons to add cards and columns.",
+  "tags": ["kanban", "drag and drop", "project management", "cards"],
+  "useWhen": ["Moving work through stages", "People need to create cards and columns in place"],
+  "avoidWhen": ["Phone screens with many columns", "Dates matter more than stages, where a Gantt chart fits better", "Grouped items that stay in place, where planning/list fits better"],
+  "dependencies": ["lucide-react"],
+  "shadcn": ["button", "input"],
+  "install": "@dashboardblocks/kanban",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

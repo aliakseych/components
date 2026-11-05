@@ -1,0 +1,22 @@
+{
+  "name": "Schedule: Deadlines",
+  "summary": "Deadlines and renewals in date order, each with a countdown coloured by how close it is.",
+  "tags": [
+    "schedule",
+    "calendar",
+    "list"
+  ],
+  "useWhen": [
+    "What's coming up: agendas, deadlines and the week ahead"
+  ],
+  "avoidWhen": [
+    "Past events, where an activity feed fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/schedule-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

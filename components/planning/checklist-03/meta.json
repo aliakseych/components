@@ -1,0 +1,23 @@
+{
+  "name": "Checklist: Progress Card",
+  "summary": "A compact block with the share of steps done and the next one, to bring people back to setup.",
+  "tags": [
+    "checklist",
+    "progress",
+    "list"
+  ],
+  "useWhen": [
+    "Steps people tick off, setup steppers and task lists"
+  ],
+  "avoidWhen": [
+    "Numeric targets, where goals fit"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/checklist-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

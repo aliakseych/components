@@ -1,0 +1,24 @@
+{
+  "name": "Schedule: Week Ahead",
+  "summary": "The next seven days on a shared time axis, with how much of each day is booked and the busiest day.",
+  "tags": [
+    "schedule",
+    "calendar",
+    "list"
+  ],
+  "useWhen": [
+    "What's coming up: agendas, deadlines and the week ahead"
+  ],
+  "avoidWhen": [
+    "Past events, where an activity feed fits"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/schedule-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

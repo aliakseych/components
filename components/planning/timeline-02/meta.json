@@ -1,0 +1,25 @@
+{
+  "name": "Timeline: Milestones",
+  "summary": "A launch plan on a rail, led by the days until the next milestone, with how soon or how late each one is.",
+  "tags": [
+    "timeline",
+    "roadmap",
+    "project management",
+    "gantt"
+  ],
+  "useWhen": [
+    "Roadmaps, milestones, release cadence and plan against actual"
+  ],
+  "avoidWhen": [
+    "Work has no dates"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/timeline-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

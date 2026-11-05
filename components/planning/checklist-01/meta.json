@@ -1,0 +1,23 @@
+{
+  "name": "Checklist: Onboarding",
+  "summary": "Setup steps with a progress bar, the next step named, and each step opening to show what it involves.",
+  "tags": [
+    "checklist",
+    "progress",
+    "list"
+  ],
+  "useWhen": [
+    "Steps people tick off, setup steppers and task lists"
+  ],
+  "avoidWhen": [
+    "Numeric targets, where goals fit"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/checklist-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

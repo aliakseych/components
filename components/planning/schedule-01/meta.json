@@ -1,0 +1,22 @@
+{
+  "name": "Schedule: Agenda",
+  "summary": "Upcoming events grouped by day, with the event in progress marked.",
+  "tags": [
+    "schedule",
+    "calendar",
+    "list"
+  ],
+  "useWhen": [
+    "What's coming up: agendas, deadlines and the week ahead"
+  ],
+  "avoidWhen": [
+    "Past events, where an activity feed fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/schedule-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

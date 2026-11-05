@@ -1,0 +1,28 @@
+{
+  "name": "Kanban: Deals",
+  "summary": "A sales board with each column's total value and the next step on every deal.",
+  "tags": [
+    "kanban",
+    "drag and drop",
+    "project management",
+    "cards"
+  ],
+  "useWhen": [
+    "Complete sprint, deals and support boards you can edit"
+  ],
+  "avoidWhen": [
+    "A read-only view of stages, where a pipeline fits",
+    "A read-only summary of deals by stage, where business/pipeline-01 fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "dropdown-menu",
+    "input",
+    "kbd"
+  ],
+  "install": "@dashboardblocks/kanban-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

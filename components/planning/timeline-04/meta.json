@@ -1,0 +1,25 @@
+{
+  "name": "Timeline: Plan vs Actual",
+  "summary": "Each phase's plan as a dashed outline over what actually happened, with how many days it slipped.",
+  "tags": [
+    "timeline",
+    "roadmap",
+    "project management",
+    "gantt"
+  ],
+  "useWhen": [
+    "Roadmaps, milestones, release cadence and plan against actual"
+  ],
+  "avoidWhen": [
+    "Work has no dates"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/timeline-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

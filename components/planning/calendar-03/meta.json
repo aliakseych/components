@@ -1,0 +1,25 @@
+{
+  "name": "Calendar: Planner",
+  "summary": "A content calendar that switches between month and week, with each calendar shown or hidden from the sidebar.",
+  "tags": [
+    "calendar",
+    "schedule",
+    "timeline"
+  ],
+  "useWhen": [
+    "Month and week calendars with events, planners and room bookings"
+  ],
+  "avoidWhen": [
+    "Only a date needs picking, where a date picker fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "button-group",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/calendar-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Kanban: Sprint Board",
+  "summary": "Issues with labels, assignees, due dates, priorities, comments and subtasks, and columns that warn when past their WIP limit.",
+  "tags": [
+    "kanban",
+    "drag and drop",
+    "project management",
+    "cards"
+  ],
+  "useWhen": [
+    "Complete sprint, deals and support boards you can edit"
+  ],
+  "avoidWhen": [
+    "A read-only view of stages, where a pipeline fits"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "dropdown-menu",
+    "input",
+    "kbd"
+  ],
+  "install": "@dashboardblocks/kanban-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

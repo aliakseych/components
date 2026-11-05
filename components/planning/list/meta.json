@@ -1,0 +1,26 @@
+{
+  "name": "Grouped List",
+  "summary": "A list of items in groups, where items can be dragged between groups.",
+  "tags": [
+    "list",
+    "drag and drop",
+    "project management",
+    "status"
+  ],
+  "useWhen": [
+    "Moving tasks between statuses in a compact view",
+    "A kanban board would take too much width"
+  ],
+  "avoidWhen": [
+    "Items must also be reordered within a group, which it does not handle for you",
+    "There is nothing meaningful to group by",
+    "Moving items between stages, where planning/kanban fits better"
+  ],
+  "dependencies": [
+    "@dnd-kit/core",
+    "@dnd-kit/modifiers"
+  ],
+  "shadcn": [],
+  "source": "Kibo UI",
+  "status": "stable"
+}
