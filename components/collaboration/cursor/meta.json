@@ -1,0 +1,20 @@
+{
+  "name": "Cursor",
+  "summary": "A labeled pointer with a name and message, for showing other people in a shared space.",
+  "tags": [
+    "cursor",
+    "collaboration",
+    "avatar"
+  ],
+  "useWhen": [
+    "Showing live collaborators",
+    "Illustrating multiplayer features"
+  ],
+  "avoidWhen": [
+    "Only one person uses the screen"
+  ],
+  "dependencies": [],
+  "shadcn": [],
+  "source": "Kibo UI",
+  "status": "stable"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Collaborative Canvas",
+  "summary": "A dotted canvas with collaborator avatars and labeled cursors, including an optional simulated motion mode.",
+  "tags": [
+    "collaboration",
+    "cursor",
+    "avatar",
+    "landing page",
+    "animation"
+  ],
+  "useWhen": [
+    "Showing multiplayer activity on a landing page",
+    "A starting surface for a shared whiteboard"
+  ],
+  "avoidWhen": [
+    "You need a full drawing tool, because it has no drawing or sync logic"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar"
+  ],
+  "source": "Kibo UI",
+  "status": "stable",
+  "composes": [
+    "collaboration/avatar-stack",
+    "collaboration/cursor"
+  ]
+}

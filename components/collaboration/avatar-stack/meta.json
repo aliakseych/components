@@ -1,0 +1,20 @@
+{
+  "name": "Avatar Stack",
+  "summary": "Overlapping avatars that can spread apart on hover.",
+  "tags": [
+    "avatar",
+    "collaboration",
+    "hover"
+  ],
+  "useWhen": [
+    "Showing who is in a document or team",
+    "Space is too tight for a full list of names"
+  ],
+  "avoidWhen": [
+    "People need to read every name right away"
+  ],
+  "dependencies": [],
+  "shadcn": [],
+  "source": "Kibo UI",
+  "status": "stable"
+}
