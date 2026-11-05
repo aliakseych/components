@@ -1,0 +1,28 @@
+{
+  "name": "Chain of Thought",
+  "summary": "A collapsible list of an AI's reasoning steps, with search results and images.",
+  "tags": [
+    "ai",
+    "agent",
+    "chat",
+    "list",
+    "status"
+  ],
+  "useWhen": [
+    "Showing the steps behind an AI answer",
+    "People want to check how a result was reached"
+  ],
+  "avoidWhen": [
+    "A simple waiting state is enough"
+  ],
+  "dependencies": [
+    "lucide-react",
+    "@radix-ui/react-use-controllable-state"
+  ],
+  "shadcn": [
+    "badge",
+    "collapsible"
+  ],
+  "source": "AI Elements (ai-sdk.dev/elements)",
+  "status": "stable"
+}

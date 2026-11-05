@@ -1,0 +1,35 @@
+{
+  "name": "AI Assistant: Retry",
+  "summary": "A reply that failed, kept in the conversation with a button to try again.",
+  "tags": [
+    "ai",
+    "chat",
+    "prompt",
+    "agent"
+  ],
+  "useWhen": [
+    "An assistant panel or conversation inside a dashboard"
+  ],
+  "avoidWhen": [
+    "A standalone chat app, where the AI Chat block's parts fit"
+  ],
+  "dependencies": [
+    "marked",
+    "remend",
+    "shiki"
+  ],
+  "shadcn": [
+    "attachment",
+    "bubble",
+    "button",
+    "card",
+    "code-block",
+    "dropdown-menu",
+    "input-group",
+    "message",
+    "message-scroller"
+  ],
+  "install": "@dashboardblocks/ai-assistant-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

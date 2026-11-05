@@ -1,0 +1,25 @@
+{
+  "name": "Trace",
+  "summary": "Compact lines of an agent's activity, with status and collapsible detail.",
+  "tags": [
+    "ai",
+    "agent",
+    "list",
+    "status",
+    "tool call"
+  ],
+  "useWhen": [
+    "Logging an agent's actions inside a chat",
+    "Many small steps need a quiet, compact display"
+  ],
+  "avoidWhen": [
+    "Each step deserves its own rich card"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "trace",
+    "collapsible"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}

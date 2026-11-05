@@ -1,0 +1,10 @@
+{
+  "name": "Lattice Loader",
+  "summary": "A small animated dot grid that shows waiting, then morphs into a tick or a cross, with an optional label and timer.",
+  "tags": ["loader", "spinner", "wait", "search", "status", "progress", "icon", "agent"],
+  "useWhen": ["Showing that an agent or search is working for an unknown time", "A compact status needs to end in success or failure"],
+  "avoidWhen": ["You know the real progress and should show a percentage", "A whole page is loading and a skeleton would show its layout"],
+  "dependencies": [],
+  "source": "uzexify_agent",
+  "status": "stable"
+}

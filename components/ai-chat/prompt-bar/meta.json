@@ -1,0 +1,10 @@
+{
+  "name": "Prompt Bar",
+  "summary": "An AI chat input with a level selector, sparks at the top level, a morphing send button, rotating placeholders, and optional sources, commands, models and dictation.",
+  "tags": ["chat", "prompt", "composer", "ai", "input", "effort", "sparks", "animation"],
+  "useWhen": ["An AI chat or agent needs its main input", "Users choose how much effort or depth the AI should use"],
+  "avoidWhen": ["A plain search box or short form field is enough", "The app needs rich text editing"],
+  "dependencies": ["motion", "lucide-react"],
+  "source": "uzexify_agent",
+  "status": "stable"
+}

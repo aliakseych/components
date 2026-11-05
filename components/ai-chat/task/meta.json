@@ -1,0 +1,25 @@
+{
+  "name": "Task",
+  "summary": "A collapsible task with its sub-steps and the files it touched.",
+  "tags": [
+    "ai",
+    "agent",
+    "list",
+    "status"
+  ],
+  "useWhen": [
+    "An agent works through a named job",
+    "Sub-steps and files should be available on demand"
+  ],
+  "avoidWhen": [
+    "The steps carry no useful information for people"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "collapsible"
+  ],
+  "source": "AI Elements (ai-sdk.dev/elements)",
+  "status": "stable"
+}

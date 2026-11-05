@@ -1,0 +1,35 @@
+{
+  "name": "AI Assistant: Conversation",
+  "summary": "A conversation with a table and a SQL query, where you can attach a file, copy, rate or regenerate a reply, or pick a follow-up question.",
+  "tags": [
+    "ai",
+    "chat",
+    "prompt",
+    "agent"
+  ],
+  "useWhen": [
+    "An assistant panel or conversation inside a dashboard"
+  ],
+  "avoidWhen": [
+    "A standalone chat app, where the AI Chat block's parts fit"
+  ],
+  "dependencies": [
+    "marked",
+    "remend",
+    "shiki"
+  ],
+  "shadcn": [
+    "attachment",
+    "bubble",
+    "button",
+    "card",
+    "code-block",
+    "dropdown-menu",
+    "input-group",
+    "message",
+    "message-scroller"
+  ],
+  "install": "@dashboardblocks/ai-assistant-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

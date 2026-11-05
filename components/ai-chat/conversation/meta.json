@@ -1,0 +1,30 @@
+{
+  "name": "Conversation",
+  "summary": "The turns of an AI chat with avatars, copy and regenerate actions, failed replies and a thinking state, built on the messaging Message and Bubble parts.",
+  "tags": [
+    "ai",
+    "chat",
+    "message",
+    "avatar"
+  ],
+  "useWhen": [
+    "Showing an AI assistant conversation",
+    "Replies need copy, regenerate or retry actions"
+  ],
+  "avoidWhen": [
+    "A conversation between people, where messaging/message fits directly"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "avatar",
+    "button"
+  ],
+  "composes": [
+    "messaging/bubble",
+    "messaging/message"
+  ],
+  "source": "Library",
+  "status": "stable"
+}

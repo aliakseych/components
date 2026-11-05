@@ -1,0 +1,31 @@
+{
+  "name": "Context Usage",
+  "summary": "A small ring showing how much of an AI model's context is used, with a hover card of token details.",
+  "tags": [
+    "ai",
+    "chat",
+    "hover",
+    "overlay",
+    "progress",
+    "stats"
+  ],
+  "useWhen": [
+    "People should see how full a conversation's context is",
+    "You report token use or cost"
+  ],
+  "avoidWhen": [
+    "People don't choose models or manage context",
+    "Touch-first screens, where hover isn't available"
+  ],
+  "dependencies": [
+    "ai",
+    "tokenlens"
+  ],
+  "shadcn": [
+    "button",
+    "hover-card",
+    "progress"
+  ],
+  "source": "AI Elements (ai-sdk.dev/elements)",
+  "status": "stable"
+}

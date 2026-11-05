@@ -1,0 +1,35 @@
+{
+  "name": "AI Assistant: Ask About Data",
+  "summary": "Questions about this month's [AI Usage](/docs/blocks/ai-usage) numbers, with the tokens and cost of each answer and a change that waits for your approval.",
+  "tags": [
+    "ai",
+    "chat",
+    "prompt",
+    "agent"
+  ],
+  "useWhen": [
+    "An assistant panel or conversation inside a dashboard"
+  ],
+  "avoidWhen": [
+    "A standalone chat app, where the AI Chat block's parts fit"
+  ],
+  "dependencies": [
+    "marked",
+    "remend",
+    "shiki"
+  ],
+  "shadcn": [
+    "attachment",
+    "bubble",
+    "button",
+    "card",
+    "code-block",
+    "dropdown-menu",
+    "input-group",
+    "message",
+    "message-scroller"
+  ],
+  "install": "@dashboardblocks/ai-assistant-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

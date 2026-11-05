@@ -1,0 +1,36 @@
+{
+  "name": "AI Assistant: Side Panel",
+  "summary": "An assistant docked beside the page, with suggested prompts, the page as context, and New conversation and Close buttons.",
+  "tags": [
+    "ai",
+    "chat",
+    "prompt",
+    "agent"
+  ],
+  "useWhen": [
+    "An assistant panel or conversation inside a dashboard"
+  ],
+  "avoidWhen": [
+    "A standalone chat app, where the AI Chat block's parts fit"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "marked",
+    "recharts",
+    "remend",
+    "shiki"
+  ],
+  "shadcn": [
+    "attachment",
+    "bubble",
+    "button",
+    "code-block",
+    "dropdown-menu",
+    "input-group",
+    "message",
+    "message-scroller"
+  ],
+  "install": "@dashboardblocks/ai-assistant-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

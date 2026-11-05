@@ -1,0 +1,10 @@
+{
+  "name": "Call Chip",
+  "summary": "A compact row showing one agent tool call, such as a search, with its icon, argument, progress and result.",
+  "tags": ["agent", "tool call", "search", "wait", "status", "progress", "chip", "icon"],
+  "useWhen": ["An agent's tool calls should be visible while they run", "A list of steps needs running, done and failed states"],
+  "avoidWhen": ["The step's progress isn't meaningful to the user", "You need a general-purpose tag or badge"],
+  "dependencies": ["lucide-react"],
+  "source": "uzexify_agent",
+  "status": "stable"
+}
