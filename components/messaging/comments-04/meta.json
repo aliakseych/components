@@ -1,0 +1,27 @@
+{
+  "name": "Comments: Ticket",
+  "summary": "A support ticket's conversation, with replies emailed to the customer and internal notes only the team sees.",
+  "tags": [
+    "comments",
+    "message",
+    "chat"
+  ],
+  "useWhen": [
+    "Discussion threads, reviews and ticket conversations"
+  ],
+  "avoidWhen": [
+    "Real-time chat, where messaging/message fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "dropdown-menu",
+    "input-group",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/comments-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

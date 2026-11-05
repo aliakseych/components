@@ -1,0 +1,22 @@
+{
+  "name": "Marker",
+  "summary": "A quiet inline label or divider inside a conversation, such as a date or an event.",
+  "tags": [
+    "message",
+    "chat",
+    "status"
+  ],
+  "useWhen": [
+    "Separating messages by date",
+    "Noting events such as someone joining"
+  ],
+  "avoidWhen": [
+    "Important alerts that people must notice"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "marker"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}

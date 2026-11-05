@@ -1,0 +1,26 @@
+{
+  "name": "Comments: Discussion",
+  "summary": "Threads with replies, reactions and a resolved thread, and a box to start a new one.",
+  "tags": [
+    "comments",
+    "message",
+    "chat"
+  ],
+  "useWhen": [
+    "Discussion threads, reviews and ticket conversations"
+  ],
+  "avoidWhen": [
+    "Real-time chat, where messaging/message fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "dropdown-menu",
+    "input-group"
+  ],
+  "install": "@dashboardblocks/comments-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

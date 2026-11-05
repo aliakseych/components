@@ -1,0 +1,25 @@
+{
+  "name": "Message",
+  "summary": "A conversation row with an avatar, header, content and footer, aligned to either side.",
+  "tags": [
+    "message",
+    "chat",
+    "avatar"
+  ],
+  "useWhen": [
+    "Building a chat between people or with an assistant",
+    "Rows need names, times or read states"
+  ],
+  "avoidWhen": [
+    "Comments that don't read as a conversation",
+    "Threaded discussion with replies and reactions, where messaging/comments-01 fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "message",
+    "bubble",
+    "avatar"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}

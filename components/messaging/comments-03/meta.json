@@ -1,0 +1,27 @@
+{
+  "name": "Comments: Review",
+  "summary": "Comments on a document in a column beside it, each quoting the words it's about.",
+  "tags": [
+    "comments",
+    "message",
+    "chat"
+  ],
+  "useWhen": [
+    "Discussion threads, reviews and ticket conversations"
+  ],
+  "avoidWhen": [
+    "Real-time chat, where messaging/message fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "dropdown-menu",
+    "input-group",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/comments-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,27 @@
+{
+  "name": "Comments: Update",
+  "summary": "A composer with a preview of how mentions will look and who will be notified, above the latest updates.",
+  "tags": [
+    "comments",
+    "message",
+    "chat"
+  ],
+  "useWhen": [
+    "Discussion threads, reviews and ticket conversations"
+  ],
+  "avoidWhen": [
+    "Real-time chat, where messaging/message fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card",
+    "dropdown-menu",
+    "input-group",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/comments-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

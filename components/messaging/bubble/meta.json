@@ -1,0 +1,22 @@
+{
+  "name": "Bubble",
+  "summary": "A chat bubble with color variants, grouping and reactions.",
+  "tags": [
+    "message",
+    "chat",
+    "chip"
+  ],
+  "useWhen": [
+    "Showing message text in a conversation",
+    "Sequences of messages should visually group"
+  ],
+  "avoidWhen": [
+    "Long documents, which are hard to read in a bubble"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "bubble"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}
