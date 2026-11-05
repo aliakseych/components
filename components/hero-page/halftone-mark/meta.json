@@ -1,0 +1,10 @@
+{
+  "name": "Halftone Mark",
+  "summary": "An animated logo or icon filled with flowing colored light, shaped by any image you provide.",
+  "tags": ["icon", "logo", "animation", "flow", "webgl", "shader", "halftone", "hero"],
+  "useWhen": ["A welcome screen or hero needs an animated logo", "A simple, solid icon shape should feel alive"],
+  "avoidWhen": ["The icon is small or repeated many times, because each one runs WebGL", "The source image has fine detail that needs to stay crisp"],
+  "dependencies": [],
+  "source": "uzexify_agent",
+  "status": "stable"
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Decrypted Text",
+  "summary": "Text that scrambles through random characters and resolves into the real words, on view, hover or click.",
+  "tags": ["text", "noise", "scramble", "decrypt", "animation", "heading", "hero"],
+  "useWhen": ["A short heading or label deserves a noticeable reveal", "The page has a technical or terminal-like style"],
+  "avoidWhen": ["Body text or anything long that people need to read straight away", "Text changes often, because repeated scrambling is distracting"],
+  "dependencies": ["motion"],
+  "source": "uzexify_agent",
+  "status": "stable"
+}

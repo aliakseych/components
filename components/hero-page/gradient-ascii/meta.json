@@ -1,0 +1,10 @@
+{
+  "name": "Gradient ASCII Background",
+  "summary": "An animated WebGL background with a horizon glow and random noise characters, usable together or as separate layers.",
+  "tags": ["background", "webgl", "ascii", "noise", "horizon", "gradient", "shader", "hero"],
+  "useWhen": ["A landing or welcome screen needs an atmospheric full-screen background", "You need just an animated glow or just a field of random characters"],
+  "avoidWhen": ["Text sits directly on it without an overlay or strong contrast", "The page targets low-power devices or browsers without WebGL 2"],
+  "dependencies": [],
+  "source": "uzexify_agent",
+  "status": "stable"
+}
