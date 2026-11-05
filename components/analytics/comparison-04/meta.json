@@ -1,0 +1,22 @@
+{
+  "name": "Comparison: Before and After",
+  "summary": "Two values per row on a shared scale, with a hollow dot for before and a filled dot for after.",
+  "tags": [
+    "comparison",
+    "chart",
+    "stats"
+  ],
+  "useWhen": [
+    "Comparing periods, variants or segments"
+  ],
+  "avoidWhen": [
+    "Only one value exists"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/comparison-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Leaderboard: Sortable",
+  "summary": "A ranking you can reverse and expand to show every entry.",
+  "tags": [
+    "leaderboard",
+    "list",
+    "stats"
+  ],
+  "useWhen": [
+    "Ranking pages, products, people or regions"
+  ],
+  "avoidWhen": [
+    "Order doesn't matter"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "country-flag-icons"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/leaderboard-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

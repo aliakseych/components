@@ -1,0 +1,25 @@
+{
+  "name": "Feedback: Sentiment by Topic",
+  "summary": "Negative and positive mentions either side of a centre line for each topic, sorted by net sentiment.",
+  "tags": [
+    "feedback",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Ratings, reviews and satisfaction over time"
+  ],
+  "avoidWhen": [
+    "No customer feedback is collected"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/feedback-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

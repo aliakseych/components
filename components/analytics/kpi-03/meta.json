@@ -1,0 +1,24 @@
+{
+  "name": "KPI: Previous Value",
+  "summary": "A rate beside its previous value, with the change in percentage points.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/kpi-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

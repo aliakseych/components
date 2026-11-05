@@ -1,0 +1,26 @@
+{
+  "name": "KPI: Area Chart",
+  "summary": "Gross profit with its margin, profit drawn inside revenue by day, and the day with the best margin.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/area-chart-kpi-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

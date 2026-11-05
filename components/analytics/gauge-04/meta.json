@@ -1,0 +1,22 @@
+{
+  "name": "Gauge: Score Card",
+  "summary": "A satisfaction score with a target tick on the arc, the change since last period and the points left to the target.",
+  "tags": [
+    "gauge",
+    "chart",
+    "progress"
+  ],
+  "useWhen": [
+    "One number on a known scale with bands or a target"
+  ],
+  "avoidWhen": [
+    "The scale has no meaningful bounds"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/gauge-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

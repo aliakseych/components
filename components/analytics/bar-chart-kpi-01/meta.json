@@ -1,0 +1,26 @@
+{
+  "name": "KPI: Bar Chart",
+  "summary": "The week's total with a bar for each day and the change on the week before.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/bar-chart-kpi-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

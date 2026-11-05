@@ -1,0 +1,24 @@
+{
+  "name": "AI Usage: Model Performance",
+  "summary": "Requests, time to first token from the median to the 95th percentile, output speed and error rate for each model.",
+  "tags": [
+    "ai",
+    "usage",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Showing tokens, cost and model performance"
+  ],
+  "avoidWhen": [
+    "The product doesn't call AI models"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/ai-usage-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

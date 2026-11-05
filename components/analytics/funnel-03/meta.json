@@ -1,0 +1,22 @@
+{
+  "name": "Funnel: Steps",
+  "summary": "A vertical stepper that names the step with the biggest drop-off.",
+  "tags": [
+    "funnel",
+    "chart",
+    "comparison"
+  ],
+  "useWhen": [
+    "Showing conversion between steps and where people drop off"
+  ],
+  "avoidWhen": [
+    "Steps don't happen in order"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/funnel-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

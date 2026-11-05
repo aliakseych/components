@@ -1,0 +1,24 @@
+{
+  "name": "AI Usage: Cost by Feature",
+  "summary": "Model spend by product feature, with each feature's input, cached and output tokens and its cost per thousand requests.",
+  "tags": [
+    "ai",
+    "usage",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Showing tokens, cost and model performance"
+  ],
+  "avoidWhen": [
+    "The product doesn't call AI models"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/ai-usage-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

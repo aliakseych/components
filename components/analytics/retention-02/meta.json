@@ -1,0 +1,26 @@
+{
+  "name": "Retention: Retention Curves",
+  "summary": "Every cohort's curve, with one highlighted against the average, and a line where the average levels off.",
+  "tags": [
+    "retention",
+    "chart",
+    "stats"
+  ],
+  "useWhen": [
+    "Following cohorts over time",
+    "Showing day 1, 7 and 30 retention"
+  ],
+  "avoidWhen": [
+    "There are no cohorts or sign-up dates"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/retention-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "Forecast: Date to Target",
+  "summary": "The running total heading for a goal line, with the date the forecast reaches it and what each week needs to make the deadline.",
+  "tags": [
+    "forecast",
+    "chart",
+    "goals"
+  ],
+  "useWhen": [
+    "Projecting actuals to a target or date"
+  ],
+  "avoidWhen": [
+    "Data is too sparse to project"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/forecast-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

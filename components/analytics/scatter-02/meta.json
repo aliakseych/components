@@ -1,0 +1,26 @@
+{
+  "name": "Scatter: Quadrants",
+  "summary": "Features by usage and satisfaction, split at the medians into four labelled quadrants.",
+  "tags": [
+    "scatter",
+    "chart",
+    "comparison"
+  ],
+  "useWhen": [
+    "Two measures compared one dot per item",
+    "Finding correlations or priority quadrants"
+  ],
+  "avoidWhen": [
+    "Fewer than ten items, where a table is clearer"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/scatter-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

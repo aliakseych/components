@@ -1,0 +1,25 @@
+{
+  "name": "Geo: Top Countries",
+  "summary": "The leading countries with flags, values and shares, and the rest summed into one row.",
+  "tags": [
+    "map",
+    "chart",
+    "stats"
+  ],
+  "useWhen": [
+    "Breaking a value down by country, state or city"
+  ],
+  "avoidWhen": [
+    "Geography isn't meaningful to the metric"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "country-flag-icons"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/geo-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

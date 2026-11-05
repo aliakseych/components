@@ -1,0 +1,25 @@
+{
+  "name": "Leaderboard: Share Bars",
+  "summary": "Ranked rows with a bar sized relative to the leader, and how much of the traffic the top page drew.",
+  "tags": [
+    "leaderboard",
+    "list",
+    "stats"
+  ],
+  "useWhen": [
+    "Ranking pages, products, people or regions"
+  ],
+  "avoidWhen": [
+    "Order doesn't matter"
+  ],
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/leaderboard-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

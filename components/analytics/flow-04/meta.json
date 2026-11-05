@@ -1,0 +1,23 @@
+{
+  "name": "Flow: Top Paths",
+  "summary": "The most common routes as steps, ranked by how many took them, with how often each reaches the goal.",
+  "tags": [
+    "flow",
+    "chart"
+  ],
+  "useWhen": [
+    "Showing how a total moves between stages, such as traffic sources to outcomes"
+  ],
+  "avoidWhen": [
+    "Fewer than three stages, where a breakdown is simpler"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/flow-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

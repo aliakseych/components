@@ -1,0 +1,25 @@
+{
+  "name": "Distribution: Box Plots",
+  "summary": "One box and whiskers per group on a shared axis, from the 5th to the 95th percentile.",
+  "tags": [
+    "chart",
+    "distribution",
+    "stats"
+  ],
+  "useWhen": [
+    "The shape of a metric matters, such as latency percentiles"
+  ],
+  "avoidWhen": [
+    "Only the average is useful"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/distribution-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

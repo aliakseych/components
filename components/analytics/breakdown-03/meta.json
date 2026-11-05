@@ -1,0 +1,25 @@
+{
+  "name": "Breakdown: Waffle",
+  "summary": "A 10×10 grid where each square is 1% of the total.",
+  "tags": [
+    "chart",
+    "comparison",
+    "stats"
+  ],
+  "useWhen": [
+    "Showing how a total splits into categories"
+  ],
+  "avoidWhen": [
+    "Categories change over time, where a stacked chart fits better"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/breakdown-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

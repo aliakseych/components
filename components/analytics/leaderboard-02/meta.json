@@ -1,0 +1,25 @@
+{
+  "name": "Leaderboard: Team Ranking",
+  "summary": "People ranked by revenue, each bar running to the person's quota, with the change on the last period.",
+  "tags": [
+    "leaderboard",
+    "list",
+    "stats"
+  ],
+  "useWhen": [
+    "Ranking pages, products, people or regions"
+  ],
+  "avoidWhen": [
+    "Order doesn't matter"
+  ],
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "shadcn": [
+    "avatar",
+    "card"
+  ],
+  "install": "@dashboardblocks/leaderboard-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "KPI: Compact",
+  "summary": "A value with its change written beside the label, for a tight grid of KPIs.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/kpi-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

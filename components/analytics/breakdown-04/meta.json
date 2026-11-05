@@ -1,0 +1,25 @@
+{
+  "name": "Breakdown: Share Shift",
+  "summary": "How each category's share moved between two periods, as two dots joined by a line.",
+  "tags": [
+    "chart",
+    "comparison",
+    "stats"
+  ],
+  "useWhen": [
+    "Showing how a total splits into categories"
+  ],
+  "avoidWhen": [
+    "Categories change over time, where a stacked chart fits better"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/breakdown-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

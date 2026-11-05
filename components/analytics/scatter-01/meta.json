@@ -1,0 +1,26 @@
+{
+  "name": "Scatter: Correlation",
+  "summary": "Pages by load time and conversion rate, grouped by section, with a trend line and how strong the relationship is.",
+  "tags": [
+    "scatter",
+    "chart",
+    "comparison"
+  ],
+  "useWhen": [
+    "Two measures compared one dot per item",
+    "Finding correlations or priority quadrants"
+  ],
+  "avoidWhen": [
+    "Fewer than ten items, where a table is clearer"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/scatter-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

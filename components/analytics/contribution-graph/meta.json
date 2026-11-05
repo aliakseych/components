@@ -1,0 +1,24 @@
+{
+  "name": "Contribution Graph",
+  "summary": "A year-long activity heatmap with month labels, a total count and a legend.",
+  "tags": [
+    "chart",
+    "stats",
+    "calendar"
+  ],
+  "useWhen": [
+    "Showing daily activity over a long period",
+    "Consistency over time is the main story"
+  ],
+  "avoidWhen": [
+    "People need exact daily values at a glance",
+    "Narrow screens without horizontal scrolling",
+    "A year of activity as a dashboard block, where analytics/heatmap-03 fits better"
+  ],
+  "dependencies": [
+    "date-fns"
+  ],
+  "shadcn": [],
+  "source": "Kibo UI",
+  "status": "stable"
+}

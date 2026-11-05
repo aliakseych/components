@@ -1,0 +1,23 @@
+{
+  "name": "Funnel: Stage Bars",
+  "summary": "Overall conversion, then each stage as a bar sized against the first, with its step conversion.",
+  "tags": [
+    "funnel",
+    "chart",
+    "comparison"
+  ],
+  "useWhen": [
+    "Showing conversion between steps and where people drop off"
+  ],
+  "avoidWhen": [
+    "Steps don't happen in order"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/funnel-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

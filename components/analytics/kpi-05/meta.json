@@ -1,0 +1,25 @@
+{
+  "name": "KPI: Row",
+  "summary": "A row of headline KPIs, each in its own card, for the top of a dashboard.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better",
+    "Several metrics in one card with a shared change period, where analytics/stat-group-01 fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/kpi-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

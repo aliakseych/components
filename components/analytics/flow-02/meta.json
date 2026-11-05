@@ -1,0 +1,24 @@
+{
+  "name": "Flow: User Paths",
+  "summary": "Where visitors go in their first pages after landing, with the ones who left at each step.",
+  "tags": [
+    "flow",
+    "chart"
+  ],
+  "useWhen": [
+    "Showing how a total moves between stages, such as traffic sources to outcomes"
+  ],
+  "avoidWhen": [
+    "Fewer than three stages, where a breakdown is simpler"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/flow-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

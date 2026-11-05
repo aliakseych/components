@@ -1,0 +1,26 @@
+{
+  "name": "AI Usage: Token Usage",
+  "summary": "Tokens per day stacked by model against the daily average, with the total cost and the cost per million tokens.",
+  "tags": [
+    "ai",
+    "usage",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Showing tokens, cost and model performance"
+  ],
+  "avoidWhen": [
+    "The product doesn't call AI models"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/ai-usage-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

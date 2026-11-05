@@ -1,0 +1,25 @@
+{
+  "name": "Leaderboard: Podium",
+  "summary": "The top three on a podium sized by their totals, with the rest of the field listed below.",
+  "tags": [
+    "leaderboard",
+    "list",
+    "stats"
+  ],
+  "useWhen": [
+    "Ranking pages, products, people or regions"
+  ],
+  "avoidWhen": [
+    "Order doesn't matter"
+  ],
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "shadcn": [
+    "avatar",
+    "card"
+  ],
+  "install": "@dashboardblocks/leaderboard-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

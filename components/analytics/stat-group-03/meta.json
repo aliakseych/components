@@ -1,0 +1,28 @@
+{
+  "name": "Stat Group: Metric Tabs",
+  "summary": "Metrics as tabs, with the selected one charted by day over the previous period.",
+  "tags": [
+    "kpi",
+    "stats",
+    "dashboard"
+  ],
+  "useWhen": [
+    "Several related numbers belong in one card",
+    "The top row of a dashboard"
+  ],
+  "avoidWhen": [
+    "Each number needs its own explanation or chart"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/stat-group-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

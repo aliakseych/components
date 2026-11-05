@@ -1,0 +1,26 @@
+{
+  "name": "KPI: Provenance",
+  "summary": "A value with a button that says how it was computed: what's counted, the dates, the filters, the query and a link to the rows.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card",
+    "popover"
+  ],
+  "install": "@dashboardblocks/kpi-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

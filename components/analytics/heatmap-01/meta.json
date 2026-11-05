@@ -1,0 +1,25 @@
+{
+  "name": "Heatmap: Weekday by Hour",
+  "summary": "When visitors arrive, by day of the week and hour of the day, with each hour's total in bars above the grid.",
+  "tags": [
+    "heatmap",
+    "chart",
+    "calendar"
+  ],
+  "useWhen": [
+    "A value across two dimensions, such as weekday by hour"
+  ],
+  "avoidWhen": [
+    "One dimension is enough, where a bar chart fits"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/heatmap-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

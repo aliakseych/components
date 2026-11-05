@@ -1,0 +1,26 @@
+{
+  "name": "Chart Panel: Breakdown Donut",
+  "summary": "Part-to-whole at a glance, with values and shares listed beside the donut.",
+  "tags": [
+    "chart",
+    "dashboard",
+    "metrics"
+  ],
+  "useWhen": [
+    "A full-size chart with a headline figure and the change written out",
+    "People compare a period with the one before"
+  ],
+  "avoidWhen": [
+    "A tiny inline trend is enough, where a KPI sparkline fits"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/chart-panel-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

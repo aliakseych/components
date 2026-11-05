@@ -1,0 +1,24 @@
+{
+  "name": "Flow: Traffic Flow",
+  "summary": "Sessions from each source, through the landing page, to signing up, browsing on or bouncing, with the page that converts best named.",
+  "tags": [
+    "flow",
+    "chart"
+  ],
+  "useWhen": [
+    "Showing how a total moves between stages, such as traffic sources to outcomes"
+  ],
+  "avoidWhen": [
+    "Fewer than three stages, where a breakdown is simpler"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/flow-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

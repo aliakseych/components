@@ -1,0 +1,24 @@
+{
+  "name": "KPI: Headline",
+  "summary": "A value with its change and what it's compared with.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/kpi-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

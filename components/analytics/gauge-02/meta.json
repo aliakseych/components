@@ -1,0 +1,22 @@
+{
+  "name": "Gauge: Health Score",
+  "summary": "An account health score marked on poor, fair and good bands, with the factors that pull it down most.",
+  "tags": [
+    "gauge",
+    "chart",
+    "progress"
+  ],
+  "useWhen": [
+    "One number on a known scale with bands or a target"
+  ],
+  "avoidWhen": [
+    "The scale has no meaningful bounds"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/gauge-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

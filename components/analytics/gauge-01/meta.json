@@ -1,0 +1,22 @@
+{
+  "name": "Gauge: Net Promoter Score",
+  "summary": "NPS on its full −100 to 100 scale, with the change since last period and the split of promoters, passives and detractors.",
+  "tags": [
+    "gauge",
+    "chart",
+    "progress"
+  ],
+  "useWhen": [
+    "One number on a known scale with bands or a target"
+  ],
+  "avoidWhen": [
+    "The scale has no meaningful bounds"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/gauge-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

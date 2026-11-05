@@ -1,0 +1,24 @@
+{
+  "name": "Metric List: Sparklines",
+  "summary": "Metrics with their change and a 14-day sparkline.",
+  "tags": [
+    "metrics",
+    "list",
+    "stats"
+  ],
+  "useWhen": [
+    "Many metrics in one dense list with their change"
+  ],
+  "avoidWhen": [
+    "A handful of metrics, where KPI cards fit"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/metric-list-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

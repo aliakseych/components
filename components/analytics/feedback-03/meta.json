@@ -1,0 +1,26 @@
+{
+  "name": "Feedback: Recent Reviews",
+  "summary": "The latest reviews with their rating and source, and whether low ratings still need a reply.",
+  "tags": [
+    "feedback",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Ratings, reviews and satisfaction over time"
+  ],
+  "avoidWhen": [
+    "No customer feedback is collected"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "avatar",
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/feedback-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

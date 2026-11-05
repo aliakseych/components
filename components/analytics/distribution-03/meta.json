@@ -1,0 +1,24 @@
+{
+  "name": "Distribution: Spread",
+  "summary": "The median, mean and percentiles of raw values, with a note when a long tail pulls the mean away from the median.",
+  "tags": [
+    "chart",
+    "distribution",
+    "stats"
+  ],
+  "useWhen": [
+    "The shape of a metric matters, such as latency percentiles"
+  ],
+  "avoidWhen": [
+    "Only the average is useful"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/distribution-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

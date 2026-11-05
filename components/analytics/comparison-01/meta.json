@@ -1,0 +1,23 @@
+{
+  "name": "Comparison: Period over Period",
+  "summary": "Each metric this period and last, with the difference and the change, under a sentence saying how many improved.",
+  "tags": [
+    "comparison",
+    "chart",
+    "stats"
+  ],
+  "useWhen": [
+    "Comparing periods, variants or segments"
+  ],
+  "avoidWhen": [
+    "Only one value exists"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/comparison-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

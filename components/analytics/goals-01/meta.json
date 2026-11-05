@@ -1,0 +1,22 @@
+{
+  "name": "Goals: Target",
+  "summary": "One target with where today's pace ends up and how much a day is left to do.",
+  "tags": [
+    "goals",
+    "progress",
+    "forecast"
+  ],
+  "useWhen": [
+    "Tracking progress to a target with pace against the period"
+  ],
+  "avoidWhen": [
+    "There is no target to compare with"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/goals-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

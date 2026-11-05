@@ -1,0 +1,26 @@
+{
+  "name": "Stat Group: With Sparklines",
+  "summary": "Each metric with a 14-day sparkline, under a sentence saying how many improved.",
+  "tags": [
+    "kpi",
+    "stats",
+    "dashboard"
+  ],
+  "useWhen": [
+    "Several related numbers belong in one card",
+    "The top row of a dashboard"
+  ],
+  "avoidWhen": [
+    "Each number needs its own explanation or chart"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/stat-group-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

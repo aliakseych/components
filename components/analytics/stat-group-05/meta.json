@@ -1,0 +1,26 @@
+{
+  "name": "Stat Group: Period Bars",
+  "summary": "Four metrics, each with a bar for this period over a bar for the one before.",
+  "tags": [
+    "kpi",
+    "stats",
+    "dashboard"
+  ],
+  "useWhen": [
+    "Several related numbers belong in one card",
+    "The top row of a dashboard"
+  ],
+  "avoidWhen": [
+    "Each number needs its own explanation or chart"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/stat-group-05",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

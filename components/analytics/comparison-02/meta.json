@@ -1,0 +1,23 @@
+{
+  "name": "Comparison: A/B Test",
+  "summary": "Lift for a variant over the control, with a 95% confidence interval drawn against zero and a sentence on what it means.",
+  "tags": [
+    "comparison",
+    "chart",
+    "stats"
+  ],
+  "useWhen": [
+    "Comparing periods, variants or segments"
+  ],
+  "avoidWhen": [
+    "Only one value exists"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/comparison-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

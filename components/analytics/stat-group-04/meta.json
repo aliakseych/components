@@ -1,0 +1,26 @@
+{
+  "name": "Stat Group: Compact Strip",
+  "summary": "Five metrics in a slim row.",
+  "tags": [
+    "kpi",
+    "stats",
+    "dashboard"
+  ],
+  "useWhen": [
+    "Several related numbers belong in one card",
+    "The top row of a dashboard"
+  ],
+  "avoidWhen": [
+    "Each number needs its own explanation or chart"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/stat-group-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

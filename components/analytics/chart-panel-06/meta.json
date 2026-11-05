@@ -1,0 +1,26 @@
+{
+  "name": "Chart Panel: Percentiles",
+  "summary": "Percentile lines in one hue from light to full strength, against an SLO line and how many hours went over it.",
+  "tags": [
+    "chart",
+    "dashboard",
+    "metrics"
+  ],
+  "useWhen": [
+    "A full-size chart with a headline figure and the change written out",
+    "People compare a period with the one before"
+  ],
+  "avoidWhen": [
+    "A tiny inline trend is enough, where a KPI sparkline fits"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/chart-panel-06",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

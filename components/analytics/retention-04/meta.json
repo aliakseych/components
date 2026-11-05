@@ -1,0 +1,26 @@
+{
+  "name": "Retention: Growth Accounting",
+  "summary": "Users gained above the axis and lost below it, with the net change and the quick ratio of users gained for each one lost.",
+  "tags": [
+    "retention",
+    "chart",
+    "stats"
+  ],
+  "useWhen": [
+    "Following cohorts over time",
+    "Showing day 1, 7 and 30 retention"
+  ],
+  "avoidWhen": [
+    "There are no cohorts or sign-up dates"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/retention-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

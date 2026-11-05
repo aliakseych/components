@@ -1,0 +1,25 @@
+{
+  "name": "Realtime: Right Now",
+  "summary": "Active users, page views per second over the last minute and the pages with the most people on them.",
+  "tags": [
+    "realtime",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Data that changes every second, such as active users"
+  ],
+  "avoidWhen": [
+    "Data updates hourly or less"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/realtime-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

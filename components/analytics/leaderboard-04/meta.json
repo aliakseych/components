@@ -1,0 +1,25 @@
+{
+  "name": "Leaderboard: Rank Movement",
+  "summary": "Products ranked by revenue, with how many places each moved and the biggest climber named.",
+  "tags": [
+    "leaderboard",
+    "list",
+    "stats"
+  ],
+  "useWhen": [
+    "Ranking pages, products, people or regions"
+  ],
+  "avoidWhen": [
+    "Order doesn't matter"
+  ],
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/leaderboard-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

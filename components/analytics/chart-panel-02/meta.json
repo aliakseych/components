@@ -1,0 +1,28 @@
+{
+  "name": "Chart Panel: Metric Tabs",
+  "summary": "Related metrics as tabs, each with its total and change, and the chosen metric's average marked on the chart.",
+  "tags": [
+    "chart",
+    "dashboard",
+    "metrics"
+  ],
+  "useWhen": [
+    "A full-size chart with a headline figure and the change written out",
+    "People compare a period with the one before"
+  ],
+  "avoidWhen": [
+    "A tiny inline trend is enough, where a KPI sparkline fits"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card",
+    "tabs"
+  ],
+  "install": "@dashboardblocks/chart-panel-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

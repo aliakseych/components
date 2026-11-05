@@ -1,0 +1,25 @@
+{
+  "name": "Goals: Projection",
+  "summary": "Cumulative progress this month, projected to the end of the month, with the day it reaches the target or how far short it ends.",
+  "tags": [
+    "goals",
+    "progress",
+    "forecast"
+  ],
+  "useWhen": [
+    "Tracking progress to a target with pace against the period"
+  ],
+  "avoidWhen": [
+    "There is no target to compare with"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/goals-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

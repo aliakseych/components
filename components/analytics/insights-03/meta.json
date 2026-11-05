@@ -1,0 +1,23 @@
+{
+  "name": "Insights: Key Drivers",
+  "summary": "What contributed to a change, as bars either side of zero, under a sentence naming the biggest driver and drag.",
+  "tags": [
+    "insights",
+    "stats",
+    "ai"
+  ],
+  "useWhen": [
+    "Explaining what data shows in plain language",
+    "Calling out anomalies and drivers"
+  ],
+  "avoidWhen": [
+    "You have no explanation text to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/insights-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

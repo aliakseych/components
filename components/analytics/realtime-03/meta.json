@@ -1,0 +1,25 @@
+{
+  "name": "Realtime: Live Activity",
+  "summary": "Orders, sign-ups, refunds and messages as they arrive, newest first, with a pause button.",
+  "tags": [
+    "realtime",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Data that changes every second, such as active users"
+  ],
+  "avoidWhen": [
+    "Data updates hourly or less"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/realtime-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

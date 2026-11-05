@@ -1,0 +1,25 @@
+{
+  "name": "Breakdown: Composition by Group",
+  "summary": "The mix across groups, sorted by one category's share, which is labelled on every row.",
+  "tags": [
+    "chart",
+    "comparison",
+    "stats"
+  ],
+  "useWhen": [
+    "Showing how a total splits into categories"
+  ],
+  "avoidWhen": [
+    "Categories change over time, where a stacked chart fits better"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/breakdown-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

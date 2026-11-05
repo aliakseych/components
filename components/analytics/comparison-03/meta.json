@@ -1,0 +1,22 @@
+{
+  "name": "Comparison: What Changed",
+  "summary": "The net change, then the change in each segment as bars either side of zero, from the biggest gain to the biggest drop.",
+  "tags": [
+    "comparison",
+    "chart",
+    "stats"
+  ],
+  "useWhen": [
+    "Comparing periods, variants or segments"
+  ],
+  "avoidWhen": [
+    "Only one value exists"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/comparison-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

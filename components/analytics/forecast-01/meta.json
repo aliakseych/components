@@ -1,0 +1,25 @@
+{
+  "name": "Forecast: Actual and Forecast",
+  "summary": "Weekly actuals continuing into a dashed forecast with a shaded 80% range and a today marker.",
+  "tags": [
+    "forecast",
+    "chart",
+    "goals"
+  ],
+  "useWhen": [
+    "Projecting actuals to a target or date"
+  ],
+  "avoidWhen": [
+    "Data is too sparse to project"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/forecast-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

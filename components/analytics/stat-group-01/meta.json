@@ -1,0 +1,27 @@
+{
+  "name": "Stat Group: Plain Row",
+  "summary": "Metrics side by side, each with its change written as a sentence.",
+  "tags": [
+    "kpi",
+    "stats",
+    "dashboard"
+  ],
+  "useWhen": [
+    "Several related numbers belong in one card",
+    "The top row of a dashboard"
+  ],
+  "avoidWhen": [
+    "Each number needs its own explanation or chart",
+    "A single KPI row with its own context, where analytics/kpi-05 fits better"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/stat-group-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

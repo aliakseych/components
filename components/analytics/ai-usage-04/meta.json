@@ -1,0 +1,23 @@
+{
+  "name": "AI Usage: Prompt Caching",
+  "summary": "The share of input tokens served from the cache, its change, what it saved and what tokens would have cost without it.",
+  "tags": [
+    "ai",
+    "usage",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Showing tokens, cost and model performance"
+  ],
+  "avoidWhen": [
+    "The product doesn't call AI models"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/ai-usage-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

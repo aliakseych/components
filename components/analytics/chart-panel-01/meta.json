@@ -1,0 +1,26 @@
+{
+  "name": "Chart Panel: Period Comparison",
+  "summary": "This period as an area against the previous one as a dashed line, with the change written as a sentence.",
+  "tags": [
+    "chart",
+    "dashboard",
+    "metrics"
+  ],
+  "useWhen": [
+    "A full-size chart with a headline figure and the change written out",
+    "People compare a period with the one before"
+  ],
+  "avoidWhen": [
+    "A tiny inline trend is enough, where a KPI sparkline fits"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/chart-panel-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

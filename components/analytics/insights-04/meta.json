@@ -1,0 +1,24 @@
+{
+  "name": "Insights: Weekly Digest",
+  "summary": "A headline, three takeaways and buttons to say whether it helped.",
+  "tags": [
+    "insights",
+    "stats",
+    "ai"
+  ],
+  "useWhen": [
+    "Explaining what data shows in plain language",
+    "Calling out anomalies and drivers"
+  ],
+  "avoidWhen": [
+    "You have no explanation text to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/insights-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "KPI: Target Pace",
+  "summary": "Progress to a monthly target, with where the current pace ends the month and where an even pace would be today.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/progress-kpi-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

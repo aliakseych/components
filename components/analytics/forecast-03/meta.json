@@ -1,0 +1,24 @@
+{
+  "name": "Forecast: Run-Rate",
+  "summary": "Month to date, projected to the end of the month at the daily run-rate, with what's needed per day to hit the target.",
+  "tags": [
+    "forecast",
+    "chart",
+    "goals"
+  ],
+  "useWhen": [
+    "Projecting actuals to a target or date"
+  ],
+  "avoidWhen": [
+    "Data is too sparse to project"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/forecast-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

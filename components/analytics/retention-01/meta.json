@@ -1,0 +1,25 @@
+{
+  "name": "Retention: Cohort Table",
+  "summary": "A retention triangle with one row per cohort and an average row weighted by cohort size.",
+  "tags": [
+    "retention",
+    "chart",
+    "stats"
+  ],
+  "useWhen": [
+    "Following cohorts over time",
+    "Showing day 1, 7 and 30 retention"
+  ],
+  "avoidWhen": [
+    "There are no cohorts or sign-up dates"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/retention-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

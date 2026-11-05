@@ -1,0 +1,26 @@
+{
+  "name": "KPI: Background Chart",
+  "summary": "A large total with an area chart along the bottom, for the hero number at the top of a dashboard.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/area-chart-kpi-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

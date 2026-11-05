@@ -1,0 +1,26 @@
+{
+  "name": "Heatmap: Calendar",
+  "summary": "A year of daily values, with the busiest day and the longest run of active days.",
+  "tags": [
+    "heatmap",
+    "chart",
+    "calendar"
+  ],
+  "useWhen": [
+    "A value across two dimensions, such as weekday by hour"
+  ],
+  "avoidWhen": [
+    "One dimension is enough, where a bar chart fits",
+    "A GitHub-style contribution graph with a legend and tooltips, where analytics/contribution-graph fits better"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/heatmap-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

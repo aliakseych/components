@@ -1,0 +1,26 @@
+{
+  "name": "Insights: Anomaly Callout",
+  "summary": "An unusual reading against the range it was expected to fall in, with the worst day labelled, the explanation and the likely causes.",
+  "tags": [
+    "insights",
+    "stats",
+    "ai"
+  ],
+  "useWhen": [
+    "Explaining what data shows in plain language",
+    "Calling out anomalies and drivers"
+  ],
+  "avoidWhen": [
+    "You have no explanation text to show"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/insights-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

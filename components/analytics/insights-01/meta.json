@@ -1,0 +1,24 @@
+{
+  "name": "Insights: Feed",
+  "summary": "A list of insights, each with its kind, topic, sentence, an optional line of drivers and a link to explore.",
+  "tags": [
+    "insights",
+    "stats",
+    "ai"
+  ],
+  "useWhen": [
+    "Explaining what data shows in plain language",
+    "Calling out anomalies and drivers"
+  ],
+  "avoidWhen": [
+    "You have no explanation text to show"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/insights-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

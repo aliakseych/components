@@ -1,0 +1,24 @@
+{
+  "name": "KPI: Status Breakdown",
+  "summary": "The share of work done, as one bar split by status, with a count for each.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/progress-kpi-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

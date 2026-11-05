@@ -1,0 +1,22 @@
+{
+  "name": "Goals: Goal List",
+  "summary": "Several goals for the same period, each with its own pace.",
+  "tags": [
+    "goals",
+    "progress",
+    "forecast"
+  ],
+  "useWhen": [
+    "Tracking progress to a target with pace against the period"
+  ],
+  "avoidWhen": [
+    "There is no target to compare with"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/goals-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

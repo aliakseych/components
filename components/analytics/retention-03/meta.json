@@ -1,0 +1,25 @@
+{
+  "name": "Retention: Milestones",
+  "summary": "Day 1, 7 and 30 retention for the latest cohort, with the change against the cohort before.",
+  "tags": [
+    "retention",
+    "chart",
+    "stats"
+  ],
+  "useWhen": [
+    "Following cohorts over time",
+    "Showing day 1, 7 and 30 retention"
+  ],
+  "avoidWhen": [
+    "There are no cohorts or sign-up dates"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/retention-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

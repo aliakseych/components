@@ -1,0 +1,25 @@
+{
+  "name": "Realtime: Today So Far",
+  "summary": "Running totals since midnight against yesterday at the same time, with orders per hour beside yesterday's.",
+  "tags": [
+    "realtime",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Data that changes every second, such as active users"
+  ],
+  "avoidWhen": [
+    "Data updates hourly or less"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/realtime-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

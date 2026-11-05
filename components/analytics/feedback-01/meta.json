@@ -1,0 +1,25 @@
+{
+  "name": "Feedback: Ratings",
+  "summary": "The average rating with stars, the number of ratings and the share of each star, with CSAT and the change on the last period.",
+  "tags": [
+    "feedback",
+    "stats",
+    "chart"
+  ],
+  "useWhen": [
+    "Ratings, reviews and satisfaction over time"
+  ],
+  "avoidWhen": [
+    "No customer feedback is collected"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/feedback-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

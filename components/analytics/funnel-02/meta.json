@@ -1,0 +1,25 @@
+{
+  "name": "Funnel: Columns",
+  "summary": "Each stage as a column on a 0 to 100% axis, topped by the share that left at that step, with the biggest drop named.",
+  "tags": [
+    "funnel",
+    "chart",
+    "comparison"
+  ],
+  "useWhen": [
+    "Showing conversion between steps and where people drop off"
+  ],
+  "avoidWhen": [
+    "Steps don't happen in order"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/funnel-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

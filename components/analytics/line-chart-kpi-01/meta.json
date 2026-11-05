@@ -1,0 +1,26 @@
+{
+  "name": "KPI: Line Chart",
+  "summary": "This week as a filled area over last week as a dashed line, with the days it fell behind written underneath.",
+  "tags": [
+    "kpi",
+    "stats",
+    "chart",
+    "dashboard"
+  ],
+  "useWhen": [
+    "A dashboard needs headline numbers with their change",
+    "One number should be read at a glance"
+  ],
+  "avoidWhen": [
+    "People need the full series, where a chart panel fits better"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/line-chart-kpi-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Heatmap: Cohort Retention",
+  "summary": "The share of each weekly signup cohort still active in each week after signup.",
+  "tags": [
+    "heatmap",
+    "chart",
+    "calendar"
+  ],
+  "useWhen": [
+    "A value across two dimensions, such as weekday by hour"
+  ],
+  "avoidWhen": [
+    "One dimension is enough, where a bar chart fits"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/heatmap-02",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

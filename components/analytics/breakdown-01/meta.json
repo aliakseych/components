@@ -1,0 +1,25 @@
+{
+  "name": "Breakdown: Segmented Bar",
+  "summary": "A single 100% bar with each category's value and share listed below.",
+  "tags": [
+    "chart",
+    "comparison",
+    "stats"
+  ],
+  "useWhen": [
+    "Showing how a total splits into categories"
+  ],
+  "avoidWhen": [
+    "Categories change over time, where a stacked chart fits better"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/breakdown-01",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Goals: Daily Rings",
+  "summary": "Small daily goals as rings, each saying how many are left or how far past the goal it went.",
+  "tags": [
+    "goals",
+    "progress",
+    "forecast"
+  ],
+  "useWhen": [
+    "Tracking progress to a target with pace against the period"
+  ],
+  "avoidWhen": [
+    "There is no target to compare with",
+    "One count against a goal with the daily pace, where analytics/progress-kpi-03 fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/goals-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

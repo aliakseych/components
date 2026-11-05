@@ -1,0 +1,22 @@
+{
+  "name": "Gauge: System Load",
+  "summary": "CPU, memory and disk as small gauges, each with its warning and critical thresholds.",
+  "tags": [
+    "gauge",
+    "chart",
+    "progress"
+  ],
+  "useWhen": [
+    "One number on a known scale with bands or a target"
+  ],
+  "avoidWhen": [
+    "The scale has no meaningful bounds"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/gauge-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

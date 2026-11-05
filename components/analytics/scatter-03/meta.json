@@ -1,0 +1,26 @@
+{
+  "name": "Scatter: Bubbles",
+  "summary": "Campaigns by cost per acquisition and conversion rate, sized by spend and coloured by channel, against a target cost.",
+  "tags": [
+    "scatter",
+    "chart",
+    "comparison"
+  ],
+  "useWhen": [
+    "Two measures compared one dot per item",
+    "Finding correlations or priority quadrants"
+  ],
+  "avoidWhen": [
+    "Fewer than ten items, where a table is clearer"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "button",
+    "card"
+  ],
+  "install": "@dashboardblocks/scatter-03",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

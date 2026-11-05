@@ -1,0 +1,25 @@
+{
+  "name": "Scatter: Risk Matrix",
+  "summary": "Open risks on a likelihood by impact grid, with a cell's risks listed when you select it.",
+  "tags": [
+    "scatter",
+    "chart",
+    "comparison"
+  ],
+  "useWhen": [
+    "Two measures compared one dot per item",
+    "Finding correlations or priority quadrants"
+  ],
+  "avoidWhen": [
+    "Fewer than ten items, where a table is clearer"
+  ],
+  "dependencies": [
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/scatter-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}

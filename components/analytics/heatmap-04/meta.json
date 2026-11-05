@@ -1,0 +1,25 @@
+{
+  "name": "Heatmap: Hot Spots",
+  "summary": "p95 latency by endpoint over the last 24 hours, with a dot on each window over the target.",
+  "tags": [
+    "heatmap",
+    "chart",
+    "calendar"
+  ],
+  "useWhen": [
+    "A value across two dimensions, such as weekday by hour"
+  ],
+  "avoidWhen": [
+    "One dimension is enough, where a bar chart fits"
+  ],
+  "dependencies": [
+    "class-variance-authority",
+    "recharts"
+  ],
+  "shadcn": [
+    "card"
+  ],
+  "install": "@dashboardblocks/heatmap-04",
+  "source": "dashboardblocks",
+  "status": "stable"
+}
