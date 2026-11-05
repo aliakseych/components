@@ -1,0 +1,10 @@
+{
+  "name": "Magnetic Button",
+  "summary": "A button that gently follows a mouse cursor while hovered.",
+  "tags": ["button", "hover", "animation", "call to action"],
+  "useWhen": ["A landing page has one main call to action", "A small moment of motion suits the page"],
+  "avoidWhen": ["Dense forms or toolbars with neighboring controls", "The audience is mostly on touch devices, where the effect doesn't appear"],
+  "dependencies": [],
+  "source": "Library example",
+  "status": "experimental"
+}

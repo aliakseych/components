@@ -1,0 +1,23 @@
+{
+  "name": "Button Group",
+  "summary": "Joins related buttons into one connected control.",
+  "tags": [
+    "button",
+    "select"
+  ],
+  "useWhen": [
+    "Related actions belong together",
+    "A toolbar has few options, such as previous and next"
+  ],
+  "avoidWhen": [
+    "Unrelated actions, which should stay separate"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button-group",
+    "button",
+    "separator"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}

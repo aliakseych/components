@@ -1,0 +1,23 @@
+{
+  "name": "Dropdown Menu",
+  "summary": "A button that opens a list of actions, with groups and shortcuts.",
+  "tags": [
+    "menu",
+    "button",
+    "overlay"
+  ],
+  "useWhen": [
+    "Extra actions don't need permanent space",
+    "A row or page has an overflow menu"
+  ],
+  "avoidWhen": [
+    "Choosing a form value, where a select or combobox fits better"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "dropdown-menu",
+    "button"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}

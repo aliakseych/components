@@ -1,0 +1,21 @@
+{
+  "name": "Button",
+  "summary": "The standard shadcn button with variants and sizes.",
+  "tags": [
+    "button",
+    "call to action"
+  ],
+  "useWhen": [
+    "Any general action",
+    "You want the app's default button"
+  ],
+  "avoidWhen": [
+    "Navigating to another page, where a link is the right element"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "button"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}
