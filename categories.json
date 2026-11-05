@@ -1,0 +1,74 @@
+{
+  "actions": {
+    "name": "Actions",
+    "description": "Buttons and other controls that trigger something"
+  },
+  "ai-chat": {
+    "name": "AI Chat",
+    "description": "Composers, thinking states, tool activity and context for AI assistants"
+  },
+  "app-interface": {
+    "name": "App Interface",
+    "description": "Navigation, menus, sidebars and overlays that frame an app"
+  },
+  "code": {
+    "name": "Code",
+    "description": "Displaying, copying and running source code"
+  },
+  "collaboration": {
+    "name": "Collaboration",
+    "description": "Showing several people working together"
+  },
+  "data-display": {
+    "name": "Data Display",
+    "description": "Tables, charts, labels and other read-focused data"
+  },
+  "forms": {
+    "name": "Forms",
+    "description": "Collecting and editing user input"
+  },
+  "hero-page": {
+    "name": "Hero Page",
+    "description": "Backgrounds, marks and headline effects for the top of a page"
+  },
+  "marketing": {
+    "name": "Marketing",
+    "description": "Sections that explain and sell a product"
+  },
+  "media": {
+    "name": "Media",
+    "description": "Working with images and swipeable cards"
+  },
+  "messaging": {
+    "name": "Messaging",
+    "description": "Conversations between people, such as messages and bubbles"
+  },
+  "planning": {
+    "name": "Planning",
+    "description": "Calendars, timelines and task boards"
+  },
+  "analytics": {
+    "name": "Analytics",
+    "description": "KPIs, charts, funnels, maps and other ways to show measured data"
+  },
+  "dashboard": {
+    "name": "Dashboard",
+    "description": "The frame of a dashboard: shells, headers, states and complete pages"
+  },
+  "business": {
+    "name": "Business",
+    "description": "Billing, spend, usage, inventory, pipelines and invoices"
+  },
+  "workspace": {
+    "name": "Workspace",
+    "description": "Settings, members, sign-in, security, files and activity"
+  },
+  "operations": {
+    "name": "Operations",
+    "description": "Service status, deployments and alerts"
+  },
+  "email": {
+    "name": "Email",
+    "description": "Transactional email templates"
+  }
+}
