@@ -1,0 +1,31 @@
+{
+  "name": "Pricing Tiers",
+  "summary": "Only the pricing plan cards, with animated prices and a highlighted plan.",
+  "tags": [
+    "pricing",
+    "marketing",
+    "landing page",
+    "cards",
+    "call to action"
+  ],
+  "useWhen": [
+    "Comparing subscription plans",
+    "Prices change with a billing period"
+  ],
+  "avoidWhen": [
+    "Detailed comparison across many features, where a table is clearer",
+    "There is only one plan",
+    "Changing a plan inside a billing page, where business/billing-05 fits better"
+  ],
+  "dependencies": [
+    "@number-flow/react",
+    "lucide-react"
+  ],
+  "shadcn": [
+    "badge",
+    "button",
+    "card"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

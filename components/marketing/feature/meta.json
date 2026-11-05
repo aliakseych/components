@@ -1,0 +1,23 @@
+{
+  "name": "Feature Showcase",
+  "summary": "A marketing section where opening an accordion item changes the image beside it.",
+  "tags": [
+    "marketing",
+    "landing page",
+    "image"
+  ],
+  "useWhen": [
+    "Explaining several product features with screenshots",
+    "Each feature has a strong image"
+  ],
+  "avoidWhen": [
+    "Everything should be visible at once",
+    "Features have no useful visuals"
+  ],
+  "dependencies": [],
+  "shadcn": [
+    "accordion"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

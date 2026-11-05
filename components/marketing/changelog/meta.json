@@ -1,0 +1,26 @@
+{
+  "name": "Changelog",
+  "summary": "A page section of dated, versioned updates with lists, images and links.",
+  "tags": [
+    "changelog",
+    "marketing",
+    "list",
+    "timeline"
+  ],
+  "useWhen": [
+    "Announcing product updates",
+    "A public release history"
+  ],
+  "avoidWhen": [
+    "A compact in-app notification is enough"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "badge",
+    "button"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}
