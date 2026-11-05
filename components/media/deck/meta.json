@@ -1,0 +1,27 @@
+{
+  "name": "Deck",
+  "summary": "A stack of cards that people swipe left or right, flip to see the back, and shuffle.",
+  "tags": [
+    "cards",
+    "swipe",
+    "animation",
+    "drag and drop",
+    "hover"
+  ],
+  "useWhen": [
+    "Reviewing items one at a time, with a yes or no choice",
+    "A playful onboarding or discovery flow on touch screens"
+  ],
+  "avoidWhen": [
+    "People need to compare items side by side",
+    "Keyboard-only use must be fully supported without extra work"
+  ],
+  "dependencies": [
+    "@radix-ui/react-use-controllable-state",
+    "lucide-react",
+    "motion"
+  ],
+  "shadcn": [],
+  "source": "Kibo UI",
+  "status": "stable"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Image Crop",
+  "summary": "An image cropper with a draggable selection, reset and apply, which returns the cropped image as a data URL.",
+  "tags": [
+    "image",
+    "crop",
+    "upload",
+    "form"
+  ],
+  "useWhen": [
+    "Cropping an avatar or cover image before upload",
+    "People should choose the visible part of a photo"
+  ],
+  "avoidWhen": [
+    "Full photo editing, such as filters or layers",
+    "Very large images on low-memory devices"
+  ],
+  "dependencies": [
+    "lucide-react",
+    "radix-ui",
+    "react-image-crop"
+  ],
+  "shadcn": [
+    "button"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}
