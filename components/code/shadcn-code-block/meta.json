@@ -1,0 +1,26 @@
+{
+  "name": "Code Block (light)",
+  "summary": "A lightweight code block with a title, copy button, optional line numbers and wrapping.",
+  "tags": [
+    "code",
+    "syntax highlighting",
+    "copy"
+  ],
+  "useWhen": [
+    "Code inside AI answers or docs",
+    "You want a smaller option than the Kibo code block"
+  ],
+  "avoidWhen": [
+    "Readers switch between several files, where code/code-block fits better",
+    "A one-line command to copy, where code/snippet fits better"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "code-block",
+    "button"
+  ],
+  "source": "shadcn/ui",
+  "status": "stable"
+}

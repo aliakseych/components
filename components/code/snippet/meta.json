@@ -1,0 +1,27 @@
+{
+  "name": "Snippet",
+  "summary": "A compact command block with tabs, such as for package managers, and a copy button.",
+  "tags": [
+    "code",
+    "terminal",
+    "copy"
+  ],
+  "useWhen": [
+    "Showing install commands",
+    "A short command has variants people choose between"
+  ],
+  "avoidWhen": [
+    "Showing long, multi-line source files",
+    "Syntax highlighting matters",
+    "Multi-line source with highlighting, where code/code-block or code/shadcn-code-block fits better"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "button",
+    "tabs"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

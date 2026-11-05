@@ -1,0 +1,25 @@
+{
+  "name": "Package Info",
+  "summary": "A card showing a package's version change, description and dependencies.",
+  "tags": [
+    "code",
+    "status",
+    "cards",
+    "list"
+  ],
+  "useWhen": [
+    "An agent proposes or reports a dependency update",
+    "Reviewing version changes"
+  ],
+  "avoidWhen": [
+    "Showing many packages, where a table is clearer"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "badge"
+  ],
+  "source": "AI Elements (ai-sdk.dev/elements)",
+  "status": "stable"
+}

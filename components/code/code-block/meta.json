@@ -1,0 +1,31 @@
+{
+  "name": "Code Block",
+  "summary": "Code display with syntax highlighting, line numbers, tabs for several files, and a copy button.",
+  "tags": [
+    "code",
+    "syntax highlighting",
+    "copy"
+  ],
+  "useWhen": [
+    "Docs or product pages show source code",
+    "Readers switch between several files or languages"
+  ],
+  "avoidWhen": [
+    "People need to edit the code",
+    "You only show a one-line command",
+    "A one-line command to copy, where code/snippet fits better; a single file without tabs, where code/shadcn-code-block fits better"
+  ],
+  "dependencies": [
+    "@radix-ui/react-use-controllable-state",
+    "@shikijs/transformers",
+    "lucide-react",
+    "react-icons",
+    "shiki"
+  ],
+  "shadcn": [
+    "button",
+    "select"
+  ],
+  "source": "Kibo UI",
+  "status": "stable"
+}

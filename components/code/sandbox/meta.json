@@ -1,0 +1,24 @@
+{
+  "name": "Sandbox",
+  "summary": "A live browser code playground with an editor, file tree, console and preview, powered by Sandpack.",
+  "tags": [
+    "code",
+    "editor",
+    "preview",
+    "terminal"
+  ],
+  "useWhen": [
+    "Docs need runnable, editable examples",
+    "People should experiment with code in the page"
+  ],
+  "avoidWhen": [
+    "The code only needs to be read",
+    "The page must work offline, because it loads a remote bundler"
+  ],
+  "dependencies": [
+    "@codesandbox/sandpack-react"
+  ],
+  "shadcn": [],
+  "source": "Kibo UI",
+  "status": "stable"
+}

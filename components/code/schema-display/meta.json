@@ -1,0 +1,25 @@
+{
+  "name": "Schema Display",
+  "summary": "An API endpoint's method, path, parameters, and request and response fields.",
+  "tags": [
+    "code",
+    "list",
+    "tree"
+  ],
+  "useWhen": [
+    "API docs",
+    "An agent describes an endpoint or tool it calls"
+  ],
+  "avoidWhen": [
+    "People need to send live requests, because it only displays"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "badge",
+    "collapsible"
+  ],
+  "source": "AI Elements (ai-sdk.dev/elements)",
+  "status": "stable"
+}
