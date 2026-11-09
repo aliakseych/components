@@ -1,0 +1,24 @@
+{
+  "name": "CRM Table",
+  "summary": "A sortable table of sales deals with stage pills, per-stage filter chips showing totals, and a live count and sum of the visible rows.",
+  "tags": [
+    "table",
+    "list",
+    "pipeline",
+    "sortable"
+  ],
+  "useWhen": [
+    "Showing a sales pipeline as rows, sorted by amount or close date",
+    "Filtering deals by stage and seeing the sum change"
+  ],
+  "avoidWhen": [
+    "The board view matters more than rows; a pipeline component in business fits better",
+    "Large datasets need paging or column controls; use a full data table instead"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [],
+  "source": "21st.dev (inspired)",
+  "status": "experimental"
+}

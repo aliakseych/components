@@ -1,0 +1,17 @@
+{
+  "name": "Prism Hero",
+  "summary": "A full-screen hero with a floating pill navbar, a large headline that reveals word by word, and a bottom-right call to action over a token-based atmosphere.",
+  "tags": ["hero", "heading", "pill", "background", "navigation"],
+  "useWhen": [
+    "A creative studio, brand or launch page needs a cinematic opening with no photo or video",
+    "The headline should animate in once without slowing the page down"
+  ],
+  "avoidWhen": [
+    "The page needs a full menu with dropdowns, because the pill navbar shows only four links; use `app-interface/navigation-menu` or a sidebar instead",
+    "A product screen must show data immediately, because the hero fills the whole viewport"
+  ],
+  "dependencies": ["lucide-react"],
+  "shadcn": ["button"],
+  "source": "21st.dev (inspired)",
+  "status": "experimental"
+}

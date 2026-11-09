@@ -1,0 +1,17 @@
+{
+  "name": "Product Navbar",
+  "summary": "A marketing top bar with dropdown menus of icon links, plain links and right-hand actions, collapsing into one disclosure panel on phones.",
+  "tags": ["navigation", "menu", "landing page", "marketing"],
+  "useWhen": [
+    "A marketing site with several product or solution groups to link to",
+    "Needing hover and keyboard dropdowns without a menu library"
+  ],
+  "avoidWhen": [
+    "An app shell needs persistent navigation; use a sidebar from app-interface instead",
+    "A small page with a floating action; app-interface/floating-menu fits better"
+  ],
+  "dependencies": ["lucide-react"],
+  "shadcn": ["button"],
+  "source": "21st.dev (inspired)",
+  "status": "experimental"
+}

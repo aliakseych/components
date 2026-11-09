@@ -10,6 +10,8 @@ import { StatGroup1, statGroup1ExampleProps } from "./stat-group-01";
 
 `statGroup1ExampleProps` holds sample data. Pass your own props in its shape; the types are exported as `StatGroup1Props`.
 
+Pass `bare` to drop the card and render the row on its parent. `marketing/stats-band` does this.
+
 ## Install in an app
 
 ```bash

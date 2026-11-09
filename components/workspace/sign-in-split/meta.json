@@ -1,0 +1,24 @@
+{
+  "name": "Sign In: Split",
+  "summary": "A split sign-in screen: the workspace sign-in form on the left, and a panel with a slowly flowing gradient background and an optional quote on the right.",
+  "tags": [
+    "auth",
+    "form",
+    "animation",
+    "gradient"
+  ],
+  "useWhen": [
+    "Adding a branded sign-in page to a product with accounts, with room for a quote or product mood on the right",
+    "A sign-in screen that stacks to one column on phones, with the decorative panel either below the form or hidden"
+  ],
+  "avoidWhen": [
+    "The app has no accounts",
+    "The page has to be as light as possible, since the panel animates continuously unless reduced motion is set"
+  ],
+  "dependencies": [],
+  "composes": [
+    "workspace/auth-05"
+  ],
+  "source": "Form from workspace/auth-05; the flow panel is written for this library",
+  "status": "stable"
+}

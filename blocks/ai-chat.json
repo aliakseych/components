@@ -11,7 +11,8 @@
         "ai-chat/prompt-bar/default",
         "ai-chat/prompt-bar/max-effort-sparks",
         "ai-chat/prompt-bar/full-features",
-        "ai-chat/prompt-bar/busy"
+        "ai-chat/prompt-bar/busy",
+        "ai-chat/prompt-bar/voice-pill"
       ]
     },
     {
@@ -40,7 +41,8 @@
       "description": "Shows the actions the assistant takes",
       "options": [
         "ai-chat/call-chip/search-states",
-        "ai-chat/trace/default"
+        "ai-chat/trace/default",
+        "ai-chat/trace/tool-timeline"
       ]
     },
     {

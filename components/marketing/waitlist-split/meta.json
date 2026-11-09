@@ -1,0 +1,27 @@
+{
+  "name": "Waitlist: Split",
+  "summary": "A split landing section with an announcement badge, headline, email request form, overlapping member avatars with a count, and a gradient panel holding a mock form card.",
+  "tags": [
+    "landing page",
+    "marketing",
+    "form"
+  ],
+  "useWhen": [
+    "Collecting emails for an early-access or waitlist launch on a landing page",
+    "Showing social proof next to a signup field, with the panel stacked below on phones"
+  ],
+  "avoidWhen": [
+    "The product is open to sign-up already; use a sign-up form, since a waitlist adds a step",
+    "A long pricing or feature page needs more than one call to action; use a pricing or feature section instead"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "avatar",
+    "button",
+    "input"
+  ],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

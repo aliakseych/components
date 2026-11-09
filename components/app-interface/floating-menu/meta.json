@@ -1,0 +1,22 @@
+{
+  "name": "Floating Menu",
+  "summary": "A pill at the bottom centre of a screen that widens into a panel of links when opened, with staggered item reveals and Escape to close.",
+  "tags": [
+    "menu",
+    "navigation",
+    "overlay"
+  ],
+  "useWhen": [
+    "A mobile app or full-screen tool that needs its main links one tap away without a top bar",
+    "A compact menu anchored to the bottom of a canvas or map, where a sidebar would take too much room"
+  ],
+  "avoidWhen": [
+    "Desktop apps with many sections, where a sidebar or menubar fits better",
+    "Site headers that must show links on every screen size, where navigation-menu fits better"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

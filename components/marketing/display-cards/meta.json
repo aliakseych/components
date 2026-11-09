@@ -1,0 +1,24 @@
+{
+  "name": "Display Cards: Stack",
+  "summary": "Three offset cards stacked in depth, with the front card bottom-right. Hover or focus lifts a card forward and the back cards fade into grey.",
+  "tags": [
+    "cards",
+    "animation",
+    "hover",
+    "landing page"
+  ],
+  "useWhen": [
+    "Showing up to three short updates, features or notifications as a stacked preview on a landing page",
+    "Highlighting one item at a time in a small space, where each card can be reached with the keyboard"
+  ],
+  "avoidWhen": [
+    "The items need to be read in full or compared side by side; use bento-grid or a card list instead",
+    "There are more than three cards, since the stack hides most of each one"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

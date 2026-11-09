@@ -1,0 +1,25 @@
+{
+  "name": "Server Card",
+  "summary": "A grid of host cards, each with its name, region, provider, status, specs and CPU, memory and disk meters that turn amber and red as they fill.",
+  "tags": [
+    "status",
+    "usage",
+    "cards"
+  ],
+  "useWhen": [
+    "An infrastructure page that shows each host's health and how full its resources are",
+    "A capacity review where a few hosts need attention and the rest should read as fine at a glance"
+  ],
+  "avoidWhen": [
+    "Hundreds of hosts or a sortable list, where a data table fits better",
+    "Service uptime history or incidents, where operations/status-02 or operations/status-05 fits better"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "badge"
+  ],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Halftone Footer",
+  "summary": "A footer whose large wordmark is drawn as halftone dots on a canvas; the pointer pushes the dots away on springs and a click sends a ring through them.",
+  "tags": ["halftone", "marketing", "animation", "hover", "text"],
+  "useWhen": [
+    "A studio, agency or portfolio site wants a bold closing signature",
+    "A brand name should feel printed and tactile at the bottom of the page"
+  ],
+  "avoidWhen": [
+    "The footer must load fast on low-powered phones, because it redraws a few thousand dots per frame while visible; use a plain footer instead",
+    "The wordmark must be selectable or read as text by search, because it is a canvas; keep the name in the links or the page copy too"
+  ],
+  "dependencies": ["lucide-react"],
+  "shadcn": [],
+  "source": "21st.dev (inspired)",
+  "status": "experimental"
+}

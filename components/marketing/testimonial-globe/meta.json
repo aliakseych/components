@@ -1,0 +1,28 @@
+{
+  "name": "Testimonial Image Wheel",
+  "summary": "A testimonial block with a heading, review count, average rating and country count, and a slowly turning ring of avatars. The active review flies out of the ring beside its quote.",
+  "tags": [
+    "feedback",
+    "avatar",
+    "animation",
+    "marketing",
+    "landing page"
+  ],
+  "useWhen": [
+    "A landing page section where each customer is shown as a face, with a handful of reviews that cycle through",
+    "Social proof that should feel alive and still lets a reader pick any customer to read their quote"
+  ],
+  "avoidWhen": [
+    "Readers need to compare many reviews at once; use a grid or list of testimonials",
+    "The avatars must show real faces at a readable size; the 38px avatars only fit initials or small illustrations",
+    "There is only one quote to show; a plain blockquote is simpler"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "button"
+  ],
+  "source": "Original",
+  "status": "experimental"
+}

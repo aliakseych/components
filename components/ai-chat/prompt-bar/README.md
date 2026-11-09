@@ -29,6 +29,31 @@ import { PromptBar, midnightPreset } from "./prompt-bar";
 
 All props are typed in `index.tsx`. Pass `labels` to translate the button and selector text.
 
+## Expanding pill
+
+`ExpandingPromptBar` is a separate, controlled input. It rests as a 320px pill with a mic button. On focus, or once it has text, it grows into a 480px card with suggestion chips behind its top edge and a toolbar holding a model picker, an effort chip, and a `+` button. The mic becomes a send button while there is text.
+
+```tsx
+import { ExpandingPromptBar } from "./prompt-bar";
+
+<ExpandingPromptBar
+  value={text}
+  onChange={setText}
+  onSubmit={(value) => ask(value)}
+  models={[{ key: "fast", name: "Fast model" }]}
+  efforts={["Low", "Medium", "High"]}
+  suggestions={["Summarize my week"]}
+  onVoice={startDictation}
+  onAttach={pickFile}
+  colors={{ accent: "var(--primary)" }}
+/>;
+```
+
+- `colors` sets `accent`, `surface` and `ring` as CSS custom properties on the root. They default to `var(--primary)`, `var(--card)` and `var(--ring)`, so the component has no background of its own apart from its surface.
+- The effort chip cycles through `efforts` on click. Model, effort, and their change callbacks each work controlled or uncontrolled.
+- Collapses on blur only when the field is empty. Motion is disabled under `prefers-reduced-motion`.
+- Needs the `popover` shadcn part (`components/ui/popover.tsx`).
+
 ## Caveats
 
 - `midnightPreset` is designed for dark backgrounds.
@@ -39,3 +64,7 @@ All props are typed in `index.tsx`. Pass `labels` to translate the button and se
 ## Origin
 
 Copied from `uzexify_agent`, which adapted it from React Bits. Check the React Bits license before using it in a commercial product. `midnight.css` holds the app's glass styling, moved out of its global CSS.
+
+## Demo origins
+
+The `voice-pill` demo is inspired by https://21st.dev/@jahed/components/ai-chat-input; independently written.

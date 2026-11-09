@@ -1,0 +1,26 @@
+{
+  "name": "Note Outline",
+  "summary": "A note document view with a notebook tree, breadcrumb and content blocks, plus an outline built from the headings that scrolls each one into view.",
+  "tags": [
+    "editor",
+    "navigation",
+    "rich text"
+  ],
+  "useWhen": [
+    "A notes or docs app where long documents need a table of contents that tracks their headings",
+    "A knowledge base reader that organizes documents into notebooks and needs to work on a phone"
+  ],
+  "avoidWhen": [
+    "Editing rich text in place, where forms/editor fits better",
+    "Short documents with no headings, where the outline would only be empty"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "button",
+    "sheet"
+  ],
+  "source": "Open-source app screen, redrawn",
+  "status": "stable"
+}

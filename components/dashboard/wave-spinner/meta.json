@@ -1,0 +1,20 @@
+{
+  "name": "Wave Spinner",
+  "summary": "A grid of square cells that pulse in a diagonal, centre or plus wave, fading between two theme colours as it passes.",
+  "tags": [
+    "loader",
+    "spinner",
+    "animation"
+  ],
+  "useWhen": [
+    "An indefinite wait on a page section, card or button where a spinner should stay calm",
+    "A loading state that needs theme colours, so it matches the chart palette in both themes"
+  ],
+  "avoidWhen": [
+    "Waits with a known length, where a progress bar suits better",
+    "Inline text loading, where ai-chat/lattice-loader with its label and timer, or a plain skeleton, fits better"
+  ],
+  "dependencies": [],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Stats Band",
+  "summary": "An eyebrow, heading and a row of headline figures with their change, built from the Stat Group: Plain Row, over an optional dot grid.",
+  "tags": ["stats", "landing page", "marketing", "chart"],
+  "useWhen": [
+    "A marketing page section backing a claim with three or four numbers and how they moved",
+    "A landing page band that should match the dashboard's stat rows"
+  ],
+  "avoidWhen": [
+    "Plain metric tiles with a progress bar are enough; marketing/stats-showcase fits better",
+    "People need to explore the data or see the trend; use a dashboard chart instead"
+  ],
+  "dependencies": [],
+  "shadcn": [],
+  "composes": ["analytics/stat-group-01"],
+  "source": "21st.dev (inspired)",
+  "status": "experimental"
+}

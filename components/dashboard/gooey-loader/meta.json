@@ -1,0 +1,20 @@
+{
+  "name": "Gooey Loader",
+  "summary": "Three circles that swing side to side, merge and separate, joined by an SVG gooey filter, in any colour.",
+  "tags": [
+    "loader",
+    "animation",
+    "spinner"
+  ],
+  "useWhen": [
+    "A short wait with no known length, where a playful loader suits the product",
+    "Showing that a sync or save is running inside a small status area or button"
+  ],
+  "avoidWhen": [
+    "Waits of a known length where progress should be shown, so use a progress bar",
+    "Dense data screens where a quiet spinner is enough, so use the wave-spinner or a plain spinner"
+  ],
+  "dependencies": [],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

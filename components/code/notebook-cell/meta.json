@@ -1,0 +1,28 @@
+{
+  "name": "Notebook Cell",
+  "summary": "A Jupyter-style cell with optional highlighted code (python, JavaScript, TypeScript or SQL), a Run button, an execution count, and an output that is text, a table or any node, with status and timing.",
+  "tags": [
+    "code",
+    "syntax highlighting",
+    "terminal",
+    "table",
+    "status"
+  ],
+  "useWhen": [
+    "A data notebook or analysis tool where each step is a cell whose output can go stale when upstream code changes",
+    "Showing a query result or a short series inline, under the code that produced it"
+  ],
+  "avoidWhen": [
+    "Editing large files or needing a file tree, where code/code-block or code/shadcn-code-block fits better",
+    "Large result sets, where data-display/table or data-table-06 handles sorting and paging"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "badge",
+    "button"
+  ],
+  "source": "Open-source app screen, redrawn",
+  "status": "stable"
+}

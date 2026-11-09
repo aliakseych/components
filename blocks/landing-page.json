@@ -1,0 +1,78 @@
+{
+  "name": "Landing page",
+  "summary": "The sections of a marketing page. Choose one option for each slot.",
+  "category": "marketing",
+  "slots": [
+    {
+      "id": "navbar",
+      "label": "Navbar",
+      "description": "The top bar with links and menus",
+      "options": [
+        "marketing/product-navbar/default",
+        "marketing/product-navbar/open"
+      ]
+    },
+    {
+      "id": "hero",
+      "label": "Hero",
+      "description": "The first screen with the headline",
+      "options": [
+        "hero-page/prism-hero/default",
+        "hero-page/scroll-morph-hero/default"
+      ]
+    },
+    {
+      "id": "logos",
+      "label": "Logos",
+      "description": "Customers or partners",
+      "options": [
+        "marketing/logo-cloud/default"
+      ]
+    },
+    {
+      "id": "features",
+      "label": "Features",
+      "description": "What the product does",
+      "options": [
+        "marketing/bento-grid/default",
+        "marketing/display-cards/default",
+        "marketing/product-rail/default"
+      ]
+    },
+    {
+      "id": "numbers",
+      "label": "Numbers",
+      "description": "Headline figures",
+      "options": [
+        "marketing/stats-showcase/default",
+        "marketing/stats-band/default"
+      ]
+    },
+    {
+      "id": "proof",
+      "label": "Social proof",
+      "description": "What customers say",
+      "options": [
+        "marketing/testimonial-globe/default"
+      ]
+    },
+    {
+      "id": "signup",
+      "label": "Waitlist",
+      "description": "Collecting early sign-ups",
+      "options": [
+        "marketing/waitlist-split/default"
+      ]
+    },
+    {
+      "id": "footer",
+      "label": "Footer",
+      "description": "The closing section",
+      "options": [
+        "marketing/hills-footer/default",
+        "marketing/halftone-footer/default",
+        "marketing/dithered-footer/default"
+      ]
+    }
+  ]
+}

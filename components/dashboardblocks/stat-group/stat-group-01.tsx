@@ -27,6 +27,8 @@ interface StatGroup1Props extends BlockStateProps {
   metrics?: StatMetric[]
   /** How many metrics to sketch while loading. @default 3 */
   placeholders?: number
+  /** Leave out the card, so the row sits directly on its parent. @default false */
+  bare?: boolean
 }
 
 const exampleProps: StatGroup1Props = {
@@ -53,31 +55,37 @@ const exampleProps: StatGroup1Props = {
 }
 
 const StatGroup1 = (props: StatGroup1Props) => {
-  const { comparison, metrics = [], placeholders = 3, errorMessage, status } = props
+  const { comparison, metrics = [], placeholders = 3, errorMessage, status, bare = false } = props
   const shown = status === 'loading' ? getStatPlaceholders(placeholders) : metrics
+
+  const row = (
+    <section className='@container flex flex-col gap-4'>
+      <StatGroup className={getStatColumns(shown.length)}>
+        {shown.map((metric) => (
+          <Stat key={metric.key}>
+            <StatLabel>{metric.label}</StatLabel>
+            <StatValue className='text-3xl @2xl:text-4xl'>
+              {formatStatValue(metric)}
+            </StatValue>
+            <StatChange comparison={comparison} metric={metric} />
+          </Stat>
+        ))}
+      </StatGroup>
+    </section>
+  )
 
   return (
     <BlockStateProvider
       errorMessage={errorMessage}
       state={getBlockState(status, metrics)}
     >
-      <Card>
-        <CardContent>
-          <section className='@container flex flex-col gap-4'>
-            <StatGroup className={getStatColumns(shown.length)}>
-              {shown.map((metric) => (
-                <Stat key={metric.key}>
-                  <StatLabel>{metric.label}</StatLabel>
-                  <StatValue className='text-3xl @2xl:text-4xl'>
-                    {formatStatValue(metric)}
-                  </StatValue>
-                  <StatChange comparison={comparison} metric={metric} />
-                </Stat>
-              ))}
-            </StatGroup>
-          </section>
-        </CardContent>
-      </Card>
+      {bare ? (
+        row
+      ) : (
+        <Card>
+          <CardContent>{row}</CardContent>
+        </Card>
+      )}
     </BlockStateProvider>
   )
 }

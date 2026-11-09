@@ -1,0 +1,17 @@
+{
+  "name": "Hills Footer",
+  "summary": "A footer whose headline and call to action sit over a canvas landscape of rolling hills that rise, drift with mist and follow the pointer, with link columns, a newsletter field and social links below.",
+  "tags": ["marketing", "call to action", "background", "animation", "horizon", "hover"],
+  "useWhen": [
+    "A marketing or support page needs a warm closing call to action above the site links",
+    "A brand wants a landscape feel without shipping any image files"
+  ],
+  "avoidWhen": [
+    "The footer must stay compact or sit on a dense app screen, because the scene takes most of the first viewport; use a plain footer instead",
+    "The page needs a serif headline, because the accent is set in Geist italic, not a separate serif face"
+  ],
+  "dependencies": ["lucide-react"],
+  "shadcn": ["button", "input"],
+  "source": "21st.dev (inspired)",
+  "status": "experimental"
+}

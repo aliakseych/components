@@ -1,0 +1,27 @@
+{
+  "name": "Sign Up: Split",
+  "summary": "A two-column sign-up form with neutral provider buttons, a password strength meter measured from the password, a terms checkbox and a highlights and testimonial panel.",
+  "tags": [
+    "auth",
+    "form"
+  ],
+  "useWhen": [
+    "Creating accounts for a product that needs a name, work email and a password at sign-up",
+    "Showing a password strength meter and an explicit terms agreement before account creation"
+  ],
+  "avoidWhen": [
+    "The product signs people up through a single provider or a magic link; use a shorter sign-up instead",
+    "Sign-in for existing accounts only; use sign-in-split, where the form is shorter"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "button",
+    "checkbox",
+    "input",
+    "label"
+  ],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Live Orb",
+  "summary": "A sphere with two capsule eyes that follow the pointer, showing an assistant's idle, listening or thinking state with breathing, a pulse ring or blinking.",
+  "tags": [
+    "ai",
+    "agent",
+    "animation"
+  ],
+  "useWhen": [
+    "A voice or assistant panel that needs a visible presence showing whether it is listening or working",
+    "A friendly empty state for an AI feature, where the orb's eyes follow the cursor"
+  ],
+  "avoidWhen": [
+    "Status shown alongside text in a conversation, where ai-chat/trace or ai-chat/lattice-loader is clearer",
+    "Dense or small UI where the eyes are too small to read, or where an animated character would distract"
+  ],
+  "dependencies": [],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

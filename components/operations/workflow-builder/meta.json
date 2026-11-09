@@ -1,0 +1,27 @@
+{
+  "name": "Workflow Builder",
+  "summary": "A vertical flow canvas of trigger, action and condition steps joined by lines, with an add-step button between nodes and a settings form for the selected step.",
+  "tags": [
+    "flow",
+    "editor",
+    "form"
+  ],
+  "useWhen": [
+    "An editor where people chain triggers, actions and conditions into an automation",
+    "A low-code setup screen where each step needs a name, a kind and a detail"
+  ],
+  "avoidWhen": [
+    "Branching graphs with many parallel paths or drag-to-connect wiring, which need a real node-graph library",
+    "Read-only pipelines or stage boards, where planning/kanban or business/pipeline-01 fits better"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "input",
+    "label",
+    "textarea"
+  ],
+  "source": "Open-source app screen, redrawn",
+  "status": "stable"
+}

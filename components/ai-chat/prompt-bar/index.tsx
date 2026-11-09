@@ -2,6 +2,13 @@ import type { ComponentType, ReactNode } from "react";
 import PromptBarRaw from "./PromptBar.jsx";
 import "./midnight.css";
 
+export {
+  ExpandingPromptBar,
+  type ExpandingPromptBarProps,
+  type ExpandingPromptBarModel,
+  type ExpandingPromptBarColors,
+} from "./expanding-prompt-bar";
+
 export type PromptBarSource = {
   key: string;
   name: string;

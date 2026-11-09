@@ -1,0 +1,17 @@
+{
+  "name": "Dithered Footer",
+  "summary": "A light footer with a newsletter form and link columns, closed by a band where the brand is set over a drifting dot field that a pointer spotlight reveals.",
+  "tags": ["noise", "marketing", "form", "animation", "hover"],
+  "useWhen": [
+    "A product or developer tool wants a textured, retro-digital closing band with its name in it",
+    "A newsletter sign-up should sit beside links in the footer"
+  ],
+  "avoidWhen": [
+    "The brand name must stay readable as plain text in a screenshot or print, because the wordmark is decorative; show the name in the left column too",
+    "The app needs a quiet footer, because the dot field keeps moving while it is on screen; use a plain footer instead"
+  ],
+  "dependencies": [],
+  "shadcn": ["button", "input"],
+  "source": "21st.dev (inspired)",
+  "status": "experimental"
+}

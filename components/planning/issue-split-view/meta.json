@@ -1,0 +1,28 @@
+{
+  "name": "Issue Split View",
+  "summary": "Issues grouped by state with counts on the left, and the selected issue's description and properties on the right, collapsing to list-then-detail on phones.",
+  "tags": [
+    "project management",
+    "list",
+    "record"
+  ],
+  "useWhen": [
+    "An issue tracker where people scan a grouped backlog and open one issue at a time to read or change its fields",
+    "A master-detail screen for tickets on a phone, where the list comes first and each issue opens with a Back button"
+  ],
+  "avoidWhen": [
+    "Moving work between columns by dragging, where planning/kanban-01 fits better",
+    "A single record with activity and comments and no grouping, where workspace/record-detail-03 fits better"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [
+    "avatar",
+    "badge",
+    "button",
+    "label"
+  ],
+  "source": "Open-source app screen, redrawn",
+  "status": "stable"
+}

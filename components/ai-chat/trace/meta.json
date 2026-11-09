@@ -15,7 +15,9 @@
   "avoidWhen": [
     "Each step deserves its own rich card"
   ],
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
   "shadcn": [
     "trace",
     "collapsible"

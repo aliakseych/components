@@ -1,0 +1,23 @@
+{
+  "name": "Stats: Showcase",
+  "summary": "A heading over a two-by-two grid of stat cards, each with an icon chip, a large tabular number, a label, and a bar whose width is the number as a share of its maximum.",
+  "tags": [
+    "stats",
+    "metrics",
+    "marketing"
+  ],
+  "useWhen": [
+    "Summarising a few headline numbers on a marketing or about page, with a bar under each one",
+    "Showing progress against a target, where each stat has a known maximum"
+  ],
+  "avoidWhen": [
+    "The numbers need a trend or history; use a chart or a KPI card with a change figure",
+    "There are more than about six stats; use a metrics table instead"
+  ],
+  "dependencies": [
+    "lucide-react"
+  ],
+  "shadcn": [],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

@@ -38,7 +38,8 @@
       "label": "Button group",
       "description": "Related actions side by side",
       "options": [
-        "actions/button-group/default"
+        "actions/button-group/default",
+        "actions/button-group/pill-toolbars"
       ]
     },
     {

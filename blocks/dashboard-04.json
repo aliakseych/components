@@ -32,7 +32,8 @@
       "label": "Pipeline",
       "description": "The pipeline block",
       "options": [
-        "business/pipeline-02/default"
+        "business/pipeline-02/default",
+        "business/crm-table/default"
       ]
     },
     {

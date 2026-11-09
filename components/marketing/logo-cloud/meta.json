@@ -1,0 +1,21 @@
+{
+  "name": "Logo Cloud: Checkerboard",
+  "summary": "A bordered grid of customer or partner logos laid out as a checkerboard of tinted and transparent cells, with responsive columns and a hover and focus lift on each logo.",
+  "tags": [
+    "logo",
+    "landing page",
+    "marketing"
+  ],
+  "useWhen": [
+    "Showing customers or partners as a grid of logos on a landing page",
+    "Needing a logo grid that stays tidy on phones, with two columns, and tints its cells with a theme colour"
+  ],
+  "avoidWhen": [
+    "The list is long and needs filtering; use a searchable data grid instead",
+    "You need a scrolling logo marquee rather than a fixed grid"
+  ],
+  "dependencies": [],
+  "shadcn": [],
+  "source": "21st.dev (inspired)",
+  "status": "stable"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Scroll Morph Hero",
+  "summary": "A tall hero where tiles start scattered, gather into a circle and then spread into an arc as the page scrolls, with the headline fading out.",
+  "tags": ["hero", "animation", "landing page", "cards"],
+  "useWhen": [
+    "A landing page opens with a scroll-driven story about the product",
+    "Tiles, logos or screenshots need a short motion sequence without photos"
+  ],
+  "avoidWhen": [
+    "The page is a dense app screen or the hero must stay put, because the section is 260vh tall and sticks while scrolling; use a plain hero such as `hero-page/prism-hero` instead",
+    "Many large photos must load before the first paint, because each tile is drawn as its own element"
+  ],
+  "dependencies": ["lucide-react"],
+  "shadcn": [],
+  "source": "21st.dev (inspired)",
+  "status": "experimental"
+}

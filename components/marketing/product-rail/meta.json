@@ -1,0 +1,17 @@
+{
+  "name": "Product Rail Gallery",
+  "summary": "A shop section with a chrome clothing rail: garments hang from hooks, turn from profile to front on selection, tilt toward the pointer, and open into a detail overlay with front and back faces.",
+  "tags": ["animation", "hover", "marketing", "overlay"],
+  "useWhen": [
+    "An online shop or lookbook needs a showcase row of garments, with each piece selectable and viewable",
+    "Products have a colour, price and short description, and drawn garment art or a few photos are acceptable"
+  ],
+  "avoidWhen": [
+    "Shoppers need to compare many items, because the rail shows one selected piece at a time; use a product grid instead",
+    "The list has more than about twelve items, because each garment is a 3D element in the DOM; use a paginated grid instead"
+  ],
+  "dependencies": [],
+  "shadcn": [],
+  "source": "21st.dev (inspired)",
+  "status": "experimental"
+}
