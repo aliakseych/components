@@ -23,6 +23,7 @@
         "ai-chat/context",
         "ai-chat/conversation",
         "ai-chat/lattice-loader",
+        "ai-chat/live-orb",
         "ai-chat/prompt-bar",
         "ai-chat/task",
         "ai-chat/trace"
@@ -39,6 +40,7 @@
         "app-interface/command-menu-01",
         "app-interface/command-menu-02",
         "app-interface/drawer",
+        "app-interface/floating-menu",
         "app-interface/glimpse",
         "app-interface/menubar",
         "app-interface/navigation-menu",
@@ -51,6 +53,7 @@
       "description": "Displaying, copying and running source code",
       "components": [
         "code/code-block",
+        "code/notebook-cell",
         "code/package-info",
         "code/sandbox",
         "code/schema-display",
@@ -103,16 +106,30 @@
       "components": [
         "hero-page/decrypted-text",
         "hero-page/gradient-ascii",
-        "hero-page/halftone-mark"
+        "hero-page/halftone-mark",
+        "hero-page/prism-hero",
+        "hero-page/scroll-morph-hero"
       ]
     },
     "marketing": {
       "name": "Marketing",
       "description": "Sections that explain and sell a product",
       "components": [
+        "marketing/bento-grid",
         "marketing/changelog",
+        "marketing/display-cards",
+        "marketing/dithered-footer",
         "marketing/feature",
-        "marketing/pricing"
+        "marketing/halftone-footer",
+        "marketing/hills-footer",
+        "marketing/logo-cloud",
+        "marketing/pricing",
+        "marketing/product-navbar",
+        "marketing/product-rail",
+        "marketing/stats-band",
+        "marketing/stats-showcase",
+        "marketing/testimonial-globe",
+        "marketing/waitlist-split"
       ]
     },
     "media": {
@@ -150,6 +167,7 @@
         "planning/checklist-03",
         "planning/checklist-04",
         "planning/gantt",
+        "planning/issue-split-view",
         "planning/kanban",
         "planning/kanban-01",
         "planning/kanban-02",
@@ -284,6 +302,7 @@
         "dashboard/dashboard-header-02",
         "dashboard/dashboard-header-03",
         "dashboard/dashboard-header-04",
+        "dashboard/gooey-loader",
         "dashboard/page-header-01",
         "dashboard/page-header-02",
         "dashboard/page-header-03",
@@ -291,7 +310,8 @@
         "dashboard/states-01",
         "dashboard/states-02",
         "dashboard/states-03",
-        "dashboard/states-04"
+        "dashboard/states-04",
+        "dashboard/wave-spinner"
       ]
     },
     "business": {
@@ -303,6 +323,7 @@
         "business/billing-03",
         "business/billing-04",
         "business/billing-05",
+        "business/crm-table",
         "business/inventory-01",
         "business/inventory-02",
         "business/inventory-03",
@@ -354,6 +375,7 @@
         "workspace/files-02",
         "workspace/files-03",
         "workspace/files-04",
+        "workspace/note-outline",
         "workspace/notifications-01",
         "workspace/notifications-02",
         "workspace/notifications-03",
@@ -377,6 +399,8 @@
         "workspace/settings-05",
         "workspace/settings-06",
         "workspace/settings-07",
+        "workspace/sign-in-split",
+        "workspace/sign-up-split",
         "workspace/team-01",
         "workspace/team-02",
         "workspace/team-03",
@@ -397,11 +421,13 @@
         "operations/deployments-02",
         "operations/deployments-03",
         "operations/deployments-04",
+        "operations/server-card",
         "operations/status-01",
         "operations/status-02",
         "operations/status-03",
         "operations/status-04",
-        "operations/status-05"
+        "operations/status-05",
+        "operations/workflow-builder"
       ]
     },
     "email": {
@@ -460,7 +486,8 @@
           "label": "Button group",
           "description": "Related actions side by side",
           "options": [
-            "actions/button-group/default"
+            "actions/button-group/default",
+            "actions/button-group/pill-toolbars"
           ]
         },
         {
@@ -495,7 +522,8 @@
             "ai-chat/prompt-bar/default",
             "ai-chat/prompt-bar/max-effort-sparks",
             "ai-chat/prompt-bar/full-features",
-            "ai-chat/prompt-bar/busy"
+            "ai-chat/prompt-bar/busy",
+            "ai-chat/prompt-bar/voice-pill"
           ]
         },
         {
@@ -524,7 +552,8 @@
           "description": "Shows the actions the assistant takes",
           "options": [
             "ai-chat/call-chip/search-states",
-            "ai-chat/trace/default"
+            "ai-chat/trace/default",
+            "ai-chat/trace/tool-timeline"
           ]
         },
         {
@@ -618,7 +647,16 @@
           "label": "Sign in",
           "description": "The first page",
           "options": [
-            "workspace/auth-05/default"
+            "workspace/auth-05/default",
+            "workspace/sign-in-split/default"
+          ]
+        },
+        {
+          "id": "sign-up",
+          "label": "Sign up",
+          "description": "Creating an account",
+          "options": [
+            "workspace/sign-up-split/default"
           ]
         },
         {
@@ -1042,7 +1080,8 @@
           "label": "Pipeline",
           "description": "The pipeline block",
           "options": [
-            "business/pipeline-02/default"
+            "business/pipeline-02/default",
+            "business/crm-table/default"
           ]
         },
         {
@@ -1442,6 +1481,85 @@
           "options": [
             "actions/magnetic-button/default",
             "actions/magnetic-button/disabled"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "landing-page",
+      "name": "Landing page",
+      "summary": "The sections of a marketing page. Choose one option for each slot.",
+      "category": "marketing",
+      "slots": [
+        {
+          "id": "navbar",
+          "label": "Navbar",
+          "description": "The top bar with links and menus",
+          "options": [
+            "marketing/product-navbar/default",
+            "marketing/product-navbar/open"
+          ]
+        },
+        {
+          "id": "hero",
+          "label": "Hero",
+          "description": "The first screen with the headline",
+          "options": [
+            "hero-page/prism-hero/default",
+            "hero-page/scroll-morph-hero/default"
+          ]
+        },
+        {
+          "id": "logos",
+          "label": "Logos",
+          "description": "Customers or partners",
+          "options": [
+            "marketing/logo-cloud/default"
+          ]
+        },
+        {
+          "id": "features",
+          "label": "Features",
+          "description": "What the product does",
+          "options": [
+            "marketing/bento-grid/default",
+            "marketing/display-cards/default",
+            "marketing/product-rail/default"
+          ]
+        },
+        {
+          "id": "numbers",
+          "label": "Numbers",
+          "description": "Headline figures",
+          "options": [
+            "marketing/stats-showcase/default",
+            "marketing/stats-band/default"
+          ]
+        },
+        {
+          "id": "proof",
+          "label": "Social proof",
+          "description": "What customers say",
+          "options": [
+            "marketing/testimonial-globe/default"
+          ]
+        },
+        {
+          "id": "signup",
+          "label": "Waitlist",
+          "description": "Collecting early sign-ups",
+          "options": [
+            "marketing/waitlist-split/default"
+          ]
+        },
+        {
+          "id": "footer",
+          "label": "Footer",
+          "description": "The closing section",
+          "options": [
+            "marketing/hills-footer/default",
+            "marketing/halftone-footer/default",
+            "marketing/dithered-footer/default"
           ]
         }
       ]
@@ -1850,6 +1968,7 @@
         "ai-chat/call-chip",
         "ai-chat/chain-of-thought",
         "ai-chat/lattice-loader",
+        "ai-chat/live-orb",
         "ai-chat/task",
         "ai-chat/trace"
       ]
@@ -1864,6 +1983,7 @@
         "ai-chat/chain-of-thought",
         "ai-chat/context",
         "ai-chat/conversation",
+        "ai-chat/live-orb",
         "ai-chat/prompt-bar",
         "ai-chat/task",
         "ai-chat/trace",
@@ -1895,13 +2015,24 @@
       "description": "Motion is a main feature",
       "components": [
         "actions/magnetic-button",
+        "ai-chat/live-orb",
         "ai-chat/prompt-bar",
         "app-interface/sidebar-glass",
         "app-interface/tree",
         "collaboration/collaborative-canvas",
+        "dashboard/gooey-loader",
+        "dashboard/wave-spinner",
         "hero-page/decrypted-text",
         "hero-page/halftone-mark",
-        "media/deck"
+        "hero-page/scroll-morph-hero",
+        "marketing/display-cards",
+        "marketing/dithered-footer",
+        "marketing/halftone-footer",
+        "marketing/hills-footer",
+        "marketing/product-rail",
+        "marketing/testimonial-globe",
+        "media/deck",
+        "workspace/sign-in-split"
       ]
     },
     "app shell": {
@@ -1928,7 +2059,9 @@
         "workspace/auth-04",
         "workspace/auth-05",
         "workspace/auth-06",
-        "workspace/auth-07"
+        "workspace/auth-07",
+        "workspace/sign-in-split",
+        "workspace/sign-up-split"
       ]
     },
     "autocomplete": {
@@ -1945,6 +2078,7 @@
         "collaboration/collaborative-canvas",
         "collaboration/cursor",
         "data-display/pill",
+        "marketing/testimonial-globe",
         "messaging/message",
         "workspace/team-01",
         "workspace/team-02",
@@ -1957,7 +2091,9 @@
     "background": {
       "description": "Sits behind page content",
       "components": [
-        "hero-page/gradient-ascii"
+        "hero-page/gradient-ascii",
+        "hero-page/prism-hero",
+        "marketing/hills-footer"
       ]
     },
     "badge": {
@@ -2023,6 +2159,7 @@
       "components": [
         "actions/button",
         "actions/magnetic-button",
+        "marketing/hills-footer",
         "marketing/pricing"
       ]
     },
@@ -2030,8 +2167,12 @@
       "description": "Content shown as separate cards",
       "components": [
         "code/package-info",
+        "hero-page/scroll-morph-hero",
+        "marketing/bento-grid",
+        "marketing/display-cards",
         "marketing/pricing",
         "media/deck",
+        "operations/server-card",
         "planning/kanban",
         "planning/kanban-01",
         "planning/kanban-02",
@@ -2131,7 +2272,8 @@
         "dashboard/dashboard-02",
         "dashboard/dashboard-03",
         "dashboard/dashboard-04",
-        "dashboard/dashboard-05"
+        "dashboard/dashboard-05",
+        "marketing/stats-band"
       ]
     },
     "chat": {
@@ -2179,6 +2321,7 @@
       "description": "Displays or edits source code",
       "components": [
         "code/code-block",
+        "code/notebook-cell",
         "code/package-info",
         "code/sandbox",
         "code/schema-display",
@@ -2357,7 +2500,9 @@
       "description": "Edits rich content",
       "components": [
         "code/sandbox",
-        "forms/editor"
+        "forms/editor",
+        "operations/workflow-builder",
+        "workspace/note-outline"
       ]
     },
     "effort": {
@@ -2408,7 +2553,8 @@
         "analytics/feedback-01",
         "analytics/feedback-02",
         "analytics/feedback-03",
-        "analytics/feedback-04"
+        "analytics/feedback-04",
+        "marketing/testimonial-globe"
       ]
     },
     "file tree": {
@@ -2433,7 +2579,8 @@
         "analytics/flow-02",
         "analytics/flow-03",
         "analytics/flow-04",
-        "hero-page/halftone-mark"
+        "hero-page/halftone-mark",
+        "operations/workflow-builder"
       ]
     },
     "forecast": {
@@ -2466,7 +2613,10 @@
         "forms/forms-06",
         "forms/forms-07",
         "forms/forms-08",
+        "marketing/dithered-footer",
+        "marketing/waitlist-split",
         "media/image-crop",
+        "operations/workflow-builder",
         "workspace/auth-01",
         "workspace/auth-02",
         "workspace/auth-03",
@@ -2484,7 +2634,9 @@
         "workspace/settings-04",
         "workspace/settings-05",
         "workspace/settings-06",
-        "workspace/settings-07"
+        "workspace/settings-07",
+        "workspace/sign-in-split",
+        "workspace/sign-up-split"
       ]
     },
     "funnel": {
@@ -2532,19 +2684,22 @@
     "gradient": {
       "description": "Uses a color blend as its main look",
       "components": [
-        "hero-page/gradient-ascii"
+        "hero-page/gradient-ascii",
+        "workspace/sign-in-split"
       ]
     },
     "halftone": {
       "description": "Has a dotted print-like look",
       "components": [
-        "hero-page/halftone-mark"
+        "hero-page/halftone-mark",
+        "marketing/halftone-footer"
       ]
     },
     "heading": {
       "description": "Suits large title text",
       "components": [
-        "hero-page/decrypted-text"
+        "hero-page/decrypted-text",
+        "hero-page/prism-hero"
       ]
     },
     "heatmap": {
@@ -2561,13 +2716,16 @@
       "components": [
         "hero-page/decrypted-text",
         "hero-page/gradient-ascii",
-        "hero-page/halftone-mark"
+        "hero-page/halftone-mark",
+        "hero-page/prism-hero",
+        "hero-page/scroll-morph-hero"
       ]
     },
     "horizon": {
       "description": "Has a horizon-shaped glow",
       "components": [
-        "hero-page/gradient-ascii"
+        "hero-page/gradient-ascii",
+        "marketing/hills-footer"
       ]
     },
     "hover": {
@@ -2577,6 +2735,11 @@
         "ai-chat/context",
         "app-interface/glimpse",
         "collaboration/avatar-stack",
+        "marketing/display-cards",
+        "marketing/dithered-footer",
+        "marketing/halftone-footer",
+        "marketing/hills-footer",
+        "marketing/product-rail",
         "media/deck"
       ]
     },
@@ -2690,8 +2853,16 @@
       "components": [
         "app-interface/navigation-menu",
         "collaboration/collaborative-canvas",
+        "hero-page/scroll-morph-hero",
+        "marketing/bento-grid",
+        "marketing/display-cards",
         "marketing/feature",
-        "marketing/pricing"
+        "marketing/logo-cloud",
+        "marketing/pricing",
+        "marketing/product-navbar",
+        "marketing/stats-band",
+        "marketing/testimonial-globe",
+        "marketing/waitlist-split"
       ]
     },
     "leaderboard": {
@@ -2720,6 +2891,7 @@
         "analytics/metric-list-03",
         "analytics/metric-list-04",
         "app-interface/tree",
+        "business/crm-table",
         "code/package-info",
         "code/schema-display",
         "data-display/data-table-01",
@@ -2734,6 +2906,7 @@
         "planning/checklist-02",
         "planning/checklist-03",
         "planning/checklist-04",
+        "planning/issue-split-view",
         "planning/list",
         "planning/schedule-01",
         "planning/schedule-02",
@@ -2755,7 +2928,9 @@
     "loader": {
       "description": "Shows that something is in progress",
       "components": [
-        "ai-chat/lattice-loader"
+        "ai-chat/lattice-loader",
+        "dashboard/gooey-loader",
+        "dashboard/wave-spinner"
       ]
     },
     "loading": {
@@ -2770,7 +2945,8 @@
     "logo": {
       "description": "Displays a brand mark",
       "components": [
-        "hero-page/halftone-mark"
+        "hero-page/halftone-mark",
+        "marketing/logo-cloud"
       ]
     },
     "map": {
@@ -2798,18 +2974,31 @@
         "email/email-05",
         "email/email-06",
         "email/email-07",
+        "marketing/bento-grid",
         "marketing/changelog",
+        "marketing/dithered-footer",
         "marketing/feature",
-        "marketing/pricing"
+        "marketing/halftone-footer",
+        "marketing/hills-footer",
+        "marketing/logo-cloud",
+        "marketing/pricing",
+        "marketing/product-navbar",
+        "marketing/product-rail",
+        "marketing/stats-band",
+        "marketing/stats-showcase",
+        "marketing/testimonial-globe",
+        "marketing/waitlist-split"
       ]
     },
     "menu": {
       "description": "Offers a list of commands or links",
       "components": [
         "actions/dropdown-menu",
+        "app-interface/floating-menu",
         "app-interface/menubar",
         "app-interface/navigation-menu",
-        "app-interface/sidebar-glass"
+        "app-interface/sidebar-glass",
+        "marketing/product-navbar"
       ]
     },
     "message": {
@@ -2837,7 +3026,8 @@
         "analytics/metric-list-01",
         "analytics/metric-list-02",
         "analytics/metric-list-03",
-        "analytics/metric-list-04"
+        "analytics/metric-list-04",
+        "marketing/stats-showcase"
       ]
     },
     "navigation": {
@@ -2850,6 +3040,7 @@
         "app-interface/command-menu-01",
         "app-interface/command-menu-02",
         "app-interface/drawer",
+        "app-interface/floating-menu",
         "app-interface/menubar",
         "app-interface/navigation-menu",
         "app-interface/sidebar-glass",
@@ -2858,14 +3049,18 @@
         "dashboard/page-header-02",
         "dashboard/page-header-03",
         "dashboard/page-header-04",
-        "planning/mini-calendar"
+        "hero-page/prism-hero",
+        "marketing/product-navbar",
+        "planning/mini-calendar",
+        "workspace/note-outline"
       ]
     },
     "noise": {
       "description": "Uses random visual or text noise",
       "components": [
         "hero-page/decrypted-text",
-        "hero-page/gradient-ascii"
+        "hero-page/gradient-ascii",
+        "marketing/dithered-footer"
       ]
     },
     "notifications": {
@@ -2895,7 +3090,9 @@
         "actions/dropdown-menu",
         "ai-chat/context",
         "app-interface/drawer",
-        "app-interface/glimpse"
+        "app-interface/floating-menu",
+        "app-interface/glimpse",
+        "marketing/product-rail"
       ]
     },
     "page header": {
@@ -2914,12 +3111,15 @@
     "pill": {
       "description": "A rounded, compact label",
       "components": [
-        "data-display/pill"
+        "ai-chat/prompt-bar",
+        "data-display/pill",
+        "hero-page/prism-hero"
       ]
     },
     "pipeline": {
       "description": "Work moving through stages",
       "components": [
+        "business/crm-table",
         "business/pipeline-01",
         "business/pipeline-02",
         "business/pipeline-03",
@@ -2977,6 +3177,7 @@
       "components": [
         "planning/calendar",
         "planning/gantt",
+        "planning/issue-split-view",
         "planning/kanban",
         "planning/kanban-01",
         "planning/kanban-02",
@@ -3020,6 +3221,7 @@
         "business/invoice-02",
         "business/invoice-03",
         "business/invoice-04",
+        "planning/issue-split-view",
         "workspace/record-detail-01",
         "workspace/record-detail-02",
         "workspace/record-detail-03"
@@ -3037,7 +3239,8 @@
     "rich text": {
       "description": "Supports formatted text",
       "components": [
-        "forms/editor"
+        "forms/editor",
+        "workspace/note-outline"
       ]
     },
     "roadmap": {
@@ -3153,6 +3356,7 @@
     "sortable": {
       "description": "Can be reordered or sorted",
       "components": [
+        "business/crm-table",
         "data-display/data-table-01",
         "data-display/data-table-02",
         "data-display/data-table-03",
@@ -3180,7 +3384,9 @@
     "spinner": {
       "description": "An indefinite waiting animation",
       "components": [
-        "ai-chat/lattice-loader"
+        "ai-chat/lattice-loader",
+        "dashboard/gooey-loader",
+        "dashboard/wave-spinner"
       ]
     },
     "stats": {
@@ -3259,6 +3465,8 @@
         "business/pipeline-02",
         "business/pipeline-03",
         "business/pipeline-04",
+        "marketing/stats-band",
+        "marketing/stats-showcase",
         "operations/deployments-01",
         "operations/deployments-02",
         "operations/deployments-03",
@@ -3279,6 +3487,7 @@
         "ai-chat/lattice-loader",
         "ai-chat/task",
         "ai-chat/trace",
+        "code/notebook-cell",
         "code/package-info",
         "data-display/pill",
         "messaging/marker",
@@ -3290,6 +3499,7 @@
         "operations/deployments-02",
         "operations/deployments-03",
         "operations/deployments-04",
+        "operations/server-card",
         "operations/status-01",
         "operations/status-02",
         "operations/status-03",
@@ -3309,16 +3519,19 @@
       "description": "Colors code by its structure",
       "components": [
         "code/code-block",
+        "code/notebook-cell",
         "code/shadcn-code-block"
       ]
     },
     "table": {
       "description": "Rows and columns",
       "components": [
+        "business/crm-table",
         "business/inventory-01",
         "business/inventory-02",
         "business/inventory-03",
         "business/inventory-04",
+        "code/notebook-cell",
         "dashboard/dashboard-01",
         "dashboard/dashboard-02",
         "dashboard/dashboard-03",
@@ -3360,6 +3573,7 @@
     "terminal": {
       "description": "Shows commands or terminal output",
       "components": [
+        "code/notebook-cell",
         "code/sandbox",
         "code/snippet"
       ]
@@ -3367,7 +3581,8 @@
     "text": {
       "description": "Styles or animates text",
       "components": [
-        "hero-page/decrypted-text"
+        "hero-page/decrypted-text",
+        "marketing/halftone-footer"
       ]
     },
     "timeline": {
@@ -3430,7 +3645,8 @@
         "business/usage-meter-05",
         "business/usage-meter-06",
         "business/usage-meter-07",
-        "business/usage-meter-08"
+        "business/usage-meter-08",
+        "operations/server-card"
       ]
     },
     "wait": {
@@ -3448,6 +3664,124 @@
       ]
     }
   },
+  "templates": [
+    {
+      "id": "templates/invest-app",
+      "slug": "invest-app",
+      "path": "templates/invest-app",
+      "name": "Invest App",
+      "summary": "Mobile investing app: deal pools, deal and company pages, portfolio with payout schedules, top-up and invest drawers, onboarding chat and an AI assistant that answers with charts, deal cards and actions.",
+      "kind": "app",
+      "viewport": "mobile",
+      "themes": [
+        "light"
+      ],
+      "tags": [
+        "app shell",
+        "ai",
+        "chat",
+        "chart",
+        "onboarding",
+        "auth",
+        "insights",
+        "agent"
+      ],
+      "useWhen": [
+        "Starting a mobile-first fintech or investing product with a portfolio, a catalogue of offers and payouts",
+        "An app that needs an AI assistant answering inside the product with charts, cards and confirmable actions"
+      ],
+      "avoidWhen": [
+        "Desktop dashboards: the layout is a single phone-width column with a bottom tab bar",
+        "Products without money flows: most screens assume balances, investments and payouts"
+      ],
+      "stack": [
+        "React 19",
+        "Vite",
+        "Tailwind CSS 4",
+        "Radix UI",
+        "Recharts",
+        "Django + Postgres API with LLM and MCP agent in server/"
+      ],
+      "screens": [
+        {
+          "id": "home",
+          "title": "Home",
+          "path": "/"
+        },
+        {
+          "id": "deals",
+          "title": "Deals",
+          "path": "/deals"
+        },
+        {
+          "id": "deal",
+          "title": "Deal",
+          "path": "/deals/1"
+        },
+        {
+          "id": "pool",
+          "title": "Pool",
+          "path": "/pools/agro"
+        },
+        {
+          "id": "company",
+          "title": "Company",
+          "path": "/companies/1"
+        },
+        {
+          "id": "portfolio",
+          "title": "Portfolio item",
+          "path": "/portfolio/1"
+        },
+        {
+          "id": "account",
+          "title": "Account",
+          "path": "/account"
+        },
+        {
+          "id": "agents",
+          "title": "Agents",
+          "path": "/account/agents"
+        },
+        {
+          "id": "assistant",
+          "title": "AI assistant",
+          "path": "/?ai=open"
+        },
+        {
+          "id": "onboarding",
+          "title": "Onboarding",
+          "path": "/onboarding"
+        },
+        {
+          "id": "login",
+          "title": "Sign in",
+          "path": "/login"
+        },
+        {
+          "id": "register",
+          "title": "Sign up",
+          "path": "/register"
+        }
+      ],
+      "source": "A hackathon investor app; brand, logos and data replaced with neutral samples",
+      "status": "experimental",
+      "previews": [
+        "templates/invest-app/previews/account.mobile.light.png",
+        "templates/invest-app/previews/agents.mobile.light.png",
+        "templates/invest-app/previews/assistant.mobile.light.png",
+        "templates/invest-app/previews/company.mobile.light.png",
+        "templates/invest-app/previews/deal.mobile.light.png",
+        "templates/invest-app/previews/deals.mobile.light.png",
+        "templates/invest-app/previews/home.mobile.light.png",
+        "templates/invest-app/previews/login.mobile.light.png",
+        "templates/invest-app/previews/onboarding.mobile.light.png",
+        "templates/invest-app/previews/pool.mobile.light.png",
+        "templates/invest-app/previews/portfolio.mobile.light.png",
+        "templates/invest-app/previews/register.mobile.light.png"
+      ]
+    }
+  ],
   "components": [
     {
       "id": "actions/button",
@@ -3550,13 +3884,18 @@
       "source": "shadcn/ui",
       "status": "stable",
       "demos": [
-        "default"
+        "default",
+        "pill-toolbars"
       ],
       "previews": [
         "components/actions/button-group/previews/default.desktop.dark.png",
         "components/actions/button-group/previews/default.desktop.light.png",
         "components/actions/button-group/previews/default.mobile.dark.png",
-        "components/actions/button-group/previews/default.mobile.light.png"
+        "components/actions/button-group/previews/default.mobile.light.png",
+        "components/actions/button-group/previews/pill-toolbars.desktop.dark.png",
+        "components/actions/button-group/previews/pill-toolbars.desktop.light.png",
+        "components/actions/button-group/previews/pill-toolbars.mobile.dark.png",
+        "components/actions/button-group/previews/pill-toolbars.mobile.light.png"
       ]
     },
     {
@@ -4044,25 +4383,65 @@
       ]
     },
     {
+      "id": "ai-chat/live-orb",
+      "category": "ai-chat",
+      "slug": "live-orb",
+      "path": "components/ai-chat/live-orb",
+      "name": "Live Orb",
+      "summary": "A sphere with two capsule eyes that follow the pointer, showing an assistant's idle, listening or thinking state with breathing, a pulse ring or blinking.",
+      "tags": [
+        "ai",
+        "agent",
+        "animation"
+      ],
+      "useWhen": [
+        "A voice or assistant panel that needs a visible presence showing whether it is listening or working",
+        "A friendly empty state for an AI feature, where the orb's eyes follow the cursor"
+      ],
+      "avoidWhen": [
+        "Status shown alongside text in a conversation, where ai-chat/trace or ai-chat/lattice-loader is clearer",
+        "Dense or small UI where the eyes are too small to read, or where an animated character would distract"
+      ],
+      "dependencies": [],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "custom-colors",
+        "default"
+      ],
+      "previews": [
+        "components/ai-chat/live-orb/previews/custom-colors.desktop.dark.png",
+        "components/ai-chat/live-orb/previews/custom-colors.desktop.light.png",
+        "components/ai-chat/live-orb/previews/custom-colors.mobile.dark.png",
+        "components/ai-chat/live-orb/previews/custom-colors.mobile.light.png",
+        "components/ai-chat/live-orb/previews/default.desktop.dark.png",
+        "components/ai-chat/live-orb/previews/default.desktop.light.png",
+        "components/ai-chat/live-orb/previews/default.mobile.dark.png",
+        "components/ai-chat/live-orb/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "ai-chat/prompt-bar",
       "category": "ai-chat",
       "slug": "prompt-bar",
       "path": "components/ai-chat/prompt-bar",
       "name": "Prompt Bar",
-      "summary": "An AI chat input with a level selector, sparks at the top level, a morphing send button, rotating placeholders, and optional sources, commands, models and dictation.",
+      "summary": "An AI chat input. The classic bar has a level selector, sparks at the top level, a morphing send button, rotating placeholders, and optional sources, commands, models and dictation. The expanding pill rests as a mic pill and opens into a card with suggestions, a model picker and an effort chip.",
       "tags": [
         "chat",
         "prompt",
         "composer",
         "ai",
         "input",
+        "pill",
         "effort",
         "sparks",
         "animation"
       ],
       "useWhen": [
         "An AI chat or agent needs its main input",
-        "Users choose how much effort or depth the AI should use"
+        "Users choose how much effort or depth the AI should use",
+        "A compact voice-first input should grow into a full composer on focus"
       ],
       "avoidWhen": [
         "A plain search box or short form field is enough",
@@ -4072,6 +4451,9 @@
         "motion",
         "lucide-react"
       ],
+      "shadcn": [
+        "popover"
+      ],
       "source": "uzexify_agent",
       "status": "stable",
       "demos": [
@@ -4079,7 +4461,8 @@
         "default",
         "full-features",
         "max-effort-sparks",
-        "spark-colors"
+        "spark-colors",
+        "voice-pill"
       ],
       "previews": [
         "components/ai-chat/prompt-bar/previews/busy.desktop.dark.png",
@@ -4101,7 +4484,11 @@
         "components/ai-chat/prompt-bar/previews/spark-colors.desktop.dark.png",
         "components/ai-chat/prompt-bar/previews/spark-colors.desktop.light.png",
         "components/ai-chat/prompt-bar/previews/spark-colors.mobile.dark.png",
-        "components/ai-chat/prompt-bar/previews/spark-colors.mobile.light.png"
+        "components/ai-chat/prompt-bar/previews/spark-colors.mobile.light.png",
+        "components/ai-chat/prompt-bar/previews/voice-pill.desktop.dark.png",
+        "components/ai-chat/prompt-bar/previews/voice-pill.desktop.light.png",
+        "components/ai-chat/prompt-bar/previews/voice-pill.mobile.dark.png",
+        "components/ai-chat/prompt-bar/previews/voice-pill.mobile.light.png"
       ]
     },
     {
@@ -4163,7 +4550,9 @@
       "avoidWhen": [
         "Each step deserves its own rich card"
       ],
-      "dependencies": [],
+      "dependencies": [
+        "lucide-react"
+      ],
       "shadcn": [
         "trace",
         "collapsible"
@@ -4171,13 +4560,18 @@
       "source": "shadcn/ui",
       "status": "stable",
       "demos": [
-        "default"
+        "default",
+        "tool-timeline"
       ],
       "previews": [
         "components/ai-chat/trace/previews/default.desktop.dark.png",
         "components/ai-chat/trace/previews/default.desktop.light.png",
         "components/ai-chat/trace/previews/default.mobile.dark.png",
-        "components/ai-chat/trace/previews/default.mobile.light.png"
+        "components/ai-chat/trace/previews/default.mobile.light.png",
+        "components/ai-chat/trace/previews/tool-timeline.desktop.dark.png",
+        "components/ai-chat/trace/previews/tool-timeline.desktop.light.png",
+        "components/ai-chat/trace/previews/tool-timeline.mobile.dark.png",
+        "components/ai-chat/trace/previews/tool-timeline.mobile.light.png"
       ]
     },
     {
@@ -8176,6 +8570,51 @@
       ]
     },
     {
+      "id": "app-interface/floating-menu",
+      "category": "app-interface",
+      "slug": "floating-menu",
+      "path": "components/app-interface/floating-menu",
+      "name": "Floating Menu",
+      "summary": "A pill at the bottom centre of a screen that widens into a panel of links when opened, with staggered item reveals and Escape to close.",
+      "tags": [
+        "menu",
+        "navigation",
+        "overlay"
+      ],
+      "useWhen": [
+        "A mobile app or full-screen tool that needs its main links one tap away without a top bar",
+        "A compact menu anchored to the bottom of a canvas or map, where a sidebar would take too much room"
+      ],
+      "avoidWhen": [
+        "Desktop apps with many sections, where a sidebar or menubar fits better",
+        "Site headers that must show links on every screen size, where navigation-menu fits better"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "custom-colors",
+        "default",
+        "open"
+      ],
+      "previews": [
+        "components/app-interface/floating-menu/previews/custom-colors.desktop.dark.png",
+        "components/app-interface/floating-menu/previews/custom-colors.desktop.light.png",
+        "components/app-interface/floating-menu/previews/custom-colors.mobile.dark.png",
+        "components/app-interface/floating-menu/previews/custom-colors.mobile.light.png",
+        "components/app-interface/floating-menu/previews/default.desktop.dark.png",
+        "components/app-interface/floating-menu/previews/default.desktop.light.png",
+        "components/app-interface/floating-menu/previews/default.mobile.dark.png",
+        "components/app-interface/floating-menu/previews/default.mobile.light.png",
+        "components/app-interface/floating-menu/previews/open.desktop.dark.png",
+        "components/app-interface/floating-menu/previews/open.desktop.light.png",
+        "components/app-interface/floating-menu/previews/open.mobile.dark.png",
+        "components/app-interface/floating-menu/previews/open.mobile.light.png"
+      ]
+    },
+    {
       "id": "app-interface/glimpse",
       "category": "app-interface",
       "slug": "glimpse",
@@ -8562,6 +9001,48 @@
         "components/business/billing-05/previews/default.desktop.light.png",
         "components/business/billing-05/previews/default.mobile.dark.png",
         "components/business/billing-05/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "business/crm-table",
+      "category": "business",
+      "slug": "crm-table",
+      "path": "components/business/crm-table",
+      "name": "CRM Table",
+      "summary": "A sortable table of sales deals with stage pills, per-stage filter chips showing totals, and a live count and sum of the visible rows.",
+      "tags": [
+        "table",
+        "list",
+        "pipeline",
+        "sortable"
+      ],
+      "useWhen": [
+        "Showing a sales pipeline as rows, sorted by amount or close date",
+        "Filtering deals by stage and seeing the sum change"
+      ],
+      "avoidWhen": [
+        "The board view matters more than rows; a pipeline component in business fits better",
+        "Large datasets need paging or column controls; use a full data table instead"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [],
+      "source": "21st.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "empty"
+      ],
+      "previews": [
+        "components/business/crm-table/previews/default.desktop.dark.png",
+        "components/business/crm-table/previews/default.desktop.light.png",
+        "components/business/crm-table/previews/default.mobile.dark.png",
+        "components/business/crm-table/previews/default.mobile.light.png",
+        "components/business/crm-table/previews/empty.desktop.dark.png",
+        "components/business/crm-table/previews/empty.desktop.light.png",
+        "components/business/crm-table/previews/empty.mobile.dark.png",
+        "components/business/crm-table/previews/empty.mobile.light.png"
       ]
     },
     {
@@ -9490,6 +9971,57 @@
       ]
     },
     {
+      "id": "code/notebook-cell",
+      "category": "code",
+      "slug": "notebook-cell",
+      "path": "components/code/notebook-cell",
+      "name": "Notebook Cell",
+      "summary": "A Jupyter-style cell with optional highlighted code (python, JavaScript, TypeScript or SQL), a Run button, an execution count, and an output that is text, a table or any node, with status and timing.",
+      "tags": [
+        "code",
+        "syntax highlighting",
+        "terminal",
+        "table",
+        "status"
+      ],
+      "useWhen": [
+        "A data notebook or analysis tool where each step is a cell whose output can go stale when upstream code changes",
+        "Showing a query result or a short series inline, under the code that produced it"
+      ],
+      "avoidWhen": [
+        "Editing large files or needing a file tree, where code/code-block or code/shadcn-code-block fits better",
+        "Large result sets, where data-display/table or data-table-06 handles sorting and paging"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "badge",
+        "button"
+      ],
+      "source": "Open-source app screen, redrawn",
+      "status": "stable",
+      "demos": [
+        "default",
+        "input-only",
+        "output-only"
+      ],
+      "previews": [
+        "components/code/notebook-cell/previews/default.desktop.dark.png",
+        "components/code/notebook-cell/previews/default.desktop.light.png",
+        "components/code/notebook-cell/previews/default.mobile.dark.png",
+        "components/code/notebook-cell/previews/default.mobile.light.png",
+        "components/code/notebook-cell/previews/input-only.desktop.dark.png",
+        "components/code/notebook-cell/previews/input-only.desktop.light.png",
+        "components/code/notebook-cell/previews/input-only.mobile.dark.png",
+        "components/code/notebook-cell/previews/input-only.mobile.light.png",
+        "components/code/notebook-cell/previews/output-only.desktop.dark.png",
+        "components/code/notebook-cell/previews/output-only.desktop.light.png",
+        "components/code/notebook-cell/previews/output-only.mobile.dark.png",
+        "components/code/notebook-cell/previews/output-only.mobile.light.png"
+      ]
+    },
+    {
       "id": "code/package-info",
       "category": "code",
       "slug": "package-info",
@@ -10153,6 +10685,39 @@
       ]
     },
     {
+      "id": "dashboard/gooey-loader",
+      "category": "dashboard",
+      "slug": "gooey-loader",
+      "path": "components/dashboard/gooey-loader",
+      "name": "Gooey Loader",
+      "summary": "Three circles that swing side to side, merge and separate, joined by an SVG gooey filter, in any colour.",
+      "tags": [
+        "loader",
+        "animation",
+        "spinner"
+      ],
+      "useWhen": [
+        "A short wait with no known length, where a playful loader suits the product",
+        "Showing that a sync or save is running inside a small status area or button"
+      ],
+      "avoidWhen": [
+        "Waits of a known length where progress should be shown, so use a progress bar",
+        "Dense data screens where a quiet spinner is enough, so use the wave-spinner or a plain spinner"
+      ],
+      "dependencies": [],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/dashboard/gooey-loader/previews/default.desktop.dark.png",
+        "components/dashboard/gooey-loader/previews/default.desktop.light.png",
+        "components/dashboard/gooey-loader/previews/default.mobile.dark.png",
+        "components/dashboard/gooey-loader/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "dashboard/page-header-01",
       "category": "dashboard",
       "slug": "page-header-01",
@@ -10445,6 +11010,39 @@
         "components/dashboard/states-04/previews/default.desktop.light.png",
         "components/dashboard/states-04/previews/default.mobile.dark.png",
         "components/dashboard/states-04/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "dashboard/wave-spinner",
+      "category": "dashboard",
+      "slug": "wave-spinner",
+      "path": "components/dashboard/wave-spinner",
+      "name": "Wave Spinner",
+      "summary": "A grid of square cells that pulse in a diagonal, centre or plus wave, fading between two theme colours as it passes.",
+      "tags": [
+        "loader",
+        "spinner",
+        "animation"
+      ],
+      "useWhen": [
+        "An indefinite wait on a page section, card or button where a spinner should stay calm",
+        "A loading state that needs theme colours, so it matches the chart palette in both themes"
+      ],
+      "avoidWhen": [
+        "Waits with a known length, where a progress bar suits better",
+        "Inline text loading, where ai-chat/lattice-loader with its label and timer, or a plain skeleton, fits better"
+      ],
+      "dependencies": [],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/dashboard/wave-spinner/previews/default.desktop.dark.png",
+        "components/dashboard/wave-spinner/previews/default.desktop.light.png",
+        "components/dashboard/wave-spinner/previews/default.mobile.dark.png",
+        "components/dashboard/wave-spinner/previews/default.mobile.light.png"
       ]
     },
     {
@@ -11571,6 +12169,127 @@
       ]
     },
     {
+      "id": "hero-page/prism-hero",
+      "category": "hero-page",
+      "slug": "prism-hero",
+      "path": "components/hero-page/prism-hero",
+      "name": "Prism Hero",
+      "summary": "A full-screen hero with a floating pill navbar, a large headline that reveals word by word, and a bottom-right call to action over a token-based atmosphere.",
+      "tags": [
+        "hero",
+        "heading",
+        "pill",
+        "background",
+        "navigation"
+      ],
+      "useWhen": [
+        "A creative studio, brand or launch page needs a cinematic opening with no photo or video",
+        "The headline should animate in once without slowing the page down"
+      ],
+      "avoidWhen": [
+        "The page needs a full menu with dropdowns, because the pill navbar shows only four links; use `app-interface/navigation-menu` or a sidebar instead",
+        "A product screen must show data immediately, because the hero fills the whole viewport"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "button"
+      ],
+      "source": "21st.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/hero-page/prism-hero/previews/default.desktop.dark.png",
+        "components/hero-page/prism-hero/previews/default.desktop.light.png",
+        "components/hero-page/prism-hero/previews/default.mobile.dark.png",
+        "components/hero-page/prism-hero/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "hero-page/scroll-morph-hero",
+      "category": "hero-page",
+      "slug": "scroll-morph-hero",
+      "path": "components/hero-page/scroll-morph-hero",
+      "name": "Scroll Morph Hero",
+      "summary": "A tall hero where tiles start scattered, gather into a circle and then spread into an arc as the page scrolls, with the headline fading out.",
+      "tags": [
+        "hero",
+        "animation",
+        "landing page",
+        "cards"
+      ],
+      "useWhen": [
+        "A landing page opens with a scroll-driven story about the product",
+        "Tiles, logos or screenshots need a short motion sequence without photos"
+      ],
+      "avoidWhen": [
+        "The page is a dense app screen or the hero must stay put, because the section is 260vh tall and sticks while scrolling; use a plain hero such as `hero-page/prism-hero` instead",
+        "Many large photos must load before the first paint, because each tile is drawn as its own element"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [],
+      "source": "21st.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "arc",
+        "custom-colors",
+        "default"
+      ],
+      "previews": [
+        "components/hero-page/scroll-morph-hero/previews/arc.desktop.dark.png",
+        "components/hero-page/scroll-morph-hero/previews/arc.desktop.light.png",
+        "components/hero-page/scroll-morph-hero/previews/arc.mobile.dark.png",
+        "components/hero-page/scroll-morph-hero/previews/arc.mobile.light.png",
+        "components/hero-page/scroll-morph-hero/previews/custom-colors.desktop.dark.png",
+        "components/hero-page/scroll-morph-hero/previews/custom-colors.desktop.light.png",
+        "components/hero-page/scroll-morph-hero/previews/custom-colors.mobile.dark.png",
+        "components/hero-page/scroll-morph-hero/previews/custom-colors.mobile.light.png",
+        "components/hero-page/scroll-morph-hero/previews/default.desktop.dark.png",
+        "components/hero-page/scroll-morph-hero/previews/default.desktop.light.png",
+        "components/hero-page/scroll-morph-hero/previews/default.mobile.dark.png",
+        "components/hero-page/scroll-morph-hero/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/bento-grid",
+      "category": "marketing",
+      "slug": "bento-grid",
+      "path": "components/marketing/bento-grid",
+      "name": "Bento Grid",
+      "summary": "A responsive grid of rounded feature cards with numbered eyebrows, spans for wide, tall and full-width cards, a tinted accent area and a hover lift.",
+      "tags": [
+        "cards",
+        "landing page",
+        "marketing"
+      ],
+      "useWhen": [
+        "Presenting four to six features on a landing page with uneven card sizes",
+        "Showing product highlights that need one wide or tall card for emphasis"
+      ],
+      "avoidWhen": [
+        "The items are a plain list to scan or act on; use a list or table instead",
+        "The cards need to be interactive controls; put buttons in a card grid of your own, since these cards are plain articles"
+      ],
+      "dependencies": [],
+      "shadcn": [],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/bento-grid/previews/default.desktop.dark.png",
+        "components/marketing/bento-grid/previews/default.desktop.light.png",
+        "components/marketing/bento-grid/previews/default.mobile.dark.png",
+        "components/marketing/bento-grid/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "marketing/changelog",
       "category": "marketing",
       "slug": "changelog",
@@ -11610,6 +12329,87 @@
       ]
     },
     {
+      "id": "marketing/display-cards",
+      "category": "marketing",
+      "slug": "display-cards",
+      "path": "components/marketing/display-cards",
+      "name": "Display Cards: Stack",
+      "summary": "Three offset cards stacked in depth, with the front card bottom-right. Hover or focus lifts a card forward and the back cards fade into grey.",
+      "tags": [
+        "cards",
+        "animation",
+        "hover",
+        "landing page"
+      ],
+      "useWhen": [
+        "Showing up to three short updates, features or notifications as a stacked preview on a landing page",
+        "Highlighting one item at a time in a small space, where each card can be reached with the keyboard"
+      ],
+      "avoidWhen": [
+        "The items need to be read in full or compared side by side; use bento-grid or a card list instead",
+        "There are more than three cards, since the stack hides most of each one"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "default",
+        "tinted"
+      ],
+      "previews": [
+        "components/marketing/display-cards/previews/default.desktop.dark.png",
+        "components/marketing/display-cards/previews/default.desktop.light.png",
+        "components/marketing/display-cards/previews/default.mobile.dark.png",
+        "components/marketing/display-cards/previews/default.mobile.light.png",
+        "components/marketing/display-cards/previews/tinted.desktop.dark.png",
+        "components/marketing/display-cards/previews/tinted.desktop.light.png",
+        "components/marketing/display-cards/previews/tinted.mobile.dark.png",
+        "components/marketing/display-cards/previews/tinted.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/dithered-footer",
+      "category": "marketing",
+      "slug": "dithered-footer",
+      "path": "components/marketing/dithered-footer",
+      "name": "Dithered Footer",
+      "summary": "A light footer with a newsletter form and link columns, closed by a band where the brand is set over a drifting dot field that a pointer spotlight reveals.",
+      "tags": [
+        "noise",
+        "marketing",
+        "form",
+        "animation",
+        "hover"
+      ],
+      "useWhen": [
+        "A product or developer tool wants a textured, retro-digital closing band with its name in it",
+        "A newsletter sign-up should sit beside links in the footer"
+      ],
+      "avoidWhen": [
+        "The brand name must stay readable as plain text in a screenshot or print, because the wordmark is decorative; show the name in the left column too",
+        "The app needs a quiet footer, because the dot field keeps moving while it is on screen; use a plain footer instead"
+      ],
+      "dependencies": [],
+      "shadcn": [
+        "button",
+        "input"
+      ],
+      "source": "21st.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/dithered-footer/previews/default.desktop.dark.png",
+        "components/marketing/dithered-footer/previews/default.desktop.light.png",
+        "components/marketing/dithered-footer/previews/default.mobile.dark.png",
+        "components/marketing/dithered-footer/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "marketing/feature",
       "category": "marketing",
       "slug": "feature",
@@ -11643,6 +12443,130 @@
         "components/marketing/feature/previews/default.desktop.light.png",
         "components/marketing/feature/previews/default.mobile.dark.png",
         "components/marketing/feature/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/halftone-footer",
+      "category": "marketing",
+      "slug": "halftone-footer",
+      "path": "components/marketing/halftone-footer",
+      "name": "Halftone Footer",
+      "summary": "A footer whose large wordmark is drawn as halftone dots on a canvas; the pointer pushes the dots away on springs and a click sends a ring through them.",
+      "tags": [
+        "halftone",
+        "marketing",
+        "animation",
+        "hover",
+        "text"
+      ],
+      "useWhen": [
+        "A studio, agency or portfolio site wants a bold closing signature",
+        "A brand name should feel printed and tactile at the bottom of the page"
+      ],
+      "avoidWhen": [
+        "The footer must load fast on low-powered phones, because it redraws a few thousand dots per frame while visible; use a plain footer instead",
+        "The wordmark must be selectable or read as text by search, because it is a canvas; keep the name in the links or the page copy too"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [],
+      "source": "21st.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/halftone-footer/previews/default.desktop.dark.png",
+        "components/marketing/halftone-footer/previews/default.desktop.light.png",
+        "components/marketing/halftone-footer/previews/default.mobile.dark.png",
+        "components/marketing/halftone-footer/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/hills-footer",
+      "category": "marketing",
+      "slug": "hills-footer",
+      "path": "components/marketing/hills-footer",
+      "name": "Hills Footer",
+      "summary": "A footer whose headline and call to action sit over a canvas landscape of rolling hills that rise, drift with mist and follow the pointer, with link columns, a newsletter field and social links below.",
+      "tags": [
+        "marketing",
+        "call to action",
+        "background",
+        "animation",
+        "horizon",
+        "hover"
+      ],
+      "useWhen": [
+        "A marketing or support page needs a warm closing call to action above the site links",
+        "A brand wants a landscape feel without shipping any image files"
+      ],
+      "avoidWhen": [
+        "The footer must stay compact or sit on a dense app screen, because the scene takes most of the first viewport; use a plain footer instead",
+        "The page needs a serif headline, because the accent is set in Geist italic, not a separate serif face"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "button",
+        "input"
+      ],
+      "source": "21st.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "warm-palette"
+      ],
+      "previews": [
+        "components/marketing/hills-footer/previews/default.desktop.dark.png",
+        "components/marketing/hills-footer/previews/default.desktop.light.png",
+        "components/marketing/hills-footer/previews/default.mobile.dark.png",
+        "components/marketing/hills-footer/previews/default.mobile.light.png",
+        "components/marketing/hills-footer/previews/warm-palette.desktop.dark.png",
+        "components/marketing/hills-footer/previews/warm-palette.desktop.light.png",
+        "components/marketing/hills-footer/previews/warm-palette.mobile.dark.png",
+        "components/marketing/hills-footer/previews/warm-palette.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/logo-cloud",
+      "category": "marketing",
+      "slug": "logo-cloud",
+      "path": "components/marketing/logo-cloud",
+      "name": "Logo Cloud: Checkerboard",
+      "summary": "A bordered grid of customer or partner logos laid out as a checkerboard of tinted and transparent cells, with responsive columns and a hover and focus lift on each logo.",
+      "tags": [
+        "logo",
+        "landing page",
+        "marketing"
+      ],
+      "useWhen": [
+        "Showing customers or partners as a grid of logos on a landing page",
+        "Needing a logo grid that stays tidy on phones, with two columns, and tints its cells with a theme colour"
+      ],
+      "avoidWhen": [
+        "The list is long and needs filtering; use a searchable data grid instead",
+        "You need a scrolling logo marquee rather than a fixed grid"
+      ],
+      "dependencies": [],
+      "shadcn": [],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "compact",
+        "default"
+      ],
+      "previews": [
+        "components/marketing/logo-cloud/previews/compact.desktop.dark.png",
+        "components/marketing/logo-cloud/previews/compact.desktop.light.png",
+        "components/marketing/logo-cloud/previews/compact.mobile.dark.png",
+        "components/marketing/logo-cloud/previews/compact.mobile.light.png",
+        "components/marketing/logo-cloud/previews/default.desktop.dark.png",
+        "components/marketing/logo-cloud/previews/default.desktop.light.png",
+        "components/marketing/logo-cloud/previews/default.mobile.dark.png",
+        "components/marketing/logo-cloud/previews/default.mobile.light.png"
       ]
     },
     {
@@ -11687,6 +12611,250 @@
         "components/marketing/pricing/previews/default.desktop.light.png",
         "components/marketing/pricing/previews/default.mobile.dark.png",
         "components/marketing/pricing/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/product-navbar",
+      "category": "marketing",
+      "slug": "product-navbar",
+      "path": "components/marketing/product-navbar",
+      "name": "Product Navbar",
+      "summary": "A marketing top bar with dropdown menus of icon links, plain links and right-hand actions, collapsing into one disclosure panel on phones.",
+      "tags": [
+        "navigation",
+        "menu",
+        "landing page",
+        "marketing"
+      ],
+      "useWhen": [
+        "A marketing site with several product or solution groups to link to",
+        "Needing hover and keyboard dropdowns without a menu library"
+      ],
+      "avoidWhen": [
+        "An app shell needs persistent navigation; use a sidebar from app-interface instead",
+        "A small page with a floating action; app-interface/floating-menu fits better"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "button"
+      ],
+      "source": "21st.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "open"
+      ],
+      "previews": [
+        "components/marketing/product-navbar/previews/default.desktop.dark.png",
+        "components/marketing/product-navbar/previews/default.desktop.light.png",
+        "components/marketing/product-navbar/previews/default.mobile.dark.png",
+        "components/marketing/product-navbar/previews/default.mobile.light.png",
+        "components/marketing/product-navbar/previews/open.desktop.dark.png",
+        "components/marketing/product-navbar/previews/open.desktop.light.png",
+        "components/marketing/product-navbar/previews/open.mobile.dark.png",
+        "components/marketing/product-navbar/previews/open.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/product-rail",
+      "category": "marketing",
+      "slug": "product-rail",
+      "path": "components/marketing/product-rail",
+      "name": "Product Rail Gallery",
+      "summary": "A shop section with a chrome clothing rail: garments hang from hooks, turn from profile to front on selection, tilt toward the pointer, and open into a detail overlay with front and back faces.",
+      "tags": [
+        "animation",
+        "hover",
+        "marketing",
+        "overlay"
+      ],
+      "useWhen": [
+        "An online shop or lookbook needs a showcase row of garments, with each piece selectable and viewable",
+        "Products have a colour, price and short description, and drawn garment art or a few photos are acceptable"
+      ],
+      "avoidWhen": [
+        "Shoppers need to compare many items, because the rail shows one selected piece at a time; use a product grid instead",
+        "The list has more than about twelve items, because each garment is a 3D element in the DOM; use a paginated grid instead"
+      ],
+      "dependencies": [],
+      "shadcn": [],
+      "source": "21st.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "compact",
+        "default"
+      ],
+      "previews": [
+        "components/marketing/product-rail/previews/compact.desktop.dark.png",
+        "components/marketing/product-rail/previews/compact.desktop.light.png",
+        "components/marketing/product-rail/previews/compact.mobile.dark.png",
+        "components/marketing/product-rail/previews/compact.mobile.light.png",
+        "components/marketing/product-rail/previews/default.desktop.dark.png",
+        "components/marketing/product-rail/previews/default.desktop.light.png",
+        "components/marketing/product-rail/previews/default.mobile.dark.png",
+        "components/marketing/product-rail/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/stats-band",
+      "category": "marketing",
+      "slug": "stats-band",
+      "path": "components/marketing/stats-band",
+      "name": "Stats Band",
+      "summary": "An eyebrow, heading and a row of headline figures with their change, built from the Stat Group: Plain Row, over an optional dot grid.",
+      "tags": [
+        "stats",
+        "landing page",
+        "marketing",
+        "chart"
+      ],
+      "useWhen": [
+        "A marketing page section backing a claim with three or four numbers and how they moved",
+        "A landing page band that should match the dashboard's stat rows"
+      ],
+      "avoidWhen": [
+        "Plain metric tiles with a progress bar are enough; marketing/stats-showcase fits better",
+        "People need to explore the data or see the trend; use a dashboard chart instead"
+      ],
+      "dependencies": [],
+      "shadcn": [],
+      "composes": [
+        "analytics/stat-group-01"
+      ],
+      "source": "21st.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/stats-band/previews/default.desktop.dark.png",
+        "components/marketing/stats-band/previews/default.desktop.light.png",
+        "components/marketing/stats-band/previews/default.mobile.dark.png",
+        "components/marketing/stats-band/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/stats-showcase",
+      "category": "marketing",
+      "slug": "stats-showcase",
+      "path": "components/marketing/stats-showcase",
+      "name": "Stats: Showcase",
+      "summary": "A heading over a two-by-two grid of stat cards, each with an icon chip, a large tabular number, a label, and a bar whose width is the number as a share of its maximum.",
+      "tags": [
+        "stats",
+        "metrics",
+        "marketing"
+      ],
+      "useWhen": [
+        "Summarising a few headline numbers on a marketing or about page, with a bar under each one",
+        "Showing progress against a target, where each stat has a known maximum"
+      ],
+      "avoidWhen": [
+        "The numbers need a trend or history; use a chart or a KPI card with a change figure",
+        "There are more than about six stats; use a metrics table instead"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/stats-showcase/previews/default.desktop.dark.png",
+        "components/marketing/stats-showcase/previews/default.desktop.light.png",
+        "components/marketing/stats-showcase/previews/default.mobile.dark.png",
+        "components/marketing/stats-showcase/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/testimonial-globe",
+      "category": "marketing",
+      "slug": "testimonial-globe",
+      "path": "components/marketing/testimonial-globe",
+      "name": "Testimonial Image Wheel",
+      "summary": "A testimonial block with a heading, review count, average rating and country count, and a slowly turning ring of avatars. The active review flies out of the ring beside its quote.",
+      "tags": [
+        "feedback",
+        "avatar",
+        "animation",
+        "marketing",
+        "landing page"
+      ],
+      "useWhen": [
+        "A landing page section where each customer is shown as a face, with a handful of reviews that cycle through",
+        "Social proof that should feel alive and still lets a reader pick any customer to read their quote"
+      ],
+      "avoidWhen": [
+        "Readers need to compare many reviews at once; use a grid or list of testimonials",
+        "The avatars must show real faces at a readable size; the 38px avatars only fit initials or small illustrations",
+        "There is only one quote to show; a plain blockquote is simpler"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "button"
+      ],
+      "source": "Original",
+      "status": "experimental",
+      "demos": [
+        "compact",
+        "default"
+      ],
+      "previews": [
+        "components/marketing/testimonial-globe/previews/compact.desktop.dark.png",
+        "components/marketing/testimonial-globe/previews/compact.desktop.light.png",
+        "components/marketing/testimonial-globe/previews/compact.mobile.dark.png",
+        "components/marketing/testimonial-globe/previews/compact.mobile.light.png",
+        "components/marketing/testimonial-globe/previews/default.desktop.dark.png",
+        "components/marketing/testimonial-globe/previews/default.desktop.light.png",
+        "components/marketing/testimonial-globe/previews/default.mobile.dark.png",
+        "components/marketing/testimonial-globe/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/waitlist-split",
+      "category": "marketing",
+      "slug": "waitlist-split",
+      "path": "components/marketing/waitlist-split",
+      "name": "Waitlist: Split",
+      "summary": "A split landing section with an announcement badge, headline, email request form, overlapping member avatars with a count, and a gradient panel holding a mock form card.",
+      "tags": [
+        "landing page",
+        "marketing",
+        "form"
+      ],
+      "useWhen": [
+        "Collecting emails for an early-access or waitlist launch on a landing page",
+        "Showing social proof next to a signup field, with the panel stacked below on phones"
+      ],
+      "avoidWhen": [
+        "The product is open to sign-up already; use a sign-up form, since a waitlist adds a step",
+        "A long pricing or feature page needs more than one call to action; use a pricing or feature section instead"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "avatar",
+        "button",
+        "input"
+      ],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/waitlist-split/previews/default.desktop.dark.png",
+        "components/marketing/waitlist-split/previews/default.desktop.light.png",
+        "components/marketing/waitlist-split/previews/default.mobile.dark.png",
+        "components/marketing/waitlist-split/previews/default.mobile.light.png"
       ]
     },
     {
@@ -12329,6 +13497,49 @@
       ]
     },
     {
+      "id": "operations/server-card",
+      "category": "operations",
+      "slug": "server-card",
+      "path": "components/operations/server-card",
+      "name": "Server Card",
+      "summary": "A grid of host cards, each with its name, region, provider, status, specs and CPU, memory and disk meters that turn amber and red as they fill.",
+      "tags": [
+        "status",
+        "usage",
+        "cards"
+      ],
+      "useWhen": [
+        "An infrastructure page that shows each host's health and how full its resources are",
+        "A capacity review where a few hosts need attention and the rest should read as fine at a glance"
+      ],
+      "avoidWhen": [
+        "Hundreds of hosts or a sortable list, where a data table fits better",
+        "Service uptime history or incidents, where operations/status-02 or operations/status-05 fits better"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "badge"
+      ],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "custom-colors",
+        "default"
+      ],
+      "previews": [
+        "components/operations/server-card/previews/custom-colors.desktop.dark.png",
+        "components/operations/server-card/previews/custom-colors.desktop.light.png",
+        "components/operations/server-card/previews/custom-colors.mobile.dark.png",
+        "components/operations/server-card/previews/custom-colors.mobile.light.png",
+        "components/operations/server-card/previews/default.desktop.dark.png",
+        "components/operations/server-card/previews/default.desktop.light.png",
+        "components/operations/server-card/previews/default.mobile.dark.png",
+        "components/operations/server-card/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "operations/status-01",
       "category": "operations",
       "slug": "status-01",
@@ -12513,6 +13724,51 @@
         "components/operations/status-05/previews/default.desktop.light.png",
         "components/operations/status-05/previews/default.mobile.dark.png",
         "components/operations/status-05/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "operations/workflow-builder",
+      "category": "operations",
+      "slug": "workflow-builder",
+      "path": "components/operations/workflow-builder",
+      "name": "Workflow Builder",
+      "summary": "A vertical flow canvas of trigger, action and condition steps joined by lines, with an add-step button between nodes and a settings form for the selected step.",
+      "tags": [
+        "flow",
+        "editor",
+        "form"
+      ],
+      "useWhen": [
+        "An editor where people chain triggers, actions and conditions into an automation",
+        "A low-code setup screen where each step needs a name, a kind and a detail"
+      ],
+      "avoidWhen": [
+        "Branching graphs with many parallel paths or drag-to-connect wiring, which need a real node-graph library",
+        "Read-only pipelines or stage boards, where planning/kanban or business/pipeline-01 fits better"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "input",
+        "label",
+        "textarea"
+      ],
+      "source": "Open-source app screen, redrawn",
+      "status": "stable",
+      "demos": [
+        "custom-colors",
+        "default"
+      ],
+      "previews": [
+        "components/operations/workflow-builder/previews/custom-colors.desktop.dark.png",
+        "components/operations/workflow-builder/previews/custom-colors.desktop.light.png",
+        "components/operations/workflow-builder/previews/custom-colors.mobile.dark.png",
+        "components/operations/workflow-builder/previews/custom-colors.mobile.light.png",
+        "components/operations/workflow-builder/previews/default.desktop.dark.png",
+        "components/operations/workflow-builder/previews/default.desktop.light.png",
+        "components/operations/workflow-builder/previews/default.mobile.dark.png",
+        "components/operations/workflow-builder/previews/default.mobile.light.png"
       ]
     },
     {
@@ -12911,6 +14167,52 @@
         "components/planning/gantt/previews/default.desktop.light.png",
         "components/planning/gantt/previews/default.mobile.dark.png",
         "components/planning/gantt/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "planning/issue-split-view",
+      "category": "planning",
+      "slug": "issue-split-view",
+      "path": "components/planning/issue-split-view",
+      "name": "Issue Split View",
+      "summary": "Issues grouped by state with counts on the left, and the selected issue's description and properties on the right, collapsing to list-then-detail on phones.",
+      "tags": [
+        "project management",
+        "list",
+        "record"
+      ],
+      "useWhen": [
+        "An issue tracker where people scan a grouped backlog and open one issue at a time to read or change its fields",
+        "A master-detail screen for tickets on a phone, where the list comes first and each issue opens with a Back button"
+      ],
+      "avoidWhen": [
+        "Moving work between columns by dragging, where planning/kanban-01 fits better",
+        "A single record with activity and comments and no grouping, where workspace/record-detail-03 fits better"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "avatar",
+        "badge",
+        "button",
+        "label"
+      ],
+      "source": "Open-source app screen, redrawn",
+      "status": "stable",
+      "demos": [
+        "custom-colors",
+        "default"
+      ],
+      "previews": [
+        "components/planning/issue-split-view/previews/custom-colors.desktop.dark.png",
+        "components/planning/issue-split-view/previews/custom-colors.desktop.light.png",
+        "components/planning/issue-split-view/previews/custom-colors.mobile.dark.png",
+        "components/planning/issue-split-view/previews/custom-colors.mobile.light.png",
+        "components/planning/issue-split-view/previews/default.desktop.dark.png",
+        "components/planning/issue-split-view/previews/default.desktop.light.png",
+        "components/planning/issue-split-view/previews/default.mobile.dark.png",
+        "components/planning/issue-split-view/previews/default.mobile.light.png"
       ]
     },
     {
@@ -14299,6 +15601,45 @@
       ]
     },
     {
+      "id": "workspace/note-outline",
+      "category": "workspace",
+      "slug": "note-outline",
+      "path": "components/workspace/note-outline",
+      "name": "Note Outline",
+      "summary": "A note document view with a notebook tree, breadcrumb and content blocks, plus an outline built from the headings that scrolls each one into view.",
+      "tags": [
+        "editor",
+        "navigation",
+        "rich text"
+      ],
+      "useWhen": [
+        "A notes or docs app where long documents need a table of contents that tracks their headings",
+        "A knowledge base reader that organizes documents into notebooks and needs to work on a phone"
+      ],
+      "avoidWhen": [
+        "Editing rich text in place, where forms/editor fits better",
+        "Short documents with no headings, where the outline would only be empty"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "button",
+        "sheet"
+      ],
+      "source": "Open-source app screen, redrawn",
+      "status": "stable",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/workspace/note-outline/previews/default.desktop.dark.png",
+        "components/workspace/note-outline/previews/default.desktop.light.png",
+        "components/workspace/note-outline/previews/default.mobile.dark.png",
+        "components/workspace/note-outline/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "workspace/notifications-01",
       "category": "workspace",
       "slug": "notifications-01",
@@ -15158,6 +16499,88 @@
         "components/workspace/settings-07/previews/default.desktop.light.png",
         "components/workspace/settings-07/previews/default.mobile.dark.png",
         "components/workspace/settings-07/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "workspace/sign-in-split",
+      "category": "workspace",
+      "slug": "sign-in-split",
+      "path": "components/workspace/sign-in-split",
+      "name": "Sign In: Split",
+      "summary": "A split sign-in screen: the workspace sign-in form on the left, and a panel with a slowly flowing gradient background and an optional quote on the right.",
+      "tags": [
+        "auth",
+        "form",
+        "animation",
+        "gradient"
+      ],
+      "useWhen": [
+        "Adding a branded sign-in page to a product with accounts, with room for a quote or product mood on the right",
+        "A sign-in screen that stacks to one column on phones, with the decorative panel either below the form or hidden"
+      ],
+      "avoidWhen": [
+        "The app has no accounts",
+        "The page has to be as light as possible, since the panel animates continuously unless reduced motion is set"
+      ],
+      "dependencies": [],
+      "composes": [
+        "workspace/auth-05"
+      ],
+      "source": "Form from workspace/auth-05; the flow panel is written for this library",
+      "status": "stable",
+      "demos": [
+        "default",
+        "textures"
+      ],
+      "previews": [
+        "components/workspace/sign-in-split/previews/default.desktop.dark.png",
+        "components/workspace/sign-in-split/previews/default.desktop.light.png",
+        "components/workspace/sign-in-split/previews/default.mobile.dark.png",
+        "components/workspace/sign-in-split/previews/default.mobile.light.png",
+        "components/workspace/sign-in-split/previews/textures.desktop.dark.png",
+        "components/workspace/sign-in-split/previews/textures.desktop.light.png",
+        "components/workspace/sign-in-split/previews/textures.mobile.dark.png",
+        "components/workspace/sign-in-split/previews/textures.mobile.light.png"
+      ]
+    },
+    {
+      "id": "workspace/sign-up-split",
+      "category": "workspace",
+      "slug": "sign-up-split",
+      "path": "components/workspace/sign-up-split",
+      "name": "Sign Up: Split",
+      "summary": "A two-column sign-up form with neutral provider buttons, a password strength meter measured from the password, a terms checkbox and a highlights and testimonial panel.",
+      "tags": [
+        "auth",
+        "form"
+      ],
+      "useWhen": [
+        "Creating accounts for a product that needs a name, work email and a password at sign-up",
+        "Showing a password strength meter and an explicit terms agreement before account creation"
+      ],
+      "avoidWhen": [
+        "The product signs people up through a single provider or a magic link; use a shorter sign-up instead",
+        "Sign-in for existing accounts only; use sign-in-split, where the form is shorter"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "button",
+        "checkbox",
+        "input",
+        "label"
+      ],
+      "source": "21st.dev (inspired)",
+      "status": "stable",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/workspace/sign-up-split/previews/default.desktop.dark.png",
+        "components/workspace/sign-up-split/previews/default.desktop.light.png",
+        "components/workspace/sign-up-split/previews/default.mobile.dark.png",
+        "components/workspace/sign-up-split/previews/default.mobile.light.png"
       ]
     },
     {
