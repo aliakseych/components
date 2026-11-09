@@ -2,7 +2,7 @@ import { mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { chromium } from "playwright";
 import { createServer } from "vite";
-import { ROOT, selectComponents } from "./lib.mjs";
+import { ROOT, listTemplates, selectComponents } from "./lib.mjs";
 
 const VIEWPORTS = {
   desktop: { width: 1280, height: 800 },
@@ -13,7 +13,12 @@ const WORKERS = 6;
 // Charts animate for up to about 1.5 seconds, so wait for their final state.
 const SETTLE_MS = 2000;
 
-const selected = selectComponents(process.argv[2]);
+// A target is a component ("slug" or "category/slug") or a template ("templates/slug" or its slug).
+const target = process.argv[2];
+const templates = listTemplates().filter(
+  (item) => !target || item.id === target || item.slug === target,
+);
+const selected = target && templates.length > 0 ? [] : selectComponents(target);
 const server = await createServer({
   configFile: join(ROOT, "gallery/vite.config.ts"),
   logLevel: "error",
@@ -38,6 +43,18 @@ for (const component of selected) {
   }
 }
 
+// Templates are apps: one phone-sized screenshot per screen listed in template.json.
+for (const template of templates) {
+  const output = join(template.dir, "previews");
+  rmSync(output, { recursive: true, force: true });
+  mkdirSync(output, { recursive: true });
+  for (const screen of template.meta.screens) {
+    for (const theme of template.meta.themes ?? THEMES) {
+      tasks.push({ template, screen, theme, output });
+    }
+  }
+}
+
 // Parts that animate in on scroll stay empty below the fold, so a tall page is scrolled
 // through once, as a reader would, before its screenshot.
 async function revealBelowFold(page) {
@@ -52,6 +69,38 @@ async function revealBelowFold(page) {
     return true;
   });
   if (tall) await page.waitForTimeout(SETTLE_MS);
+}
+
+async function captureScreen({ template, screen, theme, output }) {
+  const label = `${template.id}/${screen.id} (${theme})`;
+  const context = await browser.newContext({ viewport: VIEWPORTS.mobile, deviceScaleFactor: 1 });
+  const page = await context.newPage();
+  const errors = [];
+  page.on("console", (message) => {
+    if (message.type() === "error") errors.push(message.text());
+  });
+  page.on("pageerror", (error) => errors.push(error.message));
+
+  try {
+    const query = new URLSearchParams({ t: template.slug, path: screen.path, theme });
+    await page.goto(`${base}template.html?${query}`);
+    await page.waitForSelector("[data-template-ready]", { state: "attached", timeout: 60000 });
+    await page.evaluate(() => document.fonts.ready);
+    await page.waitForTimeout(SETTLE_MS);
+    await page.screenshot({ path: join(output, `${screen.id}.mobile.${theme}.png`), animations: "disabled" });
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+    if (overflow) errors.push("horizontal overflow");
+  } catch (error) {
+    errors.push(error.message);
+  }
+
+  if (errors.length > 0) {
+    failures.push(label);
+    console.error(`✗ ${label}\n  - ${[...new Set(errors)].join("\n  - ")}`);
+  } else {
+    console.log(`✓ ${label}`);
+  }
+  await context.close();
 }
 
 async function capture({ component, demo, viewportName, viewport, theme, output }) {
@@ -97,7 +146,10 @@ await warm.close();
 try {
   await Promise.all(
     Array.from({ length: WORKERS }, async () => {
-      while (tasks.length > 0) await capture(tasks.shift());
+      while (tasks.length > 0) {
+        const task = tasks.shift();
+        await (task.template ? captureScreen(task) : capture(task));
+      }
     }),
   );
 } finally {

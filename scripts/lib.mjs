@@ -43,6 +43,18 @@ export function listComponents() {
 export const readMeta = (component) =>
   JSON.parse(readFileSync(join(component.dir, "meta.json"), "utf8"));
 
+export const TEMPLATES = join(ROOT, "templates");
+
+/** Lists every template as { id, slug, dir, meta }. A template is a whole app in templates/<slug>/. */
+export function listTemplates() {
+  return directories(TEMPLATES)
+    .filter((slug) => existsSync(join(TEMPLATES, slug, "template.json")))
+    .map((slug) => {
+      const dir = join(TEMPLATES, slug);
+      return { id: `templates/${slug}`, slug, dir, meta: JSON.parse(readFileSync(join(dir, "template.json"), "utf8")) };
+    });
+}
+
 /** Selects all components, or the one matching "slug" or "category/slug". */
 export function selectComponents(target) {
   const all = listComponents();

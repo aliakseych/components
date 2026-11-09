@@ -1,0 +1,277 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource-variable/onest";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+/* Scan only this app's sources. */
+@source ".";
+
+@custom-variant dark (&:is(.dark *));
+
+/* State variants that shadcn/tailwind.css provided in the original app. */
+@custom-variant data-open (&:where([data-state="open"]), &:where([data-open]:not([data-open="false"])));
+@custom-variant data-closed (&:where([data-state="closed"]), &:where([data-closed]:not([data-closed="false"])));
+@custom-variant data-checked (&:where([data-state="checked"]), &:where([data-checked]:not([data-checked="false"])));
+@custom-variant data-active (&:where([data-state="active"]), &:where([data-active]:not([data-active="false"])));
+@custom-variant data-horizontal (&:where([data-orientation="horizontal"]));
+@custom-variant data-vertical (&:where([data-orientation="vertical"]));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-lime: var(--lime);
+  --color-lime-foreground: var(--lime-foreground);
+  --color-gain: var(--gain);
+  --color-foreground: var(--foreground);
+  --font-sans: "Onest Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(0.955 0.004 100);
+  --foreground: oklch(0.27 0.012 20);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.27 0.012 20);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.27 0.012 20);
+  --primary: oklch(0.27 0.012 20);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.93 0.004 100);
+  --secondary-foreground: oklch(0.27 0.012 20);
+  --muted: oklch(0.93 0.004 100);
+  --muted-foreground: oklch(0.55 0.01 60);
+  --accent: oklch(0.83 0.09 300);
+  --accent-foreground: oklch(0.27 0.012 20);
+  --lime: oklch(0.89 0.15 135);
+  --lime-foreground: oklch(0.3 0.06 135);
+  --gain: oklch(0.56 0.15 145);
+  --destructive: oklch(0.63 0.2 25);
+  --border: oklch(0.27 0.012 20 / 8%);
+  --input: oklch(0.27 0.012 20 / 10%);
+  --ring: oklch(0.83 0.09 300);
+  --chart-1: oklch(0.89 0.15 135);
+  --chart-2: oklch(0.83 0.09 300);
+  --chart-3: oklch(0.8 0.12 60);
+  --chart-4: oklch(0.78 0.1 230);
+  --chart-5: oklch(0.75 0.13 15);
+  --radius: 1.25rem;
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.27 0.012 20);
+  --sidebar-primary: oklch(0.27 0.012 20);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.93 0.004 100);
+  --sidebar-accent-foreground: oklch(0.27 0.012 20);
+  --sidebar-border: oklch(0.27 0.012 20 / 8%);
+  --sidebar-ring: oklch(0.83 0.09 300);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+@utility glass {
+  background-color: color-mix(in oklch, white 62%, transparent);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border: 1px solid color-mix(in oklch, white 80%, transparent);
+  box-shadow: 0 8px 32px -8px oklch(0.27 0.012 20 / 18%), inset 0 1px 0 white;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@layer base {
+  body {
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+}
+
+/* Мягкое затухание краёв у прокручиваемых рядов и списков. */
+@utility fade-x {
+  mask-image: linear-gradient(to right, transparent, black 20px, black calc(100% - 20px), transparent);
+}
+
+@utility fade-y {
+  mask-image: linear-gradient(to bottom, transparent, black 16px, black calc(100% - 16px), transparent);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes scheme-progress { from { width: 0% } to { width: 100% } }
+
+/* ---- Motion: one easing, three durations. Mirrored in src/lib/motion.ts. ---- */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 120ms;
+  --dur-base: 220ms;
+  --dur-slow: 600ms;
+  --stagger: 35ms;
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } }
+@keyframes grow-x { from { transform: scaleX(0); } }
+@keyframes ring-in { from { stroke-dashoffset: var(--ring-from); } }
+@keyframes donut-in { from { stroke-dasharray: 0 var(--ring-from); } }
+@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+
+/* Entrance for one element. */
+@utility rise {
+  animation: rise var(--dur-base) var(--ease-out) both;
+}
+/* Staggered entrance for direct children, capped at 8 steps. */
+@utility stagger {
+  & > * { animation: rise var(--dur-base) var(--ease-out) both; animation-delay: calc(var(--stagger) * 8); }
+  & > :nth-child(1) { animation-delay: 0ms; }
+  & > :nth-child(2) { animation-delay: calc(var(--stagger) * 1); }
+  & > :nth-child(3) { animation-delay: calc(var(--stagger) * 2); }
+  & > :nth-child(4) { animation-delay: calc(var(--stagger) * 3); }
+  & > :nth-child(5) { animation-delay: calc(var(--stagger) * 4); }
+  & > :nth-child(6) { animation-delay: calc(var(--stagger) * 5); }
+  & > :nth-child(7) { animation-delay: calc(var(--stagger) * 6); }
+  & > :nth-child(8) { animation-delay: calc(var(--stagger) * 7); }
+}
+/* Progress fill grows from the left on mount. */
+@utility grow-x {
+  transform-origin: left;
+  animation: grow-x var(--dur-slow) var(--ease-out) both;
+}
+@utility ring-in {
+  animation: ring-in var(--dur-slow) var(--ease-out) both;
+}
+@utility donut-in {
+  animation: donut-in var(--dur-slow) var(--ease-out) both;
+}
+@utility shimmer {
+  background-color: var(--muted);
+  background-image: linear-gradient(100deg, transparent 30%, color-mix(in oklch, white 55%, transparent) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+/* Edge fades that show only where more content is (data-edge-* from useScrollEdges). */
+@property --edge-start { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --edge-end { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@utility edge-fade-x {
+  mask-image: linear-gradient(to right, transparent, black var(--edge-start), black calc(100% - var(--edge-end)), transparent);
+  transition: --edge-start var(--dur-base) var(--ease-out), --edge-end var(--dur-base) var(--ease-out);
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+  &[data-edge-start] { --edge-start: 24px; }
+  &[data-edge-end] { --edge-end: 24px; }
+}
+@utility edge-fade-y {
+  mask-image: linear-gradient(to bottom, transparent, black var(--edge-start), black calc(100% - var(--edge-end)), transparent);
+  transition: --edge-start var(--dur-base) var(--ease-out), --edge-end var(--dur-base) var(--ease-out);
+  &[data-edge-start] { --edge-start: 20px; }
+  &[data-edge-end] { --edge-end: 20px; }
+}
+
+/* Press feedback on every tappable element. */
+@layer base {
+  :is(a, button, [role="button"]) {
+    transition-property: transform, color, background-color, opacity;
+    transition-duration: var(--dur-fast);
+    transition-timing-function: var(--ease-out);
+  }
+  :is(a, button, [role="button"]):active:not(:disabled) { transform: scale(0.97); }
+  /* Sheet content follows the sheet in. */
+  [data-slot="drawer-content"][data-state="open"] > :not(:first-child) {
+    animation: rise var(--dur-base) var(--ease-out) 80ms both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+  :is(a, button, [role="button"]):active:not(:disabled) { transform: none; }
+  .shimmer { animation: none; background-image: none; }
+}

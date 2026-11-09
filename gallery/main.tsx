@@ -2,6 +2,7 @@ import { StrictMode, Suspense, lazy, useEffect, useMemo, useRef, useState } from
 import type { ComponentProps, ComponentType, LazyExoticComponent } from "react";
 import { createRoot } from "react-dom/client";
 import {
+  AppWindowIcon,
   BarChart3Icon,
   BlocksIcon,
   BotIcon,
@@ -96,6 +97,42 @@ const blocks = Object.entries(
     block,
   }))
   .sort((a, b) => a.block.name.localeCompare(b.block.name));
+
+type Template = {
+  name: string;
+  summary: string;
+  tags: string[];
+  stack: string[];
+  themes?: string[];
+  useWhen: string[];
+  avoidWhen: string[];
+  status: string;
+  screens: { id: string; title: string; path: string }[];
+};
+
+const templatePreviews = import.meta.glob<string>("../templates/*/previews/*.mobile.*.png", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
+
+const templates = Object.entries(
+  import.meta.glob<Template>("../templates/*/template.json", { eager: true, import: "default" }),
+)
+  .map(([path, template]) => ({ id: path.split("/")[2], template }))
+  .sort((a, b) => a.template.name.localeCompare(b.template.name));
+
+const screenPreview = (id: string, screen: string, theme: string) =>
+  templatePreviews[`../templates/${id}/previews/${screen}.mobile.${theme}.png`] ??
+  templatePreviews[`../templates/${id}/previews/${screen}.mobile.light.png`];
+
+function searchTemplates(query: string) {
+  const needles = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  if (needles.length === 0) return templates;
+  return templates.filter(({ id, template }) =>
+    score(needles, template.name, id, template.tags, [template.summary, ...template.stack].join(" ")) > 0,
+  );
+}
 
 const categories = import.meta.glob<Record<string, { name: string }>>("../categories.json", {
   eager: true,
@@ -311,6 +348,118 @@ function Details({ entry, demoName }: { entry: Entry; demoName?: string }) {
   );
 }
 
+/** A live, scaled phone screen running one template route in its own page. */
+function PhoneFrame({ id, path, theme }: { id: string; path: string; theme: string }) {
+  const query = new URLSearchParams({ t: id, path, theme });
+  return (
+    <div className="mx-auto w-[316px] shrink-0 rounded-[2.75rem] border bg-card p-3 shadow-sm">
+      <div className="h-[675px] w-[292px] overflow-hidden rounded-[2.1rem] border bg-background">
+        {/* 390×900 rendered at 0.75 so the phone keeps a real device width inside the frame. */}
+        <iframe
+          className="h-[900px] w-[390px] origin-top-left scale-75 border-0"
+          key={query.toString()}
+          src={`template.html?${query}`}
+          title={`${id} ${path}`}
+        />
+      </div>
+    </div>
+  );
+}
+
+function TemplateView({ id, template, screenId, theme }: { id: string; template: Template; screenId?: string; theme: string }) {
+  const screen = template.screens.find((item) => item.id === screenId) ?? template.screens[0];
+  const frameTheme = (template.themes ?? ["light", "dark"]).includes(theme) ? theme : "light";
+
+  return (
+    <article className="mx-auto w-full max-w-6xl space-y-8 p-4 md:p-8">
+      <header>
+        <p className="font-mono text-xs text-muted-foreground">
+          templates/{id} · {template.status}
+        </p>
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-balance">{template.name}</h1>
+        <p className="mt-2 max-w-2xl text-muted-foreground">{template.summary}</p>
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {template.stack.map((item) => (
+            <span className="rounded-md border bg-card px-1.5 py-0.5 text-xs text-muted-foreground" key={item}>
+              {item}
+            </span>
+          ))}
+        </div>
+        <code className="mt-3 block w-fit max-w-full overflow-x-auto rounded-lg border bg-card px-3 py-2 font-mono text-xs">
+          cp -r templates/{id} my-app && cd my-app && pnpm install && pnpm dev
+        </code>
+      </header>
+      <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
+        <div className="space-y-3 lg:sticky lg:top-16">
+          <PhoneFrame id={id} path={screen.path} theme={frameTheme} />
+          <p className="text-center font-mono text-xs text-muted-foreground">{screen.path}</p>
+        </div>
+        <section aria-label="Screens" className="min-w-0 flex-1 space-y-3">
+          <h2 className="font-medium">
+            Screens <span className="text-xs text-muted-foreground tabular-nums">{template.screens.length}</span>
+          </h2>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] gap-3">
+            {template.screens.map((item) => {
+              const preview = screenPreview(id, item.id, frameTheme);
+              return (
+                <a
+                  aria-current={item.id === screen.id ? "page" : undefined}
+                  className="group overflow-hidden rounded-xl border bg-card outline-none transition-colors hover:border-foreground/25 focus-visible:ring-2 focus-visible:ring-ring aria-[current=page]:border-foreground/60 aria-[current=page]:ring-1 aria-[current=page]:ring-foreground/20"
+                  href={`#/templates/${id}/${item.id}`}
+                  key={item.id}
+                >
+                  <div className="aspect-[390/844] overflow-hidden border-b bg-background">
+                    {preview ? (
+                      <img alt="" className="size-full object-cover object-top" decoding="async" loading="lazy" src={preview} />
+                    ) : (
+                      <span className="flex size-full items-center justify-center text-xs text-muted-foreground">No preview</span>
+                    )}
+                  </div>
+                  <p className="truncate px-2 py-1.5 text-xs font-medium">{item.title}</p>
+                </a>
+              );
+            })}
+          </div>
+          <div className="grid gap-4 pt-4 sm:grid-cols-2">
+            <List items={template.useWhen} title="Use when" />
+            <List items={template.avoidWhen} title="Avoid when" />
+          </div>
+        </section>
+      </div>
+    </article>
+  );
+}
+
+function TemplateCard({ id, template, theme }: { id: string; template: Template; theme: string }) {
+  const shots = template.screens.slice(0, 3).map((screen) => screenPreview(id, screen.id, theme));
+  return (
+    <a
+      className="group flex min-w-0 flex-col overflow-hidden rounded-xl border bg-card outline-none transition-colors hover:border-foreground/25 focus-visible:ring-2 focus-visible:ring-ring"
+      href={`#/templates/${id}`}
+    >
+      <div className="flex aspect-[16/10] items-end justify-center gap-3 overflow-hidden border-b bg-muted/40 px-4 pt-5">
+        {shots.map((shot, index) =>
+          shot ? (
+            <img
+              alt=""
+              className="h-full w-auto translate-y-3 rounded-t-xl border border-b-0 bg-background object-cover object-top shadow-sm transition-transform group-hover:translate-y-1"
+              decoding="async"
+              key={index}
+              loading="lazy"
+              src={shot}
+            />
+          ) : null,
+        )}
+        {shots.every((shot) => !shot) && <span className="self-center text-xs text-muted-foreground">No preview yet</span>}
+      </div>
+      <div className="min-w-0 p-3">
+        <h3 className="truncate text-sm font-medium">{template.name}</h3>
+        <p className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">{template.summary}</p>
+      </div>
+    </a>
+  );
+}
+
 function ComponentCard({ entry, theme }: { entry: Entry; theme: string }) {
   const demo = entry.demos[0]?.name ?? "default";
   const preview = previews[`../components/${entry.id}/previews/${demo}.desktop.${theme}.png`];
@@ -351,15 +500,27 @@ function Grid({ items, theme }: { items: Entry[]; theme: string }) {
   );
 }
 
+function TemplateGrid({ items, theme }: { items: typeof templates; theme: string }) {
+  return (
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4">
+      {items.map(({ id, template }) => (
+        <TemplateCard id={id} key={id} template={template} theme={theme} />
+      ))}
+    </div>
+  );
+}
+
 function Browse({
   categoryId,
   query,
   results,
+  templateResults,
   theme,
 }: {
   categoryId?: string;
   query: string;
   results: Entry[];
+  templateResults: typeof templates;
   theme: string;
 }) {
   const searching = query.trim().length > 0;
@@ -377,6 +538,17 @@ function Browse({
           {searching ? `${count} match “${query.trim()}”` : count}
         </p>
       </header>
+      {!categoryId && templateResults.length > 0 && (
+        <section className="space-y-3">
+          <h2 className="flex items-baseline gap-2 font-medium">
+            <a className="underline-offset-4 hover:underline" href="#/templates">
+              Templates
+            </a>
+            <span className="text-xs text-muted-foreground tabular-nums">{templateResults.length}</span>
+          </h2>
+          <TemplateGrid items={templateResults} theme={theme} />
+        </section>
+      )}
       {scoped.length === 0 ? (
         <p className="rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground">
           Nothing matches. Try fewer words, or a tag such as “chart” or “form”.
@@ -557,10 +729,13 @@ function Shell({ hash }: { hash: string }) {
   const [category, slug, demoName] = path.split("/");
   const selected = entries.find((entry) => entry.id === `${category}/${slug}`);
   const selectedBlock = category === "blocks" ? blocks.find((item) => item.id === slug) : undefined;
+  const selectedTemplate = category === "templates" ? templates.find((item) => item.id === slug) : undefined;
+  const templateIndex = category === "templates" && !slug;
   const categoryId = category && !slug && categories[category] ? category : undefined;
 
   const results = useMemo(() => searchEntries(query), [query]);
   const blockResults = useMemo(() => searchBlocks(query), [query]);
+  const templateResults = useMemo(() => searchTemplates(query), [query]);
   const searching = query.trim().length > 0;
 
   useEffect(() => {
@@ -604,6 +779,11 @@ function Shell({ hash }: { hash: string }) {
   );
 
   const nav = useMemo<GlassNavGroup[]>(() => {
+    const templateItems = templateResults.map(({ id, template }) => ({
+      title: template.name,
+      url: `/templates/${id}`,
+      icon: searching ? AppWindowIcon : undefined,
+    }));
     const blockItems = blockResults.map(({ id, block }) => ({
       title: block.name,
       url: `/blocks/${id}`,
@@ -622,6 +802,7 @@ function Shell({ hash }: { hash: string }) {
     if (searching) {
       // Results stay flat so that every match is visible without opening anything.
       return [
+        ...(templateItems.length ? [{ label: "Templates", items: templateItems }] : []),
         ...(blockItems.length ? [{ label: "Blocks", items: blockItems }] : []),
         ...present.map((group) => ({
           label: group.info.name,
@@ -634,7 +815,10 @@ function Shell({ hash }: { hash: string }) {
       { items: [{ title: "All components", url: "/", match: "exact" as const, icon: LayoutGridIcon }] },
       {
         label: "Recipes",
-        items: [{ title: "Blocks", url: "/blocks", icon: BlocksIcon, items: blockItems }],
+        items: [
+          { title: "Templates", url: "/templates", icon: AppWindowIcon, items: templateItems },
+          { title: "Blocks", url: "/blocks", icon: BlocksIcon, items: blockItems },
+        ],
       },
       {
         label: "Library",
@@ -646,14 +830,18 @@ function Shell({ hash }: { hash: string }) {
         })),
       },
     ];
-  }, [results, blockResults, searching]);
+  }, [results, blockResults, templateResults, searching]);
 
   const crumbs = selected
     ? [
         { label: categories[category]?.name ?? category, href: `#/${category}` },
         { label: selected.meta.name },
       ]
-    : selectedBlock
+    : selectedTemplate
+      ? [{ label: "Templates", href: "#/templates" }, { label: selectedTemplate.template.name }]
+      : templateIndex
+        ? [{ label: "Templates" }]
+        : selectedBlock
       ? [{ label: "Blocks" }, { label: selectedBlock.block.name }]
       : categoryId
         ? [{ label: categories[categoryId].name }]
@@ -671,7 +859,7 @@ function Shell({ hash }: { hash: string }) {
                 aria-live="polite"
                 className="px-1 text-xs text-muted-foreground tabular-nums group-data-[collapsible=icon]:hidden"
               >
-                {results.length + blockResults.length} results
+                {results.length + blockResults.length + templateResults.length} results
               </p>
             )}
           </div>
@@ -704,12 +892,36 @@ function Shell({ hash }: { hash: string }) {
             ))}
           </nav>
         </div>
-        {selectedBlock ? (
+        {selectedTemplate ? (
+          <TemplateView
+            id={selectedTemplate.id}
+            key={selectedTemplate.id}
+            screenId={demoName}
+            template={selectedTemplate.template}
+            theme={resolved}
+          />
+        ) : templateIndex ? (
+          <div className="mx-auto w-full max-w-6xl space-y-8 p-4 md:p-8">
+            <header>
+              <h1 className="text-2xl font-semibold tracking-tight">Templates</h1>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Whole apps to start a project from. Each runs on its own and on sample data.
+              </p>
+            </header>
+            <TemplateGrid items={templateResults} theme={resolved} />
+          </div>
+        ) : selectedBlock ? (
           <BlockView block={selectedBlock.block} id={selectedBlock.id} key={selectedBlock.id} />
         ) : selected ? (
           <Details entry={selected} demoName={demoName} key={selected.id} />
         ) : (
-          <Browse categoryId={categoryId} query={query} results={results} theme={resolved} />
+          <Browse
+            categoryId={categoryId}
+            query={query}
+            results={results}
+            templateResults={templateResults}
+            theme={resolved}
+          />
         )}
       </SidebarInset>
     </>

@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { ROOT, files, selectComponents, listComponents } from "./lib.mjs";
+import { ROOT, files, selectComponents, listComponents, listTemplates } from "./lib.mjs";
 
 const TAGS = JSON.parse(readFileSync(join(ROOT, "tags.json"), "utf8"));
 const STATUSES = ["experimental", "stable", "deprecated"];
@@ -142,8 +142,38 @@ function validateBlock(name) {
   return errors;
 }
 
+/** A template is a standalone app: template.json, README, its own package.json and a gallery entry. */
+function validateTemplate(template) {
+  const errors = [];
+  const meta = template.meta;
+  if (!KEBAB.test(template.slug)) errors.push("slug must be kebab-case");
+  for (const name of ["README.md", "package.json", "src/preview.tsx", "src/main.tsx", "index.html"]) {
+    if (!existsSync(join(template.dir, name))) errors.push(`missing ${name}`);
+  }
+  for (const field of ["name", "summary", "source", "kind", "viewport"]) {
+    if (typeof meta[field] !== "string" || !meta[field].trim()) errors.push(`template.${field} must be a non-empty string`);
+  }
+  for (const field of ["tags", "useWhen", "avoidWhen", "stack", "screens"]) {
+    if (!Array.isArray(meta[field]) || meta[field].length === 0) errors.push(`template.${field} must be a non-empty list`);
+  }
+  if (!STATUSES.includes(meta.status)) errors.push(`template.status must be one of: ${STATUSES.join(", ")}`);
+  for (const tag of meta.tags ?? []) {
+    if (!(tag in TAGS)) errors.push(`unknown tag "${tag}"; use one from tags.json`);
+  }
+  const seen = new Set();
+  for (const screen of meta.screens ?? []) {
+    if (!KEBAB.test(screen.id ?? "")) errors.push(`screen id must be kebab-case: ${screen.id}`);
+    if (seen.has(screen.id)) errors.push(`screen id is used twice: ${screen.id}`);
+    seen.add(screen.id);
+    if (typeof screen.path !== "string" || !screen.path.startsWith("/")) errors.push(`screen ${screen.id} needs a path starting with /`);
+  }
+  if (hasTodo(meta)) errors.push("template.json still contains TODO");
+  return errors;
+}
+
 const target = process.argv[2];
-const selected = selectComponents(target);
+const templates = listTemplates().filter((item) => !target || item.id === target || item.slug === target);
+const selected = target && templates.length > 0 ? [] : selectComponents(target);
 let failed = false;
 
 const slugs = listComponents().map((component) => component.slug);
@@ -159,6 +189,16 @@ for (const component of selected) {
   } else {
     failed = true;
     console.error(`✗ ${component.id}`);
+    for (const error of errors) console.error(`  - ${error}`);
+  }
+}
+for (const template of templates) {
+  const errors = validateTemplate(template);
+  if (errors.length === 0) {
+    console.log(`✓ ${template.id}`);
+  } else {
+    failed = true;
+    console.error(`✗ ${template.id}`);
     for (const error of errors) console.error(`  - ${error}`);
   }
 }

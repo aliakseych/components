@@ -6,6 +6,7 @@ Personal library of copy-in React, TypeScript and Tailwind components.
 
 - Search `catalog/index.json` first. Do not scan `components/` to discover components.
 - Each component is at `components/<category>/<slug>/`.
+- Whole apps to start a project from are templates in `templates/<slug>/`, listed under `templates` in `catalog/index.json`. See "Templates" in `docs/conventions.md`.
 - Search by tag with the `tags` map in `catalog/index.json`; the allowed tags are defined in `tags.json`.
 - Rules are in `docs/conventions.md`; metadata fields are in `docs/metadata-schema.md`.
 

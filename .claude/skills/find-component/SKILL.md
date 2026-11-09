@@ -9,6 +9,7 @@ The library is at `/Users/aliakseych/Projects/components`.
 
 1. Search `catalog/index.json` using the need, its `tags` map, and each component's `summary`, `useWhen` and `avoidWhen`. Only the tags in that map exist, so don't search for others.
    If the need is a whole screen, start from the matching block in the `blocks` list and choose one option per slot.
+   If the need is a whole app, check the `templates` list first: a template is a runnable project to copy, with screens previewed in `templates/<slug>/previews/`.
 2. Remove matches whose `avoidWhen` applies or whose `status` is `deprecated`.
 3. Look at the desktop and mobile previews of up to three remaining matches. Use the theme the target app uses.
 4. Check that each match's dependencies suit the target project. A match with `install` in its metadata can be added with the shadcn CLI; say so in the recommendation.

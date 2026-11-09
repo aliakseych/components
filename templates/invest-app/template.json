@@ -1,0 +1,33 @@
+{
+  "name": "Invest App",
+  "summary": "Mobile investing app: deal pools, deal and company pages, portfolio with payout schedules, top-up and invest drawers, onboarding chat and an AI assistant that answers with charts, deal cards and actions.",
+  "kind": "app",
+  "viewport": "mobile",
+  "themes": ["light"],
+  "tags": ["app shell", "ai", "chat", "chart", "onboarding", "auth", "insights", "agent"],
+  "useWhen": [
+    "Starting a mobile-first fintech or investing product with a portfolio, a catalogue of offers and payouts",
+    "An app that needs an AI assistant answering inside the product with charts, cards and confirmable actions"
+  ],
+  "avoidWhen": [
+    "Desktop dashboards: the layout is a single phone-width column with a bottom tab bar",
+    "Products without money flows: most screens assume balances, investments and payouts"
+  ],
+  "stack": ["React 19", "Vite", "Tailwind CSS 4", "Radix UI", "Recharts", "Django + Postgres API with LLM and MCP agent in server/"],
+  "screens": [
+    { "id": "home", "title": "Home", "path": "/" },
+    { "id": "deals", "title": "Deals", "path": "/deals" },
+    { "id": "deal", "title": "Deal", "path": "/deals/1" },
+    { "id": "pool", "title": "Pool", "path": "/pools/agro" },
+    { "id": "company", "title": "Company", "path": "/companies/1" },
+    { "id": "portfolio", "title": "Portfolio item", "path": "/portfolio/1" },
+    { "id": "account", "title": "Account", "path": "/account" },
+    { "id": "agents", "title": "Agents", "path": "/account/agents" },
+    { "id": "assistant", "title": "AI assistant", "path": "/?ai=open" },
+    { "id": "onboarding", "title": "Onboarding", "path": "/onboarding" },
+    { "id": "login", "title": "Sign in", "path": "/login" },
+    { "id": "register", "title": "Sign up", "path": "/register" }
+  ],
+  "source": "A hackathon investor app; brand, logos and data replaced with neutral samples",
+  "status": "experimental"
+}
