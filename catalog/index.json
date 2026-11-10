@@ -3891,7 +3891,20 @@
       ],
       "source": "A hackathon investor app; brand, logos and data replaced with neutral samples",
       "status": "experimental",
-      "previews": []
+      "previews": [
+        "templates/invest-app/previews/account.mobile.light.png",
+        "templates/invest-app/previews/agents.mobile.light.png",
+        "templates/invest-app/previews/assistant.mobile.light.png",
+        "templates/invest-app/previews/company.mobile.light.png",
+        "templates/invest-app/previews/deal.mobile.light.png",
+        "templates/invest-app/previews/deals.mobile.light.png",
+        "templates/invest-app/previews/home.mobile.light.png",
+        "templates/invest-app/previews/login.mobile.light.png",
+        "templates/invest-app/previews/onboarding.mobile.light.png",
+        "templates/invest-app/previews/pool.mobile.light.png",
+        "templates/invest-app/previews/portfolio.mobile.light.png",
+        "templates/invest-app/previews/register.mobile.light.png"
+      ]
     },
     {
       "id": "templates/telegram-app",
@@ -3960,7 +3973,20 @@
       ],
       "source": "Layout and behaviour modelled on Telegram's open-source mobile clients; rewritten compactly in React with neutral sample data and no Telegram assets",
       "status": "experimental",
-      "previews": []
+      "previews": [
+        "templates/telegram-app/previews/chat.mobile.dark.png",
+        "templates/telegram-app/previews/chat.mobile.light.png",
+        "templates/telegram-app/previews/chats.mobile.dark.png",
+        "templates/telegram-app/previews/chats.mobile.light.png",
+        "templates/telegram-app/previews/folder.mobile.dark.png",
+        "templates/telegram-app/previews/folder.mobile.light.png",
+        "templates/telegram-app/previews/group.mobile.dark.png",
+        "templates/telegram-app/previews/group.mobile.light.png",
+        "templates/telegram-app/previews/profile.mobile.dark.png",
+        "templates/telegram-app/previews/profile.mobile.light.png",
+        "templates/telegram-app/previews/settings.mobile.dark.png",
+        "templates/telegram-app/previews/settings.mobile.light.png"
+      ]
     }
   ],
   "components": [
@@ -13241,7 +13267,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/marketing/pricing/previews/default.desktop.dark.png",
+        "components/marketing/pricing/previews/default.desktop.light.png",
+        "components/marketing/pricing/previews/default.mobile.dark.png",
+        "components/marketing/pricing/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "marketing/product-navbar",
@@ -13276,7 +13307,16 @@
         "default",
         "open"
       ],
-      "previews": []
+      "previews": [
+        "components/marketing/product-navbar/previews/default.desktop.dark.png",
+        "components/marketing/product-navbar/previews/default.desktop.light.png",
+        "components/marketing/product-navbar/previews/default.mobile.dark.png",
+        "components/marketing/product-navbar/previews/default.mobile.light.png",
+        "components/marketing/product-navbar/previews/open.desktop.dark.png",
+        "components/marketing/product-navbar/previews/open.desktop.light.png",
+        "components/marketing/product-navbar/previews/open.mobile.dark.png",
+        "components/marketing/product-navbar/previews/open.mobile.light.png"
+      ]
     },
     {
       "id": "marketing/product-rail",
@@ -13307,7 +13347,16 @@
         "compact",
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/marketing/product-rail/previews/compact.desktop.dark.png",
+        "components/marketing/product-rail/previews/compact.desktop.light.png",
+        "components/marketing/product-rail/previews/compact.mobile.dark.png",
+        "components/marketing/product-rail/previews/compact.mobile.light.png",
+        "components/marketing/product-rail/previews/default.desktop.dark.png",
+        "components/marketing/product-rail/previews/default.desktop.light.png",
+        "components/marketing/product-rail/previews/default.mobile.dark.png",
+        "components/marketing/product-rail/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "marketing/stats-band",
@@ -13340,7 +13389,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/marketing/stats-band/previews/default.desktop.dark.png",
+        "components/marketing/stats-band/previews/default.desktop.light.png",
+        "components/marketing/stats-band/previews/default.mobile.dark.png",
+        "components/marketing/stats-band/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "marketing/stats-showcase",
@@ -13371,7 +13425,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/marketing/stats-showcase/previews/default.desktop.dark.png",
+        "components/marketing/stats-showcase/previews/default.desktop.light.png",
+        "components/marketing/stats-showcase/previews/default.mobile.dark.png",
+        "components/marketing/stats-showcase/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "marketing/testimonial-globe",
@@ -13408,7 +13467,16 @@
         "compact",
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/marketing/testimonial-globe/previews/compact.desktop.dark.png",
+        "components/marketing/testimonial-globe/previews/compact.desktop.light.png",
+        "components/marketing/testimonial-globe/previews/compact.mobile.dark.png",
+        "components/marketing/testimonial-globe/previews/compact.mobile.light.png",
+        "components/marketing/testimonial-globe/previews/default.desktop.dark.png",
+        "components/marketing/testimonial-globe/previews/default.desktop.light.png",
+        "components/marketing/testimonial-globe/previews/default.mobile.dark.png",
+        "components/marketing/testimonial-globe/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "marketing/waitlist-split",
@@ -13443,7 +13511,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/marketing/waitlist-split/previews/default.desktop.dark.png",
+        "components/marketing/waitlist-split/previews/default.desktop.light.png",
+        "components/marketing/waitlist-split/previews/default.mobile.dark.png",
+        "components/marketing/waitlist-split/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "media/deck",
@@ -13478,7 +13551,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/media/deck/previews/default.desktop.dark.png",
+        "components/media/deck/previews/default.desktop.light.png",
+        "components/media/deck/previews/default.mobile.dark.png",
+        "components/media/deck/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "media/device-mockup",
@@ -13511,7 +13589,16 @@
         "default",
         "phone-screen"
       ],
-      "previews": []
+      "previews": [
+        "components/media/device-mockup/previews/default.desktop.dark.png",
+        "components/media/device-mockup/previews/default.desktop.light.png",
+        "components/media/device-mockup/previews/default.mobile.dark.png",
+        "components/media/device-mockup/previews/default.mobile.light.png",
+        "components/media/device-mockup/previews/phone-screen.desktop.dark.png",
+        "components/media/device-mockup/previews/phone-screen.desktop.light.png",
+        "components/media/device-mockup/previews/phone-screen.mobile.dark.png",
+        "components/media/device-mockup/previews/phone-screen.mobile.light.png"
+      ]
     },
     {
       "id": "media/image-crop",
@@ -13547,7 +13634,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/media/image-crop/previews/default.desktop.dark.png",
+        "components/media/image-crop/previews/default.desktop.light.png",
+        "components/media/image-crop/previews/default.mobile.dark.png",
+        "components/media/image-crop/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "messaging/bubble",
@@ -13582,7 +13674,16 @@
         "default",
         "reactions"
       ],
-      "previews": []
+      "previews": [
+        "components/messaging/bubble/previews/default.desktop.dark.png",
+        "components/messaging/bubble/previews/default.desktop.light.png",
+        "components/messaging/bubble/previews/default.mobile.dark.png",
+        "components/messaging/bubble/previews/default.mobile.light.png",
+        "components/messaging/bubble/previews/reactions.desktop.dark.png",
+        "components/messaging/bubble/previews/reactions.desktop.light.png",
+        "components/messaging/bubble/previews/reactions.mobile.dark.png",
+        "components/messaging/bubble/previews/reactions.mobile.light.png"
+      ]
     },
     {
       "id": "messaging/comments-01",
@@ -13616,7 +13717,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/messaging/comments-01/previews/default.desktop.dark.png",
+        "components/messaging/comments-01/previews/default.desktop.light.png",
+        "components/messaging/comments-01/previews/default.mobile.dark.png",
+        "components/messaging/comments-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "messaging/comments-02",
@@ -13651,7 +13757,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/messaging/comments-02/previews/default.desktop.dark.png",
+        "components/messaging/comments-02/previews/default.desktop.light.png",
+        "components/messaging/comments-02/previews/default.mobile.dark.png",
+        "components/messaging/comments-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "messaging/comments-03",
@@ -13686,7 +13797,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/messaging/comments-03/previews/default.desktop.dark.png",
+        "components/messaging/comments-03/previews/default.desktop.light.png",
+        "components/messaging/comments-03/previews/default.mobile.dark.png",
+        "components/messaging/comments-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "messaging/comments-04",
@@ -13721,7 +13837,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/messaging/comments-04/previews/default.desktop.dark.png",
+        "components/messaging/comments-04/previews/default.desktop.light.png",
+        "components/messaging/comments-04/previews/default.mobile.dark.png",
+        "components/messaging/comments-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "messaging/marker",
@@ -13751,7 +13872,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/messaging/marker/previews/default.desktop.dark.png",
+        "components/messaging/marker/previews/default.desktop.light.png",
+        "components/messaging/marker/previews/default.mobile.dark.png",
+        "components/messaging/marker/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "messaging/message",
@@ -13784,7 +13910,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/messaging/message/previews/default.desktop.dark.png",
+        "components/messaging/message/previews/default.desktop.light.png",
+        "components/messaging/message/previews/default.mobile.dark.png",
+        "components/messaging/message/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/alerts-01",
@@ -13815,7 +13946,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/alerts-01/previews/default.desktop.dark.png",
+        "components/operations/alerts-01/previews/default.desktop.light.png",
+        "components/operations/alerts-01/previews/default.mobile.dark.png",
+        "components/operations/alerts-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/alerts-02",
@@ -13848,7 +13984,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/alerts-02/previews/default.desktop.dark.png",
+        "components/operations/alerts-02/previews/default.desktop.light.png",
+        "components/operations/alerts-02/previews/default.mobile.dark.png",
+        "components/operations/alerts-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/alerts-03",
@@ -13880,7 +14021,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/alerts-03/previews/default.desktop.dark.png",
+        "components/operations/alerts-03/previews/default.desktop.light.png",
+        "components/operations/alerts-03/previews/default.mobile.dark.png",
+        "components/operations/alerts-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/alerts-04",
@@ -13911,7 +14057,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/alerts-04/previews/default.desktop.dark.png",
+        "components/operations/alerts-04/previews/default.desktop.light.png",
+        "components/operations/alerts-04/previews/default.mobile.dark.png",
+        "components/operations/alerts-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/deployments-01",
@@ -13942,7 +14093,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/deployments-01/previews/default.desktop.dark.png",
+        "components/operations/deployments-01/previews/default.desktop.light.png",
+        "components/operations/deployments-01/previews/default.mobile.dark.png",
+        "components/operations/deployments-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/deployments-02",
@@ -13972,7 +14128,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/deployments-02/previews/default.desktop.dark.png",
+        "components/operations/deployments-02/previews/default.desktop.light.png",
+        "components/operations/deployments-02/previews/default.mobile.dark.png",
+        "components/operations/deployments-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/deployments-03",
@@ -14005,7 +14166,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/deployments-03/previews/default.desktop.dark.png",
+        "components/operations/deployments-03/previews/default.desktop.light.png",
+        "components/operations/deployments-03/previews/default.mobile.dark.png",
+        "components/operations/deployments-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/deployments-04",
@@ -14035,7 +14201,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/deployments-04/previews/default.desktop.dark.png",
+        "components/operations/deployments-04/previews/default.desktop.light.png",
+        "components/operations/deployments-04/previews/default.mobile.dark.png",
+        "components/operations/deployments-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/server-card",
@@ -14069,7 +14240,16 @@
         "custom-colors",
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/server-card/previews/custom-colors.desktop.dark.png",
+        "components/operations/server-card/previews/custom-colors.desktop.light.png",
+        "components/operations/server-card/previews/custom-colors.mobile.dark.png",
+        "components/operations/server-card/previews/custom-colors.mobile.light.png",
+        "components/operations/server-card/previews/default.desktop.dark.png",
+        "components/operations/server-card/previews/default.desktop.light.png",
+        "components/operations/server-card/previews/default.mobile.dark.png",
+        "components/operations/server-card/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/status-01",
@@ -14101,7 +14281,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/status-01/previews/default.desktop.dark.png",
+        "components/operations/status-01/previews/default.desktop.light.png",
+        "components/operations/status-01/previews/default.mobile.dark.png",
+        "components/operations/status-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/status-02",
@@ -14133,7 +14318,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/status-02/previews/default.desktop.dark.png",
+        "components/operations/status-02/previews/default.desktop.light.png",
+        "components/operations/status-02/previews/default.mobile.dark.png",
+        "components/operations/status-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/status-03",
@@ -14166,7 +14356,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/status-03/previews/default.desktop.dark.png",
+        "components/operations/status-03/previews/default.desktop.light.png",
+        "components/operations/status-03/previews/default.mobile.dark.png",
+        "components/operations/status-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/status-04",
@@ -14199,7 +14394,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/status-04/previews/default.desktop.dark.png",
+        "components/operations/status-04/previews/default.desktop.light.png",
+        "components/operations/status-04/previews/default.mobile.dark.png",
+        "components/operations/status-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/status-05",
@@ -14231,7 +14431,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/status-05/previews/default.desktop.dark.png",
+        "components/operations/status-05/previews/default.desktop.light.png",
+        "components/operations/status-05/previews/default.mobile.dark.png",
+        "components/operations/status-05/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "operations/workflow-builder",
@@ -14267,7 +14472,16 @@
         "custom-colors",
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/operations/workflow-builder/previews/custom-colors.desktop.dark.png",
+        "components/operations/workflow-builder/previews/custom-colors.desktop.light.png",
+        "components/operations/workflow-builder/previews/custom-colors.mobile.dark.png",
+        "components/operations/workflow-builder/previews/custom-colors.mobile.light.png",
+        "components/operations/workflow-builder/previews/default.desktop.dark.png",
+        "components/operations/workflow-builder/previews/default.desktop.light.png",
+        "components/operations/workflow-builder/previews/default.mobile.dark.png",
+        "components/operations/workflow-builder/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "pages/engineering-status",
@@ -14301,7 +14515,16 @@
         "active-incident",
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/pages/engineering-status/previews/active-incident.desktop.dark.png",
+        "components/pages/engineering-status/previews/active-incident.desktop.light.png",
+        "components/pages/engineering-status/previews/active-incident.mobile.dark.png",
+        "components/pages/engineering-status/previews/active-incident.mobile.light.png",
+        "components/pages/engineering-status/previews/default.desktop.dark.png",
+        "components/pages/engineering-status/previews/default.desktop.light.png",
+        "components/pages/engineering-status/previews/default.mobile.dark.png",
+        "components/pages/engineering-status/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/calendar",
@@ -14346,7 +14569,16 @@
         "day-view",
         "month"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/calendar/previews/day-view.desktop.dark.png",
+        "components/planning/calendar/previews/day-view.desktop.light.png",
+        "components/planning/calendar/previews/day-view.mobile.dark.png",
+        "components/planning/calendar/previews/day-view.mobile.light.png",
+        "components/planning/calendar/previews/month.desktop.dark.png",
+        "components/planning/calendar/previews/month.desktop.light.png",
+        "components/planning/calendar/previews/month.mobile.dark.png",
+        "components/planning/calendar/previews/month.mobile.light.png"
+      ]
     },
     {
       "id": "planning/calendar-01",
@@ -14380,7 +14612,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/calendar-01/previews/default.desktop.dark.png",
+        "components/planning/calendar-01/previews/default.desktop.light.png",
+        "components/planning/calendar-01/previews/default.mobile.dark.png",
+        "components/planning/calendar-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/calendar-02",
@@ -14413,7 +14650,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/calendar-02/previews/default.desktop.dark.png",
+        "components/planning/calendar-02/previews/default.desktop.light.png",
+        "components/planning/calendar-02/previews/default.mobile.dark.png",
+        "components/planning/calendar-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/calendar-03",
@@ -14446,7 +14688,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/calendar-03/previews/default.desktop.dark.png",
+        "components/planning/calendar-03/previews/default.desktop.light.png",
+        "components/planning/calendar-03/previews/default.mobile.dark.png",
+        "components/planning/calendar-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/calendar-04",
@@ -14479,7 +14726,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/calendar-04/previews/default.desktop.dark.png",
+        "components/planning/calendar-04/previews/default.desktop.light.png",
+        "components/planning/calendar-04/previews/default.mobile.dark.png",
+        "components/planning/calendar-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/checklist-01",
@@ -14510,7 +14762,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/checklist-01/previews/default.desktop.dark.png",
+        "components/planning/checklist-01/previews/default.desktop.light.png",
+        "components/planning/checklist-01/previews/default.mobile.dark.png",
+        "components/planning/checklist-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/checklist-02",
@@ -14541,7 +14798,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/checklist-02/previews/default.desktop.dark.png",
+        "components/planning/checklist-02/previews/default.desktop.light.png",
+        "components/planning/checklist-02/previews/default.mobile.dark.png",
+        "components/planning/checklist-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/checklist-03",
@@ -14572,7 +14834,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/checklist-03/previews/default.desktop.dark.png",
+        "components/planning/checklist-03/previews/default.desktop.light.png",
+        "components/planning/checklist-03/previews/default.mobile.dark.png",
+        "components/planning/checklist-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/checklist-04",
@@ -14602,7 +14869,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/checklist-04/previews/default.desktop.dark.png",
+        "components/planning/checklist-04/previews/default.desktop.light.png",
+        "components/planning/checklist-04/previews/default.mobile.dark.png",
+        "components/planning/checklist-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/event-calendar",
@@ -14642,7 +14914,20 @@
         "default",
         "resources"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/event-calendar/previews/booking.desktop.dark.png",
+        "components/planning/event-calendar/previews/booking.desktop.light.png",
+        "components/planning/event-calendar/previews/booking.mobile.dark.png",
+        "components/planning/event-calendar/previews/booking.mobile.light.png",
+        "components/planning/event-calendar/previews/default.desktop.dark.png",
+        "components/planning/event-calendar/previews/default.desktop.light.png",
+        "components/planning/event-calendar/previews/default.mobile.dark.png",
+        "components/planning/event-calendar/previews/default.mobile.light.png",
+        "components/planning/event-calendar/previews/resources.desktop.dark.png",
+        "components/planning/event-calendar/previews/resources.desktop.light.png",
+        "components/planning/event-calendar/previews/resources.mobile.dark.png",
+        "components/planning/event-calendar/previews/resources.mobile.light.png"
+      ]
     },
     {
       "id": "planning/gantt",
@@ -14685,7 +14970,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/gantt/previews/default.desktop.dark.png",
+        "components/planning/gantt/previews/default.desktop.light.png",
+        "components/planning/gantt/previews/default.mobile.dark.png",
+        "components/planning/gantt/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/gantt-scheduler",
@@ -14726,7 +15016,24 @@
         "reorder",
         "roadmap"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/gantt-scheduler/previews/baseline.desktop.dark.png",
+        "components/planning/gantt-scheduler/previews/baseline.desktop.light.png",
+        "components/planning/gantt-scheduler/previews/baseline.mobile.dark.png",
+        "components/planning/gantt-scheduler/previews/baseline.mobile.light.png",
+        "components/planning/gantt-scheduler/previews/default.desktop.dark.png",
+        "components/planning/gantt-scheduler/previews/default.desktop.light.png",
+        "components/planning/gantt-scheduler/previews/default.mobile.dark.png",
+        "components/planning/gantt-scheduler/previews/default.mobile.light.png",
+        "components/planning/gantt-scheduler/previews/reorder.desktop.dark.png",
+        "components/planning/gantt-scheduler/previews/reorder.desktop.light.png",
+        "components/planning/gantt-scheduler/previews/reorder.mobile.dark.png",
+        "components/planning/gantt-scheduler/previews/reorder.mobile.light.png",
+        "components/planning/gantt-scheduler/previews/roadmap.desktop.dark.png",
+        "components/planning/gantt-scheduler/previews/roadmap.desktop.light.png",
+        "components/planning/gantt-scheduler/previews/roadmap.mobile.dark.png",
+        "components/planning/gantt-scheduler/previews/roadmap.mobile.light.png"
+      ]
     },
     {
       "id": "planning/issue-split-view",
@@ -14763,7 +15070,16 @@
         "custom-colors",
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/issue-split-view/previews/custom-colors.desktop.dark.png",
+        "components/planning/issue-split-view/previews/custom-colors.desktop.light.png",
+        "components/planning/issue-split-view/previews/custom-colors.mobile.dark.png",
+        "components/planning/issue-split-view/previews/custom-colors.mobile.light.png",
+        "components/planning/issue-split-view/previews/default.desktop.dark.png",
+        "components/planning/issue-split-view/previews/default.desktop.light.png",
+        "components/planning/issue-split-view/previews/default.mobile.dark.png",
+        "components/planning/issue-split-view/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/kanban",
@@ -14800,7 +15116,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/kanban/previews/default.desktop.dark.png",
+        "components/planning/kanban/previews/default.desktop.light.png",
+        "components/planning/kanban/previews/default.mobile.dark.png",
+        "components/planning/kanban/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/kanban-01",
@@ -14835,7 +15156,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/kanban-01/previews/default.desktop.dark.png",
+        "components/planning/kanban-01/previews/default.desktop.light.png",
+        "components/planning/kanban-01/previews/default.mobile.dark.png",
+        "components/planning/kanban-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/kanban-02",
@@ -14871,7 +15197,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/kanban-02/previews/default.desktop.dark.png",
+        "components/planning/kanban-02/previews/default.desktop.light.png",
+        "components/planning/kanban-02/previews/default.mobile.dark.png",
+        "components/planning/kanban-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/kanban-03",
@@ -14906,7 +15237,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/kanban-03/previews/default.desktop.dark.png",
+        "components/planning/kanban-03/previews/default.desktop.light.png",
+        "components/planning/kanban-03/previews/default.mobile.dark.png",
+        "components/planning/kanban-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/kanban-dnd",
@@ -14942,7 +15278,16 @@
         "default",
         "overlay"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/kanban-dnd/previews/default.desktop.dark.png",
+        "components/planning/kanban-dnd/previews/default.desktop.light.png",
+        "components/planning/kanban-dnd/previews/default.mobile.dark.png",
+        "components/planning/kanban-dnd/previews/default.mobile.light.png",
+        "components/planning/kanban-dnd/previews/overlay.desktop.dark.png",
+        "components/planning/kanban-dnd/previews/overlay.desktop.light.png",
+        "components/planning/kanban-dnd/previews/overlay.mobile.dark.png",
+        "components/planning/kanban-dnd/previews/overlay.mobile.light.png"
+      ]
     },
     {
       "id": "planning/list",
@@ -14976,7 +15321,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/list/previews/default.desktop.dark.png",
+        "components/planning/list/previews/default.desktop.light.png",
+        "components/planning/list/previews/default.mobile.dark.png",
+        "components/planning/list/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/mini-calendar",
@@ -15012,7 +15362,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/mini-calendar/previews/default.desktop.dark.png",
+        "components/planning/mini-calendar/previews/default.desktop.light.png",
+        "components/planning/mini-calendar/previews/default.mobile.dark.png",
+        "components/planning/mini-calendar/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/roadmap",
@@ -15060,7 +15415,16 @@
         "calendar",
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/roadmap/previews/calendar.desktop.dark.png",
+        "components/planning/roadmap/previews/calendar.desktop.light.png",
+        "components/planning/roadmap/previews/calendar.mobile.dark.png",
+        "components/planning/roadmap/previews/calendar.mobile.light.png",
+        "components/planning/roadmap/previews/default.desktop.dark.png",
+        "components/planning/roadmap/previews/default.desktop.light.png",
+        "components/planning/roadmap/previews/default.mobile.dark.png",
+        "components/planning/roadmap/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/schedule-01",
@@ -15090,7 +15454,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/schedule-01/previews/default.desktop.dark.png",
+        "components/planning/schedule-01/previews/default.desktop.light.png",
+        "components/planning/schedule-01/previews/default.mobile.dark.png",
+        "components/planning/schedule-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/schedule-02",
@@ -15120,7 +15489,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/schedule-02/previews/default.desktop.dark.png",
+        "components/planning/schedule-02/previews/default.desktop.light.png",
+        "components/planning/schedule-02/previews/default.mobile.dark.png",
+        "components/planning/schedule-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/schedule-03",
@@ -15150,7 +15524,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/schedule-03/previews/default.desktop.dark.png",
+        "components/planning/schedule-03/previews/default.desktop.light.png",
+        "components/planning/schedule-03/previews/default.mobile.dark.png",
+        "components/planning/schedule-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/schedule-04",
@@ -15182,7 +15561,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/schedule-04/previews/default.desktop.dark.png",
+        "components/planning/schedule-04/previews/default.desktop.light.png",
+        "components/planning/schedule-04/previews/default.mobile.dark.png",
+        "components/planning/schedule-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/timeline-01",
@@ -15216,7 +15600,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/timeline-01/previews/default.desktop.dark.png",
+        "components/planning/timeline-01/previews/default.desktop.light.png",
+        "components/planning/timeline-01/previews/default.mobile.dark.png",
+        "components/planning/timeline-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/timeline-02",
@@ -15249,7 +15638,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/timeline-02/previews/default.desktop.dark.png",
+        "components/planning/timeline-02/previews/default.desktop.light.png",
+        "components/planning/timeline-02/previews/default.mobile.dark.png",
+        "components/planning/timeline-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/timeline-03",
@@ -15282,7 +15676,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/timeline-03/previews/default.desktop.dark.png",
+        "components/planning/timeline-03/previews/default.desktop.light.png",
+        "components/planning/timeline-03/previews/default.mobile.dark.png",
+        "components/planning/timeline-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "planning/timeline-04",
@@ -15315,7 +15714,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/planning/timeline-04/previews/default.desktop.dark.png",
+        "components/planning/timeline-04/previews/default.desktop.light.png",
+        "components/planning/timeline-04/previews/default.mobile.dark.png",
+        "components/planning/timeline-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/activity-feed-01",
@@ -15347,7 +15751,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/activity-feed-01/previews/default.desktop.dark.png",
+        "components/workspace/activity-feed-01/previews/default.desktop.light.png",
+        "components/workspace/activity-feed-01/previews/default.mobile.dark.png",
+        "components/workspace/activity-feed-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/activity-feed-02",
@@ -15377,7 +15786,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/activity-feed-02/previews/default.desktop.dark.png",
+        "components/workspace/activity-feed-02/previews/default.desktop.light.png",
+        "components/workspace/activity-feed-02/previews/default.mobile.dark.png",
+        "components/workspace/activity-feed-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/activity-feed-03",
@@ -15411,7 +15825,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/activity-feed-03/previews/default.desktop.dark.png",
+        "components/workspace/activity-feed-03/previews/default.desktop.light.png",
+        "components/workspace/activity-feed-03/previews/default.mobile.dark.png",
+        "components/workspace/activity-feed-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/activity-feed-04",
@@ -15444,7 +15863,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/activity-feed-04/previews/default.desktop.dark.png",
+        "components/workspace/activity-feed-04/previews/default.desktop.light.png",
+        "components/workspace/activity-feed-04/previews/default.mobile.dark.png",
+        "components/workspace/activity-feed-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/activity-feed-05",
@@ -15478,7 +15902,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/activity-feed-05/previews/default.desktop.dark.png",
+        "components/workspace/activity-feed-05/previews/default.desktop.light.png",
+        "components/workspace/activity-feed-05/previews/default.mobile.dark.png",
+        "components/workspace/activity-feed-05/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/auth-01",
@@ -15511,7 +15940,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/auth-01/previews/default.desktop.dark.png",
+        "components/workspace/auth-01/previews/default.desktop.light.png",
+        "components/workspace/auth-01/previews/default.mobile.dark.png",
+        "components/workspace/auth-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/auth-02",
@@ -15544,7 +15978,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/auth-02/previews/default.desktop.dark.png",
+        "components/workspace/auth-02/previews/default.desktop.light.png",
+        "components/workspace/auth-02/previews/default.mobile.dark.png",
+        "components/workspace/auth-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/auth-03",
@@ -15578,7 +16017,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/auth-03/previews/default.desktop.dark.png",
+        "components/workspace/auth-03/previews/default.desktop.light.png",
+        "components/workspace/auth-03/previews/default.mobile.dark.png",
+        "components/workspace/auth-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/auth-04",
@@ -15611,7 +16055,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/auth-04/previews/default.desktop.dark.png",
+        "components/workspace/auth-04/previews/default.desktop.light.png",
+        "components/workspace/auth-04/previews/default.mobile.dark.png",
+        "components/workspace/auth-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/auth-05",
@@ -15646,7 +16095,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/auth-05/previews/default.desktop.dark.png",
+        "components/workspace/auth-05/previews/default.desktop.light.png",
+        "components/workspace/auth-05/previews/default.mobile.dark.png",
+        "components/workspace/auth-05/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/auth-06",
@@ -15681,7 +16135,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/auth-06/previews/default.desktop.dark.png",
+        "components/workspace/auth-06/previews/default.desktop.light.png",
+        "components/workspace/auth-06/previews/default.mobile.dark.png",
+        "components/workspace/auth-06/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/auth-07",
@@ -15716,7 +16175,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/auth-07/previews/default.desktop.dark.png",
+        "components/workspace/auth-07/previews/default.desktop.light.png",
+        "components/workspace/auth-07/previews/default.mobile.dark.png",
+        "components/workspace/auth-07/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/error-pages-01",
@@ -15746,7 +16210,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/error-pages-01/previews/default.desktop.dark.png",
+        "components/workspace/error-pages-01/previews/default.desktop.light.png",
+        "components/workspace/error-pages-01/previews/default.mobile.dark.png",
+        "components/workspace/error-pages-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/error-pages-02",
@@ -15777,7 +16246,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/error-pages-02/previews/default.desktop.dark.png",
+        "components/workspace/error-pages-02/previews/default.desktop.light.png",
+        "components/workspace/error-pages-02/previews/default.mobile.dark.png",
+        "components/workspace/error-pages-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/error-pages-03",
@@ -15810,7 +16284,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/error-pages-03/previews/default.desktop.dark.png",
+        "components/workspace/error-pages-03/previews/default.desktop.light.png",
+        "components/workspace/error-pages-03/previews/default.mobile.dark.png",
+        "components/workspace/error-pages-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/error-pages-04",
@@ -15840,7 +16319,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/error-pages-04/previews/default.desktop.dark.png",
+        "components/workspace/error-pages-04/previews/default.desktop.light.png",
+        "components/workspace/error-pages-04/previews/default.mobile.dark.png",
+        "components/workspace/error-pages-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/error-pages-05",
@@ -15869,7 +16353,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/error-pages-05/previews/default.desktop.dark.png",
+        "components/workspace/error-pages-05/previews/default.desktop.light.png",
+        "components/workspace/error-pages-05/previews/default.mobile.dark.png",
+        "components/workspace/error-pages-05/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/files-01",
@@ -15901,7 +16390,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/files-01/previews/default.desktop.dark.png",
+        "components/workspace/files-01/previews/default.desktop.light.png",
+        "components/workspace/files-01/previews/default.mobile.dark.png",
+        "components/workspace/files-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/files-02",
@@ -15937,7 +16431,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/files-02/previews/default.desktop.dark.png",
+        "components/workspace/files-02/previews/default.desktop.light.png",
+        "components/workspace/files-02/previews/default.mobile.dark.png",
+        "components/workspace/files-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/files-03",
@@ -15969,7 +16468,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/files-03/previews/default.desktop.dark.png",
+        "components/workspace/files-03/previews/default.desktop.light.png",
+        "components/workspace/files-03/previews/default.mobile.dark.png",
+        "components/workspace/files-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/files-04",
@@ -16000,7 +16504,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/files-04/previews/default.desktop.dark.png",
+        "components/workspace/files-04/previews/default.desktop.light.png",
+        "components/workspace/files-04/previews/default.mobile.dark.png",
+        "components/workspace/files-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/note-outline",
@@ -16034,7 +16543,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/note-outline/previews/default.desktop.dark.png",
+        "components/workspace/note-outline/previews/default.desktop.light.png",
+        "components/workspace/note-outline/previews/default.mobile.dark.png",
+        "components/workspace/note-outline/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/notifications-01",
@@ -16067,7 +16581,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/notifications-01/previews/default.desktop.dark.png",
+        "components/workspace/notifications-01/previews/default.desktop.light.png",
+        "components/workspace/notifications-01/previews/default.mobile.dark.png",
+        "components/workspace/notifications-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/notifications-02",
@@ -16100,7 +16619,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/notifications-02/previews/default.desktop.dark.png",
+        "components/workspace/notifications-02/previews/default.desktop.light.png",
+        "components/workspace/notifications-02/previews/default.mobile.dark.png",
+        "components/workspace/notifications-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/notifications-03",
@@ -16132,7 +16656,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/notifications-03/previews/default.desktop.dark.png",
+        "components/workspace/notifications-03/previews/default.desktop.light.png",
+        "components/workspace/notifications-03/previews/default.mobile.dark.png",
+        "components/workspace/notifications-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/onboarding-01",
@@ -16167,7 +16696,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/onboarding-01/previews/default.desktop.dark.png",
+        "components/workspace/onboarding-01/previews/default.desktop.light.png",
+        "components/workspace/onboarding-01/previews/default.mobile.dark.png",
+        "components/workspace/onboarding-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/onboarding-02",
@@ -16202,7 +16736,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/onboarding-02/previews/default.desktop.dark.png",
+        "components/workspace/onboarding-02/previews/default.desktop.light.png",
+        "components/workspace/onboarding-02/previews/default.mobile.dark.png",
+        "components/workspace/onboarding-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/onboarding-03",
@@ -16235,7 +16774,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/onboarding-03/previews/default.desktop.dark.png",
+        "components/workspace/onboarding-03/previews/default.desktop.light.png",
+        "components/workspace/onboarding-03/previews/default.mobile.dark.png",
+        "components/workspace/onboarding-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/onboarding-04",
@@ -16270,7 +16814,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/onboarding-04/previews/default.desktop.dark.png",
+        "components/workspace/onboarding-04/previews/default.desktop.light.png",
+        "components/workspace/onboarding-04/previews/default.mobile.dark.png",
+        "components/workspace/onboarding-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/record-detail-01",
@@ -16302,7 +16851,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/record-detail-01/previews/default.desktop.dark.png",
+        "components/workspace/record-detail-01/previews/default.desktop.light.png",
+        "components/workspace/record-detail-01/previews/default.mobile.dark.png",
+        "components/workspace/record-detail-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/record-detail-02",
@@ -16333,7 +16887,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/record-detail-02/previews/default.desktop.dark.png",
+        "components/workspace/record-detail-02/previews/default.desktop.light.png",
+        "components/workspace/record-detail-02/previews/default.mobile.dark.png",
+        "components/workspace/record-detail-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/record-detail-03",
@@ -16366,7 +16925,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/record-detail-03/previews/default.desktop.dark.png",
+        "components/workspace/record-detail-03/previews/default.desktop.light.png",
+        "components/workspace/record-detail-03/previews/default.mobile.dark.png",
+        "components/workspace/record-detail-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/security-01",
@@ -16398,7 +16962,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/security-01/previews/default.desktop.dark.png",
+        "components/workspace/security-01/previews/default.desktop.light.png",
+        "components/workspace/security-01/previews/default.mobile.dark.png",
+        "components/workspace/security-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/security-02",
@@ -16427,7 +16996,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/security-02/previews/default.desktop.dark.png",
+        "components/workspace/security-02/previews/default.desktop.light.png",
+        "components/workspace/security-02/previews/default.mobile.dark.png",
+        "components/workspace/security-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/security-03",
@@ -16456,7 +17030,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/security-03/previews/default.desktop.dark.png",
+        "components/workspace/security-03/previews/default.desktop.light.png",
+        "components/workspace/security-03/previews/default.mobile.dark.png",
+        "components/workspace/security-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/security-04",
@@ -16485,7 +17064,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/security-04/previews/default.desktop.dark.png",
+        "components/workspace/security-04/previews/default.desktop.light.png",
+        "components/workspace/security-04/previews/default.mobile.dark.png",
+        "components/workspace/security-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/security-05",
@@ -16516,7 +17100,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/security-05/previews/default.desktop.dark.png",
+        "components/workspace/security-05/previews/default.desktop.light.png",
+        "components/workspace/security-05/previews/default.mobile.dark.png",
+        "components/workspace/security-05/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/security-06",
@@ -16550,7 +17139,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/security-06/previews/default.desktop.dark.png",
+        "components/workspace/security-06/previews/default.desktop.light.png",
+        "components/workspace/security-06/previews/default.mobile.dark.png",
+        "components/workspace/security-06/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/settings-01",
@@ -16583,7 +17177,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/settings-01/previews/default.desktop.dark.png",
+        "components/workspace/settings-01/previews/default.desktop.light.png",
+        "components/workspace/settings-01/previews/default.mobile.dark.png",
+        "components/workspace/settings-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/settings-02",
@@ -16615,7 +17214,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/settings-02/previews/default.desktop.dark.png",
+        "components/workspace/settings-02/previews/default.desktop.light.png",
+        "components/workspace/settings-02/previews/default.mobile.dark.png",
+        "components/workspace/settings-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/settings-03",
@@ -16646,7 +17250,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/settings-03/previews/default.desktop.dark.png",
+        "components/workspace/settings-03/previews/default.desktop.light.png",
+        "components/workspace/settings-03/previews/default.mobile.dark.png",
+        "components/workspace/settings-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/settings-04",
@@ -16679,7 +17288,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/settings-04/previews/default.desktop.dark.png",
+        "components/workspace/settings-04/previews/default.desktop.light.png",
+        "components/workspace/settings-04/previews/default.mobile.dark.png",
+        "components/workspace/settings-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/settings-05",
@@ -16713,7 +17327,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/settings-05/previews/default.desktop.dark.png",
+        "components/workspace/settings-05/previews/default.desktop.light.png",
+        "components/workspace/settings-05/previews/default.mobile.dark.png",
+        "components/workspace/settings-05/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/settings-06",
@@ -16745,7 +17364,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/settings-06/previews/default.desktop.dark.png",
+        "components/workspace/settings-06/previews/default.desktop.light.png",
+        "components/workspace/settings-06/previews/default.mobile.dark.png",
+        "components/workspace/settings-06/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/settings-07",
@@ -16781,7 +17405,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/settings-07/previews/default.desktop.dark.png",
+        "components/workspace/settings-07/previews/default.desktop.light.png",
+        "components/workspace/settings-07/previews/default.mobile.dark.png",
+        "components/workspace/settings-07/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/sign-in-split",
@@ -16814,7 +17443,16 @@
         "default",
         "textures"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/sign-in-split/previews/default.desktop.dark.png",
+        "components/workspace/sign-in-split/previews/default.desktop.light.png",
+        "components/workspace/sign-in-split/previews/default.mobile.dark.png",
+        "components/workspace/sign-in-split/previews/default.mobile.light.png",
+        "components/workspace/sign-in-split/previews/textures.desktop.dark.png",
+        "components/workspace/sign-in-split/previews/textures.desktop.light.png",
+        "components/workspace/sign-in-split/previews/textures.mobile.dark.png",
+        "components/workspace/sign-in-split/previews/textures.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/sign-up-split",
@@ -16849,7 +17487,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/sign-up-split/previews/default.desktop.dark.png",
+        "components/workspace/sign-up-split/previews/default.desktop.light.png",
+        "components/workspace/sign-up-split/previews/default.mobile.dark.png",
+        "components/workspace/sign-up-split/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/team-01",
@@ -16881,7 +17524,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/team-01/previews/default.desktop.dark.png",
+        "components/workspace/team-01/previews/default.desktop.light.png",
+        "components/workspace/team-01/previews/default.mobile.dark.png",
+        "components/workspace/team-01/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/team-02",
@@ -16912,7 +17560,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/team-02/previews/default.desktop.dark.png",
+        "components/workspace/team-02/previews/default.desktop.light.png",
+        "components/workspace/team-02/previews/default.mobile.dark.png",
+        "components/workspace/team-02/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/team-03",
@@ -16943,7 +17596,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/team-03/previews/default.desktop.dark.png",
+        "components/workspace/team-03/previews/default.desktop.light.png",
+        "components/workspace/team-03/previews/default.mobile.dark.png",
+        "components/workspace/team-03/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/team-04",
@@ -16975,7 +17633,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/team-04/previews/default.desktop.dark.png",
+        "components/workspace/team-04/previews/default.desktop.light.png",
+        "components/workspace/team-04/previews/default.mobile.dark.png",
+        "components/workspace/team-04/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/team-05",
@@ -17009,7 +17672,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/team-05/previews/default.desktop.dark.png",
+        "components/workspace/team-05/previews/default.desktop.light.png",
+        "components/workspace/team-05/previews/default.mobile.dark.png",
+        "components/workspace/team-05/previews/default.mobile.light.png"
+      ]
     },
     {
       "id": "workspace/team-06",
@@ -17043,7 +17711,12 @@
       "demos": [
         "default"
       ],
-      "previews": []
+      "previews": [
+        "components/workspace/team-06/previews/default.desktop.dark.png",
+        "components/workspace/team-06/previews/default.desktop.light.png",
+        "components/workspace/team-06/previews/default.mobile.dark.png",
+        "components/workspace/team-06/previews/default.mobile.light.png"
+      ]
     }
   ]
 }
