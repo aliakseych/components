@@ -1,5 +1,5 @@
 # Gallery + MCP server. Build: docker build -t components . Run: docker run -p 8080:8080 components
-FROM node:24-alpine AS build
+FROM node:26-alpine AS build
 WORKDIR /app
 RUN npm install -g pnpm@10.33.0
 COPY package.json pnpm-lock.yaml ./
@@ -7,7 +7,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm run build && pnpm prune --prod
 
-FROM node:24-alpine
+FROM node:26-alpine
 WORKDIR /app
 ENV NODE_ENV=production PORT=8080
 COPY --from=build /app/node_modules ./node_modules
