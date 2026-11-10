@@ -1,7 +1,7 @@
 # Gallery + MCP server. Build: docker build -t components . Run: docker run -p 8080:8080 components
 FROM node:24-alpine AS build
 WORKDIR /app
-RUN corepack enable
+RUN npm install -g pnpm@10.33.0
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 COPY . .
