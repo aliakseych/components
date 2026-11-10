@@ -22,6 +22,12 @@ docker compose up -d --build
 
 One container serves the built gallery at http://localhost:8080 and the MCP server at http://localhost:8080/mcp. Rebuild after changing components so the catalog in the image is current.
 
+CI publishes the same image as `ghcr.io/aliakseych/components:latest` on every push to `main`. To run the published image and keep it current, use it with [Watchtower](https://github.com/nicholas-fedor/watchtower) and the label `com.centurylinklabs.watchtower.enable=true`.
+
+## CI and security
+
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) type-checks, validates and confirms `catalog/` and `llms.txt` are regenerated, then builds the image. Trivy scans the image and the repository (dependencies, secrets, Dockerfile and workflow misconfiguration), and CodeQL analyses the code; all results upload as SARIF to the repository's Security tab. Critical fixable image vulnerabilities fail the build. Pull requests also run dependency review. [`dependabot.yml`](.github/dependabot.yml) updates npm packages, actions and the Docker base image weekly. Actions are pinned by commit SHA.
+
 ## Commands
 
 | Command | What it does |
