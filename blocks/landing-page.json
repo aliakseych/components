@@ -9,7 +9,9 @@
       "description": "The top bar with links and menus",
       "options": [
         "marketing/product-navbar/default",
-        "marketing/product-navbar/open"
+        "marketing/product-navbar/open",
+        "marketing/pill-navbar/default",
+        "marketing/pill-navbar/open"
       ]
     },
     {

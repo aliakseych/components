@@ -130,6 +130,7 @@
         "marketing/halftone-footer",
         "marketing/hills-footer",
         "marketing/logo-cloud",
+        "marketing/pill-navbar",
         "marketing/pricing",
         "marketing/product-navbar",
         "marketing/product-rail",
@@ -1544,7 +1545,9 @@
           "description": "The top bar with links and menus",
           "options": [
             "marketing/product-navbar/default",
-            "marketing/product-navbar/open"
+            "marketing/product-navbar/open",
+            "marketing/pill-navbar/default",
+            "marketing/pill-navbar/open"
           ]
         },
         {
@@ -2100,6 +2103,7 @@
         "marketing/dithered-footer",
         "marketing/halftone-footer",
         "marketing/hills-footer",
+        "marketing/pill-navbar",
         "marketing/product-rail",
         "marketing/testimonial-globe",
         "media/deck",
@@ -2947,6 +2951,7 @@
         "marketing/display-cards",
         "marketing/feature",
         "marketing/logo-cloud",
+        "marketing/pill-navbar",
         "marketing/pricing",
         "marketing/product-navbar",
         "marketing/stats-band",
@@ -3073,6 +3078,7 @@
         "marketing/halftone-footer",
         "marketing/hills-footer",
         "marketing/logo-cloud",
+        "marketing/pill-navbar",
         "marketing/pricing",
         "marketing/product-navbar",
         "marketing/product-rail",
@@ -3092,6 +3098,7 @@
         "app-interface/navigation-menu",
         "app-interface/sidebar-glass",
         "forms/cascader",
+        "marketing/pill-navbar",
         "marketing/product-navbar"
       ]
     },
@@ -3146,6 +3153,7 @@
         "dashboard/page-header-04",
         "hero-page/chapter-rail",
         "hero-page/prism-hero",
+        "marketing/pill-navbar",
         "marketing/product-navbar",
         "planning/mini-calendar",
         "workspace/note-outline"
@@ -13167,6 +13175,53 @@
         "components/marketing/logo-cloud/previews/default.desktop.light.png",
         "components/marketing/logo-cloud/previews/default.mobile.dark.png",
         "components/marketing/logo-cloud/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/pill-navbar",
+      "category": "marketing",
+      "slug": "pill-navbar",
+      "path": "components/marketing/pill-navbar",
+      "name": "Pill Navbar",
+      "summary": "A floating pill-shaped top bar with a stroke-drawn logo, hover-wash nav items and multi-column mega dropdowns that collapses into a Menu/Close panel on narrow screens.",
+      "tags": [
+        "navigation",
+        "menu",
+        "landing page",
+        "marketing",
+        "animation"
+      ],
+      "useWhen": [
+        "A marketing site wants a floating, rounded header with rich product dropdowns",
+        "Dropdowns need grouped columns of icon, title and description links with hover intent and arrow-key navigation"
+      ],
+      "avoidWhen": [
+        "A full-width classic top bar fits better; use marketing/product-navbar",
+        "An app shell needs persistent navigation; use a sidebar from app-interface"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "source": "MockFlow (mockflow.com/mcp/wireframepro)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "expanded",
+        "open"
+      ],
+      "previews": [
+        "components/marketing/pill-navbar/previews/default.desktop.dark.png",
+        "components/marketing/pill-navbar/previews/default.desktop.light.png",
+        "components/marketing/pill-navbar/previews/default.mobile.dark.png",
+        "components/marketing/pill-navbar/previews/default.mobile.light.png",
+        "components/marketing/pill-navbar/previews/expanded.desktop.dark.png",
+        "components/marketing/pill-navbar/previews/expanded.desktop.light.png",
+        "components/marketing/pill-navbar/previews/expanded.mobile.dark.png",
+        "components/marketing/pill-navbar/previews/expanded.mobile.light.png",
+        "components/marketing/pill-navbar/previews/open.desktop.dark.png",
+        "components/marketing/pill-navbar/previews/open.desktop.light.png",
+        "components/marketing/pill-navbar/previews/open.mobile.dark.png",
+        "components/marketing/pill-navbar/previews/open.mobile.light.png"
       ]
     },
     {
