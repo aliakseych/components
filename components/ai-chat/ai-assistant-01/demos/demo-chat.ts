@@ -47,3 +47,16 @@ async function* demoReply(
 export function useDemoChat(initialMessages?: AIMessage[]): AIChat {
   return useChatStream({ initialMessages, onSend: demoReply });
 }
+
+/** A short finished exchange with reasoning and a formatted answer, for demos that start mid-conversation. */
+export const seededMessages = (question: string, answer: string[]): AIMessage[] => [
+  { id: "seed-q", role: "user", parts: [{ type: "text", text: question, state: "done" }] },
+  {
+    id: "seed-a",
+    role: "assistant",
+    parts: [
+      { type: "reasoning", text: "Comparing the latest period with the one before it, then ranking the changes.", state: "done" },
+      { type: "text", text: answer.join("\n\n"), state: "done" },
+    ],
+  },
+];

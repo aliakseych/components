@@ -1,75 +1,69 @@
 "use client";
 
 import {
+  CheckIcon,
   CircleAlertIcon,
   CopyIcon,
   RefreshCwIcon,
   SparklesIcon,
-  UserIcon,
+  ThumbsDownIcon,
+  ThumbsUpIcon,
 } from "lucide-react";
-import type { ComponentProps, ReactNode } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { type ComponentProps, type ReactNode, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Bubble, BubbleContent } from "@/components/messaging/bubble";
-import {
-  Message,
-  MessageAvatar,
-  MessageContent,
-  MessageFooter,
-  MessageGroup,
-  MessageHeader,
-} from "@/components/messaging/message";
 import { cn } from "@/lib/utils";
 
 export type ConversationTurn = {
   id: string;
   role: "user" | "assistant";
-  /** Text, or any rich content such as a code block. */
+  /** Text, or any rich content such as a code block or a table. */
   content: ReactNode;
   /** A time or status shown under the turn. */
   footer?: ReactNode;
   /** Shows a failed reply with a retry button. */
   error?: boolean;
+  /** Tool calls, reasoning or sources shown above the reply text. */
+  activity?: ReactNode;
 };
 
 export type ConversationProps = Omit<ComponentProps<"div">, "children"> & {
   turns: ConversationTurn[];
-  user?: { name: string; image?: string };
-  assistant?: { name: string; image?: string };
-  /** Shows copy and regenerate under assistant turns. */
+  /** Name used for the assistant's accessible label. */
+  assistantName?: string;
+  /** Shows copy under assistant turns. Receives the turn. */
   onCopy?: (turn: ConversationTurn) => void;
   onRegenerate?: (turn: ConversationTurn) => void;
-  /** Shows "Thinking…" after the last turn. */
+  /** Shows thumbs up and down under assistant turns. */
+  onFeedback?: (turn: ConversationTurn, value: "up" | "down") => void;
+  /** Shows a typing indicator after the last turn. */
   busy?: boolean;
   busyLabel?: string;
 };
 
-const avatarClassName =
-  "size-7 min-w-7 self-start bg-transparent group-has-data-[slot=message-footer]/message:translate-y-0";
-
-const AssistantAvatar = ({ image, busy }: { image?: string; busy?: boolean }) => (
-  <MessageAvatar className={avatarClassName}>
-    <Avatar className="size-7">
-      <AvatarImage alt="" src={image} />
-      <AvatarFallback className="bg-primary text-primary-foreground">
-        <SparklesIcon className={cn("size-3.5", busy && "animate-pulse")} />
-      </AvatarFallback>
-    </Avatar>
-  </MessageAvatar>
+const AssistantMark = ({ busy }: { busy?: boolean }) => (
+  <span
+    aria-hidden
+    className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full border bg-card text-foreground shadow-xs"
+  >
+    <SparklesIcon className={cn("size-3", busy && "animate-pulse")} />
+  </span>
 );
 
 const ActionButton = ({
   label,
   onClick,
+  active,
   children,
 }: {
   label: string;
   onClick: () => void;
+  active?: boolean;
   children: ReactNode;
 }) => (
   <Button
     aria-label={label}
-    className="text-muted-foreground"
+    aria-pressed={active}
+    className={cn("text-muted-foreground", active && "text-foreground")}
     onClick={onClick}
     size="icon-xs"
     title={label}
@@ -80,97 +74,155 @@ const ActionButton = ({
   </Button>
 );
 
-/** The turns of an AI chat, built from the messaging Message and Bubble parts. */
-export const Conversation = ({
-  turns,
-  user = { name: "You" },
-  assistant = { name: "Assistant" },
+const Turn = ({
+  turn,
   onCopy,
   onRegenerate,
+  onFeedback,
+}: { turn: ConversationTurn } & Pick<ConversationProps, "onCopy" | "onRegenerate" | "onFeedback">) => {
+  const [copied, setCopied] = useState(false);
+  const [vote, setVote] = useState<"up" | "down" | null>(null);
+
+  if (turn.role === "user") {
+    return (
+      <div className="flex flex-col items-end gap-1" data-role="user">
+        <div className="max-w-[85%] whitespace-pre-wrap break-words rounded-2xl rounded-br-md bg-primary px-4 py-2.5 text-primary-foreground text-sm leading-relaxed shadow-xs">
+          {turn.content}
+        </div>
+        {turn.footer && (
+          <span className="px-1 text-muted-foreground text-xs tabular-nums">{turn.footer}</span>
+        )}
+      </div>
+    );
+  }
+
+  const hasActions = !turn.error && (onCopy || onRegenerate || onFeedback);
+
+  return (
+    <div className="group/turn flex gap-3" data-role="assistant">
+      <AssistantMark />
+      <div className="flex min-w-0 flex-1 flex-col gap-2">
+        {turn.activity}
+        {turn.error ? (
+          <div
+            className="flex w-full items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 px-3 py-2.5 text-destructive text-sm"
+            role="alert"
+          >
+            <CircleAlertIcon className="mt-0.5 size-4 shrink-0" />
+            <div className="min-w-0 flex-1">{turn.content}</div>
+          </div>
+        ) : (
+          <div className="min-w-0 break-words text-foreground text-sm leading-relaxed [&_p+p]:mt-3">
+            {turn.content}
+          </div>
+        )}
+        {(turn.footer || hasActions || (turn.error && onRegenerate)) && (
+          <div className="-ml-1.5 flex min-h-6 items-center gap-0.5 text-muted-foreground text-xs tabular-nums">
+            {turn.footer && <span className="mr-1.5 ml-1.5">{turn.footer}</span>}
+            {hasActions && onCopy && (
+              <ActionButton
+                label={copied ? "Copied" : "Copy reply"}
+                onClick={() => {
+                  onCopy(turn);
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 1600);
+                }}
+              >
+                {copied ? <CheckIcon /> : <CopyIcon />}
+              </ActionButton>
+            )}
+            {hasActions && onFeedback && (
+              <>
+                <ActionButton
+                  active={vote === "up"}
+                  label="Good response"
+                  onClick={() => {
+                    setVote("up");
+                    onFeedback(turn, "up");
+                  }}
+                >
+                  <ThumbsUpIcon />
+                </ActionButton>
+                <ActionButton
+                  active={vote === "down"}
+                  label="Bad response"
+                  onClick={() => {
+                    setVote("down");
+                    onFeedback(turn, "down");
+                  }}
+                >
+                  <ThumbsDownIcon />
+                </ActionButton>
+              </>
+            )}
+            {hasActions && onRegenerate && (
+              <ActionButton label="Regenerate reply" onClick={() => onRegenerate(turn)}>
+                <RefreshCwIcon />
+              </ActionButton>
+            )}
+            {turn.error && onRegenerate && (
+              <Button
+                className="ml-1.5"
+                onClick={() => onRegenerate(turn)}
+                size="xs"
+                type="button"
+                variant="outline"
+              >
+                <RefreshCwIcon />
+                Try again
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+/** The turns of an AI chat: the person's messages as right-aligned bubbles, the assistant's replies as open text. */
+export const Conversation = ({
+  turns,
+  assistantName = "Assistant",
+  onCopy,
+  onRegenerate,
+  onFeedback,
   busy = false,
-  busyLabel = "Thinking…",
+  busyLabel = "Thinking",
   className,
   ...props
 }: ConversationProps) => (
-  <MessageGroup aria-live="polite" className={cn("w-full gap-5", className)} {...props}>
-    {turns.map((turn) => {
-      const fromUser = turn.role === "user";
-      const who = fromUser ? user : assistant;
-      const showActions = !fromUser && (onCopy || onRegenerate);
-
-      return (
-        <Message align={fromUser ? "end" : "start"} className="gap-2.5" key={turn.id}>
-          {fromUser ? (
-            <MessageAvatar className={avatarClassName}>
-              <Avatar className="size-7">
-                <AvatarImage alt="" src={who.image} />
-                <AvatarFallback className="bg-muted text-muted-foreground">
-                  <UserIcon className="size-3.5" />
-                </AvatarFallback>
-              </Avatar>
-            </MessageAvatar>
-          ) : (
-            <AssistantAvatar image={who.image} />
-          )}
-          <MessageContent className="gap-1.5">
-            <MessageHeader className="min-h-7 px-0">{who.name}</MessageHeader>
-            {turn.error ? (
-              <div
-                className="flex w-full items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 px-3 py-2.5 text-destructive text-sm"
-                role="alert"
-              >
-                <CircleAlertIcon className="mt-0.5 size-4 shrink-0" />
-                <div className="min-w-0 flex-1">{turn.content}</div>
-              </div>
-            ) : (
-              <Bubble
-                align={fromUser ? "end" : "start"}
-                variant={fromUser ? "muted" : "ghost"}
-              >
-                <BubbleContent className="max-w-full">{turn.content}</BubbleContent>
-              </Bubble>
-            )}
-            {(turn.footer || showActions) && (
-              <MessageFooter className="min-h-6 gap-0.5 px-0 font-normal tabular-nums">
-                {turn.footer && <span className="not-last:mr-1.5">{turn.footer}</span>}
-                {!fromUser && onCopy && !turn.error && (
-                  <ActionButton label="Copy reply" onClick={() => onCopy(turn)}>
-                    <CopyIcon />
-                  </ActionButton>
-                )}
-                {!fromUser &&
-                  onRegenerate &&
-                  (turn.error ? (
-                    <Button
-                      onClick={() => onRegenerate(turn)}
-                      size="xs"
-                      type="button"
-                      variant="outline"
-                    >
-                      <RefreshCwIcon />
-                      Try again
-                    </Button>
-                  ) : (
-                    <ActionButton
-                      label="Regenerate reply"
-                      onClick={() => onRegenerate(turn)}
-                    >
-                      <RefreshCwIcon />
-                    </ActionButton>
-                  ))}
-              </MessageFooter>
-            )}
-          </MessageContent>
-        </Message>
-      );
-    })}
+  <div
+    aria-label={`Conversation with ${assistantName}`}
+    aria-live="polite"
+    className={cn("flex w-full flex-col gap-6", className)}
+    role="log"
+    {...props}
+  >
+    {turns.map((turn) => (
+      <Turn
+        key={turn.id}
+        onCopy={onCopy}
+        onFeedback={onFeedback}
+        onRegenerate={onRegenerate}
+        turn={turn}
+      />
+    ))}
     {busy && (
-      <Message className="gap-2.5">
-        <AssistantAvatar busy image={assistant.image} />
-        <MessageContent>
-          <p className="flex min-h-7 items-center text-muted-foreground text-sm">{busyLabel}</p>
-        </MessageContent>
-      </Message>
+      <div className="flex items-center gap-3" role="status">
+        <AssistantMark busy />
+        <span className="flex items-center gap-2 text-muted-foreground text-sm">
+          {busyLabel}
+          <span aria-hidden className="flex gap-1">
+            {[0, 1, 2].map((i) => (
+              <span
+                className="size-1 rounded-full bg-muted-foreground motion-safe:animate-bounce"
+                key={i}
+                style={{ animationDelay: `${i * 120}ms` }}
+              />
+            ))}
+          </span>
+        </span>
+      </div>
     )}
-  </MessageGroup>
+  </div>
 );

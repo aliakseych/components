@@ -1,0 +1,17 @@
+{
+  "name": "Engineering Status",
+  "summary": "A public status page: regions banner, 90-day uptime strips per service, active incidents with update timelines, and a fortnight of incident history.",
+  "tags": ["status", "alerts", "timeline", "dashboard", "page header"],
+  "useWhen": [
+    "You need a public, signed-out status page for a platform",
+    "Services, uptime history and incident updates should read at a glance"
+  ],
+  "avoidWhen": [
+    "You need an in-app health widget; use a compact status card",
+    "You need live probes or subscriptions; this renders data you pass in"
+  ],
+  "dependencies": ["lucide-react"],
+  "install": "npx shadcn@latest add @vibra/engineering-status",
+  "source": "https://vibraui.com (Vibra engineering-status block), ported self-contained",
+  "status": "experimental"
+}

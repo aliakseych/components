@@ -1,0 +1,27 @@
+{
+  "name": "Kanban DnD (ByosUI)",
+  "summary": "Headless drag-and-drop kanban built on dnd-kit with column and card handles, placeholder or dynamic overlays and keyboard support.",
+  "tags": [
+    "kanban",
+    "drag and drop",
+    "sortable",
+    "project management"
+  ],
+  "useWhen": [
+    "A kanban board with draggable columns and cards under your own styling",
+    "Controlled board state with move events"
+  ],
+  "avoidWhen": [
+    "A static list of cards",
+    "You want a pre-styled board, where the existing kanban fits"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "@dnd-kit/core",
+    "@dnd-kit/sortable",
+    "@dnd-kit/utilities",
+    "lucide-react"
+  ],
+  "source": "ByosUI",
+  "status": "experimental"
+}

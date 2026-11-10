@@ -1,6 +1,6 @@
 {
   "name": "Messaging",
-  "summary": "The parts of a conversation between people. Choose one option for each slot.",
+  "summary": "The parts of a conversation between people. AI assistants live in the ai-chat block. Choose one option for each slot.",
   "category": "messaging",
   "slots": [
     {

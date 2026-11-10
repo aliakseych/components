@@ -417,6 +417,7 @@ function ChatLog({
       </MessageScrollerViewport>
       <MessageScrollerButton
         behavior='auto'
+        className='rounded-full border shadow-md'
         onClick={() => {
           release()
           viewportRef.current?.focus({ preventScroll: true })

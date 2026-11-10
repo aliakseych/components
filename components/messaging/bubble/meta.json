@@ -1,6 +1,6 @@
 {
   "name": "Bubble",
-  "summary": "A chat bubble with color variants, grouping and reactions.",
+  "summary": "A chat bubble from shadcn/ui with color variants, grouping, link or button content and reactions on either edge.",
   "tags": [
     "message",
     "chat",
@@ -13,10 +13,14 @@
   "avoidWhen": [
     "Long documents, which are hard to read in a bubble"
   ],
-  "dependencies": [],
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority"
+  ],
   "shadcn": [
-    "bubble"
+    "bubble-base"
   ],
   "source": "shadcn/ui",
-  "status": "stable"
+  "status": "stable",
+  "install": "bubble"
 }

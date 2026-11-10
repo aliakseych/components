@@ -1,0 +1,819 @@
+/*
+ * Device anatomy adapted from react-mockframe (MIT, (c) 2026 Mohammed Banani), itself adapted
+ * from Marvel devices.css (MIT, (c) 2014 Marvelapp); see apps/site/THIRD_PARTY_NOTICES.md.
+ * One shell (DeviceShell) takes every device's geometry as CSS variables in the source's px
+ * (lib/devices.ts); the rig scales it to the stage. Changing the variables morphs the shell.
+ */
+.device-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+}
+.device-rig {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 50% 50%;
+}
+
+.dv {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.dv-body {
+  position: absolute;
+  z-index: 1;
+  left: var(--body-x);
+  top: var(--body-y);
+  width: var(--body-w);
+  height: var(--body-h);
+  padding: var(--bezel);
+  border-radius: var(--body-radius);
+  background: var(--bezel-color);
+  box-shadow: var(--rings);
+}
+.dv-screen {
+  position: relative;
+  z-index: 3;
+  width: var(--screen-w);
+  height: var(--screen-h);
+  overflow: hidden;
+  border-radius: var(--screen-radius);
+  background: oklch(0.975 0.006 250);
+  /* Clip iframe corners on WebKit while the radius animates. */
+  isolation: isolate;
+}
+.dark .dv-screen {
+  background: oklch(0.17 0.02 265);
+}
+
+/* Dynamic Island, punch-hole or a dot: one element morphing between them. */
+.dv-cutout {
+  position: absolute;
+  z-index: 10;
+  left: var(--cutout-x);
+  top: var(--cutout-y);
+  width: var(--cutout-w);
+  height: var(--cutout-h);
+  border-radius: var(--cutout-radius);
+  background: oklch(0.000 0 0);
+}
+.dv-lens {
+  position: absolute;
+  left: calc(var(--lens-x) - var(--lens-size) / 2);
+  top: calc(var(--lens-y) - var(--lens-size) / 2);
+  width: var(--lens-size);
+  height: var(--lens-size);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, oklch(0.401 0.137 279) 0%, oklch(0.283 0.121 277) 25%, oklch(0.181 0.071 279) 50%, oklch(0.326 0.053 230) 66%, oklch(0.174 0.018 249) 80%, oklch(0.127 0.009 254) 100%);
+}
+.dv-button {
+  position: absolute;
+  z-index: 0;
+  border-radius: 1.5px;
+  background: var(--button-bg);
+  box-shadow:
+    inset 0 1px 0.5px rgb(255 255 255 / 0.3),
+    inset 0 -1px 0.5px rgb(255 255 255 / 0.3);
+  opacity: 0;
+}
+.dv-button[data-on] {
+  opacity: 1;
+}
+
+/* Extras: hidden unless the shell lists them in data-extras, so they fade during a morph. */
+.dv-strip,
+.dv-earpiece,
+.dv-hinge,
+.dv-spine,
+.dv-base,
+.dv-feet {
+  position: absolute;
+  opacity: 0;
+}
+.dv[data-extras~='strips'] .dv-strip,
+.dv[data-extras~='earpiece'] .dv-earpiece,
+.dv[data-extras~='hinge'] .dv-hinge,
+.dv[data-extras~='spine'] .dv-spine,
+.dv[data-extras~='base'] :is(.dv-base, .dv-feet) {
+  opacity: 1;
+}
+/* Phone earpiece slit between the band and the glass. */
+.dv-earpiece {
+  z-index: 4;
+  top: 6.33px;
+  left: 50%;
+  width: 162px;
+  height: 2.33px;
+  translate: -50% 0;
+  border-radius: 0 0 2px 2px;
+  background: oklch(0.085 0 0);
+}
+/* Foldable (closed): the band differs per edge; the rings follow the top, these strips the others. */
+.dv-strip {
+  z-index: 2;
+}
+.dv-strip--l {
+  top: 6px;
+  bottom: 6px;
+  left: 0;
+  width: 13.33px;
+  background: var(--strip-l);
+  mask-image: linear-gradient(to bottom, transparent, oklch(0.000 0 0) 6px, oklch(0.000 0 0) calc(100% - 6px), transparent);
+}
+.dv-strip--r {
+  top: 70px;
+  bottom: 70px;
+  right: 0;
+  width: 14.67px;
+  background: var(--strip-r);
+  mask-image: linear-gradient(to bottom, transparent, oklch(0.000 0 0) 24px, oklch(0.000 0 0) calc(100% - 24px), transparent);
+}
+.dv-strip--b {
+  right: 70px;
+  bottom: 0;
+  left: 6px;
+  height: 14.67px;
+  background: var(--strip-b);
+  mask-image: linear-gradient(to right, transparent, oklch(0.000 0 0) 6px, oklch(0.000 0 0) calc(100% - 24px), transparent);
+}
+/* The other half's spine peeking out on the hinge side (closed foldable). */
+.dv-spine {
+  z-index: 0;
+  left: calc(var(--body-x) - 11.67px);
+  top: calc(var(--body-y) + 6px);
+  width: 16px;
+  height: calc(var(--body-h) - 12px);
+  border-radius: 12px 0 0 12px;
+  background: var(--spine);
+}
+/* Hinge cover slots above and below the fold (open foldable). */
+.dv-hinge {
+  z-index: 2;
+  left: 50%;
+  width: 68px;
+  height: 2.67px;
+  translate: -50% 0;
+  border-radius: 1.33px;
+  background: var(--hinge-slot);
+}
+.dv-hinge::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 1.33px;
+  height: 2.67px;
+  translate: -50% 0;
+  background: var(--hinge-hi);
+}
+.dv-hinge--top {
+  top: 6.33px;
+}
+.dv-hinge--top::before {
+  top: -2.67px;
+}
+.dv-hinge--bottom {
+  bottom: 6.33px;
+}
+.dv-hinge--bottom::before {
+  bottom: -2.67px;
+}
+/* Laptop base: a flat slab wider than the lid with the thumb scoop, then the feet. */
+.dv-base {
+  z-index: 5;
+  left: calc(var(--body-x) - 106px);
+  top: calc(var(--body-y) + var(--body-h) - 7px);
+  width: calc(var(--body-w) + 212px);
+  height: 39.4px;
+  border-radius: 3px 3px 19px 19px;
+  background: var(--base);
+}
+.dv-base::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 200px;
+  height: 9px;
+  translate: -50% 0;
+  background:
+    radial-gradient(circle at 0 100%, transparent 9px, var(--scoop-top) 9.5px) left top / 9px 9px no-repeat,
+    radial-gradient(circle at 100% 100%, transparent 9px, var(--scoop-top) 9.5px) right top / 9px 9px no-repeat;
+}
+.dv-base::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 182px;
+  height: 14.9px;
+  translate: -50% 0;
+  border-radius: 0 0 9px 9px;
+  background: var(--scoop);
+  box-shadow: inset 0 -1px 1.5px rgb(0 0 0 / 0.18);
+}
+.dv-feet {
+  z-index: 4;
+  left: calc(var(--body-x) - 40px);
+  top: calc(var(--body-y) + var(--body-h) + 31.7px);
+  width: calc(var(--body-w) + 80px);
+  height: 7px;
+}
+.dv-feet::before,
+.dv-feet::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  border-radius: 0 0 5px 5px;
+  background: var(--foot);
+  box-shadow: inset 0 -1px 1px rgb(255 255 255 / 0.12);
+}
+.dv-feet::before {
+  left: 0;
+}
+.dv-feet::after {
+  right: 0;
+}
+.dv-live {
+  filter: drop-shadow(0 40px 50px rgb(10 30 70 / 0.35));
+}
+
+/* Morph: every geometry property springs; colours and extras follow. */
+.device-stage[data-animate] :is(.device-rig, .dv, .dv-body, .dv-screen, .dv-cutout, .dv-lens, .dv-button, .dv-spine, .dv-base, .dv-feet, .dv-strip, .dv-earpiece, .dv-hinge) {
+  transition-property: width, height, left, top, padding, border-radius, box-shadow, background-color, opacity, transform;
+  transition-duration: var(--device-duration);
+  transition-timing-function: var(--device-ease);
+}
+.device-stage[data-animate] :is(.dv-strip, .dv-earpiece, .dv-hinge, .dv-spine, .dv-base, .dv-feet) {
+  transition-duration: calc(var(--device-duration) / 2);
+  transition-timing-function: ease;
+}
+/* The fold: the rig follows the fold's timing and the live shell waits behind the scene. */
+.device-stage[data-folding] .device-rig {
+  transition:
+    width var(--fold-duration) var(--fold-ease),
+    height var(--fold-duration) var(--fold-ease),
+    transform var(--fold-duration) var(--fold-ease);
+}
+.device-stage[data-folding] .dv-live {
+  visibility: hidden;
+}
+
+.device-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  transform-origin: 0 0;
+  opacity: 0;
+  transition: opacity var(--screen-fade) ease;
+}
+.device-frame[data-visible] {
+  opacity: 1;
+}
+
+/* Reduced motion: no morph. The device fades out, geometry and screen swap at the midpoint, then it fades in. */
+.device-stage[data-reduced] :is(.device-rig, .dv, .dv-body, .dv-screen, .dv-cutout, .dv-lens, .dv-button, .dv-spine, .dv-base, .dv-feet, .dv-strip, .dv-earpiece, .dv-hinge, .device-frame) {
+  transition-duration: 0s;
+  transition-delay: calc(var(--reduced-fade) / 2);
+}
+
+/* ---------- Fold scene: two 3D leaves hinged in the middle (from react-mockframe) ---------- */
+
+.fold-scene {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  transform-style: preserve-3d;
+  perspective-origin: 50% 50%;
+  transition: left var(--fold-duration) var(--fold-ease);
+}
+.fold-leaf {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+.fold-leaf--left {
+  left: 0;
+  transform-origin: 100% 50%;
+  transition: transform var(--fold-duration) var(--fold-ease);
+}
+.fold-leaf--right {
+  left: 50%;
+  transform-origin: 0 50%;
+  transform: translateZ(-0.5px);
+}
+.fold-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+.fold-face--front {
+  clip-path: inset(-12px 0 -12px -12px);
+}
+.fold-face--right {
+  clip-path: inset(-12px -12px -12px 0);
+}
+.fold-face--right > .dv {
+  left: -100%;
+}
+/* The left leaf's back is the closed device, seen once the leaf has swung over. */
+.fold-face--back {
+  transform: rotateY(180deg);
+}
+.fold-face--back > .dv {
+  left: -11.67px;
+}
+
+/* ---------- Hero demo layout, device switch ---------- */
+
+.hero-demo {
+  display: flex;
+  width: 100%;
+  max-width: 62rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+.hero-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.device-switch {
+  position: relative;
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--background) 40%, transparent);
+  backdrop-filter: blur(12px);
+}
+.device-switch-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2rem;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  position: relative;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  outline: none;
+  transition: color 200ms ease;
+}
+.device-switch-option:hover {
+  color: var(--foreground);
+}
+.device-switch-option.is-active {
+  color: var(--background);
+}
+.device-switch-indicator {
+  inset-block: 0.25rem;
+  background: var(--foreground);
+}
+.device-switch-option:focus-visible,
+.device-fold:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 60%, transparent);
+}
+/* A control that comes and goes in the row (Fold / Unfold). Its slot springs between zero
+   and the control's width (--slot-width, measured); collapsed, the negative margin also takes back
+   the row's gap, so the rest of the row stays centred. */
+.control-slot {
+  display: flex;
+  width: 0;
+  margin-inline-start: -0.75rem;
+  overflow: clip;
+  overflow-clip-margin: 4px;
+  transition:
+    width var(--slot-duration) var(--slot-ease),
+    margin-inline-start var(--slot-duration) var(--slot-ease);
+}
+.control-slot[data-shown] {
+  width: var(--slot-width, auto);
+  margin-inline-start: 0;
+}
+.control-slot > * {
+  flex: none;
+  opacity: 0;
+  scale: 0.85;
+  filter: blur(4px);
+  transition:
+    opacity 160ms ease,
+    scale 160ms ease,
+    filter 160ms ease,
+    color 200ms ease;
+}
+.control-slot[data-shown] > * {
+  opacity: 1;
+  scale: 1;
+  filter: none;
+  transition:
+    opacity 240ms ease 60ms,
+    scale var(--slot-duration) var(--slot-ease),
+    filter 240ms ease 60ms,
+    color 200ms ease;
+}
+.device-fold {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 2.5rem;
+  padding: 0 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--background) 40%, transparent);
+  backdrop-filter: blur(12px);
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+}
+.device-fold:hover {
+  background: color-mix(in oklch, var(--background) 60%, transparent);
+}
+
+/* ---------- Segmented controls: one highlight slides under the active segment ---------- */
+/* Placed by useSegmentIndicator (translate + width); the transition turns on once it has landed. */
+.segment-indicator {
+  position: absolute;
+  left: 0;
+  width: 0;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+}
+[data-segment-ready] > .segment-indicator {
+  opacity: 1;
+  transition:
+    translate var(--segment-duration) var(--segment-ease),
+    width var(--segment-duration) var(--segment-ease),
+    opacity 150ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-segment-ready] > .segment-indicator { transition: opacity 150ms ease; }
+  .device-fold-slot,
+  .device-fold-slot > .device-fold,
+  .device-fold-slot[data-shown] > .device-fold { transition: none; }
+}
+
+/* ---------- Screen skeletons ---------- */
+
+/* Skeleton tokens: the /frame document, and the fold animation's static screens on the page. */
+
+.fs-root {
+  --fs-bg: oklch(0.975 0.006 250);
+  --fs-surface: oklch(1 0 0);
+  --fs-block: oklch(0.9 0.012 255);
+  --fs-faint: oklch(0.94 0.008 255);
+  --fs-line: oklch(0.92 0.008 255);
+  --fs-accent: oklch(0.62 0.15 252);
+  --fs-tint-0: oklch(0.86 0.06 240);
+  --fs-tint-1: oklch(0.88 0.06 200);
+  --fs-tint-2: oklch(0.88 0.05 290);
+  --fs-tint-3: oklch(0.9 0.06 80);
+}
+
+.dark .fs-root {
+  --fs-bg: oklch(0.17 0.02 265);
+  --fs-surface: oklch(0.21 0.022 265);
+  --fs-block: oklch(0.31 0.025 265);
+  --fs-faint: oklch(0.26 0.022 265);
+  --fs-line: oklch(0.26 0.02 265);
+  --fs-accent: oklch(0.7 0.13 252);
+  --fs-tint-0: oklch(0.42 0.08 245);
+  --fs-tint-1: oklch(0.42 0.07 205);
+  --fs-tint-2: oklch(0.4 0.07 290);
+  --fs-tint-3: oklch(0.45 0.07 75);
+}
+.fs-root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--fs-bg);
+  user-select: none;
+}
+
+.fs-bar {
+  display: block;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--fs-block);
+}
+.fs-faint {
+  background: var(--fs-faint);
+}
+
+/* Desktop: top navigation, sidebar, heading, card grid. */
+.fs-desktop {
+  display: grid;
+  grid-template: 25px 60px 1fr / 236px 1fr;
+  height: 100%;
+}
+.fs-menubar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  background: color-mix(in oklch, var(--fs-surface) 70%, var(--fs-bg));
+}
+.fs-menu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.fs-menu-item {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--fs-block);
+}
+.fs-topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 0 24px;
+  background: var(--fs-surface);
+  border-bottom: 1px solid var(--fs-line);
+}
+.fs-logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--fs-accent);
+}
+.fs-nav {
+  display: flex;
+  gap: 26px;
+}
+.fs-search {
+  margin-left: auto;
+  width: 220px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--fs-faint);
+}
+.fs-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--fs-tint-3);
+}
+.fs-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 16px;
+  border-right: 1px solid var(--fs-line);
+}
+.fs-side-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+.fs-side-row[data-active] {
+  background: var(--fs-faint);
+}
+.fs-side-row[data-active] .fs-icon {
+  background: var(--fs-accent);
+}
+.fs-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: var(--fs-block);
+}
+.fs-main {
+  padding: 40px 44px;
+  overflow: hidden;
+}
+.fs-title {
+  display: block;
+  width: 320px;
+  height: 30px;
+  border-radius: 10px;
+  background: var(--fs-block);
+}
+.fs-subtitle {
+  width: 460px;
+  margin-top: 16px;
+  background: var(--fs-faint);
+}
+.fs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-top: 36px;
+}
+.fs-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 14px 20px;
+  border-radius: 18px;
+  background: var(--fs-surface);
+  border: 1px solid var(--fs-line);
+}
+.fs-card-media {
+  height: 128px;
+  border-radius: 12px;
+  background: var(--fs-tint-0);
+  margin-bottom: 6px;
+}
+.fs-card-media[data-tint='1'] {
+  background: var(--fs-tint-1);
+}
+.fs-card-media[data-tint='2'] {
+  background: var(--fs-tint-2);
+}
+
+/* Mobile: status bar, large title, list with avatars, tab bar. */
+.fs-mobile {
+  position: relative;
+  height: 100%;
+  padding-top: 62px;
+}
+/* Status bar of a Dynamic Island phone: time left, icons right, centred on the island. */
+.fs-status {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 58px;
+  padding: 0 34px 0 46px;
+}
+/* The closed foldable's punch-hole camera sits top right: its status icons make room. */
+[data-device='foldable'] .fs-status {
+  padding-right: 92px;
+}
+.fs-time {
+  width: 38px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--fs-block);
+}
+.fs-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.fs-signal {
+  width: 18px;
+  height: 11px;
+  border-radius: 3px;
+  background: var(--fs-block);
+}
+.fs-battery {
+  width: 25px;
+  height: 12px;
+  border-radius: 4px;
+  border: 2px solid var(--fs-block);
+}
+.fs-large-title {
+  display: block;
+  width: 190px;
+  height: 32px;
+  margin: 14px 20px 0;
+  border-radius: 10px;
+  background: var(--fs-block);
+}
+.fs-field {
+  display: block;
+  height: 36px;
+  margin: 16px 16px 6px;
+  border-radius: 11px;
+  background: var(--fs-faint);
+}
+.fs-list {
+  margin: 0;
+  padding: 0 0 0 20px;
+  list-style: none;
+}
+.fs-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 74px;
+  padding-right: 20px;
+  border-bottom: 1px solid var(--fs-line);
+}
+.fs-row-avatar {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--fs-tint-0);
+}
+.fs-row-avatar[data-tint='1'] {
+  background: var(--fs-tint-1);
+}
+.fs-row-avatar[data-tint='2'] {
+  background: var(--fs-tint-2);
+}
+.fs-row-avatar[data-tint='3'] {
+  background: var(--fs-tint-3);
+}
+.fs-row-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+}
+.fs-tabbar {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  justify-content: space-around;
+  height: 83px;
+  padding: 9px 12px 0;
+  background: color-mix(in oklch, var(--fs-surface) 92%, transparent);
+  border-top: 1px solid var(--fs-line);
+}
+.fs-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 64px;
+}
+.fs-tab-icon {
+  width: 26px;
+  height: 24px;
+  border-radius: 7px;
+  background: var(--fs-block);
+}
+.fs-tab-label {
+  width: 36px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--fs-faint);
+}
+.fs-tab[data-active] .fs-tab-icon,
+.fs-tab[data-active] .fs-tab-label {
+  background: var(--fs-accent);
+}
+/* Tablet: iPadOS-like status bar, sidebar with rows, large title and a card grid. */
+.fs-tablet {
+  position: relative;
+  display: grid;
+  grid-template: 24px 1fr / 300px 1fr;
+  height: 100%;
+}
+.fs-tablet-status {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+}
+.fs-tablet-status > span {
+  display: flex;
+  gap: 8px;
+}
+.fs-tablet-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 16px;
+  background: color-mix(in oklch, var(--fs-surface) 60%, var(--fs-bg));
+  border-right: 1px solid var(--fs-line);
+}
+.fs-tablet-sidebar .fs-large-title {
+  width: 140px;
+  margin: 4px 6px 12px;
+}
+.fs-tablet-main {
+  padding: 28px 32px;
+  overflow: hidden;
+}
+.fs-tablet-main .fs-grid {
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  margin-top: 28px;
+}
+.fs-tablet .fs-home-indicator {
+  bottom: 7px;
+}
+
+.fs-home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 134px;
+  height: 5px;
+  translate: -50% 0;
+  border-radius: 999px;
+  background: var(--fs-block);
+}

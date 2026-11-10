@@ -7,7 +7,7 @@
     "avatar"
   ],
   "useWhen": [
-    "Building a chat between people or with an assistant",
+    "Building a chat between people",
     "Rows need names, times or read states"
   ],
   "avoidWhen": [

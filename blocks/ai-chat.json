@@ -8,6 +8,8 @@
       "label": "Composer",
       "description": "Where people write to the assistant",
       "options": [
+        "ai-chat/chat-composer/default",
+        "ai-chat/chat-composer/busy",
         "ai-chat/prompt-bar/default",
         "ai-chat/prompt-bar/max-effort-sparks",
         "ai-chat/prompt-bar/full-features",
@@ -18,10 +20,12 @@
     {
       "id": "conversation",
       "label": "Conversation",
-      "description": "The turns between the person and the assistant, built on the messaging parts",
+      "description": "The turns between the person and the assistant",
       "options": [
         "ai-chat/conversation/default",
-        "ai-chat/conversation/failed-reply"
+        "ai-chat/conversation/failed-reply",
+        "ai-chat/chat-screen/default",
+        "ai-chat/chat-screen/empty"
       ]
     },
     {
@@ -74,7 +78,11 @@
         "ai-chat/ai-assistant-01/default",
         "ai-chat/ai-assistant-02/default",
         "ai-chat/ai-assistant-03/default",
-        "ai-chat/ai-assistant-04/default"
+        "ai-chat/ai-assistant-04/default",
+        "ai-chat/ai-assistant-01/conversation",
+        "ai-chat/ai-assistant-02/conversation",
+        "ai-chat/ai-assistant-03/conversation",
+        "ai-chat/ai-assistant-04/conversation"
       ]
     }
   ]

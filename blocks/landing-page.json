@@ -36,7 +36,9 @@
       "options": [
         "marketing/bento-grid/default",
         "marketing/display-cards/default",
-        "marketing/product-rail/default"
+        "marketing/product-rail/default",
+        "media/device-mockup/default",
+        "hero-page/scroll-story/default"
       ]
     },
     {
@@ -72,6 +74,14 @@
         "marketing/hills-footer/default",
         "marketing/halftone-footer/default",
         "marketing/dithered-footer/default"
+      ]
+    },
+    {
+      "id": "navigation",
+      "label": "Page navigation",
+      "description": "A section rail beside the page",
+      "options": [
+        "hero-page/chapter-rail/default"
       ]
     }
   ]

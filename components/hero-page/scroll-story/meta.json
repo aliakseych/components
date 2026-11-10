@@ -1,0 +1,16 @@
+{
+  "name": "Scroll Story",
+  "summary": "Pinned scroll story: captions blur-swap on the left while a scrubbed element on the right (a toast living through every state) animates with the scroll.",
+  "tags": ["animation", "hero", "landing page", "marketing", "notifications"],
+  "useWhen": [
+    "A product feature is best explained as one object changing step by step",
+    "A landing page needs a scroll-driven walkthrough with a pinned visual"
+  ],
+  "avoidWhen": [
+    "The page needs plain, quick-to-scan sections",
+    "Pinned scrolling would fight a nested scroll container"
+  ],
+  "dependencies": ["gsap"],
+  "source": "https://github.com/Meerzus/cloudlet (apps/site Life of a notification)",
+  "status": "experimental"
+}

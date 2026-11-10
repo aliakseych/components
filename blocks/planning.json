@@ -12,7 +12,8 @@
         "planning/kanban-01/default",
         "planning/kanban-02/default",
         "planning/kanban-03/default",
-        "planning/list/default"
+        "planning/list/default",
+        "planning/kanban-dnd/default"
       ]
     },
     {
@@ -25,7 +26,9 @@
         "planning/timeline-01/default",
         "planning/timeline-02/default",
         "planning/timeline-03/default",
-        "planning/timeline-04/default"
+        "planning/timeline-04/default",
+        "planning/gantt-scheduler/default",
+        "planning/gantt-scheduler/roadmap"
       ]
     },
     {
@@ -50,7 +53,10 @@
         "planning/calendar-01/default",
         "planning/calendar-02/default",
         "planning/calendar-03/default",
-        "planning/calendar-04/default"
+        "planning/calendar-04/default",
+        "planning/event-calendar/default",
+        "planning/event-calendar/resources",
+        "planning/event-calendar/booking"
       ]
     },
     {

@@ -20,6 +20,8 @@
         "ai-chat/ai-assistant-04",
         "ai-chat/call-chip",
         "ai-chat/chain-of-thought",
+        "ai-chat/chat-composer",
+        "ai-chat/chat-screen",
         "ai-chat/context",
         "ai-chat/conversation",
         "ai-chat/lattice-loader",
@@ -37,6 +39,7 @@
         "app-interface/app-shell-02",
         "app-interface/app-shell-03",
         "app-interface/app-shell-04",
+        "app-interface/cloudlet-toaster",
         "app-interface/command-menu-01",
         "app-interface/command-menu-02",
         "app-interface/drawer",
@@ -80,6 +83,7 @@
         "data-display/data-table-04",
         "data-display/data-table-05",
         "data-display/data-table-06",
+        "data-display/org-tree",
         "data-display/pill",
         "data-display/table"
       ]
@@ -88,6 +92,7 @@
       "name": "Forms",
       "description": "Collecting and editing user input",
       "components": [
+        "forms/cascader",
         "forms/combobox",
         "forms/editor",
         "forms/forms-01",
@@ -104,11 +109,13 @@
       "name": "Hero Page",
       "description": "Backgrounds, marks and headline effects for the top of a page",
       "components": [
+        "hero-page/chapter-rail",
         "hero-page/decrypted-text",
         "hero-page/gradient-ascii",
         "hero-page/halftone-mark",
         "hero-page/prism-hero",
-        "hero-page/scroll-morph-hero"
+        "hero-page/scroll-morph-hero",
+        "hero-page/scroll-story"
       ]
     },
     "marketing": {
@@ -137,6 +144,7 @@
       "description": "Working with images and swipeable cards",
       "components": [
         "media/deck",
+        "media/device-mockup",
         "media/image-crop"
       ]
     },
@@ -166,12 +174,15 @@
         "planning/checklist-02",
         "planning/checklist-03",
         "planning/checklist-04",
+        "planning/event-calendar",
         "planning/gantt",
+        "planning/gantt-scheduler",
         "planning/issue-split-view",
         "planning/kanban",
         "planning/kanban-01",
         "planning/kanban-02",
         "planning/kanban-03",
+        "planning/kanban-dnd",
         "planning/list",
         "planning/mini-calendar",
         "planning/roadmap",
@@ -442,6 +453,13 @@
         "email/email-06",
         "email/email-07"
       ]
+    },
+    "pages": {
+      "name": "Pages",
+      "description": "Complete ready-made pages such as status and product screens",
+      "components": [
+        "pages/engineering-status"
+      ]
     }
   },
   "blocks": [
@@ -487,7 +505,10 @@
           "description": "Related actions side by side",
           "options": [
             "actions/button-group/default",
-            "actions/button-group/pill-toolbars"
+            "actions/button-group/pill-toolbars",
+            "actions/button-group/split-menu",
+            "actions/button-group/pagination",
+            "actions/button-group/view-switcher"
           ]
         },
         {
@@ -519,6 +540,8 @@
           "label": "Composer",
           "description": "Where people write to the assistant",
           "options": [
+            "ai-chat/chat-composer/default",
+            "ai-chat/chat-composer/busy",
             "ai-chat/prompt-bar/default",
             "ai-chat/prompt-bar/max-effort-sparks",
             "ai-chat/prompt-bar/full-features",
@@ -529,10 +552,12 @@
         {
           "id": "conversation",
           "label": "Conversation",
-          "description": "The turns between the person and the assistant, built on the messaging parts",
+          "description": "The turns between the person and the assistant",
           "options": [
             "ai-chat/conversation/default",
-            "ai-chat/conversation/failed-reply"
+            "ai-chat/conversation/failed-reply",
+            "ai-chat/chat-screen/default",
+            "ai-chat/chat-screen/empty"
           ]
         },
         {
@@ -585,7 +610,11 @@
             "ai-chat/ai-assistant-01/default",
             "ai-chat/ai-assistant-02/default",
             "ai-chat/ai-assistant-03/default",
-            "ai-chat/ai-assistant-04/default"
+            "ai-chat/ai-assistant-04/default",
+            "ai-chat/ai-assistant-01/conversation",
+            "ai-chat/ai-assistant-02/conversation",
+            "ai-chat/ai-assistant-03/conversation",
+            "ai-chat/ai-assistant-04/conversation"
           ]
         }
       ]
@@ -1419,7 +1448,9 @@
           "options": [
             "forms/forms-05/default",
             "forms/forms-06/default",
-            "forms/combobox/default"
+            "forms/combobox/default",
+            "forms/cascader/default",
+            "forms/cascader/multiple"
           ]
         },
         {
@@ -1482,6 +1513,22 @@
             "actions/magnetic-button/default",
             "actions/magnetic-button/disabled"
           ]
+        },
+        {
+          "id": "navigation",
+          "label": "Page navigation",
+          "description": "A quiet where-am-I indicator for the page below",
+          "options": [
+            "hero-page/chapter-rail/default"
+          ]
+        },
+        {
+          "id": "story",
+          "label": "Scroll story",
+          "description": "A pinned walkthrough that animates one element step by step",
+          "options": [
+            "hero-page/scroll-story/default"
+          ]
         }
       ]
     },
@@ -1524,7 +1571,9 @@
           "options": [
             "marketing/bento-grid/default",
             "marketing/display-cards/default",
-            "marketing/product-rail/default"
+            "marketing/product-rail/default",
+            "media/device-mockup/default",
+            "hero-page/scroll-story/default"
           ]
         },
         {
@@ -1561,13 +1610,21 @@
             "marketing/halftone-footer/default",
             "marketing/dithered-footer/default"
           ]
+        },
+        {
+          "id": "navigation",
+          "label": "Page navigation",
+          "description": "A section rail beside the page",
+          "options": [
+            "hero-page/chapter-rail/default"
+          ]
         }
       ]
     },
     {
       "id": "messaging",
       "name": "Messaging",
-      "summary": "The parts of a conversation between people. Choose one option for each slot.",
+      "summary": "The parts of a conversation between people. AI assistants live in the ai-chat block. Choose one option for each slot.",
       "category": "messaging",
       "slots": [
         {
@@ -1626,7 +1683,8 @@
           "label": "Bell",
           "description": "An unread count that opens the latest notifications",
           "options": [
-            "workspace/notifications-01/default"
+            "workspace/notifications-01/default",
+            "app-interface/cloudlet-toaster/default"
           ]
         },
         {
@@ -1700,7 +1758,8 @@
             "planning/kanban-01/default",
             "planning/kanban-02/default",
             "planning/kanban-03/default",
-            "planning/list/default"
+            "planning/list/default",
+            "planning/kanban-dnd/default"
           ]
         },
         {
@@ -1713,7 +1772,9 @@
             "planning/timeline-01/default",
             "planning/timeline-02/default",
             "planning/timeline-03/default",
-            "planning/timeline-04/default"
+            "planning/timeline-04/default",
+            "planning/gantt-scheduler/default",
+            "planning/gantt-scheduler/roadmap"
           ]
         },
         {
@@ -1738,7 +1799,10 @@
             "planning/calendar-01/default",
             "planning/calendar-02/default",
             "planning/calendar-03/default",
-            "planning/calendar-04/default"
+            "planning/calendar-04/default",
+            "planning/event-calendar/default",
+            "planning/event-calendar/resources",
+            "planning/event-calendar/booking"
           ]
         },
         {
@@ -1981,6 +2045,8 @@
         "ai-chat/ai-assistant-03",
         "ai-chat/ai-assistant-04",
         "ai-chat/chain-of-thought",
+        "ai-chat/chat-composer",
+        "ai-chat/chat-screen",
         "ai-chat/context",
         "ai-chat/conversation",
         "ai-chat/live-orb",
@@ -2000,6 +2066,7 @@
     "alerts": {
       "description": "Thresholds and incidents that need attention",
       "components": [
+        "app-interface/cloudlet-toaster",
         "operations/alerts-01",
         "operations/alerts-02",
         "operations/alerts-03",
@@ -2008,7 +2075,8 @@
         "operations/status-02",
         "operations/status-03",
         "operations/status-04",
-        "operations/status-05"
+        "operations/status-05",
+        "pages/engineering-status"
       ]
     },
     "animation": {
@@ -2017,14 +2085,17 @@
         "actions/magnetic-button",
         "ai-chat/live-orb",
         "ai-chat/prompt-bar",
+        "app-interface/cloudlet-toaster",
         "app-interface/sidebar-glass",
         "app-interface/tree",
         "collaboration/collaborative-canvas",
         "dashboard/gooey-loader",
         "dashboard/wave-spinner",
+        "hero-page/chapter-rail",
         "hero-page/decrypted-text",
         "hero-page/halftone-mark",
         "hero-page/scroll-morph-hero",
+        "hero-page/scroll-story",
         "marketing/display-cards",
         "marketing/dithered-footer",
         "marketing/halftone-footer",
@@ -2032,6 +2103,7 @@
         "marketing/product-rail",
         "marketing/testimonial-globe",
         "media/deck",
+        "media/device-mockup",
         "workspace/sign-in-split"
       ]
     },
@@ -2073,7 +2145,6 @@
     "avatar": {
       "description": "Shows people's profile images",
       "components": [
-        "ai-chat/conversation",
         "collaboration/avatar-stack",
         "collaboration/collaborative-canvas",
         "collaboration/cursor",
@@ -2146,6 +2217,7 @@
         "planning/calendar-02",
         "planning/calendar-03",
         "planning/calendar-04",
+        "planning/event-calendar",
         "planning/mini-calendar",
         "planning/roadmap",
         "planning/schedule-01",
@@ -2284,6 +2356,8 @@
         "ai-chat/ai-assistant-03",
         "ai-chat/ai-assistant-04",
         "ai-chat/chain-of-thought",
+        "ai-chat/chat-composer",
+        "ai-chat/chat-screen",
         "ai-chat/context",
         "ai-chat/conversation",
         "ai-chat/prompt-bar",
@@ -2377,6 +2451,8 @@
     "composer": {
       "description": "The area for writing a message",
       "components": [
+        "ai-chat/chat-composer",
+        "ai-chat/chat-screen",
         "ai-chat/prompt-bar"
       ]
     },
@@ -2444,7 +2520,8 @@
         "dashboard/states-01",
         "dashboard/states-02",
         "dashboard/states-03",
-        "dashboard/states-04"
+        "dashboard/states-04",
+        "pages/engineering-status"
       ]
     },
     "data grid": {
@@ -2488,11 +2565,14 @@
       "description": "Reorders or moves items by dragging",
       "components": [
         "media/deck",
+        "planning/event-calendar",
         "planning/gantt",
+        "planning/gantt-scheduler",
         "planning/kanban",
         "planning/kanban-01",
         "planning/kanban-02",
         "planning/kanban-03",
+        "planning/kanban-dnd",
         "planning/list"
       ]
     },
@@ -2603,6 +2683,7 @@
     "form": {
       "description": "Collects user input",
       "components": [
+        "forms/cascader",
         "forms/combobox",
         "forms/editor",
         "forms/forms-01",
@@ -2652,6 +2733,7 @@
       "description": "Shows work on a timeline with bars",
       "components": [
         "planning/gantt",
+        "planning/gantt-scheduler",
         "planning/roadmap",
         "planning/timeline-01",
         "planning/timeline-02",
@@ -2714,11 +2796,14 @@
     "hero": {
       "description": "Suits the top section of a page",
       "components": [
+        "hero-page/chapter-rail",
         "hero-page/decrypted-text",
         "hero-page/gradient-ascii",
         "hero-page/halftone-mark",
         "hero-page/prism-hero",
-        "hero-page/scroll-morph-hero"
+        "hero-page/scroll-morph-hero",
+        "hero-page/scroll-story",
+        "media/device-mockup"
       ]
     },
     "horizon": {
@@ -2761,6 +2846,7 @@
     "input": {
       "description": "A field people type into",
       "components": [
+        "ai-chat/chat-composer",
         "ai-chat/prompt-bar",
         "forms/combobox",
         "forms/editor",
@@ -2817,6 +2903,7 @@
         "planning/kanban-01",
         "planning/kanban-02",
         "planning/kanban-03",
+        "planning/kanban-dnd",
         "planning/roadmap"
       ]
     },
@@ -2853,7 +2940,9 @@
       "components": [
         "app-interface/navigation-menu",
         "collaboration/collaborative-canvas",
+        "hero-page/chapter-rail",
         "hero-page/scroll-morph-hero",
+        "hero-page/scroll-story",
         "marketing/bento-grid",
         "marketing/display-cards",
         "marketing/feature",
@@ -2862,7 +2951,8 @@
         "marketing/product-navbar",
         "marketing/stats-band",
         "marketing/testimonial-globe",
-        "marketing/waitlist-split"
+        "marketing/waitlist-split",
+        "media/device-mockup"
       ]
     },
     "leaderboard": {
@@ -2900,6 +2990,7 @@
         "data-display/data-table-04",
         "data-display/data-table-05",
         "data-display/data-table-06",
+        "data-display/org-tree",
         "data-display/table",
         "marketing/changelog",
         "planning/checklist-01",
@@ -2974,6 +3065,7 @@
         "email/email-05",
         "email/email-06",
         "email/email-07",
+        "hero-page/scroll-story",
         "marketing/bento-grid",
         "marketing/changelog",
         "marketing/dithered-footer",
@@ -2987,7 +3079,8 @@
         "marketing/stats-band",
         "marketing/stats-showcase",
         "marketing/testimonial-globe",
-        "marketing/waitlist-split"
+        "marketing/waitlist-split",
+        "media/device-mockup"
       ]
     },
     "menu": {
@@ -2998,12 +3091,14 @@
         "app-interface/menubar",
         "app-interface/navigation-menu",
         "app-interface/sidebar-glass",
+        "forms/cascader",
         "marketing/product-navbar"
       ]
     },
     "message": {
       "description": "Part of a conversation between people",
       "components": [
+        "ai-chat/chat-screen",
         "ai-chat/conversation",
         "messaging/bubble",
         "messaging/comments-01",
@@ -3049,6 +3144,7 @@
         "dashboard/page-header-02",
         "dashboard/page-header-03",
         "dashboard/page-header-04",
+        "hero-page/chapter-rail",
         "hero-page/prism-hero",
         "marketing/product-navbar",
         "planning/mini-calendar",
@@ -3066,6 +3162,8 @@
     "notifications": {
       "description": "Tells people about events",
       "components": [
+        "app-interface/cloudlet-toaster",
+        "hero-page/scroll-story",
         "operations/alerts-01",
         "operations/alerts-02",
         "operations/alerts-03",
@@ -3089,6 +3187,7 @@
       "components": [
         "actions/dropdown-menu",
         "ai-chat/context",
+        "app-interface/cloudlet-toaster",
         "app-interface/drawer",
         "app-interface/floating-menu",
         "app-interface/glimpse",
@@ -3105,7 +3204,8 @@
         "dashboard/page-header-01",
         "dashboard/page-header-02",
         "dashboard/page-header-03",
-        "dashboard/page-header-04"
+        "dashboard/page-header-04",
+        "pages/engineering-status"
       ]
     },
     "pill": {
@@ -3130,7 +3230,8 @@
       "description": "Shows a preview of other content",
       "components": [
         "app-interface/glimpse",
-        "code/sandbox"
+        "code/sandbox",
+        "media/device-mockup"
       ]
     },
     "pricing": {
@@ -3166,6 +3267,7 @@
         "business/usage-meter-06",
         "business/usage-meter-07",
         "business/usage-meter-08",
+        "hero-page/chapter-rail",
         "planning/checklist-01",
         "planning/checklist-02",
         "planning/checklist-03",
@@ -3177,11 +3279,13 @@
       "components": [
         "planning/calendar",
         "planning/gantt",
+        "planning/gantt-scheduler",
         "planning/issue-split-view",
         "planning/kanban",
         "planning/kanban-01",
         "planning/kanban-02",
         "planning/kanban-03",
+        "planning/kanban-dnd",
         "planning/list",
         "planning/roadmap",
         "planning/timeline-01",
@@ -3197,6 +3301,7 @@
         "ai-chat/ai-assistant-02",
         "ai-chat/ai-assistant-03",
         "ai-chat/ai-assistant-04",
+        "ai-chat/chat-composer",
         "ai-chat/prompt-bar"
       ]
     },
@@ -3270,6 +3375,8 @@
         "planning/calendar-02",
         "planning/calendar-03",
         "planning/calendar-04",
+        "planning/event-calendar",
+        "planning/gantt-scheduler",
         "planning/schedule-01",
         "planning/schedule-02",
         "planning/schedule-03",
@@ -3289,6 +3396,7 @@
         "ai-chat/lattice-loader",
         "app-interface/command-menu-01",
         "app-interface/command-menu-02",
+        "forms/cascader",
         "forms/combobox"
       ]
     },
@@ -3307,6 +3415,7 @@
       "description": "Chooses from a set of options",
       "components": [
         "actions/button-group",
+        "forms/cascader",
         "forms/combobox",
         "forms/forms-01",
         "forms/forms-02",
@@ -3363,7 +3472,8 @@
         "data-display/data-table-04",
         "data-display/data-table-05",
         "data-display/data-table-06",
-        "data-display/table"
+        "data-display/table",
+        "planning/kanban-dnd"
       ]
     },
     "sparks": {
@@ -3505,12 +3615,14 @@
         "operations/status-03",
         "operations/status-04",
         "operations/status-05",
+        "pages/engineering-status",
         "planning/list"
       ]
     },
     "swipe": {
       "description": "Responds to swipe or fling gestures",
       "components": [
+        "app-interface/cloudlet-toaster",
         "app-interface/drawer",
         "media/deck"
       ]
@@ -3555,6 +3667,8 @@
     "team": {
       "description": "The people on a team",
       "components": [
+        "data-display/org-tree",
+        "planning/event-calendar",
         "workspace/settings-01",
         "workspace/settings-02",
         "workspace/settings-03",
@@ -3589,12 +3703,14 @@
       "description": "Arranges items along time",
       "components": [
         "marketing/changelog",
+        "pages/engineering-status",
         "planning/calendar",
         "planning/calendar-01",
         "planning/calendar-02",
         "planning/calendar-03",
         "planning/calendar-04",
         "planning/gantt",
+        "planning/gantt-scheduler",
         "planning/roadmap",
         "planning/timeline-01",
         "planning/timeline-02",
@@ -3618,7 +3734,8 @@
       "description": "Shows nested, expandable items",
       "components": [
         "app-interface/tree",
-        "code/schema-display"
+        "code/schema-display",
+        "data-display/org-tree"
       ]
     },
     "upload": {
@@ -3780,6 +3897,88 @@
         "templates/invest-app/previews/portfolio.mobile.light.png",
         "templates/invest-app/previews/register.mobile.light.png"
       ]
+    },
+    {
+      "id": "templates/telegram-app",
+      "slug": "telegram-app",
+      "path": "templates/telegram-app",
+      "name": "Telegram-style Messenger",
+      "summary": "Mobile messenger modelled on Telegram's open-source client: chat list with folder tabs, pinned and muted chats, unread badges, chat screen with bubbles, replies, reactions, voice and photo messages, group chat, profile with shared media, and settings.",
+      "kind": "app",
+      "viewport": "mobile",
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "tags": [
+        "chat",
+        "message",
+        "app shell",
+        "avatar",
+        "composer"
+      ],
+      "useWhen": [
+        "Starting a mobile messenger or in-app chat product",
+        "Needing a reference for a chat list, a chat screen with replies and reactions, and a profile page"
+      ],
+      "avoidWhen": [
+        "An AI assistant chat, where the ai-chat components fit",
+        "A desktop inbox or support console: the layout is one phone-width column"
+      ],
+      "stack": [
+        "React 19",
+        "Vite",
+        "Tailwind CSS 4",
+        "lucide-react"
+      ],
+      "screens": [
+        {
+          "id": "chats",
+          "title": "Chats",
+          "path": "/"
+        },
+        {
+          "id": "folder",
+          "title": "Folder",
+          "path": "/?folder=work"
+        },
+        {
+          "id": "chat",
+          "title": "Chat",
+          "path": "/chats/mia"
+        },
+        {
+          "id": "group",
+          "title": "Group chat",
+          "path": "/chats/crew"
+        },
+        {
+          "id": "profile",
+          "title": "Profile",
+          "path": "/chats/mia/info"
+        },
+        {
+          "id": "settings",
+          "title": "Settings",
+          "path": "/settings"
+        }
+      ],
+      "source": "Layout and behaviour modelled on Telegram's open-source mobile clients; rewritten compactly in React with neutral sample data and no Telegram assets",
+      "status": "experimental",
+      "previews": [
+        "templates/telegram-app/previews/chat.mobile.dark.png",
+        "templates/telegram-app/previews/chat.mobile.light.png",
+        "templates/telegram-app/previews/chats.mobile.dark.png",
+        "templates/telegram-app/previews/chats.mobile.light.png",
+        "templates/telegram-app/previews/folder.mobile.dark.png",
+        "templates/telegram-app/previews/folder.mobile.light.png",
+        "templates/telegram-app/previews/group.mobile.dark.png",
+        "templates/telegram-app/previews/group.mobile.light.png",
+        "templates/telegram-app/previews/profile.mobile.dark.png",
+        "templates/telegram-app/previews/profile.mobile.light.png",
+        "templates/telegram-app/previews/settings.mobile.dark.png",
+        "templates/telegram-app/previews/settings.mobile.light.png"
+      ]
     }
   ],
   "components": [
@@ -3789,7 +3988,7 @@
       "slug": "button",
       "path": "components/actions/button",
       "name": "Button",
-      "summary": "The standard shadcn button with variants and sizes.",
+      "summary": "The standard shadcn button with variants and sizes, plus ByosUI patterns for copy feedback, async state, expanding and sliding icons.",
       "tags": [
         "button",
         "call to action"
@@ -3801,24 +4000,42 @@
       "avoidWhen": [
         "Navigating to another page, where a link is the right element"
       ],
-      "dependencies": [],
-      "shadcn": [
-        "button"
+      "dependencies": [
+        "lucide-react"
       ],
-      "source": "shadcn/ui",
+      "shadcn": [
+        "button",
+        "kbd"
+      ],
+      "source": "shadcn/ui, ByosUI",
       "status": "stable",
       "demos": [
+        "async-action",
+        "copy",
         "default",
         "destructive",
+        "expanding",
         "ghost",
         "link",
         "loading",
+        "menu-toggle",
+        "multiline",
         "outline",
         "secondary",
+        "shortcut",
         "sizes",
+        "sliding-icon",
         "with-icon"
       ],
       "previews": [
+        "components/actions/button/previews/async-action.desktop.dark.png",
+        "components/actions/button/previews/async-action.desktop.light.png",
+        "components/actions/button/previews/async-action.mobile.dark.png",
+        "components/actions/button/previews/async-action.mobile.light.png",
+        "components/actions/button/previews/copy.desktop.dark.png",
+        "components/actions/button/previews/copy.desktop.light.png",
+        "components/actions/button/previews/copy.mobile.dark.png",
+        "components/actions/button/previews/copy.mobile.light.png",
         "components/actions/button/previews/default.desktop.dark.png",
         "components/actions/button/previews/default.desktop.light.png",
         "components/actions/button/previews/default.mobile.dark.png",
@@ -3827,6 +4044,10 @@
         "components/actions/button/previews/destructive.desktop.light.png",
         "components/actions/button/previews/destructive.mobile.dark.png",
         "components/actions/button/previews/destructive.mobile.light.png",
+        "components/actions/button/previews/expanding.desktop.dark.png",
+        "components/actions/button/previews/expanding.desktop.light.png",
+        "components/actions/button/previews/expanding.mobile.dark.png",
+        "components/actions/button/previews/expanding.mobile.light.png",
         "components/actions/button/previews/ghost.desktop.dark.png",
         "components/actions/button/previews/ghost.desktop.light.png",
         "components/actions/button/previews/ghost.mobile.dark.png",
@@ -3839,6 +4060,14 @@
         "components/actions/button/previews/loading.desktop.light.png",
         "components/actions/button/previews/loading.mobile.dark.png",
         "components/actions/button/previews/loading.mobile.light.png",
+        "components/actions/button/previews/menu-toggle.desktop.dark.png",
+        "components/actions/button/previews/menu-toggle.desktop.light.png",
+        "components/actions/button/previews/menu-toggle.mobile.dark.png",
+        "components/actions/button/previews/menu-toggle.mobile.light.png",
+        "components/actions/button/previews/multiline.desktop.dark.png",
+        "components/actions/button/previews/multiline.desktop.light.png",
+        "components/actions/button/previews/multiline.mobile.dark.png",
+        "components/actions/button/previews/multiline.mobile.light.png",
         "components/actions/button/previews/outline.desktop.dark.png",
         "components/actions/button/previews/outline.desktop.light.png",
         "components/actions/button/previews/outline.mobile.dark.png",
@@ -3847,10 +4076,18 @@
         "components/actions/button/previews/secondary.desktop.light.png",
         "components/actions/button/previews/secondary.mobile.dark.png",
         "components/actions/button/previews/secondary.mobile.light.png",
+        "components/actions/button/previews/shortcut.desktop.dark.png",
+        "components/actions/button/previews/shortcut.desktop.light.png",
+        "components/actions/button/previews/shortcut.mobile.dark.png",
+        "components/actions/button/previews/shortcut.mobile.light.png",
         "components/actions/button/previews/sizes.desktop.dark.png",
         "components/actions/button/previews/sizes.desktop.light.png",
         "components/actions/button/previews/sizes.mobile.dark.png",
         "components/actions/button/previews/sizes.mobile.light.png",
+        "components/actions/button/previews/sliding-icon.desktop.dark.png",
+        "components/actions/button/previews/sliding-icon.desktop.light.png",
+        "components/actions/button/previews/sliding-icon.mobile.dark.png",
+        "components/actions/button/previews/sliding-icon.mobile.light.png",
         "components/actions/button/previews/with-icon.desktop.dark.png",
         "components/actions/button/previews/with-icon.desktop.light.png",
         "components/actions/button/previews/with-icon.mobile.dark.png",
@@ -3863,7 +4100,7 @@
       "slug": "button-group",
       "path": "components/actions/button-group",
       "name": "Button Group",
-      "summary": "Joins related buttons into one connected control.",
+      "summary": "Joins related buttons into one connected control: pagination, view switcher, zoom, split menu and vertical groups.",
       "tags": [
         "button",
         "select"
@@ -3875,27 +4112,55 @@
       "avoidWhen": [
         "Unrelated actions, which should stay separate"
       ],
-      "dependencies": [],
+      "dependencies": [
+        "lucide-react"
+      ],
       "shadcn": [
         "button-group",
         "button",
+        "dropdown-menu",
         "separator"
       ],
-      "source": "shadcn/ui",
+      "source": "shadcn/ui, ByosUI",
       "status": "stable",
       "demos": [
         "default",
-        "pill-toolbars"
+        "pagination",
+        "pill-toolbars",
+        "split-menu",
+        "vertical",
+        "view-switcher",
+        "zoom"
       ],
       "previews": [
         "components/actions/button-group/previews/default.desktop.dark.png",
         "components/actions/button-group/previews/default.desktop.light.png",
         "components/actions/button-group/previews/default.mobile.dark.png",
         "components/actions/button-group/previews/default.mobile.light.png",
+        "components/actions/button-group/previews/pagination.desktop.dark.png",
+        "components/actions/button-group/previews/pagination.desktop.light.png",
+        "components/actions/button-group/previews/pagination.mobile.dark.png",
+        "components/actions/button-group/previews/pagination.mobile.light.png",
         "components/actions/button-group/previews/pill-toolbars.desktop.dark.png",
         "components/actions/button-group/previews/pill-toolbars.desktop.light.png",
         "components/actions/button-group/previews/pill-toolbars.mobile.dark.png",
-        "components/actions/button-group/previews/pill-toolbars.mobile.light.png"
+        "components/actions/button-group/previews/pill-toolbars.mobile.light.png",
+        "components/actions/button-group/previews/split-menu.desktop.dark.png",
+        "components/actions/button-group/previews/split-menu.desktop.light.png",
+        "components/actions/button-group/previews/split-menu.mobile.dark.png",
+        "components/actions/button-group/previews/split-menu.mobile.light.png",
+        "components/actions/button-group/previews/vertical.desktop.dark.png",
+        "components/actions/button-group/previews/vertical.desktop.light.png",
+        "components/actions/button-group/previews/vertical.mobile.dark.png",
+        "components/actions/button-group/previews/vertical.mobile.light.png",
+        "components/actions/button-group/previews/view-switcher.desktop.dark.png",
+        "components/actions/button-group/previews/view-switcher.desktop.light.png",
+        "components/actions/button-group/previews/view-switcher.mobile.dark.png",
+        "components/actions/button-group/previews/view-switcher.mobile.light.png",
+        "components/actions/button-group/previews/zoom.desktop.dark.png",
+        "components/actions/button-group/previews/zoom.desktop.light.png",
+        "components/actions/button-group/previews/zoom.mobile.dark.png",
+        "components/actions/button-group/previews/zoom.mobile.light.png"
       ]
     },
     {
@@ -3994,6 +4259,7 @@
       ],
       "dependencies": [
         "class-variance-authority",
+        "lucide-react",
         "marked",
         "recharts",
         "remend",
@@ -4013,9 +4279,14 @@
       "source": "dashboardblocks",
       "status": "stable",
       "demos": [
+        "conversation",
         "default"
       ],
       "previews": [
+        "components/ai-chat/ai-assistant-01/previews/conversation.desktop.dark.png",
+        "components/ai-chat/ai-assistant-01/previews/conversation.desktop.light.png",
+        "components/ai-chat/ai-assistant-01/previews/conversation.mobile.dark.png",
+        "components/ai-chat/ai-assistant-01/previews/conversation.mobile.light.png",
         "components/ai-chat/ai-assistant-01/previews/default.desktop.dark.png",
         "components/ai-chat/ai-assistant-01/previews/default.desktop.light.png",
         "components/ai-chat/ai-assistant-01/previews/default.mobile.dark.png",
@@ -4061,9 +4332,14 @@
       "source": "dashboardblocks",
       "status": "stable",
       "demos": [
+        "conversation",
         "default"
       ],
       "previews": [
+        "components/ai-chat/ai-assistant-02/previews/conversation.desktop.dark.png",
+        "components/ai-chat/ai-assistant-02/previews/conversation.desktop.light.png",
+        "components/ai-chat/ai-assistant-02/previews/conversation.mobile.dark.png",
+        "components/ai-chat/ai-assistant-02/previews/conversation.mobile.light.png",
         "components/ai-chat/ai-assistant-02/previews/default.desktop.dark.png",
         "components/ai-chat/ai-assistant-02/previews/default.desktop.light.png",
         "components/ai-chat/ai-assistant-02/previews/default.mobile.dark.png",
@@ -4109,9 +4385,14 @@
       "source": "dashboardblocks",
       "status": "stable",
       "demos": [
+        "conversation",
         "default"
       ],
       "previews": [
+        "components/ai-chat/ai-assistant-03/previews/conversation.desktop.dark.png",
+        "components/ai-chat/ai-assistant-03/previews/conversation.desktop.light.png",
+        "components/ai-chat/ai-assistant-03/previews/conversation.mobile.dark.png",
+        "components/ai-chat/ai-assistant-03/previews/conversation.mobile.light.png",
         "components/ai-chat/ai-assistant-03/previews/default.desktop.dark.png",
         "components/ai-chat/ai-assistant-03/previews/default.desktop.light.png",
         "components/ai-chat/ai-assistant-03/previews/default.mobile.dark.png",
@@ -4157,9 +4438,14 @@
       "source": "dashboardblocks",
       "status": "stable",
       "demos": [
+        "conversation",
         "default"
       ],
       "previews": [
+        "components/ai-chat/ai-assistant-04/previews/conversation.desktop.dark.png",
+        "components/ai-chat/ai-assistant-04/previews/conversation.desktop.light.png",
+        "components/ai-chat/ai-assistant-04/previews/conversation.mobile.dark.png",
+        "components/ai-chat/ai-assistant-04/previews/conversation.mobile.light.png",
         "components/ai-chat/ai-assistant-04/previews/default.desktop.dark.png",
         "components/ai-chat/ai-assistant-04/previews/default.desktop.light.png",
         "components/ai-chat/ai-assistant-04/previews/default.mobile.dark.png",
@@ -4248,6 +4534,99 @@
       ]
     },
     {
+      "id": "ai-chat/chat-composer",
+      "category": "ai-chat",
+      "slug": "chat-composer",
+      "path": "components/ai-chat/chat-composer",
+      "name": "Chat Composer",
+      "summary": "An AI chat input card with a growing textarea, attach button, slot for tools such as a model picker, and a round send button that becomes stop while the assistant replies.",
+      "tags": [
+        "ai",
+        "chat",
+        "composer",
+        "input",
+        "prompt"
+      ],
+      "useWhen": [
+        "A plain, solid AI chat input is needed with Enter to send and Shift+Enter for a new line",
+        "The send button must switch to stop while the assistant is replying"
+      ],
+      "avoidWhen": [
+        "The input needs effort levels, sparks, voice or command menus, where ai-chat/prompt-bar fits",
+        "A message box for a chat between people"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "button"
+      ],
+      "source": "Library",
+      "status": "stable",
+      "demos": [
+        "busy",
+        "default"
+      ],
+      "previews": [
+        "components/ai-chat/chat-composer/previews/busy.desktop.dark.png",
+        "components/ai-chat/chat-composer/previews/busy.desktop.light.png",
+        "components/ai-chat/chat-composer/previews/busy.mobile.dark.png",
+        "components/ai-chat/chat-composer/previews/busy.mobile.light.png",
+        "components/ai-chat/chat-composer/previews/default.desktop.dark.png",
+        "components/ai-chat/chat-composer/previews/default.desktop.light.png",
+        "components/ai-chat/chat-composer/previews/default.mobile.dark.png",
+        "components/ai-chat/chat-composer/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "ai-chat/chat-screen",
+      "category": "ai-chat",
+      "slug": "chat-screen",
+      "path": "components/ai-chat/chat-screen",
+      "name": "Chat Screen",
+      "summary": "A full AI chat layout: header, scrolling conversation with auto-scroll, an empty state with starter questions, and the composer pinned at the bottom.",
+      "tags": [
+        "ai",
+        "chat",
+        "composer",
+        "message"
+      ],
+      "useWhen": [
+        "A standalone AI chat page or full-height panel is needed",
+        "A ready layout joining the conversation and the composer"
+      ],
+      "avoidWhen": [
+        "An assistant docked beside a dashboard page, where ai-chat/ai-assistant-01 fits",
+        "A chat between people"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "shadcn": [
+        "button"
+      ],
+      "composes": [
+        "ai-chat/conversation",
+        "ai-chat/chat-composer"
+      ],
+      "source": "Library",
+      "status": "stable",
+      "demos": [
+        "default",
+        "empty"
+      ],
+      "previews": [
+        "components/ai-chat/chat-screen/previews/default.desktop.dark.png",
+        "components/ai-chat/chat-screen/previews/default.desktop.light.png",
+        "components/ai-chat/chat-screen/previews/default.mobile.dark.png",
+        "components/ai-chat/chat-screen/previews/default.mobile.light.png",
+        "components/ai-chat/chat-screen/previews/empty.desktop.dark.png",
+        "components/ai-chat/chat-screen/previews/empty.desktop.light.png",
+        "components/ai-chat/chat-screen/previews/empty.mobile.dark.png",
+        "components/ai-chat/chat-screen/previews/empty.mobile.light.png"
+      ]
+    },
+    {
       "id": "ai-chat/context",
       "category": "ai-chat",
       "slug": "context",
@@ -4297,30 +4676,24 @@
       "slug": "conversation",
       "path": "components/ai-chat/conversation",
       "name": "Conversation",
-      "summary": "The turns of an AI chat with avatars, copy and regenerate actions, failed replies and a thinking state, built on the messaging Message and Bubble parts.",
+      "summary": "The turns of an AI chat: right-aligned user bubbles, open assistant replies with a mark, copy, feedback and regenerate actions, failed replies with retry and a typing indicator.",
       "tags": [
         "ai",
         "chat",
-        "message",
-        "avatar"
+        "message"
       ],
       "useWhen": [
         "Showing an AI assistant conversation",
-        "Replies need copy, regenerate or retry actions"
+        "Replies need copy, feedback, regenerate or retry actions"
       ],
       "avoidWhen": [
-        "A conversation between people, where messaging/message fits directly"
+        "A conversation between people, where the messaging parts fit"
       ],
       "dependencies": [
         "lucide-react"
       ],
       "shadcn": [
-        "avatar",
         "button"
-      ],
-      "composes": [
-        "messaging/bubble",
-        "messaging/message"
       ],
       "source": "Library",
       "status": "stable",
@@ -8453,6 +8826,42 @@
       ]
     },
     {
+      "id": "app-interface/cloudlet-toaster",
+      "category": "app-interface",
+      "slug": "cloudlet-toaster",
+      "path": "components/app-interface/cloudlet-toaster",
+      "name": "Cloudlet Toaster",
+      "summary": "Dynamic-island style notification stack with swipe, expand and progress, powered by @cloudlet/toast.",
+      "tags": [
+        "notifications",
+        "animation",
+        "overlay",
+        "swipe",
+        "alerts"
+      ],
+      "useWhen": [
+        "You want compact toasts that collapse into a stack and expand on interaction",
+        "Notifications need actions, forms or progress"
+      ],
+      "avoidWhen": [
+        "You need a minimal toast with no extra dependency"
+      ],
+      "dependencies": [
+        "@cloudlet/toast"
+      ],
+      "source": "https://cloudlet.dev/toaster",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/app-interface/cloudlet-toaster/previews/default.desktop.dark.png",
+        "components/app-interface/cloudlet-toaster/previews/default.desktop.light.png",
+        "components/app-interface/cloudlet-toaster/previews/default.mobile.dark.png",
+        "components/app-interface/cloudlet-toaster/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "app-interface/command-menu-01",
       "category": "app-interface",
       "slug": "command-menu-01",
@@ -11281,6 +11690,58 @@
       ]
     },
     {
+      "id": "data-display/org-tree",
+      "category": "data-display",
+      "slug": "org-tree",
+      "path": "components/data-display/org-tree",
+      "name": "Org Tree (ReUI)",
+      "summary": "Organisation chart as an expandable tree with avatar, name and role per person, built on headless-tree.",
+      "tags": [
+        "tree",
+        "team",
+        "list"
+      ],
+      "useWhen": [
+        "Showing reporting lines or any people hierarchy",
+        "Keyboard-navigable expandable hierarchy"
+      ],
+      "avoidWhen": [
+        "File trees with drag and drop, where the animated tree fits",
+        "Wide visual org charts with connector lines"
+      ],
+      "dependencies": [
+        "@headless-tree/core",
+        "@headless-tree/react",
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "shadcn": [
+        "avatar"
+      ],
+      "source": "ReUI",
+      "install": "@reui/c-tree-6",
+      "status": "experimental",
+      "demos": [
+        "collapsed",
+        "default",
+        "expanded"
+      ],
+      "previews": [
+        "components/data-display/org-tree/previews/collapsed.desktop.dark.png",
+        "components/data-display/org-tree/previews/collapsed.desktop.light.png",
+        "components/data-display/org-tree/previews/collapsed.mobile.dark.png",
+        "components/data-display/org-tree/previews/collapsed.mobile.light.png",
+        "components/data-display/org-tree/previews/default.desktop.dark.png",
+        "components/data-display/org-tree/previews/default.desktop.light.png",
+        "components/data-display/org-tree/previews/default.mobile.dark.png",
+        "components/data-display/org-tree/previews/default.mobile.light.png",
+        "components/data-display/org-tree/previews/expanded.desktop.dark.png",
+        "components/data-display/org-tree/previews/expanded.desktop.light.png",
+        "components/data-display/org-tree/previews/expanded.mobile.dark.png",
+        "components/data-display/org-tree/previews/expanded.mobile.light.png"
+      ]
+    },
+    {
       "id": "data-display/pill",
       "category": "data-display",
       "slug": "pill",
@@ -11606,6 +12067,68 @@
         "components/email/email-07/previews/default.desktop.light.png",
         "components/email/email-07/previews/default.mobile.dark.png",
         "components/email/email-07/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "forms/cascader",
+      "category": "forms",
+      "slug": "cascader",
+      "path": "components/forms/cascader",
+      "name": "Cascader (ByosUI)",
+      "summary": "Nested option picker with drill-down, columns or tree modes, deep search, multi-select, async children and a virtualised list.",
+      "tags": [
+        "select",
+        "search",
+        "form",
+        "menu"
+      ],
+      "useWhen": [
+        "Choosing from deep hierarchies such as attributes, regions or permissions",
+        "Multi-select across nested levels"
+      ],
+      "avoidWhen": [
+        "A flat list of options, where a combobox or select is enough"
+      ],
+      "dependencies": [
+        "@base-ui/react",
+        "@tanstack/react-virtual",
+        "lucide-react"
+      ],
+      "source": "ByosUI",
+      "status": "experimental",
+      "demos": [
+        "controlled",
+        "default",
+        "embedded",
+        "flat",
+        "multiple",
+        "open"
+      ],
+      "previews": [
+        "components/forms/cascader/previews/controlled.desktop.dark.png",
+        "components/forms/cascader/previews/controlled.desktop.light.png",
+        "components/forms/cascader/previews/controlled.mobile.dark.png",
+        "components/forms/cascader/previews/controlled.mobile.light.png",
+        "components/forms/cascader/previews/default.desktop.dark.png",
+        "components/forms/cascader/previews/default.desktop.light.png",
+        "components/forms/cascader/previews/default.mobile.dark.png",
+        "components/forms/cascader/previews/default.mobile.light.png",
+        "components/forms/cascader/previews/embedded.desktop.dark.png",
+        "components/forms/cascader/previews/embedded.desktop.light.png",
+        "components/forms/cascader/previews/embedded.mobile.dark.png",
+        "components/forms/cascader/previews/embedded.mobile.light.png",
+        "components/forms/cascader/previews/flat.desktop.dark.png",
+        "components/forms/cascader/previews/flat.desktop.light.png",
+        "components/forms/cascader/previews/flat.mobile.dark.png",
+        "components/forms/cascader/previews/flat.mobile.light.png",
+        "components/forms/cascader/previews/multiple.desktop.dark.png",
+        "components/forms/cascader/previews/multiple.desktop.light.png",
+        "components/forms/cascader/previews/multiple.mobile.dark.png",
+        "components/forms/cascader/previews/multiple.mobile.light.png",
+        "components/forms/cascader/previews/open.desktop.dark.png",
+        "components/forms/cascader/previews/open.desktop.light.png",
+        "components/forms/cascader/previews/open.mobile.dark.png",
+        "components/forms/cascader/previews/open.mobile.light.png"
       ]
     },
     {
@@ -12039,6 +12562,41 @@
       ]
     },
     {
+      "id": "hero-page/chapter-rail",
+      "category": "hero-page",
+      "slug": "chapter-rail",
+      "path": "components/hero-page/chapter-rail",
+      "name": "Chapter Rail",
+      "summary": "Right-edge scroll rail: one dot per section, the current dot morphs into a pill that fills as the section scrolls by.",
+      "tags": [
+        "navigation",
+        "progress",
+        "animation",
+        "hero",
+        "landing page"
+      ],
+      "useWhen": [
+        "A long landing page needs a quiet where-am-I indicator with jump links",
+        "You want a scroll progress cue that does not take a header or sidebar"
+      ],
+      "avoidWhen": [
+        "The page has two or three sections",
+        "Mobile must show section navigation (the rail is hidden below 80rem)"
+      ],
+      "dependencies": [],
+      "source": "https://github.com/Meerzus/cloudlet (apps/site chapters)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/hero-page/chapter-rail/previews/default.desktop.dark.png",
+        "components/hero-page/chapter-rail/previews/default.desktop.light.png",
+        "components/hero-page/chapter-rail/previews/default.mobile.dark.png",
+        "components/hero-page/chapter-rail/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "hero-page/decrypted-text",
       "category": "hero-page",
       "slug": "decrypted-text",
@@ -12253,6 +12811,48 @@
         "components/hero-page/scroll-morph-hero/previews/default.desktop.light.png",
         "components/hero-page/scroll-morph-hero/previews/default.mobile.dark.png",
         "components/hero-page/scroll-morph-hero/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "hero-page/scroll-story",
+      "category": "hero-page",
+      "slug": "scroll-story",
+      "path": "components/hero-page/scroll-story",
+      "name": "Scroll Story",
+      "summary": "Pinned scroll story: captions blur-swap on the left while a scrubbed element on the right (a toast living through every state) animates with the scroll.",
+      "tags": [
+        "animation",
+        "hero",
+        "landing page",
+        "marketing",
+        "notifications"
+      ],
+      "useWhen": [
+        "A product feature is best explained as one object changing step by step",
+        "A landing page needs a scroll-driven walkthrough with a pinned visual"
+      ],
+      "avoidWhen": [
+        "The page needs plain, quick-to-scan sections",
+        "Pinned scrolling would fight a nested scroll container"
+      ],
+      "dependencies": [
+        "gsap"
+      ],
+      "source": "https://github.com/Meerzus/cloudlet (apps/site Life of a notification)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "static-sequence"
+      ],
+      "previews": [
+        "components/hero-page/scroll-story/previews/default.desktop.dark.png",
+        "components/hero-page/scroll-story/previews/default.desktop.light.png",
+        "components/hero-page/scroll-story/previews/default.mobile.dark.png",
+        "components/hero-page/scroll-story/previews/default.mobile.light.png",
+        "components/hero-page/scroll-story/previews/static-sequence.desktop.dark.png",
+        "components/hero-page/scroll-story/previews/static-sequence.desktop.light.png",
+        "components/hero-page/scroll-story/previews/static-sequence.mobile.dark.png",
+        "components/hero-page/scroll-story/previews/static-sequence.mobile.light.png"
       ]
     },
     {
@@ -12898,6 +13498,48 @@
       ]
     },
     {
+      "id": "media/device-mockup",
+      "category": "media",
+      "slug": "device-mockup",
+      "path": "components/media/device-mockup",
+      "name": "Device Mockup",
+      "summary": "Laptop, phone, foldable and tablet mockup that springs between devices, with a 3D fold animation and a sliding device switcher.",
+      "tags": [
+        "animation",
+        "marketing",
+        "hero",
+        "preview",
+        "landing page"
+      ],
+      "useWhen": [
+        "A hero or feature section needs to show a product on laptop, phone, tablet and foldable",
+        "You want the shell to morph between devices and the foldable to fold open"
+      ],
+      "avoidWhen": [
+        "A single static screenshot frame is enough",
+        "The screen content must be a live iframe (screens are React nodes here)"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "source": "https://github.com/Meerzus/cloudlet (apps/site hero device stage); anatomy adapted from react-mockframe and Marvel devices.css (MIT)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "phone-screen"
+      ],
+      "previews": [
+        "components/media/device-mockup/previews/default.desktop.dark.png",
+        "components/media/device-mockup/previews/default.desktop.light.png",
+        "components/media/device-mockup/previews/default.mobile.dark.png",
+        "components/media/device-mockup/previews/default.mobile.light.png",
+        "components/media/device-mockup/previews/phone-screen.desktop.dark.png",
+        "components/media/device-mockup/previews/phone-screen.desktop.light.png",
+        "components/media/device-mockup/previews/phone-screen.mobile.dark.png",
+        "components/media/device-mockup/previews/phone-screen.mobile.light.png"
+      ]
+    },
+    {
       "id": "media/image-crop",
       "category": "media",
       "slug": "image-crop",
@@ -12944,7 +13586,7 @@
       "slug": "bubble",
       "path": "components/messaging/bubble",
       "name": "Bubble",
-      "summary": "A chat bubble with color variants, grouping and reactions.",
+      "summary": "A chat bubble from shadcn/ui with color variants, grouping, link or button content and reactions on either edge.",
       "tags": [
         "message",
         "chat",
@@ -12957,20 +13599,29 @@
       "avoidWhen": [
         "Long documents, which are hard to read in a bubble"
       ],
-      "dependencies": [],
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
       "shadcn": [
-        "bubble"
+        "bubble-base"
       ],
       "source": "shadcn/ui",
       "status": "stable",
+      "install": "bubble",
       "demos": [
-        "default"
+        "default",
+        "reactions"
       ],
       "previews": [
         "components/messaging/bubble/previews/default.desktop.dark.png",
         "components/messaging/bubble/previews/default.desktop.light.png",
         "components/messaging/bubble/previews/default.mobile.dark.png",
-        "components/messaging/bubble/previews/default.mobile.light.png"
+        "components/messaging/bubble/previews/default.mobile.light.png",
+        "components/messaging/bubble/previews/reactions.desktop.dark.png",
+        "components/messaging/bubble/previews/reactions.desktop.light.png",
+        "components/messaging/bubble/previews/reactions.mobile.dark.png",
+        "components/messaging/bubble/previews/reactions.mobile.light.png"
       ]
     },
     {
@@ -13180,7 +13831,7 @@
         "avatar"
       ],
       "useWhen": [
-        "Building a chat between people or with an assistant",
+        "Building a chat between people",
         "Rows need names, times or read states"
       ],
       "avoidWhen": [
@@ -13772,6 +14423,49 @@
       ]
     },
     {
+      "id": "pages/engineering-status",
+      "category": "pages",
+      "slug": "engineering-status",
+      "path": "components/pages/engineering-status",
+      "name": "Engineering Status",
+      "summary": "A public status page: regions banner, 90-day uptime strips per service, active incidents with update timelines, and a fortnight of incident history.",
+      "tags": [
+        "status",
+        "alerts",
+        "timeline",
+        "dashboard",
+        "page header"
+      ],
+      "useWhen": [
+        "You need a public, signed-out status page for a platform",
+        "Services, uptime history and incident updates should read at a glance"
+      ],
+      "avoidWhen": [
+        "You need an in-app health widget; use a compact status card",
+        "You need live probes or subscriptions; this renders data you pass in"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "install": "npx shadcn@latest add @vibra/engineering-status",
+      "source": "https://vibraui.com (Vibra engineering-status block), ported self-contained",
+      "status": "experimental",
+      "demos": [
+        "active-incident",
+        "default"
+      ],
+      "previews": [
+        "components/pages/engineering-status/previews/active-incident.desktop.dark.png",
+        "components/pages/engineering-status/previews/active-incident.desktop.light.png",
+        "components/pages/engineering-status/previews/active-incident.mobile.dark.png",
+        "components/pages/engineering-status/previews/active-incident.mobile.light.png",
+        "components/pages/engineering-status/previews/default.desktop.dark.png",
+        "components/pages/engineering-status/previews/default.desktop.light.png",
+        "components/pages/engineering-status/previews/default.mobile.dark.png",
+        "components/pages/engineering-status/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "planning/calendar",
       "category": "planning",
       "slug": "calendar",
@@ -14122,6 +14816,59 @@
       ]
     },
     {
+      "id": "planning/event-calendar",
+      "category": "planning",
+      "slug": "event-calendar",
+      "path": "components/planning/event-calendar",
+      "name": "Event Calendar (ByosUI)",
+      "summary": "Full scheduling calendar with month, week, day, agenda and resource views, drag to move, resize and create, recurrence, time zones and i18n.",
+      "tags": [
+        "calendar",
+        "schedule",
+        "drag and drop",
+        "team"
+      ],
+      "useWhen": [
+        "A bookable or shared calendar with timed events, drag and resize",
+        "Room or person resource scheduling",
+        "Locale, RTL or time-zone aware calendars"
+      ],
+      "avoidWhen": [
+        "Picking a single date, where a date picker is enough",
+        "A small month grid with no events"
+      ],
+      "dependencies": [
+        "@base-ui/react",
+        "@date-fns/tz",
+        "class-variance-authority",
+        "@dnd-kit/core",
+        "date-fns",
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "source": "ByosUI",
+      "status": "experimental",
+      "demos": [
+        "booking",
+        "default",
+        "resources"
+      ],
+      "previews": [
+        "components/planning/event-calendar/previews/booking.desktop.dark.png",
+        "components/planning/event-calendar/previews/booking.desktop.light.png",
+        "components/planning/event-calendar/previews/booking.mobile.dark.png",
+        "components/planning/event-calendar/previews/booking.mobile.light.png",
+        "components/planning/event-calendar/previews/default.desktop.dark.png",
+        "components/planning/event-calendar/previews/default.desktop.light.png",
+        "components/planning/event-calendar/previews/default.mobile.dark.png",
+        "components/planning/event-calendar/previews/default.mobile.light.png",
+        "components/planning/event-calendar/previews/resources.desktop.dark.png",
+        "components/planning/event-calendar/previews/resources.desktop.light.png",
+        "components/planning/event-calendar/previews/resources.mobile.dark.png",
+        "components/planning/event-calendar/previews/resources.mobile.light.png"
+      ]
+    },
+    {
       "id": "planning/gantt",
       "category": "planning",
       "slug": "gantt",
@@ -14167,6 +14914,64 @@
         "components/planning/gantt/previews/default.desktop.light.png",
         "components/planning/gantt/previews/default.mobile.dark.png",
         "components/planning/gantt/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "planning/gantt-scheduler",
+      "category": "planning",
+      "slug": "gantt-scheduler",
+      "path": "components/planning/gantt-scheduler",
+      "name": "Gantt Scheduler (ByosUI)",
+      "summary": "Resource and task Gantt with drag, resize, dependencies, baselines, rollups, row reordering, recurrence and i18n.",
+      "tags": [
+        "gantt",
+        "timeline",
+        "schedule",
+        "project management",
+        "drag and drop"
+      ],
+      "useWhen": [
+        "Task bars over time with dependencies and milestones",
+        "Editable schedules with row reorder and baselines"
+      ],
+      "avoidWhen": [
+        "A read-only roadmap, where the simple gantt or roadmap fits",
+        "Calendar-style events, where the event calendar fits"
+      ],
+      "dependencies": [
+        "@base-ui/react",
+        "@date-fns/tz",
+        "class-variance-authority",
+        "@dnd-kit/core",
+        "date-fns",
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "source": "ByosUI",
+      "status": "experimental",
+      "demos": [
+        "baseline",
+        "default",
+        "reorder",
+        "roadmap"
+      ],
+      "previews": [
+        "components/planning/gantt-scheduler/previews/baseline.desktop.dark.png",
+        "components/planning/gantt-scheduler/previews/baseline.desktop.light.png",
+        "components/planning/gantt-scheduler/previews/baseline.mobile.dark.png",
+        "components/planning/gantt-scheduler/previews/baseline.mobile.light.png",
+        "components/planning/gantt-scheduler/previews/default.desktop.dark.png",
+        "components/planning/gantt-scheduler/previews/default.desktop.light.png",
+        "components/planning/gantt-scheduler/previews/default.mobile.dark.png",
+        "components/planning/gantt-scheduler/previews/default.mobile.light.png",
+        "components/planning/gantt-scheduler/previews/reorder.desktop.dark.png",
+        "components/planning/gantt-scheduler/previews/reorder.desktop.light.png",
+        "components/planning/gantt-scheduler/previews/reorder.mobile.dark.png",
+        "components/planning/gantt-scheduler/previews/reorder.mobile.light.png",
+        "components/planning/gantt-scheduler/previews/roadmap.desktop.dark.png",
+        "components/planning/gantt-scheduler/previews/roadmap.desktop.light.png",
+        "components/planning/gantt-scheduler/previews/roadmap.mobile.dark.png",
+        "components/planning/gantt-scheduler/previews/roadmap.mobile.light.png"
       ]
     },
     {
@@ -14376,6 +15181,51 @@
         "components/planning/kanban-03/previews/default.desktop.light.png",
         "components/planning/kanban-03/previews/default.mobile.dark.png",
         "components/planning/kanban-03/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "planning/kanban-dnd",
+      "category": "planning",
+      "slug": "kanban-dnd",
+      "path": "components/planning/kanban-dnd",
+      "name": "Kanban DnD (ByosUI)",
+      "summary": "Headless drag-and-drop kanban built on dnd-kit with column and card handles, placeholder or dynamic overlays and keyboard support.",
+      "tags": [
+        "kanban",
+        "drag and drop",
+        "sortable",
+        "project management"
+      ],
+      "useWhen": [
+        "A kanban board with draggable columns and cards under your own styling",
+        "Controlled board state with move events"
+      ],
+      "avoidWhen": [
+        "A static list of cards",
+        "You want a pre-styled board, where the existing kanban fits"
+      ],
+      "dependencies": [
+        "@base-ui/react",
+        "@dnd-kit/core",
+        "@dnd-kit/sortable",
+        "@dnd-kit/utilities",
+        "lucide-react"
+      ],
+      "source": "ByosUI",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "overlay"
+      ],
+      "previews": [
+        "components/planning/kanban-dnd/previews/default.desktop.dark.png",
+        "components/planning/kanban-dnd/previews/default.desktop.light.png",
+        "components/planning/kanban-dnd/previews/default.mobile.dark.png",
+        "components/planning/kanban-dnd/previews/default.mobile.light.png",
+        "components/planning/kanban-dnd/previews/overlay.desktop.dark.png",
+        "components/planning/kanban-dnd/previews/overlay.desktop.light.png",
+        "components/planning/kanban-dnd/previews/overlay.mobile.dark.png",
+        "components/planning/kanban-dnd/previews/overlay.mobile.light.png"
       ]
     },
     {

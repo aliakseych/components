@@ -15,6 +15,7 @@
   ],
   "dependencies": [
     "class-variance-authority",
+    "lucide-react",
     "marked",
     "recharts",
     "remend",

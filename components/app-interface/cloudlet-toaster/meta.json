@@ -1,0 +1,15 @@
+{
+  "name": "Cloudlet Toaster",
+  "summary": "Dynamic-island style notification stack with swipe, expand and progress, powered by @cloudlet/toast.",
+  "tags": ["notifications", "animation", "overlay", "swipe", "alerts"],
+  "useWhen": [
+    "You want compact toasts that collapse into a stack and expand on interaction",
+    "Notifications need actions, forms or progress"
+  ],
+  "avoidWhen": [
+    "You need a minimal toast with no extra dependency"
+  ],
+  "dependencies": ["@cloudlet/toast"],
+  "source": "https://cloudlet.dev/toaster",
+  "status": "experimental"
+}

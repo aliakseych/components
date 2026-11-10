@@ -1,0 +1,16 @@
+{
+  "name": "Device Mockup",
+  "summary": "Laptop, phone, foldable and tablet mockup that springs between devices, with a 3D fold animation and a sliding device switcher.",
+  "tags": ["animation", "marketing", "hero", "preview", "landing page"],
+  "useWhen": [
+    "A hero or feature section needs to show a product on laptop, phone, tablet and foldable",
+    "You want the shell to morph between devices and the foldable to fold open"
+  ],
+  "avoidWhen": [
+    "A single static screenshot frame is enough",
+    "The screen content must be a live iframe (screens are React nodes here)"
+  ],
+  "dependencies": ["lucide-react"],
+  "source": "https://github.com/Meerzus/cloudlet (apps/site hero device stage); anatomy adapted from react-mockframe and Marvel devices.css (MIT)",
+  "status": "experimental"
+}

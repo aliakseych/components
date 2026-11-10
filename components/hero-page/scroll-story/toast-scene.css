@@ -1,0 +1,18 @@
+.toast-stage { position: relative; height: 100%; }
+/* The camera frames the toast: its transform (scale, centring, drift) is written per frame. */
+.toast-camera {
+  position: absolute; top: 50%; left: 0; right: 0; width: min(26rem, 100%); margin-inline: auto;
+  transform-origin: 50% 0; will-change: transform;
+}
+.toast-camera > .puppet { max-width: none; }
+.toast-still { display: flex; justify-content: center; width: 100%; }
+/* The finale cloud, drawn in CSS from the page tokens: soft blobs on a blurred base. */
+.toast-cloud {
+  position: absolute; top: 50%; left: 0; right: 0; width: min(24rem, 72%); margin: -8rem auto 0; aspect-ratio: 1.387;
+  opacity: 0; pointer-events: none; will-change: transform, opacity; filter: drop-shadow(0 18px 28px color-mix(in oklab, var(--foreground) 14%, transparent));
+  background:
+    radial-gradient(closest-side at 30% 62%, var(--card) 0 88%, transparent 100%) 0 0 / 46% 62% no-repeat,
+    radial-gradient(closest-side at 50% 50%, var(--card) 0 90%, transparent 100%) 26% 0 / 52% 80% no-repeat,
+    radial-gradient(closest-side at 50% 50%, var(--card) 0 90%, transparent 100%) 62% 20% / 40% 60% no-repeat,
+    radial-gradient(closest-side at 50% 50%, var(--card) 0 92%, transparent 100%) 10% 52% / 80% 48% no-repeat;
+}

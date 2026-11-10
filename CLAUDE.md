@@ -12,7 +12,7 @@ Personal library of copy-in React, TypeScript and Tailwind components.
 
 ## Rules
 
-- Never edit `catalog/` or `previews/` by hand. They are generated.
+- Never edit `catalog/`, `previews/` or `llms.txt` by hand. They are generated.
 - Use only tags that exist in `tags.json`. Never invent one in `meta.json`. If no tag fits, add it to `tags.json` first with a one-line description, and only when at least two components could use it. Validation rejects unknown tags.
 - Keep each component self-contained. The only imports allowed from outside its folder are `@/lib/utils`, shadcn parts from `@/components/ui/*` listed in `meta.shadcn`, and other library components from `@/components/<category>/<slug>` listed in `meta.composes`.
 - When putting a component into an app, prefer `meta.install` if it is set: run `npx shadcn@latest add <install>` in the app. Copy files only as a fallback.

@@ -1,0 +1,12 @@
+/* Maps shadcn theme tokens onto the Cloudlet host. Loaded after @cloudlet/toast/styles.css. */
+@media (forced-colors: none) {
+  .cloudlet-host[data-theme] {
+    --cloudlet-background: var(--popover);
+    --cloudlet-foreground: var(--popover-foreground);
+    --cloudlet-muted: var(--muted-foreground);
+    --cloudlet-border: var(--border);
+    --cloudlet-focus: var(--ring);
+    --cloudlet-action-background: var(--accent);
+    --cloudlet-font-family: var(--font-sans, system-ui, sans-serif);
+  }
+}

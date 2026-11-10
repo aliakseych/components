@@ -26,6 +26,18 @@
       "label": "Action",
       "description": "The main call to action",
       "options": ["actions/magnetic-button/default", "actions/magnetic-button/disabled"]
+    },
+    {
+      "id": "navigation",
+      "label": "Page navigation",
+      "description": "A quiet where-am-I indicator for the page below",
+      "options": ["hero-page/chapter-rail/default"]
+    },
+    {
+      "id": "story",
+      "label": "Scroll story",
+      "description": "A pinned walkthrough that animates one element step by step",
+      "options": ["hero-page/scroll-story/default"]
     }
   ]
 }

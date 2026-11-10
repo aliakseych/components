@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@source ".";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-background: var(--tg-bg);
+  --color-foreground: var(--tg-text);
+  --color-muted: var(--tg-muted);
+  --color-muted-foreground: var(--tg-subtle);
+  --color-border: var(--tg-border);
+  --color-accent: var(--tg-accent);
+  --color-accent-foreground: oklch(1 0 0);
+  --color-header: var(--tg-header);
+  --color-in: var(--tg-in);
+  --color-out: var(--tg-out);
+  --color-out-foreground: var(--tg-out-text);
+  --color-wallpaper: var(--tg-wallpaper);
+  --color-badge: var(--tg-badge);
+  --color-badge-muted: var(--tg-badge-muted);
+  --color-ok: var(--tg-ok);
+}
+
+:root {
+  --tg-bg: oklch(1 0 0);
+  --tg-text: oklch(0.2 0.01 250);
+  --tg-muted: oklch(0.965 0.004 250);
+  --tg-subtle: oklch(0.55 0.015 250);
+  --tg-border: oklch(0.92 0.005 250);
+  --tg-accent: oklch(0.63 0.16 245);
+  --tg-header: oklch(1 0 0);
+  --tg-in: oklch(1 0 0);
+  --tg-out: oklch(0.94 0.08 145);
+  --tg-out-text: oklch(0.25 0.04 145);
+  --tg-wallpaper: oklch(0.93 0.035 150);
+  --tg-badge: oklch(0.63 0.16 245);
+  --tg-badge-muted: oklch(0.72 0.01 250);
+  --tg-ok: oklch(0.62 0.16 150);
+}
+
+.dark {
+  --tg-bg: oklch(0.22 0.015 250);
+  --tg-text: oklch(0.97 0 0);
+  --tg-muted: oklch(0.27 0.017 250);
+  --tg-subtle: oklch(0.7 0.02 250);
+  --tg-border: oklch(0.3 0.015 250);
+  --tg-accent: oklch(0.72 0.14 245);
+  --tg-header: oklch(0.25 0.017 250);
+  --tg-in: oklch(0.3 0.018 250);
+  --tg-out: oklch(0.45 0.12 255);
+  --tg-out-text: oklch(0.98 0 0);
+  --tg-wallpaper: oklch(0.19 0.02 255);
+  --tg-badge: oklch(0.55 0.15 245);
+  --tg-badge-muted: oklch(0.45 0.015 250);
+  --tg-ok: oklch(0.75 0.14 150);
+}
+
+html, body, #root { height: 100%; }
+body { margin: 0; background: var(--tg-bg); color: var(--tg-text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+*, ::after, ::before { border-color: var(--tg-border); }

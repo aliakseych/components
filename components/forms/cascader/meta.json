@@ -1,0 +1,24 @@
+{
+  "name": "Cascader (ByosUI)",
+  "summary": "Nested option picker with drill-down, columns or tree modes, deep search, multi-select, async children and a virtualised list.",
+  "tags": [
+    "select",
+    "search",
+    "form",
+    "menu"
+  ],
+  "useWhen": [
+    "Choosing from deep hierarchies such as attributes, regions or permissions",
+    "Multi-select across nested levels"
+  ],
+  "avoidWhen": [
+    "A flat list of options, where a combobox or select is enough"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "@tanstack/react-virtual",
+    "lucide-react"
+  ],
+  "source": "ByosUI",
+  "status": "experimental"
+}

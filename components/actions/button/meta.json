@@ -1,6 +1,6 @@
 {
   "name": "Button",
-  "summary": "The standard shadcn button with variants and sizes.",
+  "summary": "The standard shadcn button with variants and sizes, plus ByosUI patterns for copy feedback, async state, expanding and sliding icons.",
   "tags": [
     "button",
     "call to action"
@@ -12,10 +12,13 @@
   "avoidWhen": [
     "Navigating to another page, where a link is the right element"
   ],
-  "dependencies": [],
-  "shadcn": [
-    "button"
+  "dependencies": [
+    "lucide-react"
   ],
-  "source": "shadcn/ui",
+  "shadcn": [
+    "button",
+    "kbd"
+  ],
+  "source": "shadcn/ui, ByosUI",
   "status": "stable"
 }

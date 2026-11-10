@@ -16,7 +16,7 @@ import { AiAssistant2, aiAssistant2ExampleProps } from "./ai-assistant-02";
 npx shadcn@latest add @dashboardblocks/ai-assistant-02
 ```
 
-The CLI copies the block, the dashboardblocks parts it uses and the shadcn parts it needs. The source in this library lives under `components/dashboardblocks/ai-assistant/`.
+The CLI copies the block, the dashboardblocks parts it uses and the shadcn parts it needs. The block source is this folder's `index.tsx`; the shared chat parts it builds on live in `components/dashboardblocks/ai-assistant.tsx`.
 
 ## Origin
 

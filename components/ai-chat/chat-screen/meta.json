@@ -1,0 +1,18 @@
+{
+  "name": "Chat Screen",
+  "summary": "A full AI chat layout: header, scrolling conversation with auto-scroll, an empty state with starter questions, and the composer pinned at the bottom.",
+  "tags": ["ai", "chat", "composer", "message"],
+  "useWhen": [
+    "A standalone AI chat page or full-height panel is needed",
+    "A ready layout joining the conversation and the composer"
+  ],
+  "avoidWhen": [
+    "An assistant docked beside a dashboard page, where ai-chat/ai-assistant-01 fits",
+    "A chat between people"
+  ],
+  "dependencies": ["lucide-react"],
+  "shadcn": ["button"],
+  "composes": ["ai-chat/conversation", "ai-chat/chat-composer"],
+  "source": "Library",
+  "status": "stable"
+}

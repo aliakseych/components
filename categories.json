@@ -70,5 +70,9 @@
   "email": {
     "name": "Email",
     "description": "Transactional email templates"
+  },
+  "pages": {
+    "name": "Pages",
+    "description": "Complete ready-made pages such as status and product screens"
   }
 }

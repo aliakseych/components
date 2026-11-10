@@ -1,0 +1,27 @@
+{
+  "name": "Telegram-style Messenger",
+  "summary": "Mobile messenger modelled on Telegram's open-source client: chat list with folder tabs, pinned and muted chats, unread badges, chat screen with bubbles, replies, reactions, voice and photo messages, group chat, profile with shared media, and settings.",
+  "kind": "app",
+  "viewport": "mobile",
+  "themes": ["light", "dark"],
+  "tags": ["chat", "message", "app shell", "avatar", "composer"],
+  "useWhen": [
+    "Starting a mobile messenger or in-app chat product",
+    "Needing a reference for a chat list, a chat screen with replies and reactions, and a profile page"
+  ],
+  "avoidWhen": [
+    "An AI assistant chat, where the ai-chat components fit",
+    "A desktop inbox or support console: the layout is one phone-width column"
+  ],
+  "stack": ["React 19", "Vite", "Tailwind CSS 4", "lucide-react"],
+  "screens": [
+    { "id": "chats", "title": "Chats", "path": "/" },
+    { "id": "folder", "title": "Folder", "path": "/?folder=work" },
+    { "id": "chat", "title": "Chat", "path": "/chats/mia" },
+    { "id": "group", "title": "Group chat", "path": "/chats/crew" },
+    { "id": "profile", "title": "Profile", "path": "/chats/mia/info" },
+    { "id": "settings", "title": "Settings", "path": "/settings" }
+  ],
+  "source": "Layout and behaviour modelled on Telegram's open-source mobile clients; rewritten compactly in React with neutral sample data and no Telegram assets",
+  "status": "experimental"
+}

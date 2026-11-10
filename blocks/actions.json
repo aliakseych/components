@@ -39,7 +39,10 @@
       "description": "Related actions side by side",
       "options": [
         "actions/button-group/default",
-        "actions/button-group/pill-toolbars"
+        "actions/button-group/pill-toolbars",
+        "actions/button-group/split-menu",
+        "actions/button-group/pagination",
+        "actions/button-group/view-switcher"
       ]
     },
     {

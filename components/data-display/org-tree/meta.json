@@ -1,0 +1,29 @@
+{
+  "name": "Org Tree (ReUI)",
+  "summary": "Organisation chart as an expandable tree with avatar, name and role per person, built on headless-tree.",
+  "tags": [
+    "tree",
+    "team",
+    "list"
+  ],
+  "useWhen": [
+    "Showing reporting lines or any people hierarchy",
+    "Keyboard-navigable expandable hierarchy"
+  ],
+  "avoidWhen": [
+    "File trees with drag and drop, where the animated tree fits",
+    "Wide visual org charts with connector lines"
+  ],
+  "dependencies": [
+    "@headless-tree/core",
+    "@headless-tree/react",
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "shadcn": [
+    "avatar"
+  ],
+  "source": "ReUI",
+  "install": "@reui/c-tree-6",
+  "status": "experimental"
+}

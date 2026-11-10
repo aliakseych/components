@@ -1,0 +1,36 @@
+/* Pinned scroll story: captions on the left, the animated element on the right. */
+.story-pin { position: relative; height: 100svh; overflow: hidden; }
+/* The pin tucks under the section title so the first caption follows it closely. */
+.story-pin { margin-top: calc(11.5rem - 50svh); }
+.story-frame {
+  position: relative; height: 100%; padding-top: 4rem;
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: 2rem;
+}
+.story-captions { position: relative; height: 13rem; margin: 0; padding: 0; list-style: none; }
+.story-caption { position: absolute; inset: 0 0 auto; opacity: 0; }
+.story-step {
+  display: block; font: 500 0.8125rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.06em; color: var(--muted-foreground);
+}
+:is(.story-caption, .story-caption-static) h3 {
+  margin: 0.875rem 0 0; font-size: clamp(2rem, 3.6vw, 3.25rem); line-height: 1.04; font-weight: 600; letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+:is(.story-caption, .story-caption-static) p {
+  margin: 0.875rem 0 0; max-width: 26rem; font-size: 1.125rem; line-height: 1.5; color: var(--muted-foreground); text-wrap: pretty;
+}
+.story-stage { position: relative; height: 100%; }
+
+.story-sequence { display: grid; gap: 4rem; margin: 3rem auto 0; list-style: none; padding: 0; }
+.story-sequence-row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: 2rem; }
+.story-still { display: flex; justify-content: center; }
+
+@media (max-width: 47.99rem) {
+  .story-frame { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; align-items: stretch; gap: 1rem; padding-block: 4.5rem 2.5rem; }
+  .story-stage { order: -1; }
+  .story-captions { height: 10.5rem; }
+  .story-pin { margin-top: -25svh; }
+  :is(.story-caption, .story-caption-static) h3 { font-size: 1.875rem; }
+  :is(.story-caption, .story-caption-static) p { font-size: 1rem; }
+  .story-sequence-row { grid-template-columns: minmax(0, 1fr); }
+}

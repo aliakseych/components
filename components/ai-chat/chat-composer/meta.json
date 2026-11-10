@@ -1,0 +1,17 @@
+{
+  "name": "Chat Composer",
+  "summary": "An AI chat input card with a growing textarea, attach button, slot for tools such as a model picker, and a round send button that becomes stop while the assistant replies.",
+  "tags": ["ai", "chat", "composer", "input", "prompt"],
+  "useWhen": [
+    "A plain, solid AI chat input is needed with Enter to send and Shift+Enter for a new line",
+    "The send button must switch to stop while the assistant is replying"
+  ],
+  "avoidWhen": [
+    "The input needs effort levels, sparks, voice or command menus, where ai-chat/prompt-bar fits",
+    "A message box for a chat between people"
+  ],
+  "dependencies": ["lucide-react"],
+  "shadcn": ["button"],
+  "source": "Library",
+  "status": "stable"
+}

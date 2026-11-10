@@ -1,6 +1,6 @@
 {
   "name": "Button Group",
-  "summary": "Joins related buttons into one connected control.",
+  "summary": "Joins related buttons into one connected control: pagination, view switcher, zoom, split menu and vertical groups.",
   "tags": [
     "button",
     "select"
@@ -12,12 +12,15 @@
   "avoidWhen": [
     "Unrelated actions, which should stay separate"
   ],
-  "dependencies": [],
+  "dependencies": [
+    "lucide-react"
+  ],
   "shadcn": [
     "button-group",
     "button",
+    "dropdown-menu",
     "separator"
   ],
-  "source": "shadcn/ui",
+  "source": "shadcn/ui, ByosUI",
   "status": "stable"
 }

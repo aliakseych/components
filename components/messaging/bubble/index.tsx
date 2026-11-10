@@ -1,8 +1,8 @@
 import type { ComponentProps } from "react";
-import { Bubble as BaseBubble } from "@/components/ui/bubble";
+import { Bubble as BaseBubble } from "@/components/ui/bubble-base";
 import { cn } from "@/lib/utils";
 
-export { BubbleContent, BubbleGroup, BubbleReactions } from "@/components/ui/bubble";
+export { BubbleContent, BubbleGroup, BubbleReactions } from "@/components/ui/bubble-base";
 
 /**
  * Reactions are absolutely positioned and hang off the bubble's edge, so they take no

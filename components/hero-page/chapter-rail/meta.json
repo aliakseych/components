@@ -1,0 +1,16 @@
+{
+  "name": "Chapter Rail",
+  "summary": "Right-edge scroll rail: one dot per section, the current dot morphs into a pill that fills as the section scrolls by.",
+  "tags": ["navigation", "progress", "animation", "hero", "landing page"],
+  "useWhen": [
+    "A long landing page needs a quiet where-am-I indicator with jump links",
+    "You want a scroll progress cue that does not take a header or sidebar"
+  ],
+  "avoidWhen": [
+    "The page has two or three sections",
+    "Mobile must show section navigation (the rail is hidden below 80rem)"
+  ],
+  "dependencies": [],
+  "source": "https://github.com/Meerzus/cloudlet (apps/site chapters)",
+  "status": "experimental"
+}

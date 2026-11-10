@@ -2,7 +2,7 @@
 
 A personal library of React, TypeScript and Tailwind components. Apps copy a component's source rather than installing a package, so each app can adapt its copy. If a component's `meta.json` has `install`, add it with `npx shadcn@latest add <install>` instead.
 
-**Live gallery: https://aliakseych.github.io/components/** — every component, block and template, with templates running live in a phone frame. It is rebuilt from `main` on every push.
+The gallery shows every component, block and template, with templates running live in a phone frame. It is not published to GitHub Pages; run it locally with `pnpm run dev` or in Docker together with the MCP server.
 
 ## Quick start
 
@@ -13,6 +13,14 @@ pnpm run dev
 ```
 
 The gallery runs at http://localhost:5199.
+
+## Run in Docker
+
+```bash
+docker compose up -d --build
+```
+
+One container serves the built gallery at http://localhost:8080 and the MCP server at http://localhost:8080/mcp. Rebuild after changing components so the catalog in the image is current.
 
 ## Commands
 
@@ -25,15 +33,44 @@ The gallery runs at http://localhost:5199.
 | `pnpm run index` | Regenerates `catalog/` |
 | `pnpm run check` | Runs type checks, validation, capture and indexing |
 | `pnpm run build` | Builds the gallery into `dist/` (set `BASE_PATH` when it is served from a subfolder) |
+| `pnpm run mcp` | Starts the MCP server over stdio |
+| `pnpm run serve` | Serves `dist/` and the MCP server over HTTP on `PORT` (default 8080) |
 | `pnpm run link-skills` | Makes the skills available from every project |
+
+For language models, [`llms.txt`](llms.txt) maps every template and component to its README, following [llmstxt.org](https://llmstxt.org). The gallery serves it at `/llms.txt`. `pnpm run index` regenerates it.
+
+## MCP server
+
+[`mcp/server.mjs`](mcp/server.mjs) lets any MCP client search the library. It reads `catalog/index.json`, so run `pnpm run index` (or `check`) after changes.
+
+| Tool | Returns |
+| --- | --- |
+| `search_components` | Best matches for a query, optionally filtered by `category` or `tag`; includes templates |
+| `get_component` | Metadata, README, files and install command; `includeSource: true` adds the source |
+| `list_categories` | Categories with descriptions and counts |
+| `list_tags` | Allowed tags with descriptions and counts |
+| `get_block` | A block's slots and options; no `id` lists blocks |
+| `list_templates` | Whole-app templates and their screens |
+
+Connect over stdio (Claude Code shown; other clients take the same command):
+
+```bash
+claude mcp add components -- node /Users/aliakseych/Projects/components/mcp/server.mjs
+```
+
+Or over HTTP when the Docker container runs:
+
+```bash
+claude mcp add --transport http components http://localhost:8080/mcp
+```
 
 ## Find a component
 
-The library has about 309 components and 17 blocks in 18 categories (`categories.json`).
+The library has about 345 components and 26 blocks in 19 categories (`categories.json`), including complete ready-made screens under `pages`.
 
 Browse the [catalog](catalog/CATALOG.md) or the gallery. Agents search [`catalog/index.json`](catalog/index.json). [`tags.json`](tags.json) lists every allowed tag.
 
-It also has templates: whole apps in [`templates/`](templates) that run on their own on sample data, such as [`invest-app`](templates/invest-app). The gallery shows each one live in a phone frame, screen by screen.
+It also has templates: whole apps in [`templates/`](templates) that run on their own on sample data: [`invest-app`](templates/invest-app), a mobile investing app with an AI assistant, and [`telegram-app`](templates/telegram-app), a Telegram-style messenger. The gallery shows each one live in a phone frame, screen by screen.
 
 ## Use the skills in other agents
 
@@ -80,7 +117,7 @@ A UI component library is at `<path>`. Before building a UI component, read `<pa
 For other component work, follow the matching skill in `<path>/.claude/skills/`: `use-component`, `preview-component`, `harvest-component` or `create-component`.
 ```
 
-To check it works, ask the agent from another project: "Does my component library have a kanban board?" It should search `catalog/index.json` and answer with `planning/kanban`.
+To check it works, ask the agent from another project: "Does my component library have a kanban board?" It should search `catalog/index.json` (or call `search_components`) and answer with `planning/kanban`.
 
 ## Learn more
 

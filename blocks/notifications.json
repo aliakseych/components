@@ -8,7 +8,8 @@
       "label": "Bell",
       "description": "An unread count that opens the latest notifications",
       "options": [
-        "workspace/notifications-01/default"
+        "workspace/notifications-01/default",
+        "app-interface/cloudlet-toaster/default"
       ]
     },
     {

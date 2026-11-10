@@ -1,15 +1,15 @@
 # Conversation
 
-The turns of an AI chat, built on the messaging `Message` and `Bubble` parts so both kinds of chat share one look.
+The turns of an AI chat. People's messages are right-aligned bubbles; the assistant's replies are open text beside a small mark, so long answers, tables and code read comfortably. Self-contained; for person-to-person chat use the `messaging` category.
 
 ```tsx
 import { Conversation } from "./conversation";
 
-<Conversation busy={isLoading} onCopy={copy} onRegenerate={retry} turns={turns} />;
+<Conversation busy={isLoading} onCopy={copy} onFeedback={rate} onRegenerate={retry} turns={turns} />;
 ```
 
-Each turn has `id`, `role` (`user` or `assistant`), `content` (text or any element, such as a code block), an optional `footer` and `error`. Assistant turns get copy and regenerate buttons when you pass the handlers.
+Each turn has `id`, `role` (`user` or `assistant`), `content` (text or any element), and optional `footer`, `error` and `activity` (tool calls or reasoning shown above the reply). Action buttons appear when you pass `onCopy`, `onFeedback` or `onRegenerate`.
 
 ## Origin
 
-Written for this library. Install `messaging/message` and `messaging/bubble` with it.
+Written for this library, following the ai-elements and shadcn chat patterns.

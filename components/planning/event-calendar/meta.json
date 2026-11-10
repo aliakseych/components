@@ -1,0 +1,30 @@
+{
+  "name": "Event Calendar (ByosUI)",
+  "summary": "Full scheduling calendar with month, week, day, agenda and resource views, drag to move, resize and create, recurrence, time zones and i18n.",
+  "tags": [
+    "calendar",
+    "schedule",
+    "drag and drop",
+    "team"
+  ],
+  "useWhen": [
+    "A bookable or shared calendar with timed events, drag and resize",
+    "Room or person resource scheduling",
+    "Locale, RTL or time-zone aware calendars"
+  ],
+  "avoidWhen": [
+    "Picking a single date, where a date picker is enough",
+    "A small month grid with no events"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "@date-fns/tz",
+    "class-variance-authority",
+    "@dnd-kit/core",
+    "date-fns",
+    "lucide-react",
+    "react-day-picker"
+  ],
+  "source": "ByosUI",
+  "status": "experimental"
+}

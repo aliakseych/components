@@ -13,6 +13,8 @@ components/<category>/<slug>/
 
 Categories and slugs use kebab-case. Slugs are unique across the whole library.
 
+Chat is split by who talks. `ai-chat` holds parts for talking to an assistant: composers, streaming answers, thinking, tool calls and context. `messaging` holds conversations between people: bubbles, comments and threads. `pages` holds complete screens that need no assembly.
+
 ## Component code
 
 - Use named exports and export the props type.

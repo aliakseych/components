@@ -21,7 +21,9 @@
       "options": [
         "forms/forms-05/default",
         "forms/forms-06/default",
-        "forms/combobox/default"
+        "forms/combobox/default",
+        "forms/cascader/default",
+        "forms/cascader/multiple"
       ]
     },
     {

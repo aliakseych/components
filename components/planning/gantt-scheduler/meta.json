@@ -1,0 +1,30 @@
+{
+  "name": "Gantt Scheduler (ByosUI)",
+  "summary": "Resource and task Gantt with drag, resize, dependencies, baselines, rollups, row reordering, recurrence and i18n.",
+  "tags": [
+    "gantt",
+    "timeline",
+    "schedule",
+    "project management",
+    "drag and drop"
+  ],
+  "useWhen": [
+    "Task bars over time with dependencies and milestones",
+    "Editable schedules with row reorder and baselines"
+  ],
+  "avoidWhen": [
+    "A read-only roadmap, where the simple gantt or roadmap fits",
+    "Calendar-style events, where the event calendar fits"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "@date-fns/tz",
+    "class-variance-authority",
+    "@dnd-kit/core",
+    "date-fns",
+    "lucide-react",
+    "react-day-picker"
+  ],
+  "source": "ByosUI",
+  "status": "experimental"
+}

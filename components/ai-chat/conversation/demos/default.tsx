@@ -49,13 +49,13 @@ export default function Demo() {
         <p className="text-muted-foreground text-sm">3 messages, updated 10:43</p>
       </header>
       <Conversation
-        assistant={{ name: "Analyst" }}
+        assistantName="Analyst"
         busy
         className="p-4"
         onCopy={() => {}}
-        onRegenerate={() => {}}
+        onFeedback={() => {}} onRegenerate={() => {}}
         turns={turns}
-        user={{ name: "Sam" }}
+        
       />
     </Card>
   );
