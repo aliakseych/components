@@ -1,10 +1,11 @@
 {
   "name": "Pill Navbar",
-  "summary": "A floating pill-shaped top bar with a stroke-drawn logo, hover-wash nav items and multi-column mega dropdowns that collapses into a Menu/Close panel on narrow screens.",
+  "summary": "A floating content-width pill top bar with a stroke-drawn logo and logo hover menu, hover-wash nav items, multi-column mega dropdowns, icon quick-action tools with tooltips, and an 'on this page' mode that folds the nav into a section chip with progress and a section menu on scroll; collapses into a Menu/Close panel on narrow screens.",
   "tags": ["navigation", "menu", "landing page", "marketing", "animation"],
   "useWhen": [
     "A marketing site wants a floating, rounded header with rich product dropdowns",
-    "Dropdowns need grouped columns of icon, title and description links with hover intent and arrow-key navigation"
+    "Dropdowns need grouped columns of icon, title and description links with hover intent and arrow-key navigation",
+    "A long page wants the header to fold into a current-section tracker with jump links"
   ],
   "avoidWhen": [
     "A full-width classic top bar fits better; use marketing/product-navbar",

@@ -17,5 +17,8 @@ Floating rounded header. The logo mark draws its strokes then fills in, nav item
 - `align: "center"` centres a dropdown under its trigger (use for items near the right edge).
 - `fixed` pins the bar to the viewport top; off by default.
 - `defaultOpen` / `defaultExpanded` render open states (previews, docs).
+- `brandMenu` adds a menu that opens while hovering the logo (hover devices), or with ArrowDown on it.
+- `sections` (3 or more) enable the "on this page" mode: past 60% of the viewport the wordmark, nav and secondary actions fold away, the pill narrows, and a chip shows the current section, a progress bar and a jump menu (hover or click), plus a scroll-to-top button. `defaultFolded` keeps it folded for previews.
+- `tools` are icon buttons pinned right with a tooltip from `label`; hidden at 1000px and below.
 - Escape closes and returns focus; clicks outside and focus leaving the bar close it. Animations stop under reduced motion.
 - Non-primary actions are hidden in compact mode.

@@ -1,12 +1,14 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type ComponentType, type KeyboardEvent } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ArrowUp, ChevronDown, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+type Icon = ComponentType<{ className?: string }>;
 
 export type PillNavbarLink = {
   label: string;
   href: string;
   description?: string;
-  icon?: ComponentType<{ className?: string }>;
+  icon?: Icon;
 };
 
 export type PillNavbarColumn = { heading?: string; links: PillNavbarLink[] };
@@ -24,16 +26,33 @@ export type PillNavbarBrand = {
   paths: string[];
 };
 
+/** A page section the bar tracks once the reader scrolls past the hero. */
+export type PillNavbarSection = { id: string; title: string };
+
+/** An icon button beside the bar; `label` is its tooltip and accessible name. */
+export type PillNavbarTool = { label: string; icon: Icon; href?: string; onClick?: () => void };
+
 export type PillNavbarProps = {
   brand: PillNavbarBrand;
   items: PillNavbarItem[];
   actions?: PillNavbarAction[];
+  /** Menu shown while hovering the logo. */
+  brandMenu?: { label: string; href: string; icon?: Icon }[];
+  /**
+   * Three or more sections turn on the "on this page" mode: past 60% of the viewport the
+   * nav folds into a chip with the current section, a progress bar and a section menu.
+   */
+  sections?: PillNavbarSection[];
+  /** Icon buttons pinned to the right edge (hidden at 1000px and below). */
+  tools?: PillNavbarTool[];
   /** Width in px at and below which the bar collapses behind a Menu button. */
   compactAt?: number;
   /** Label of a menu to show open on mount (for previews). */
   defaultOpen?: string;
   /** Expand the compact panel on mount (for previews). */
   defaultExpanded?: boolean;
+  /** Keep the bar folded into the section chip regardless of scroll (for previews; needs `sections`). */
+  defaultFolded?: boolean;
   /** Fix the bar to the viewport top. Off by default so it can sit in any layout. */
   fixed?: boolean;
   className?: string;
@@ -41,10 +60,13 @@ export type PillNavbarProps = {
 
 const EASE = "ease-[cubic-bezier(.51,.03,.48,.96)]";
 const HOVER = typeof window !== "undefined" && window.matchMedia?.("(hover: hover) and (pointer: fine)").matches;
+const REDUCE = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
 // Visibility flips at once on open (so focus can land) and after the fade on close.
 const FADE_IN = "visible opacity-100 [transition:opacity_170ms_cubic-bezier(.51,.03,.48,.96)]";
 const FADE_OUT = "invisible opacity-0 [transition:opacity_170ms_cubic-bezier(.51,.03,.48,.96),visibility_0s_170ms]";
+
+const POPOVER = "absolute top-[calc(100%+8px)] z-10 rounded-xl border bg-popover p-1.5 text-popover-foreground shadow-[0_8px_24px_rgb(0_0_0/0.12),0_1px_2px_rgb(0_0_0/0.06)]";
 
 function useNarrow(px: number) {
   const query = `(max-width: ${px}px)`;
@@ -64,26 +86,40 @@ const drawCss = `
 @keyframes pill-navbar-fade{from{opacity:0}to{opacity:1}}
 .pill-navbar-path{stroke-dasharray:1;animation:pill-navbar-draw 1.3s cubic-bezier(.45,0,.25,1) both}
 .pill-navbar-word{animation:pill-navbar-fade .5s ease .9s both}
-@media (prefers-reduced-motion: reduce){.pill-navbar-path,.pill-navbar-word{animation:none}}
+.pill-navbar-pop{animation:pill-navbar-fade .16s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion: reduce){.pill-navbar-path,.pill-navbar-word,.pill-navbar-pop{animation:none}}
 `;
 
 export function PillNavbar({
   brand,
   items,
   actions = [],
+  brandMenu,
+  sections = [],
+  tools = [],
   compactAt = 900,
   defaultOpen,
   defaultExpanded = false,
+  defaultFolded = false,
   fixed = false,
   className,
 }: PillNavbarProps) {
   const compact = useNarrow(compactAt);
+  const hasOp = sections.length >= 3;
   const [open, setOpen] = useState<string | null>(defaultOpen ?? null);
   const [expanded, setExpanded] = useState(defaultExpanded);
   const [min, setMin] = useState(false);
+  const [logoOpen, setLogoOpen] = useState(false);
+  const [folded, setFolded] = useState(hasOp && defaultFolded);
+  const [current, setCurrent] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [opOpen, setOpOpen] = useState(false);
+  const [opLeft, setOpLeft] = useState(0);
   const pill = useRef<HTMLDivElement>(null);
   const menuBtn = useRef<HTMLButtonElement>(null);
-  const timers = useRef<{ open?: number; close?: number }>({});
+  const chip = useRef<HTMLButtonElement>(null);
+  const timers = useRef<{ open?: number; close?: number; logo?: number; op?: number; width?: number }>({});
+  const fullWidth = useRef(0);
   const id = useId();
 
   const clear = () => {
@@ -94,6 +130,8 @@ export function PillNavbar({
     clear();
     setOpen(null);
     setExpanded(false);
+    setLogoOpen(false);
+    setOpOpen(false);
   };
 
   // Collapse state resets when crossing the breakpoint.
@@ -102,23 +140,97 @@ export function PillNavbar({
     if (prevCompact.current === compact) return;
     prevCompact.current = compact;
     closeAll();
+    if (folded && pill.current) pill.current.style.width = `${foldWidth()}px`;
   }, [compact]);
 
-  useEffect(() => {
-    const onScroll = () => setMin(window.scrollY > 120);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const foldWidth = () => {
+    const room = window.innerWidth - 24;
+    return Math.round(compact ? Math.min(room, 400) : Math.min(room, Math.max(fullWidth.current * 0.62, 460)));
+  };
+
+  // Pin the current width before the fold flips so the layout effect can animate from it.
+  const fold = (on: boolean) => {
+    const el = pill.current;
+    if (!el) return setFolded(on);
+    window.clearTimeout(timers.current.width);
+    if (on) {
+      if (!el.style.width) fullWidth.current = el.offsetWidth;
+      closeAll();
+    } else setOpOpen(false);
+    el.style.width = `${el.offsetWidth}px`;
+    setFolded(on);
+  };
+
+  const prevFolded = useRef(folded);
+  useLayoutEffect(() => {
+    const el = pill.current;
+    if (!el || prevFolded.current === folded) return;
+    prevFolded.current = folded;
+    void el.offsetWidth;
+    if (folded) {
+      el.style.width = `${foldWidth()}px`;
+      return;
+    }
+    el.style.width = `${fullWidth.current}px`;
+    timers.current.width = window.setTimeout(() => (el.style.width = ""), REDUCE ? 0 : 650);
+  }, [folded]);
 
   useEffect(() => {
-    if (!open && !expanded) return;
+    if (folded && pill.current && !pill.current.style.width) {
+      // Started folded: measure the full bar once, then pin the folded width.
+      fullWidth.current = pill.current.offsetWidth;
+      pill.current.style.width = `${foldWidth()}px`;
+    }
+  }, []);
+
+  // Scroll: shadow, section spy, progress and fold.
+  const foldedRef = useRef(folded);
+  foldedRef.current = folded;
+  useEffect(() => {
+    let ticking = false;
+    const spy = () => {
+      ticking = false;
+      setMin(window.scrollY > 120);
+      if (!hasOp) return;
+      const line = (pill.current?.getBoundingClientRect().bottom ?? 0) + 56;
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      let i = 0;
+      sections.forEach((s, k) => {
+        const el = document.getElementById(s.id);
+        if (el && el.getBoundingClientRect().top <= line) i = k;
+      });
+      if (docH > 0 && window.scrollY >= docH - 4) i = sections.length - 1;
+      setCurrent(i);
+      setProgress(Math.round(100 * Math.min(1, window.scrollY / Math.max(1, docH))));
+      if (defaultFolded) return;
+      const f = window.scrollY > window.innerHeight * 0.6;
+      if (f !== foldedRef.current) fold(f);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(spy);
+      }
+    };
+    spy();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [hasOp, sections]);
+
+  useEffect(() => {
+    if (!open && !expanded && !logoOpen && !opOpen) return;
     const onClick = (e: MouseEvent) => {
       if (!pill.current?.contains(e.target as Node)) closeAll();
     };
     const onKey = (e: globalThis.KeyboardEvent) => {
       if (e.key !== "Escape") return;
-      const back = compact ? menuBtn.current : pill.current?.querySelector<HTMLButtonElement>(`[data-menu="${open}"]`);
+      const back = opOpen
+        ? chip.current
+        : logoOpen
+          ? pill.current?.querySelector<HTMLElement>("[data-brand]")
+          : compact
+            ? menuBtn.current
+            : pill.current?.querySelector<HTMLButtonElement>(`[data-menu="${open}"]`);
       closeAll();
       back?.focus();
     };
@@ -128,9 +240,17 @@ export function PillNavbar({
       document.removeEventListener("click", onClick);
       document.removeEventListener("keydown", onKey);
     };
-  }, [open, expanded, compact]);
+  }, [open, expanded, compact, logoOpen, opOpen]);
 
-  useEffect(() => clear, []);
+  useEffect(
+    () => () => {
+      clear();
+      window.clearTimeout(timers.current.logo);
+      window.clearTimeout(timers.current.op);
+      window.clearTimeout(timers.current.width);
+    },
+    [],
+  );
 
   // Selector to focus once the opened panel has rendered without `inert`.
   const pendingFocus = useRef<string | null>(null);
@@ -155,7 +275,46 @@ export function PillNavbar({
     if (open === label) timers.current.close = window.setTimeout(() => setOpen((c) => (c === label ? null : c)), 220);
   };
 
-  const panelKeys = (e: KeyboardEvent<HTMLDivElement>) => {
+  const logoHover = (on: boolean) => {
+    if (!brandMenu?.length || !HOVER) return;
+    window.clearTimeout(timers.current.logo);
+    if (on) {
+      clear();
+      setOpen(null);
+      setOpOpen(false);
+      setLogoOpen(true);
+    } else timers.current.logo = window.setTimeout(() => setLogoOpen(false), 180);
+  };
+
+  const showOp = (on: boolean) => {
+    if (on) {
+      clear();
+      setOpen(null);
+      setLogoOpen(false);
+      const p = pill.current?.getBoundingClientRect();
+      const c = chip.current?.getBoundingClientRect();
+      if (p && c) setOpLeft(Math.max(0, Math.round(c.left - p.left)));
+    }
+    setOpOpen(on);
+  };
+  const opHover = (on: boolean) => {
+    if (!HOVER) return;
+    window.clearTimeout(timers.current.op);
+    if (on && !opOpen && folded) timers.current.op = window.setTimeout(() => showOp(true), 140);
+    if (!on && opOpen) timers.current.op = window.setTimeout(() => showOp(false), 220);
+  };
+
+  const goTo = (section: PillNavbarSection | null) => {
+    showOp(false);
+    const el = section && document.getElementById(section.id);
+    const bar = (pill.current?.getBoundingClientRect().bottom ?? 0) + 16;
+    const y = el ? el.getBoundingClientRect().top + window.scrollY - bar : 0;
+    window.scrollTo({ top: Math.max(0, y), behavior: REDUCE ? "auto" : "smooth" });
+    // Leave hash-routed apps (`#/…`) alone.
+    if (!location.hash.startsWith("#/")) history.replaceState(null, "", el ? `#${el.id}` : location.pathname + location.search);
+  };
+
+  const listKeys = (e: KeyboardEvent<HTMLElement>) => {
     if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
     e.preventDefault();
     const links = Array.from(e.currentTarget.querySelectorAll<HTMLAnchorElement>("a"));
@@ -168,10 +327,11 @@ export function PillNavbar({
     "relative z-0 flex h-full items-center px-3.5 text-sm font-medium text-foreground outline-none before:absolute before:inset-x-[5px] before:top-1/2 before:-z-10 before:h-8 before:-translate-y-1/2 before:rounded-full before:transition-colors before:duration-200 hover:before:bg-accent focus-visible:before:ring-2 focus-visible:before:ring-ring";
   const compactRow = "h-11 w-full justify-between rounded-xl px-3 before:hidden hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring";
 
-  const navInert = compact && !expanded;
+  const navInert = compact ? !expanded : folded;
+  const small = compact || folded;
 
   return (
-    <header className={cn(fixed ? "fixed inset-x-0 top-3 z-50" : "relative", "flex justify-center px-3", className)}>
+    <header className={cn(fixed ? "fixed inset-x-0 top-4 z-50" : "relative", "flex justify-center px-3", className)}>
       <style>{drawCss}</style>
       <div
         ref={pill}
@@ -180,43 +340,136 @@ export function PillNavbar({
           if (next && !pill.current?.contains(next)) closeAll();
         }}
         className={cn(
-          "relative flex h-14 w-full max-w-6xl items-center gap-2 rounded-[30px] border bg-background pl-6 pr-2 text-foreground transition-shadow duration-400 motion-reduce:transition-none",
-          EASE,
-          min ? "shadow-[0_16px_40px_-12px_rgb(0_0_0/0.25)]" : "shadow-sm",
+          "relative flex h-14 max-w-full items-center rounded-[30px] border bg-background pl-6 pr-2 text-foreground motion-reduce:transition-none max-[600px]:pl-[18px]",
+          "[transition:box-shadow_.4s,width_.45s_cubic-bezier(.51,.03,.48,.96)]",
+          min ? "shadow-[0_16px_40px_rgb(0_0_0/0.16)]" : "shadow-[0_2px_6px_rgb(0_0_0/0.05)]",
         )}
       >
-        <a
-          href={brand.href}
-          aria-label={brand.name}
-          className="flex shrink-0 items-center gap-2 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        >
-          <svg viewBox="0 0 24 24" className="size-6 text-primary" aria-hidden>
-            {brand.paths.map((d, i) => (
-              <path
-                key={d}
-                d={d}
-                pathLength={1}
-                className="pill-navbar-path"
-                fill="currentColor"
-                stroke="currentColor"
-                strokeWidth={1.25}
-                strokeLinejoin="round"
-                style={{ animationDelay: `${0.15 + i * 0.1}s` }}
-              />
-            ))}
-          </svg>
-          <span
+        <div className="relative h-full shrink-0" onMouseEnter={() => logoHover(true)} onMouseLeave={() => logoHover(false)}>
+          <a
+            href={brand.href}
+            data-brand
+            aria-label={brand.name}
+            aria-haspopup={brandMenu?.length ? "menu" : undefined}
+            aria-expanded={brandMenu?.length ? logoOpen : undefined}
+            onKeyDown={(e) => {
+              if (e.key !== "ArrowDown" || !brandMenu?.length) return;
+              e.preventDefault();
+              setOpen(null);
+              setOpOpen(false);
+              setLogoOpen(true);
+              pendingFocus.current = "[data-brand-menu] a";
+            }}
             className={cn(
-              "pill-navbar-word overflow-hidden whitespace-nowrap text-base font-semibold tracking-tight transition-[max-width,opacity] duration-300",
+              "flex h-full items-center rounded-md outline-none transition-[margin,gap] duration-300 focus-visible:ring-2 focus-visible:ring-ring",
               EASE,
-              compact ? "max-w-0 opacity-0" : "max-w-40 opacity-100",
+              small ? "mr-3 gap-0" : "mr-3.5 gap-2",
             )}
           >
-            {brand.name}
-          </span>
-        </a>
+            <svg viewBox="0 0 24 24" className="size-6 shrink-0 text-primary" aria-hidden>
+              {brand.paths.map((d, i) => (
+                <path
+                  key={d}
+                  d={d}
+                  pathLength={1}
+                  className="pill-navbar-path"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  strokeWidth={1.25}
+                  strokeLinejoin="round"
+                  style={{ animationDelay: `${0.15 + i * 0.1}s` }}
+                />
+              ))}
+            </svg>
+            <span
+              className={cn(
+                "pill-navbar-word overflow-hidden whitespace-nowrap text-base font-semibold tracking-tight transition-[max-width,opacity] duration-300",
+                EASE,
+                small ? "max-w-0 opacity-0" : "max-w-40 opacity-100",
+              )}
+            >
+              {brand.name}
+            </span>
+          </a>
+          {!!brandMenu?.length && (
+            <div
+              role="menu"
+              aria-label={brand.name}
+              data-brand-menu
+              hidden={!logoOpen}
+              onKeyDown={listKeys}
+              className={cn(POPOVER, "pill-navbar-pop left-0 grid min-w-40 gap-px before:absolute before:inset-x-0 before:-top-2.5 before:h-2.5")}
+            >
+              {brandMenu.map((m) => {
+                const MIcon = m.icon;
+                return (
+                  <a
+                    key={m.href + m.label}
+                    role="menuitem"
+                    href={m.href}
+                    onClick={closeAll}
+                    className="flex items-center gap-2.5 rounded-[7px] px-2.5 py-2 text-[13.5px] outline-none transition-colors hover:bg-accent focus-visible:bg-accent"
+                  >
+                    {MIcon && <MIcon className="size-4 text-muted-foreground" />}
+                    {m.label}
+                  </a>
+                );
+              })}
+            </div>
+          )}
+        </div>
 
-        {compact && (
+        {hasOp && (
+          <span
+            inert={!folded}
+            className={cn(
+              "flex h-full min-w-0 items-center gap-2 overflow-hidden",
+              folded
+                ? "visible flex-1 max-w-[1200px] opacity-100 [transition:max-width_.4s_cubic-bezier(.51,.03,.48,.96),opacity_.25s_.15s,visibility_0s]"
+                : "invisible max-w-0 flex-none opacity-0 [transition:max-width_.4s_cubic-bezier(.51,.03,.48,.96),opacity_.2s,visibility_0s_.4s]",
+              "motion-reduce:transition-none",
+            )}
+          >
+            <button
+              ref={chip}
+              type="button"
+              aria-haspopup="true"
+              aria-expanded={opOpen}
+              aria-controls={`${id}-sections`}
+              aria-label={`On this page: ${sections[current]?.title}`}
+              onMouseEnter={() => opHover(true)}
+              onMouseLeave={() => opHover(false)}
+              onClick={(e) => {
+                e.stopPropagation();
+                window.clearTimeout(timers.current.op);
+                if (HOVER && e.detail && opOpen) return;
+                showOp(!opOpen);
+                if (!opOpen && e.detail === 0) pendingFocus.current = `#${CSS.escape(`${id}-sections`)} a[aria-current]`;
+              }}
+              className={cn(
+                "flex h-[38px] min-w-0 flex-1 items-center gap-2 rounded-full pl-3.5 pr-3 text-sm font-semibold text-primary outline-none transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                opOpen ? "bg-primary/15" : "bg-primary/10 hover:bg-primary/15",
+              )}
+            >
+              <span className="min-w-0 flex-1 truncate text-left">{sections[current]?.title}</span>
+              <span className="h-[3px] w-10 shrink-0 overflow-hidden rounded-sm bg-primary/20 max-[600px]:hidden" aria-hidden>
+                <i className="block h-full rounded-sm bg-primary transition-[width] duration-200" style={{ width: `${progress}%` }} />
+              </span>
+              <ChevronDown className={cn("size-3 shrink-0 transition-transform duration-200", opOpen && "rotate-180")} aria-hidden />
+            </button>
+            <button
+              type="button"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+              onClick={() => goTo(null)}
+              className="ml-auto grid size-9 shrink-0 place-items-center rounded-full text-foreground outline-none transition-colors duration-200 hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <ArrowUp className="size-4" />
+            </button>
+          </span>
+        )}
+
+        {compact && !folded && (
           <button
             ref={menuBtn}
             type="button"
@@ -225,10 +478,11 @@ export function PillNavbar({
             onClick={(e) => {
               e.stopPropagation();
               if (expanded) return closeAll();
+              setLogoOpen(false);
               setExpanded(true);
               if (e.detail === 0) pendingFocus.current = `[data-nav] a, [data-nav] button`;
             }}
-            className={cn(navItem, "ml-1 gap-1.5 h-10")}
+            className={cn(navItem, "ml-1 h-10 gap-1.5 font-semibold")}
           >
             {expanded ? <X className="size-4" /> : <Menu className="size-4" />}
             {expanded ? "Close" : "Menu"}
@@ -242,10 +496,15 @@ export function PillNavbar({
           className={cn(
             compact
               ? cn(
-                  "absolute inset-x-0 top-[calc(100%+6px)] z-10 flex max-h-[70vh] flex-col overflow-y-auto rounded-2xl border bg-popover p-2 text-popover-foreground shadow-xl motion-reduce:transition-none",
+                  "absolute inset-x-0 top-[calc(100%+6px)] z-10 flex max-h-[70vh] flex-col overflow-y-auto rounded-[18px] border bg-popover p-2 text-popover-foreground shadow-[0_24px_64px_rgb(0_0_0/0.16),0_4px_12px_rgb(0_0_0/0.06)] motion-reduce:transition-none",
                   expanded ? FADE_IN : FADE_OUT,
                 )
-              : "flex h-full items-center",
+              : cn(
+                  "flex h-full items-center motion-reduce:transition-none",
+                  folded
+                    ? "pointer-events-none invisible max-w-0 overflow-hidden opacity-0 [transition:max-width_.4s_cubic-bezier(.51,.03,.48,.96)_.12s,opacity_.15s,visibility_0s_.5s]"
+                    : "visible max-w-[760px] opacity-100 [transition:max-width_.4s_cubic-bezier(.51,.03,.48,.96)_.1s,opacity_.2s_.4s,visibility_0s]",
+                ),
           )}
         >
           {items.map((item) => {
@@ -260,7 +519,7 @@ export function PillNavbar({
                       clear();
                       timers.current.close = window.setTimeout(() => setOpen(null), 120);
                     }}
-                    className={cn(navItem, compact && compactRow)}
+                    className={cn(navItem, "whitespace-nowrap", compact && cn(compactRow, "font-semibold"))}
                   >
                     {item.label}
                   </a>
@@ -282,6 +541,7 @@ export function PillNavbar({
                   aria-controls={panelId}
                   onClick={(e) => {
                     clear();
+                    setLogoOpen(false);
                     // A hover already opened it: a mouse click should not toggle it shut.
                     const hoverOpened = HOVER && e.detail > 0 && !compact;
                     if (isOpen && !hoverOpened) setOpen(null);
@@ -296,12 +556,14 @@ export function PillNavbar({
                     setOpen(item.label);
                     focusFirst(item.label);
                   }}
-                  className={cn(navItem, "gap-1", isOpen && "before:bg-accent", compact && compactRow)}
+                  className={cn(navItem, "gap-1 whitespace-nowrap", isOpen && "before:bg-accent", compact && cn(compactRow, "font-semibold"))}
                 >
                   {item.label}
-                  <ChevronDown
-                    className={cn("size-3.5 text-muted-foreground transition-transform duration-200 motion-reduce:transition-none", isOpen && "rotate-180")}
-                  />
+                  {compact && (
+                    <ChevronDown
+                      className={cn("size-3.5 text-muted-foreground transition-transform duration-200 motion-reduce:transition-none", isOpen && "rotate-180")}
+                    />
+                  )}
                 </button>
                 <div
                   id={panelId}
@@ -309,7 +571,7 @@ export function PillNavbar({
                   aria-label={item.label}
                   data-panel={item.label}
                   inert={!isOpen}
-                  onKeyDown={panelKeys}
+                  onKeyDown={listKeys}
                   className={cn(
                     compact
                       ? cn("flex-col gap-1 px-1 pb-2", isOpen ? "flex" : "hidden")
@@ -323,11 +585,9 @@ export function PillNavbar({
                 >
                   {item.columns.map((col, ci) => (
                     <div key={col.heading ?? ci} className={compact ? "w-full" : "w-[280px]"}>
-                      {col.heading && (
-                        <p className="px-2.5 pb-1.5 pt-1 font-mono text-xs text-muted-foreground">{col.heading}</p>
-                      )}
+                      {col.heading && <p className="px-2.5 pb-1.5 pt-1 text-xs text-muted-foreground">{col.heading}</p>}
                       {col.links.map((link) => {
-                        const Icon = link.icon;
+                        const LIcon = link.icon;
                         return (
                           <a
                             key={link.href + link.label}
@@ -335,14 +595,14 @@ export function PillNavbar({
                             onClick={closeAll}
                             className="flex items-center gap-3 rounded-[9px] px-2.5 py-2 outline-none transition-colors duration-150 hover:bg-accent focus-visible:bg-accent focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
                           >
-                            {Icon && (
-                              <span className="grid size-9 shrink-0 place-items-center rounded-lg border bg-muted text-foreground">
-                                <Icon className="size-4" />
+                            {LIcon && (
+                              <span className="grid size-9 shrink-0 place-items-center rounded-lg border bg-muted text-primary">
+                                <LIcon className="size-4" />
                               </span>
                             )}
                             <span className="flex min-w-0 flex-col leading-tight">
                               <b className="text-sm font-medium">{link.label}</b>
-                              {link.description && <small className="text-xs text-muted-foreground">{link.description}</small>}
+                              {link.description && <small className="truncate text-xs text-muted-foreground">{link.description}</small>}
                             </span>
                           </a>
                         );
@@ -356,15 +616,15 @@ export function PillNavbar({
         </ul>
 
         {actions.length > 0 && (
-          <ul className="ml-auto flex h-full shrink-0 items-center">
+          <ul className="flex h-full shrink-0 items-center">
             {actions.map((a) => (
-              <li key={a.label} className={cn("h-full", compact && !a.primary && "hidden")}>
+              <li key={a.label} className={cn("h-full", small && !a.primary && "hidden")}>
                 <a
                   href={a.href}
                   className={cn(
                     navItem,
-                    "px-[18px] font-semibold before:h-[38px]",
-                    a.primary && "text-primary-foreground before:bg-primary hover:before:bg-primary/90",
+                    "whitespace-nowrap px-[18px] before:h-[38px]",
+                    a.primary && "font-semibold text-primary-foreground before:bg-primary hover:before:bg-primary/90",
                   )}
                 >
                   {a.label}
@@ -373,7 +633,58 @@ export function PillNavbar({
             ))}
           </ul>
         )}
+
+        {hasOp && (
+          <div
+            id={`${id}-sections`}
+            hidden={!opOpen}
+            onMouseEnter={() => opHover(true)}
+            onMouseLeave={() => opHover(false)}
+            onKeyDown={listKeys}
+            style={{ left: opLeft }}
+            className={cn(POPOVER, "pill-navbar-pop grid w-max min-w-44 gap-px before:absolute before:inset-x-0 before:-top-2.5 before:h-2.5")}
+          >
+            <p className="px-2.5 pb-1 pt-1.5 text-xs text-muted-foreground">On this page</p>
+            {sections.map((s, k) => (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                aria-current={k === current ? "true" : undefined}
+                onClick={(e) => {
+                  e.preventDefault();
+                  goTo(s);
+                }}
+                className={cn(
+                  "flex items-center gap-2.5 rounded-[7px] px-2.5 py-1.5 text-[13px] outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring",
+                  k === current ? "bg-primary/10 text-primary" : "hover:bg-accent",
+                )}
+              >
+                <span className={cn("size-1 shrink-0 rounded-full", k === current ? "bg-primary" : "bg-muted-foreground/50")} />
+                {s.title}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
+
+      {tools.length > 0 && (
+        <nav aria-label="Quick actions" className="absolute right-4 top-0 flex h-14 items-center gap-1 max-[1000px]:hidden">
+          {tools.map((t) => {
+            const TIcon = t.icon;
+            const cls =
+              "relative grid size-[38px] place-items-center rounded-[10px] text-foreground outline-none transition-colors hover:bg-primary/10 focus-visible:ring-2 focus-visible:ring-ring after:pointer-events-none after:absolute after:right-0 after:top-[calc(100%+4px)] after:whitespace-nowrap after:rounded-[10px] after:border after:bg-popover after:px-[11px] after:py-[9px] after:text-[13px] after:font-medium after:leading-none after:text-popover-foreground after:opacity-0 after:shadow-[0_10px_26px_rgb(0_0_0/0.14)] after:transition-opacity after:content-[attr(data-tip)] hover:after:opacity-100 focus-visible:after:opacity-100";
+            return t.href ? (
+              <a key={t.label} href={t.href} aria-label={t.label} data-tip={t.label} className={cls}>
+                <TIcon className="size-5" />
+              </a>
+            ) : (
+              <button key={t.label} type="button" onClick={t.onClick} aria-label={t.label} data-tip={t.label} className={cls}>
+                <TIcon className="size-5" />
+              </button>
+            );
+          })}
+        </nav>
+      )}
     </header>
   );
 }

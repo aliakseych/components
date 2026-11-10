@@ -1,18 +1,31 @@
-import { Blocks, Bot, BookOpen, Building2, GraduationCap, LayoutTemplate, Monitor, PenTool, Plug, Sparkles, Users, Video } from "lucide-react";
+import { Blocks, Bot, BookOpen, Building2, ExternalLink, GraduationCap, Home, LayoutGrid, LayoutTemplate, Monitor, Palette, PenTool, Plug, Search, Sparkles, Terminal, Users, Video } from "lucide-react";
 import { PillNavbar, type PillNavbarItem } from "../index";
 
-const brand = {
+export const brandMenu = [
+  { label: "Home", href: "#home", icon: Home },
+  { label: "Docs", href: "#docs", icon: BookOpen },
+  { label: "Dev portal", href: "#dev", icon: Terminal },
+  { label: "Brand kit", href: "#brand", icon: Palette },
+  { label: "Open app", href: "#app", icon: ExternalLink },
+];
+
+export const tools = [
+  { label: "Search", icon: Search, onClick: () => {} },
+  { label: "Open board", icon: LayoutGrid, href: "#board" },
+];
+
+export const brand = {
   name: "Sketchboard",
   href: "#home",
   paths: ["M4 4h7v7H4z", "M13 4h7v7h-7z", "M4 13h7v7H4z", "M13 13h7v7h-7z"],
 };
 
-const actions = [
+export const actions = [
   { label: "Log in", href: "#login" },
   { label: "Sign up", href: "#signup", primary: true },
 ];
 
-const items: PillNavbarItem[] = [
+export const items: PillNavbarItem[] = [
   { label: "Pricing", href: "#pricing" },
   {
     label: "Product",
@@ -67,7 +80,7 @@ const items: PillNavbarItem[] = [
 export default function Demo() {
   return (
     <div className="h-[120px] w-full bg-muted/40 pt-4">
-      <PillNavbar brand={brand} items={items} actions={actions} />
+      <PillNavbar brand={brand} items={items} actions={actions} brandMenu={brandMenu} tools={tools} />
     </div>
   );
 }
