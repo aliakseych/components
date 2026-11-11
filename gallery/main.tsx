@@ -9,6 +9,9 @@ import {
   BriefcaseIcon,
   CalendarRangeIcon,
   ChevronRightIcon,
+  CheckIcon,
+  CopyIcon,
+  PlugIcon,
   CodeIcon,
   FolderIcon,
   ImageIcon,
@@ -731,6 +734,7 @@ function Shell({ hash }: { hash: string }) {
   const selectedBlock = category === "blocks" ? blocks.find((item) => item.id === slug) : undefined;
   const selectedTemplate = category === "templates" ? templates.find((item) => item.id === slug) : undefined;
   const templateIndex = category === "templates" && !slug;
+  const connectPage = category === "connect";
   const categoryId = category && !slug && categories[category] ? category : undefined;
 
   const results = useMemo(() => searchEntries(query), [query]);
@@ -813,6 +817,7 @@ function Shell({ hash }: { hash: string }) {
 
     return [
       { items: [{ title: "All components", url: "/", match: "exact" as const, icon: LayoutGridIcon }] },
+      { items: [{ title: "Connect (MCP · llms.txt)", url: "/connect", match: "exact" as const, icon: PlugIcon }] },
       {
         label: "Recipes",
         items: [
@@ -841,6 +846,8 @@ function Shell({ hash }: { hash: string }) {
       ? [{ label: "Templates", href: "#/templates" }, { label: selectedTemplate.template.name }]
       : templateIndex
         ? [{ label: "Templates" }]
+        : connectPage
+          ? [{ label: "Connect" }]
         : selectedBlock
       ? [{ label: "Blocks" }, { label: selectedBlock.block.name }]
       : categoryId
@@ -892,7 +899,9 @@ function Shell({ hash }: { hash: string }) {
             ))}
           </nav>
         </div>
-        {selectedTemplate ? (
+        {connectPage ? (
+          <ConnectView />
+        ) : selectedTemplate ? (
           <TemplateView
             id={selectedTemplate.id}
             key={selectedTemplate.id}
@@ -925,6 +934,60 @@ function Shell({ hash }: { hash: string }) {
         )}
       </SidebarInset>
     </>
+  );
+}
+
+function CopyBlock({ label, text }: { label: string; text: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <section className="space-y-2">
+      <div className="flex items-center justify-between gap-2">
+        <h2 className="text-sm font-medium">{label}</h2>
+        <button
+          className="inline-flex h-7 items-center gap-1.5 rounded-md border px-2 text-xs text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring"
+          onClick={() => {
+            void navigator.clipboard?.writeText(text).then(() => {
+              setCopied(true);
+              setTimeout(() => setCopied(false), 1500);
+            });
+          }}
+          type="button"
+        >
+          {copied ? <CheckIcon aria-hidden="true" className="size-3.5" /> : <CopyIcon aria-hidden="true" className="size-3.5" />}
+          <span aria-live="polite">{copied ? "Copied" : "Copy"}</span>
+        </button>
+      </div>
+      <pre className="overflow-x-auto rounded-xl border bg-muted/50 p-4 font-mono text-xs leading-relaxed">{text}</pre>
+    </section>
+  );
+}
+
+/** How to point an agent at this deployment: the MCP endpoint and llms.txt. */
+function ConnectView() {
+  const origin = location.origin;
+  const mcp = `${origin}/mcp`;
+  const json = JSON.stringify({ mcpServers: { components: { type: "http", url: mcp } } }, null, 2);
+  return (
+    <article className="mx-auto w-full max-w-3xl space-y-8 p-4 md:p-8">
+      <header>
+        <h1 className="text-2xl font-semibold tracking-tight">Connect an agent</h1>
+        <p className="mt-2 text-muted-foreground">
+          This gallery serves an MCP server at <code className="font-mono text-sm">{mcp}</code> (Streamable HTTP, no
+          auth) and a plain-text index at{" "}
+          <a className="font-mono text-sm underline underline-offset-4" href="/llms.txt">
+            /llms.txt
+          </a>
+          .
+        </p>
+      </header>
+      <CopyBlock label="Claude Code" text={`claude mcp add --transport http components ${mcp}`} />
+      <CopyBlock label="Cursor, omp and other mcp.json clients" text={json} />
+      <CopyBlock label="llms.txt (paste into any agent)" text={`${origin}/llms.txt`} />
+      <CopyBlock
+        label="Test the endpoint"
+        text={`curl -s ${mcp} -H 'content-type: application/json' -H 'accept: application/json, text/event-stream' \\\n  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'`}
+      />
+    </article>
   );
 }
 

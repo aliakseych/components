@@ -83,6 +83,7 @@
         "data-display/data-table-04",
         "data-display/data-table-05",
         "data-display/data-table-06",
+        "data-display/folder-card",
         "data-display/org-tree",
         "data-display/pill",
         "data-display/table"
@@ -109,13 +110,13 @@
       "name": "Hero Page",
       "description": "Backgrounds, marks and headline effects for the top of a page",
       "components": [
+        "hero-page/beam-grid-hero",
         "hero-page/chapter-rail",
         "hero-page/decrypted-text",
         "hero-page/gradient-ascii",
         "hero-page/halftone-mark",
         "hero-page/prism-hero",
-        "hero-page/scroll-morph-hero",
-        "hero-page/scroll-story"
+        "hero-page/scroll-morph-hero"
       ]
     },
     "marketing": {
@@ -134,6 +135,8 @@
         "marketing/pricing",
         "marketing/product-navbar",
         "marketing/product-rail",
+        "marketing/reveal-footer",
+        "marketing/sky-footer",
         "marketing/stats-band",
         "marketing/stats-showcase",
         "marketing/testimonial-globe",
@@ -1412,7 +1415,9 @@
           "description": "Finding files in a table or folders",
           "options": [
             "workspace/files-02/default",
-            "workspace/files-04/default"
+            "workspace/files-04/default",
+            "data-display/folder-card/default",
+            "data-display/folder-card/chips"
           ]
         },
         {
@@ -1528,7 +1533,7 @@
           "label": "Scroll story",
           "description": "A pinned walkthrough that animates one element step by step",
           "options": [
-            "hero-page/scroll-story/default"
+            "hero-page/chapter-rail/story"
           ]
         }
       ]
@@ -1556,7 +1561,8 @@
           "description": "The first screen with the headline",
           "options": [
             "hero-page/prism-hero/default",
-            "hero-page/scroll-morph-hero/default"
+            "hero-page/scroll-morph-hero/default",
+            "hero-page/beam-grid-hero/default"
           ]
         },
         {
@@ -1573,10 +1579,12 @@
           "description": "What the product does",
           "options": [
             "marketing/bento-grid/default",
+            "marketing/bento-grid/spotlight",
+            "marketing/bento-grid/beam",
             "marketing/display-cards/default",
             "marketing/product-rail/default",
             "media/device-mockup/default",
-            "hero-page/scroll-story/default"
+            "hero-page/chapter-rail/story"
           ]
         },
         {
@@ -1611,7 +1619,9 @@
           "options": [
             "marketing/hills-footer/default",
             "marketing/halftone-footer/default",
-            "marketing/dithered-footer/default"
+            "marketing/dithered-footer/default",
+            "marketing/sky-footer/default",
+            "marketing/reveal-footer/default"
           ]
         },
         {
@@ -2094,17 +2104,20 @@
         "collaboration/collaborative-canvas",
         "dashboard/gooey-loader",
         "dashboard/wave-spinner",
+        "data-display/folder-card",
         "hero-page/chapter-rail",
         "hero-page/decrypted-text",
         "hero-page/halftone-mark",
         "hero-page/scroll-morph-hero",
-        "hero-page/scroll-story",
+        "marketing/bento-grid",
         "marketing/display-cards",
         "marketing/dithered-footer",
         "marketing/halftone-footer",
         "marketing/hills-footer",
         "marketing/pill-navbar",
         "marketing/product-rail",
+        "marketing/reveal-footer",
+        "marketing/sky-footer",
         "marketing/testimonial-globe",
         "media/deck",
         "media/device-mockup",
@@ -2166,9 +2179,11 @@
     "background": {
       "description": "Sits behind page content",
       "components": [
+        "hero-page/beam-grid-hero",
         "hero-page/gradient-ascii",
         "hero-page/prism-hero",
-        "marketing/hills-footer"
+        "marketing/hills-footer",
+        "marketing/sky-footer"
       ]
     },
     "badge": {
@@ -2205,7 +2220,8 @@
         "actions/button",
         "actions/button-group",
         "actions/dropdown-menu",
-        "actions/magnetic-button"
+        "actions/magnetic-button",
+        "hero-page/beam-grid-hero"
       ]
     },
     "calendar": {
@@ -2236,13 +2252,15 @@
         "actions/button",
         "actions/magnetic-button",
         "marketing/hills-footer",
-        "marketing/pricing"
+        "marketing/pricing",
+        "marketing/reveal-footer"
       ]
     },
     "cards": {
       "description": "Content shown as separate cards",
       "components": [
         "code/package-info",
+        "data-display/folder-card",
         "hero-page/scroll-morph-hero",
         "marketing/bento-grid",
         "marketing/display-cards",
@@ -2650,6 +2668,7 @@
     "files": {
       "description": "Uploads, lists or browses files",
       "components": [
+        "data-display/folder-card",
         "workspace/files-01",
         "workspace/files-02",
         "workspace/files-03",
@@ -2771,6 +2790,7 @@
       "description": "Uses a color blend as its main look",
       "components": [
         "hero-page/gradient-ascii",
+        "marketing/sky-footer",
         "workspace/sign-in-split"
       ]
     },
@@ -2784,8 +2804,10 @@
     "heading": {
       "description": "Suits large title text",
       "components": [
+        "hero-page/beam-grid-hero",
         "hero-page/decrypted-text",
-        "hero-page/prism-hero"
+        "hero-page/prism-hero",
+        "marketing/sky-footer"
       ]
     },
     "heatmap": {
@@ -2800,13 +2822,13 @@
     "hero": {
       "description": "Suits the top section of a page",
       "components": [
+        "hero-page/beam-grid-hero",
         "hero-page/chapter-rail",
         "hero-page/decrypted-text",
         "hero-page/gradient-ascii",
         "hero-page/halftone-mark",
         "hero-page/prism-hero",
         "hero-page/scroll-morph-hero",
-        "hero-page/scroll-story",
         "media/device-mockup"
       ]
     },
@@ -2824,11 +2846,13 @@
         "ai-chat/context",
         "app-interface/glimpse",
         "collaboration/avatar-stack",
+        "data-display/folder-card",
         "marketing/display-cards",
         "marketing/dithered-footer",
         "marketing/halftone-footer",
         "marketing/hills-footer",
         "marketing/product-rail",
+        "marketing/reveal-footer",
         "media/deck"
       ]
     },
@@ -2843,6 +2867,7 @@
     "image": {
       "description": "Displays or changes images",
       "components": [
+        "data-display/folder-card",
         "marketing/feature",
         "media/image-crop"
       ]
@@ -2946,7 +2971,6 @@
         "collaboration/collaborative-canvas",
         "hero-page/chapter-rail",
         "hero-page/scroll-morph-hero",
-        "hero-page/scroll-story",
         "marketing/bento-grid",
         "marketing/display-cards",
         "marketing/feature",
@@ -3070,7 +3094,7 @@
         "email/email-05",
         "email/email-06",
         "email/email-07",
-        "hero-page/scroll-story",
+        "hero-page/chapter-rail",
         "marketing/bento-grid",
         "marketing/changelog",
         "marketing/dithered-footer",
@@ -3082,6 +3106,8 @@
         "marketing/pricing",
         "marketing/product-navbar",
         "marketing/product-rail",
+        "marketing/reveal-footer",
+        "marketing/sky-footer",
         "marketing/stats-band",
         "marketing/stats-showcase",
         "marketing/testimonial-globe",
@@ -3171,7 +3197,7 @@
       "description": "Tells people about events",
       "components": [
         "app-interface/cloudlet-toaster",
-        "hero-page/scroll-story",
+        "hero-page/chapter-rail",
         "operations/alerts-01",
         "operations/alerts-02",
         "operations/alerts-03",
@@ -3697,14 +3723,16 @@
       "components": [
         "code/notebook-cell",
         "code/sandbox",
-        "code/snippet"
+        "code/snippet",
+        "hero-page/beam-grid-hero"
       ]
     },
     "text": {
       "description": "Styles or animates text",
       "components": [
         "hero-page/decrypted-text",
-        "marketing/halftone-footer"
+        "marketing/halftone-footer",
+        "marketing/reveal-footer"
       ]
     },
     "timeline": {
@@ -11698,6 +11726,54 @@
       ]
     },
     {
+      "id": "data-display/folder-card",
+      "category": "data-display",
+      "slug": "folder-card",
+      "path": "components/data-display/folder-card",
+      "name": "Folder Card",
+      "summary": "Document-collection card shaped like a file folder with a peeking sheet, duotone icon, view count and a tinted corner watermark.",
+      "tags": [
+        "cards",
+        "files",
+        "hover",
+        "image",
+        "animation"
+      ],
+      "useWhen": [
+        "Browsing collections of documents, codes or laws as a grid with view counts",
+        "Category landing pages where each tile opens a document set"
+      ],
+      "avoidWhen": [
+        "Listing individual files with sizes and actions, where workspace/files-04 fits better",
+        "Dense tables or lists that need many columns"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "source": "Original; idea from a law-code collection UI",
+      "status": "experimental",
+      "demos": [
+        "chips",
+        "default",
+        "single"
+      ],
+      "previews": [
+        "components/data-display/folder-card/previews/chips.desktop.dark.png",
+        "components/data-display/folder-card/previews/chips.desktop.light.png",
+        "components/data-display/folder-card/previews/chips.mobile.dark.png",
+        "components/data-display/folder-card/previews/chips.mobile.light.png",
+        "components/data-display/folder-card/previews/default.desktop.dark.png",
+        "components/data-display/folder-card/previews/default.desktop.light.png",
+        "components/data-display/folder-card/previews/default.mobile.dark.png",
+        "components/data-display/folder-card/previews/default.mobile.light.png",
+        "components/data-display/folder-card/previews/single.desktop.dark.png",
+        "components/data-display/folder-card/previews/single.desktop.light.png",
+        "components/data-display/folder-card/previews/single.mobile.dark.png",
+        "components/data-display/folder-card/previews/single.mobile.light.png"
+      ]
+    },
+    {
       "id": "data-display/org-tree",
       "category": "data-display",
       "slug": "org-tree",
@@ -12570,38 +12646,101 @@
       ]
     },
     {
+      "id": "hero-page/beam-grid-hero",
+      "category": "hero-page",
+      "slug": "beam-grid-hero",
+      "path": "components/hero-page/beam-grid-hero",
+      "name": "Beam Grid Hero",
+      "summary": "An infra-style hero with a drifting grid, light beams that burst into particles on a framed terminal, a blur-rise headline and a copyable install pill.",
+      "tags": [
+        "hero",
+        "heading",
+        "background",
+        "terminal",
+        "button"
+      ],
+      "useWhen": [
+        "A developer tool, CLI or infrastructure product needs an opening section that shows a real command",
+        "The hero should feel alive without video, using only CSS and motion"
+      ],
+      "avoidWhen": [
+        "The brand is editorial or consumer-facing and needs a full-screen cinematic opening; use `hero-page/prism-hero` instead",
+        "The terminal content is long or interactive, because it only types one command and prints a few lines"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "shadcn": [
+        "button"
+      ],
+      "source": "Original; idea from infra-product landing pages",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "light-minimal"
+      ],
+      "previews": [
+        "components/hero-page/beam-grid-hero/previews/default.desktop.dark.png",
+        "components/hero-page/beam-grid-hero/previews/default.desktop.light.png",
+        "components/hero-page/beam-grid-hero/previews/default.mobile.dark.png",
+        "components/hero-page/beam-grid-hero/previews/default.mobile.light.png",
+        "components/hero-page/beam-grid-hero/previews/light-minimal.desktop.dark.png",
+        "components/hero-page/beam-grid-hero/previews/light-minimal.desktop.light.png",
+        "components/hero-page/beam-grid-hero/previews/light-minimal.mobile.dark.png",
+        "components/hero-page/beam-grid-hero/previews/light-minimal.mobile.light.png"
+      ]
+    },
+    {
       "id": "hero-page/chapter-rail",
       "category": "hero-page",
       "slug": "chapter-rail",
       "path": "components/hero-page/chapter-rail",
       "name": "Chapter Rail",
-      "summary": "Right-edge scroll rail: one dot per section, the current dot morphs into a pill that fills as the section scrolls by.",
+      "summary": "Right-edge scroll rail (one dot per section, the current dot morphs into a pill that fills with the section) plus a pinned scroll story: captions blur-swap while a scrubbed element animates.",
       "tags": [
         "navigation",
         "progress",
         "animation",
         "hero",
-        "landing page"
+        "landing page",
+        "marketing",
+        "notifications"
       ],
       "useWhen": [
         "A long landing page needs a quiet where-am-I indicator with jump links",
-        "You want a scroll progress cue that does not take a header or sidebar"
+        "You want a scroll progress cue that does not take a header or sidebar",
+        "A product feature is best explained as one object changing step by step, with a pinned visual",
+        "A landing page needs a scroll-driven walkthrough that the rail also tracks"
       ],
       "avoidWhen": [
         "The page has two or three sections",
-        "Mobile must show section navigation (the rail is hidden below 80rem)"
+        "Mobile must show section navigation (the rail is hidden below 80rem)",
+        "Pinned scrolling would fight a nested scroll container"
       ],
-      "dependencies": [],
-      "source": "https://github.com/Meerzus/cloudlet (apps/site chapters)",
+      "dependencies": [
+        "gsap"
+      ],
+      "source": "https://github.com/Meerzus/cloudlet (apps/site chapters, Life of a notification)",
       "status": "experimental",
       "demos": [
-        "default"
+        "default",
+        "static-sequence",
+        "story"
       ],
       "previews": [
         "components/hero-page/chapter-rail/previews/default.desktop.dark.png",
         "components/hero-page/chapter-rail/previews/default.desktop.light.png",
         "components/hero-page/chapter-rail/previews/default.mobile.dark.png",
-        "components/hero-page/chapter-rail/previews/default.mobile.light.png"
+        "components/hero-page/chapter-rail/previews/default.mobile.light.png",
+        "components/hero-page/chapter-rail/previews/static-sequence.desktop.dark.png",
+        "components/hero-page/chapter-rail/previews/static-sequence.desktop.light.png",
+        "components/hero-page/chapter-rail/previews/static-sequence.mobile.dark.png",
+        "components/hero-page/chapter-rail/previews/static-sequence.mobile.light.png",
+        "components/hero-page/chapter-rail/previews/story.desktop.dark.png",
+        "components/hero-page/chapter-rail/previews/story.desktop.light.png",
+        "components/hero-page/chapter-rail/previews/story.mobile.dark.png",
+        "components/hero-page/chapter-rail/previews/story.mobile.light.png"
       ]
     },
     {
@@ -12822,79 +12961,51 @@
       ]
     },
     {
-      "id": "hero-page/scroll-story",
-      "category": "hero-page",
-      "slug": "scroll-story",
-      "path": "components/hero-page/scroll-story",
-      "name": "Scroll Story",
-      "summary": "Pinned scroll story: captions blur-swap on the left while a scrubbed element on the right (a toast living through every state) animates with the scroll.",
-      "tags": [
-        "animation",
-        "hero",
-        "landing page",
-        "marketing",
-        "notifications"
-      ],
-      "useWhen": [
-        "A product feature is best explained as one object changing step by step",
-        "A landing page needs a scroll-driven walkthrough with a pinned visual"
-      ],
-      "avoidWhen": [
-        "The page needs plain, quick-to-scan sections",
-        "Pinned scrolling would fight a nested scroll container"
-      ],
-      "dependencies": [
-        "gsap"
-      ],
-      "source": "https://github.com/Meerzus/cloudlet (apps/site Life of a notification)",
-      "status": "experimental",
-      "demos": [
-        "default",
-        "static-sequence"
-      ],
-      "previews": [
-        "components/hero-page/scroll-story/previews/default.desktop.dark.png",
-        "components/hero-page/scroll-story/previews/default.desktop.light.png",
-        "components/hero-page/scroll-story/previews/default.mobile.dark.png",
-        "components/hero-page/scroll-story/previews/default.mobile.light.png",
-        "components/hero-page/scroll-story/previews/static-sequence.desktop.dark.png",
-        "components/hero-page/scroll-story/previews/static-sequence.desktop.light.png",
-        "components/hero-page/scroll-story/previews/static-sequence.mobile.dark.png",
-        "components/hero-page/scroll-story/previews/static-sequence.mobile.light.png"
-      ]
-    },
-    {
       "id": "marketing/bento-grid",
       "category": "marketing",
       "slug": "bento-grid",
       "path": "components/marketing/bento-grid",
       "name": "Bento Grid",
-      "summary": "A responsive grid of rounded feature cards with numbered eyebrows, spans for wide, tall and full-width cards, a tinted accent area and a hover lift.",
+      "summary": "A responsive grid of rounded feature cards with numbered eyebrows, spans for wide, tall and full-width cards, a tinted accent area, a hover lift, an in-view stagger entrance and optional spotlight or border-beam card effects.",
       "tags": [
         "cards",
+        "animation",
         "landing page",
         "marketing"
       ],
       "useWhen": [
         "Presenting four to six features on a landing page with uneven card sizes",
-        "Showing product highlights that need one wide or tall card for emphasis"
+        "Showing product highlights that need one wide or tall card for emphasis",
+        "Landing sections that want a cursor-tracked spotlight or a travelling border beam on feature cards"
       ],
       "avoidWhen": [
         "The items are a plain list to scan or act on; use a list or table instead",
         "The cards need to be interactive controls; put buttons in a card grid of your own, since these cards are plain articles"
       ],
-      "dependencies": [],
+      "dependencies": [
+        "motion"
+      ],
       "shadcn": [],
       "source": "21st.dev (inspired)",
       "status": "stable",
       "demos": [
-        "default"
+        "beam",
+        "default",
+        "spotlight"
       ],
       "previews": [
+        "components/marketing/bento-grid/previews/beam.desktop.dark.png",
+        "components/marketing/bento-grid/previews/beam.desktop.light.png",
+        "components/marketing/bento-grid/previews/beam.mobile.dark.png",
+        "components/marketing/bento-grid/previews/beam.mobile.light.png",
         "components/marketing/bento-grid/previews/default.desktop.dark.png",
         "components/marketing/bento-grid/previews/default.desktop.light.png",
         "components/marketing/bento-grid/previews/default.mobile.dark.png",
-        "components/marketing/bento-grid/previews/default.mobile.light.png"
+        "components/marketing/bento-grid/previews/default.mobile.light.png",
+        "components/marketing/bento-grid/previews/spotlight.desktop.dark.png",
+        "components/marketing/bento-grid/previews/spotlight.desktop.light.png",
+        "components/marketing/bento-grid/previews/spotlight.mobile.dark.png",
+        "components/marketing/bento-grid/previews/spotlight.mobile.light.png"
       ]
     },
     {
@@ -13356,6 +13467,92 @@
         "components/marketing/product-rail/previews/default.desktop.light.png",
         "components/marketing/product-rail/previews/default.mobile.dark.png",
         "components/marketing/product-rail/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/reveal-footer",
+      "category": "marketing",
+      "slug": "reveal-footer",
+      "path": "components/marketing/reveal-footer",
+      "name": "Reveal Footer",
+      "summary": "A footer uncovered from beneath the page as you scroll, with a rising CTA heading, directional-underline links, a live status dot and an oversized cropped wordmark lit by a pointer spotlight.",
+      "tags": [
+        "marketing",
+        "animation",
+        "hover",
+        "call to action",
+        "text"
+      ],
+      "useWhen": [
+        "A marketing or product page should end with a dramatic closing footer that is revealed from under the content",
+        "A brand wordmark, a final call to action and a system status indicator belong together at the page end"
+      ],
+      "avoidWhen": [
+        "The footer must sit inside a scrolling panel or a narrow column, because the reveal is driven by the window scroll",
+        "The footer needs a newsletter form or a dot-field texture; marketing/dithered-footer fits better",
+        "The footer needs a halftone or illustrated scene; marketing/halftone-footer or marketing/hills-footer fit better"
+      ],
+      "dependencies": [
+        "motion",
+        "lucide-react"
+      ],
+      "source": "Original; sticky-under reveal pattern",
+      "status": "experimental",
+      "demos": [
+        "compact",
+        "default"
+      ],
+      "previews": [
+        "components/marketing/reveal-footer/previews/compact.desktop.dark.png",
+        "components/marketing/reveal-footer/previews/compact.desktop.light.png",
+        "components/marketing/reveal-footer/previews/compact.mobile.dark.png",
+        "components/marketing/reveal-footer/previews/compact.mobile.light.png",
+        "components/marketing/reveal-footer/previews/default.desktop.dark.png",
+        "components/marketing/reveal-footer/previews/default.desktop.light.png",
+        "components/marketing/reveal-footer/previews/default.mobile.dark.png",
+        "components/marketing/reveal-footer/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/sky-footer",
+      "category": "marketing",
+      "slug": "sky-footer",
+      "path": "components/marketing/sky-footer",
+      "name": "Sky Footer",
+      "summary": "A footer that is a sky: layered cloud sprites drift and parallax at different depths over a day or night gradient, with a giant brand wordmark rendered as fluffy cloud above link columns and a legal line.",
+      "tags": [
+        "marketing",
+        "background",
+        "animation",
+        "gradient",
+        "heading"
+      ],
+      "useWhen": [
+        "A landing page needs a memorable, atmospheric closing footer with the brand name as the centerpiece",
+        "The site supports light and dark themes and should switch between a day and a night sky"
+      ],
+      "avoidWhen": [
+        "The footer must stay compact or text-dense; the cloud band takes about 400px of height",
+        "The brand word is long, because the wordmark is squeezed to fit one line"
+      ],
+      "dependencies": [
+        "motion"
+      ],
+      "source": "cloudlet.dev (inspired)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "minimal"
+      ],
+      "previews": [
+        "components/marketing/sky-footer/previews/default.desktop.dark.png",
+        "components/marketing/sky-footer/previews/default.desktop.light.png",
+        "components/marketing/sky-footer/previews/default.mobile.dark.png",
+        "components/marketing/sky-footer/previews/default.mobile.light.png",
+        "components/marketing/sky-footer/previews/minimal.desktop.dark.png",
+        "components/marketing/sky-footer/previews/minimal.desktop.light.png",
+        "components/marketing/sky-footer/previews/minimal.mobile.dark.png",
+        "components/marketing/sky-footer/previews/minimal.mobile.light.png"
       ]
     },
     {

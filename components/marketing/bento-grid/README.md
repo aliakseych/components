@@ -24,8 +24,17 @@ import { BentoGrid } from "./index";
 | `title` | `string` | `"Everything your team needs"` | Heading |
 | `items` | `BentoItem[]` | Five placeholder features | `{ eyebrow?, title, description?, span?, tone? }` |
 | `colors` | `BentoGridColors` | theme tokens | Colour roles, see Theming |
+| `effect` | `"none" \| "spotlight" \| "beam"` | `"none"` | Default card effect; `BentoItem.effect` overrides it per card |
 
 `span` is `"normal"`, `"wide"` (two columns), `"tall"` (two rows) or `"full"` (all four columns on desktop). `tone` is `chart-1` to `chart-5`. The eyebrow defaults to the item number, such as `01`.
+
+## Effects
+
+- `spotlight`: a radial glow follows the pointer inside the card and the 1px border lights up near the cursor (CSS vars `--x`/`--y` set on pointermove, border drawn with a masked gradient).
+- `beam`: a short bright segment travels around the border continuously (a conic gradient whose angle is animated with `motion`).
+- Colour comes from the card's `tone` (`chart-1`..`chart-5`), else `--primary`.
+- Cards also fade up with a stagger once when scrolled into view.
+- Reduced motion: no beam, no spotlight, no entrance movement; cards render in their plain look.
 
 ## Theming
 

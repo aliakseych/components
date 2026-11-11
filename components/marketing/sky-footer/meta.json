@@ -1,0 +1,16 @@
+{
+  "name": "Sky Footer",
+  "summary": "A footer that is a sky: layered cloud sprites drift and parallax at different depths over a day or night gradient, with a giant brand wordmark rendered as fluffy cloud above link columns and a legal line.",
+  "tags": ["marketing", "background", "animation", "gradient", "heading"],
+  "useWhen": [
+    "A landing page needs a memorable, atmospheric closing footer with the brand name as the centerpiece",
+    "The site supports light and dark themes and should switch between a day and a night sky"
+  ],
+  "avoidWhen": [
+    "The footer must stay compact or text-dense; the cloud band takes about 400px of height",
+    "The brand word is long, because the wordmark is squeezed to fit one line"
+  ],
+  "dependencies": ["motion"],
+  "source": "cloudlet.dev (inspired)",
+  "status": "experimental"
+}

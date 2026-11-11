@@ -1,0 +1,17 @@
+{
+  "name": "Beam Grid Hero",
+  "summary": "An infra-style hero with a drifting grid, light beams that burst into particles on a framed terminal, a blur-rise headline and a copyable install pill.",
+  "tags": ["hero", "heading", "background", "terminal", "button"],
+  "useWhen": [
+    "A developer tool, CLI or infrastructure product needs an opening section that shows a real command",
+    "The hero should feel alive without video, using only CSS and motion"
+  ],
+  "avoidWhen": [
+    "The brand is editorial or consumer-facing and needs a full-screen cinematic opening; use `hero-page/prism-hero` instead",
+    "The terminal content is long or interactive, because it only types one command and prints a few lines"
+  ],
+  "dependencies": ["motion", "lucide-react"],
+  "shadcn": ["button"],
+  "source": "Original; idea from infra-product landing pages",
+  "status": "experimental"
+}

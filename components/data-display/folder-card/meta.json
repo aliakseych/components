@@ -1,0 +1,16 @@
+{
+  "name": "Folder Card",
+  "summary": "Document-collection card shaped like a file folder with a peeking sheet, duotone icon, view count and a tinted corner watermark.",
+  "tags": ["cards", "files", "hover", "image", "animation"],
+  "useWhen": [
+    "Browsing collections of documents, codes or laws as a grid with view counts",
+    "Category landing pages where each tile opens a document set"
+  ],
+  "avoidWhen": [
+    "Listing individual files with sizes and actions, where workspace/files-04 fits better",
+    "Dense tables or lists that need many columns"
+  ],
+  "dependencies": ["motion", "lucide-react"],
+  "source": "Original; idea from a law-code collection UI",
+  "status": "experimental"
+}

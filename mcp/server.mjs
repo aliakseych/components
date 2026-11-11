@@ -199,6 +199,11 @@ async function startHttp(port) {
       return transport.handleRequest(req, res);
     }
     if (req.url === "/healthz") return res.writeHead(200).end("ok");
+    if (req.url === "/llms.txt") {
+      const body = await readFile(join(root, "llms.txt")).catch(() => null);
+      if (!body) return res.writeHead(404).end("Not found");
+      return res.writeHead(200, { "content-type": "text/plain; charset=utf-8" }).end(body);
+    }
     return serveStatic(req, res, dist);
   });
   http.listen(port, "0.0.0.0", () => console.error(`Gallery on http://localhost:${port}, MCP on /mcp`));

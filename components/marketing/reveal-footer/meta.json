@@ -1,0 +1,17 @@
+{
+  "name": "Reveal Footer",
+  "summary": "A footer uncovered from beneath the page as you scroll, with a rising CTA heading, directional-underline links, a live status dot and an oversized cropped wordmark lit by a pointer spotlight.",
+  "tags": ["marketing", "animation", "hover", "call to action", "text"],
+  "useWhen": [
+    "A marketing or product page should end with a dramatic closing footer that is revealed from under the content",
+    "A brand wordmark, a final call to action and a system status indicator belong together at the page end"
+  ],
+  "avoidWhen": [
+    "The footer must sit inside a scrolling panel or a narrow column, because the reveal is driven by the window scroll",
+    "The footer needs a newsletter form or a dot-field texture; marketing/dithered-footer fits better",
+    "The footer needs a halftone or illustrated scene; marketing/halftone-footer or marketing/hills-footer fit better"
+  ],
+  "dependencies": ["motion", "lucide-react"],
+  "source": "Original; sticky-under reveal pattern",
+  "status": "experimental"
+}

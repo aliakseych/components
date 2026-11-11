@@ -1,16 +1,29 @@
 {
   "name": "Chapter Rail",
-  "summary": "Right-edge scroll rail: one dot per section, the current dot morphs into a pill that fills as the section scrolls by.",
-  "tags": ["navigation", "progress", "animation", "hero", "landing page"],
+  "summary": "Right-edge scroll rail (one dot per section, the current dot morphs into a pill that fills with the section) plus a pinned scroll story: captions blur-swap while a scrubbed element animates.",
+  "tags": [
+    "navigation",
+    "progress",
+    "animation",
+    "hero",
+    "landing page",
+    "marketing",
+    "notifications"
+  ],
   "useWhen": [
     "A long landing page needs a quiet where-am-I indicator with jump links",
-    "You want a scroll progress cue that does not take a header or sidebar"
+    "You want a scroll progress cue that does not take a header or sidebar",
+    "A product feature is best explained as one object changing step by step, with a pinned visual",
+    "A landing page needs a scroll-driven walkthrough that the rail also tracks"
   ],
   "avoidWhen": [
     "The page has two or three sections",
-    "Mobile must show section navigation (the rail is hidden below 80rem)"
+    "Mobile must show section navigation (the rail is hidden below 80rem)",
+    "Pinned scrolling would fight a nested scroll container"
   ],
-  "dependencies": [],
-  "source": "https://github.com/Meerzus/cloudlet (apps/site chapters)",
+  "dependencies": [
+    "gsap"
+  ],
+  "source": "https://github.com/Meerzus/cloudlet (apps/site chapters, Life of a notification)",
   "status": "experimental"
 }

@@ -1,20 +1,22 @@
 {
   "name": "Bento Grid",
-  "summary": "A responsive grid of rounded feature cards with numbered eyebrows, spans for wide, tall and full-width cards, a tinted accent area and a hover lift.",
+  "summary": "A responsive grid of rounded feature cards with numbered eyebrows, spans for wide, tall and full-width cards, a tinted accent area, a hover lift, an in-view stagger entrance and optional spotlight or border-beam card effects.",
   "tags": [
     "cards",
+    "animation",
     "landing page",
     "marketing"
   ],
   "useWhen": [
     "Presenting four to six features on a landing page with uneven card sizes",
-    "Showing product highlights that need one wide or tall card for emphasis"
+    "Showing product highlights that need one wide or tall card for emphasis",
+    "Landing sections that want a cursor-tracked spotlight or a travelling border beam on feature cards"
   ],
   "avoidWhen": [
     "The items are a plain list to scan or act on; use a list or table instead",
     "The cards need to be interactive controls; put buttons in a card grid of your own, since these cards are plain articles"
   ],
-  "dependencies": [],
+  "dependencies": ["motion"],
   "shadcn": [],
   "source": "21st.dev (inspired)",
   "status": "stable"

@@ -17,7 +17,9 @@
       "description": "Finding files in a table or folders",
       "options": [
         "workspace/files-02/default",
-        "workspace/files-04/default"
+        "workspace/files-04/default",
+        "data-display/folder-card/default",
+        "data-display/folder-card/chips"
       ]
     },
     {

@@ -94,6 +94,7 @@ Tables, charts, labels and other read-focused data.
 - [Data Table: Status](https://github.com/aliakseych/components/blob/main/components/data-display/data-table-04/README.md): Services with their status, latency and error rate, worst status first.
 - [Data Table: Pagination](https://github.com/aliakseych/components/blob/main/components/data-display/data-table-05/README.md): Recent orders, five to a page.
 - [Data Table: Full Featured](https://github.com/aliakseych/components/blob/main/components/data-display/data-table-06/README.md): Search, filters with counts, a column menu, page sizes, multi-column sorting and selected rows to export or email.
+- [Folder Card](https://github.com/aliakseych/components/blob/main/components/data-display/folder-card/README.md): Document-collection card shaped like a file folder with a peeking sheet, duotone icon, view count and a tinted corner watermark.
 - [Org Tree (ReUI)](https://github.com/aliakseych/components/blob/main/components/data-display/org-tree/README.md): Organisation chart as an expandable tree with avatar, name and role per person, built on headless-tree.
 - [Pill](https://github.com/aliakseych/components/blob/main/components/data-display/pill/README.md): Rounded labels with optional avatars, status dots, change indicators, icons and buttons.
 - [Data Grid](https://github.com/aliakseych/components/blob/main/components/data-display/table/README.md): A composable, sortable table built on TanStack Table with column header menus.
@@ -118,19 +119,19 @@ Collecting and editing user input.
 
 Backgrounds, marks and headline effects for the top of a page.
 
-- [Chapter Rail](https://github.com/aliakseych/components/blob/main/components/hero-page/chapter-rail/README.md): Right-edge scroll rail: one dot per section, the current dot morphs into a pill that fills as the section scrolls by.
+- [Beam Grid Hero](https://github.com/aliakseych/components/blob/main/components/hero-page/beam-grid-hero/README.md): An infra-style hero with a drifting grid, light beams that burst into particles on a framed terminal, a blur-rise headline and a copyable install pill.
+- [Chapter Rail](https://github.com/aliakseych/components/blob/main/components/hero-page/chapter-rail/README.md): Right-edge scroll rail (one dot per section, the current dot morphs into a pill that fills with the section) plus a pinned scroll story: captions blur-swap while a scrubbed element animates.
 - [Decrypted Text](https://github.com/aliakseych/components/blob/main/components/hero-page/decrypted-text/README.md): Text that scrambles through random characters and resolves into the real words, on view, hover or click.
 - [Gradient ASCII Background](https://github.com/aliakseych/components/blob/main/components/hero-page/gradient-ascii/README.md): An animated WebGL background with a horizon glow and random noise characters, usable together or as separate layers.
 - [Halftone Mark](https://github.com/aliakseych/components/blob/main/components/hero-page/halftone-mark/README.md): An animated logo or icon filled with flowing colored light, shaped by any image you provide.
 - [Prism Hero](https://github.com/aliakseych/components/blob/main/components/hero-page/prism-hero/README.md): A full-screen hero with a floating pill navbar, a large headline that reveals word by word, and a bottom-right call to action over a token-based atmosphere.
 - [Scroll Morph Hero](https://github.com/aliakseych/components/blob/main/components/hero-page/scroll-morph-hero/README.md): A tall hero where tiles start scattered, gather into a circle and then spread into an arc as the page scrolls, with the headline fading out.
-- [Scroll Story](https://github.com/aliakseych/components/blob/main/components/hero-page/scroll-story/README.md): Pinned scroll story: captions blur-swap on the left while a scrubbed element on the right (a toast living through every state) animates with the scroll.
 
 ## Marketing
 
 Sections that explain and sell a product.
 
-- [Bento Grid](https://github.com/aliakseych/components/blob/main/components/marketing/bento-grid/README.md): A responsive grid of rounded feature cards with numbered eyebrows, spans for wide, tall and full-width cards, a tinted accent area and a hover lift.
+- [Bento Grid](https://github.com/aliakseych/components/blob/main/components/marketing/bento-grid/README.md): A responsive grid of rounded feature cards with numbered eyebrows, spans for wide, tall and full-width cards, a tinted accent area, a hover lift, an in-view stagger entrance and optional spotlight or border-beam card effects.
 - [Changelog](https://github.com/aliakseych/components/blob/main/components/marketing/changelog/README.md): A page section of dated, versioned updates with lists, images and links.
 - [Display Cards: Stack](https://github.com/aliakseych/components/blob/main/components/marketing/display-cards/README.md): Three offset cards stacked in depth, with the front card bottom-right. Hover or focus lifts a card forward and the back cards fade into grey.
 - [Dithered Footer](https://github.com/aliakseych/components/blob/main/components/marketing/dithered-footer/README.md): A light footer with a newsletter form and link columns, closed by a band where the brand is set over a drifting dot field that a pointer spotlight reveals.
@@ -142,6 +143,8 @@ Sections that explain and sell a product.
 - [Pricing Tiers](https://github.com/aliakseych/components/blob/main/components/marketing/pricing/README.md): Only the pricing plan cards, with animated prices and a highlighted plan.
 - [Product Navbar](https://github.com/aliakseych/components/blob/main/components/marketing/product-navbar/README.md): A marketing top bar with dropdown menus of icon links, plain links and right-hand actions, collapsing into one disclosure panel on phones.
 - [Product Rail Gallery](https://github.com/aliakseych/components/blob/main/components/marketing/product-rail/README.md): A shop section with a chrome clothing rail: garments hang from hooks, turn from profile to front on selection, tilt toward the pointer, and open into a detail overlay with front and back faces.
+- [Reveal Footer](https://github.com/aliakseych/components/blob/main/components/marketing/reveal-footer/README.md): A footer uncovered from beneath the page as you scroll, with a rising CTA heading, directional-underline links, a live status dot and an oversized cropped wordmark lit by a pointer spotlight.
+- [Sky Footer](https://github.com/aliakseych/components/blob/main/components/marketing/sky-footer/README.md): A footer that is a sky: layered cloud sprites drift and parallax at different depths over a day or night gradient, with a giant brand wordmark rendered as fluffy cloud above link columns and a legal line.
 - [Stats Band](https://github.com/aliakseych/components/blob/main/components/marketing/stats-band/README.md): An eyebrow, heading and a row of headline figures with their change, built from the Stat Group: Plain Row, over an optional dot grid.
 - [Stats: Showcase](https://github.com/aliakseych/components/blob/main/components/marketing/stats-showcase/README.md): A heading over a two-by-two grid of stat cards, each with an icon chip, a large tabular number, a label, and a bar whose width is the number as a share of its maximum.
 - [Testimonial Image Wheel](https://github.com/aliakseych/components/blob/main/components/marketing/testimonial-globe/README.md): A testimonial block with a heading, review count, average rating and country count, and a slowly turning ring of avatars. The active review flies out of the ring beside its quote.

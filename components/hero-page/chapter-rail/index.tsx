@@ -4,6 +4,9 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { cn } from '@/lib/utils';
 import './chapter-rail.css';
 
+export { ScrollStory } from './story';
+export type { ScrollStoryProps, StoryHold, StoryRun, StoryStageProps, StoryStep } from './story';
+
 export type Chapter = { id: string; label: string };
 
 export type ChapterRailProps = {

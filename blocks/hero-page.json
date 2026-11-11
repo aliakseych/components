@@ -37,7 +37,7 @@
       "id": "story",
       "label": "Scroll story",
       "description": "A pinned walkthrough that animates one element step by step",
-      "options": ["hero-page/scroll-story/default"]
+      "options": ["hero-page/chapter-rail/story"]
     }
   ]
 }

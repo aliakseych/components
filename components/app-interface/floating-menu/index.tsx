@@ -88,8 +88,8 @@ export function FloatingMenu({
       <div
         ref={pillRef}
         className={cn(
-          "pointer-events-auto overflow-hidden bg-[var(--floating-menu-surface)] text-[var(--floating-menu-text)] shadow-lg transition-[width,border-radius] duration-300 ease-out motion-reduce:transition-none",
-          open ? "w-72 rounded-3xl" : "w-44 rounded-full",
+          "pointer-events-auto flex flex-col-reverse overflow-hidden rounded-[24px] bg-[var(--floating-menu-surface)] text-[var(--floating-menu-text)] shadow-lg transition-[width,box-shadow] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none",
+          open ? "w-72 shadow-2xl" : "w-44",
         )}
       >
         <div className="flex h-12 items-center justify-between gap-3 pl-4 pr-1.5">
@@ -129,13 +129,13 @@ export function FloatingMenu({
           id={panelId}
           inert={!open}
           className={cn(
-            "grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none",
-            open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
+            "grid transition-[grid-template-rows,opacity] duration-[400ms] ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none",
+            open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0 duration-200",
           )}
         >
           <div className="min-h-0 overflow-hidden">
             <nav aria-label={label}>
-              <ul className="flex flex-col gap-1 p-2 pt-0">
+              <ul className="flex flex-col gap-1 p-2 pb-0">
                 {items.map((item, index) => {
                   const Icon = item.icon;
                   return (
@@ -150,7 +150,7 @@ export function FloatingMenu({
                           "transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none",
                           open ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
                         )}
-                        style={{ transitionDelay: open ? `${index * 40 + 80}ms` : "0ms" }}
+                        style={{ transitionDelay: open ? `${(items.length - 1 - index) * 40 + 80}ms` : "0ms" }}
                       >
                         {Icon ? <Icon aria-hidden="true" className="size-4 shrink-0" /> : null}
                         <span className="truncate">{item.label}</span>
