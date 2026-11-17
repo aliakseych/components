@@ -1,0 +1,17 @@
+{
+  "name": "Phone Split Feature",
+  "summary": "A split feature section with a headline, supporting text, three icon bullets and a button beside a gradient panel holding a phone whose screen is any node; the phone drifts with scroll, the content staggers in once, and the side can be reversed.",
+  "tags": ["landing page", "marketing", "animation", "hero", "call to action"],
+  "useWhen": [
+    "A product page explains one capability with a short bullet list next to an app screenshot or mock",
+    "Two such sections should alternate sides down the page",
+    "The visual should drift gently as the reader scrolls"
+  ],
+  "avoidWhen": [
+    "The visual is a wide desktop screenshot; use marketing/feature",
+    "A section needs many features or tabs; use marketing/product-rail"
+  ],
+  "dependencies": ["lucide-react"],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

@@ -1,0 +1,98 @@
+{
+  "name": "Ops landing",
+  "summary": "The sections of the operations-assistant landing page, in page order. Choose one option for each slot.",
+  "category": "marketing",
+  "slots": [
+    {
+      "id": "header",
+      "label": "Header",
+      "description": "Transparent header that becomes a floating pill",
+      "options": [
+        "marketing/scroll-pill-header/default",
+        "marketing/scroll-pill-header/pill"
+      ]
+    },
+    {
+      "id": "hero",
+      "label": "Hero",
+      "description": "Phone that scrolls through a day",
+      "options": [
+        "hero-page/phone-scroll-hero/default",
+        "hero-page/phone-scroll-hero/custom-screen"
+      ]
+    },
+    {
+      "id": "headline",
+      "label": "Headline",
+      "description": "Statement with inline images",
+      "options": [
+        "marketing/inline-image-headline/default"
+      ]
+    },
+    {
+      "id": "features",
+      "label": "Feature tabs",
+      "description": "Capabilities synced to phone screens",
+      "options": [
+        "marketing/phone-feature-tabs/default"
+      ]
+    },
+    {
+      "id": "integrations",
+      "label": "Integrations",
+      "description": "Perspective grid of tools",
+      "options": [
+        "marketing/integration-grid/default",
+        "marketing/integration-grid/no-blur"
+      ]
+    },
+    {
+      "id": "split-primary",
+      "label": "First split",
+      "description": "Text beside a phone",
+      "options": [
+        "marketing/phone-split-feature/default"
+      ]
+    },
+    {
+      "id": "split-secondary",
+      "label": "Second split",
+      "description": "Reversed text and phone",
+      "options": [
+        "marketing/phone-split-feature/reversed"
+      ]
+    },
+    {
+      "id": "testimonials",
+      "label": "Testimonials",
+      "description": "Quotes as chat bubbles",
+      "options": [
+        "marketing/chat-testimonials/default"
+      ]
+    },
+    {
+      "id": "setup",
+      "label": "Setup steps",
+      "description": "Three cards on getting started",
+      "options": [
+        "marketing/setup-steps/default"
+      ]
+    },
+    {
+      "id": "faq",
+      "label": "FAQ",
+      "description": "Common questions",
+      "options": [
+        "marketing/faq-stack/default"
+      ]
+    },
+    {
+      "id": "cta",
+      "label": "Closing CTA and footer",
+      "description": "Final call to action",
+      "options": [
+        "marketing/night-cta/default"
+      ]
+    }
+  ]
+}

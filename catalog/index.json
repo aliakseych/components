@@ -115,6 +115,7 @@
         "hero-page/decrypted-text",
         "hero-page/gradient-ascii",
         "hero-page/halftone-mark",
+        "hero-page/phone-scroll-hero",
         "hero-page/prism-hero",
         "hero-page/scroll-morph-hero"
       ]
@@ -125,17 +126,27 @@
       "components": [
         "marketing/bento-grid",
         "marketing/changelog",
+        "marketing/chat-testimonials",
         "marketing/display-cards",
         "marketing/dithered-footer",
+        "marketing/faq-stack",
         "marketing/feature",
         "marketing/halftone-footer",
         "marketing/hills-footer",
+        "marketing/inline-image-headline",
+        "marketing/integration-grid",
         "marketing/logo-cloud",
+        "marketing/night-cta",
+        "marketing/ops-landing",
+        "marketing/phone-feature-tabs",
+        "marketing/phone-split-feature",
         "marketing/pill-navbar",
         "marketing/pricing",
         "marketing/product-navbar",
         "marketing/product-rail",
         "marketing/reveal-footer",
+        "marketing/scroll-pill-header",
+        "marketing/setup-steps",
         "marketing/sky-footer",
         "marketing/stats-band",
         "marketing/stats-showcase",
@@ -1533,7 +1544,8 @@
           "label": "Scroll story",
           "description": "A pinned walkthrough that animates one element step by step",
           "options": [
-            "hero-page/chapter-rail/story"
+            "hero-page/chapter-rail/story",
+            "hero-page/phone-scroll-hero/default"
           ]
         }
       ]
@@ -1552,7 +1564,8 @@
             "marketing/product-navbar/default",
             "marketing/product-navbar/open",
             "marketing/pill-navbar/default",
-            "marketing/pill-navbar/open"
+            "marketing/pill-navbar/open",
+            "marketing/scroll-pill-header/default"
           ]
         },
         {
@@ -1562,7 +1575,8 @@
           "options": [
             "hero-page/prism-hero/default",
             "hero-page/scroll-morph-hero/default",
-            "hero-page/beam-grid-hero/default"
+            "hero-page/beam-grid-hero/default",
+            "hero-page/phone-scroll-hero/default"
           ]
         },
         {
@@ -1584,7 +1598,13 @@
             "marketing/display-cards/default",
             "marketing/product-rail/default",
             "media/device-mockup/default",
-            "hero-page/chapter-rail/story"
+            "hero-page/chapter-rail/story",
+            "marketing/inline-image-headline/default",
+            "marketing/phone-feature-tabs/default",
+            "marketing/phone-split-feature/default",
+            "marketing/phone-split-feature/reversed",
+            "marketing/setup-steps/default",
+            "marketing/integration-grid/default"
           ]
         },
         {
@@ -1601,7 +1621,8 @@
           "label": "Social proof",
           "description": "What customers say",
           "options": [
-            "marketing/testimonial-globe/default"
+            "marketing/testimonial-globe/default",
+            "marketing/chat-testimonials/default"
           ]
         },
         {
@@ -1621,7 +1642,16 @@
             "marketing/halftone-footer/default",
             "marketing/dithered-footer/default",
             "marketing/sky-footer/default",
-            "marketing/reveal-footer/default"
+            "marketing/reveal-footer/default",
+            "marketing/night-cta/default"
+          ]
+        },
+        {
+          "id": "faq",
+          "label": "FAQ",
+          "description": "Common questions",
+          "options": [
+            "marketing/faq-stack/default"
           ]
         },
         {
@@ -1752,6 +1782,105 @@
             "planning/checklist-01/default",
             "planning/checklist-02/default",
             "planning/checklist-03/default"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ops-landing",
+      "name": "Ops landing",
+      "summary": "The sections of the operations-assistant landing page, in page order. Choose one option for each slot.",
+      "category": "marketing",
+      "slots": [
+        {
+          "id": "header",
+          "label": "Header",
+          "description": "Transparent header that becomes a floating pill",
+          "options": [
+            "marketing/scroll-pill-header/default",
+            "marketing/scroll-pill-header/pill"
+          ]
+        },
+        {
+          "id": "hero",
+          "label": "Hero",
+          "description": "Phone that scrolls through a day",
+          "options": [
+            "hero-page/phone-scroll-hero/default",
+            "hero-page/phone-scroll-hero/custom-screen"
+          ]
+        },
+        {
+          "id": "headline",
+          "label": "Headline",
+          "description": "Statement with inline images",
+          "options": [
+            "marketing/inline-image-headline/default"
+          ]
+        },
+        {
+          "id": "features",
+          "label": "Feature tabs",
+          "description": "Capabilities synced to phone screens",
+          "options": [
+            "marketing/phone-feature-tabs/default"
+          ]
+        },
+        {
+          "id": "integrations",
+          "label": "Integrations",
+          "description": "Perspective grid of tools",
+          "options": [
+            "marketing/integration-grid/default",
+            "marketing/integration-grid/no-blur"
+          ]
+        },
+        {
+          "id": "split-primary",
+          "label": "First split",
+          "description": "Text beside a phone",
+          "options": [
+            "marketing/phone-split-feature/default"
+          ]
+        },
+        {
+          "id": "split-secondary",
+          "label": "Second split",
+          "description": "Reversed text and phone",
+          "options": [
+            "marketing/phone-split-feature/reversed"
+          ]
+        },
+        {
+          "id": "testimonials",
+          "label": "Testimonials",
+          "description": "Quotes as chat bubbles",
+          "options": [
+            "marketing/chat-testimonials/default"
+          ]
+        },
+        {
+          "id": "setup",
+          "label": "Setup steps",
+          "description": "Three cards on getting started",
+          "options": [
+            "marketing/setup-steps/default"
+          ]
+        },
+        {
+          "id": "faq",
+          "label": "FAQ",
+          "description": "Common questions",
+          "options": [
+            "marketing/faq-stack/default"
+          ]
+        },
+        {
+          "id": "cta",
+          "label": "Closing CTA and footer",
+          "description": "Final call to action",
+          "options": [
+            "marketing/night-cta/default"
           ]
         }
       ]
@@ -2108,15 +2237,25 @@
         "hero-page/chapter-rail",
         "hero-page/decrypted-text",
         "hero-page/halftone-mark",
+        "hero-page/phone-scroll-hero",
         "hero-page/scroll-morph-hero",
         "marketing/bento-grid",
+        "marketing/chat-testimonials",
         "marketing/display-cards",
         "marketing/dithered-footer",
+        "marketing/faq-stack",
         "marketing/halftone-footer",
         "marketing/hills-footer",
+        "marketing/inline-image-headline",
+        "marketing/integration-grid",
+        "marketing/ops-landing",
+        "marketing/phone-feature-tabs",
+        "marketing/phone-split-feature",
         "marketing/pill-navbar",
         "marketing/product-rail",
         "marketing/reveal-footer",
+        "marketing/scroll-pill-header",
+        "marketing/setup-steps",
         "marketing/sky-footer",
         "marketing/testimonial-globe",
         "media/deck",
@@ -2183,13 +2322,15 @@
         "hero-page/gradient-ascii",
         "hero-page/prism-hero",
         "marketing/hills-footer",
+        "marketing/night-cta",
         "marketing/sky-footer"
       ]
     },
     "badge": {
       "description": "A small label or status marker",
       "components": [
-        "data-display/pill"
+        "data-display/pill",
+        "marketing/night-cta"
       ]
     },
     "billing": {
@@ -2252,6 +2393,8 @@
         "actions/button",
         "actions/magnetic-button",
         "marketing/hills-footer",
+        "marketing/night-cta",
+        "marketing/phone-split-feature",
         "marketing/pricing",
         "marketing/reveal-footer"
       ]
@@ -2263,8 +2406,10 @@
         "data-display/folder-card",
         "hero-page/scroll-morph-hero",
         "marketing/bento-grid",
+        "marketing/chat-testimonials",
         "marketing/display-cards",
         "marketing/pricing",
+        "marketing/setup-steps",
         "media/deck",
         "operations/server-card",
         "planning/kanban",
@@ -2383,6 +2528,9 @@
         "ai-chat/context",
         "ai-chat/conversation",
         "ai-chat/prompt-bar",
+        "hero-page/phone-scroll-hero",
+        "marketing/chat-testimonials",
+        "marketing/phone-feature-tabs",
         "messaging/bubble",
         "messaging/comments-01",
         "messaging/comments-02",
@@ -2395,6 +2543,7 @@
     "checklist": {
       "description": "Steps to tick off",
       "components": [
+        "marketing/setup-steps",
         "planning/checklist-01",
         "planning/checklist-02",
         "planning/checklist-03",
@@ -2410,6 +2559,7 @@
       "components": [
         "ai-chat/call-chip",
         "data-display/pill",
+        "marketing/inline-image-headline",
         "messaging/bubble"
       ]
     },
@@ -2656,6 +2806,7 @@
         "analytics/feedback-02",
         "analytics/feedback-03",
         "analytics/feedback-04",
+        "marketing/chat-testimonials",
         "marketing/testimonial-globe"
       ]
     },
@@ -2807,6 +2958,7 @@
         "hero-page/beam-grid-hero",
         "hero-page/decrypted-text",
         "hero-page/prism-hero",
+        "marketing/faq-stack",
         "marketing/sky-footer"
       ]
     },
@@ -2827,8 +2979,10 @@
         "hero-page/decrypted-text",
         "hero-page/gradient-ascii",
         "hero-page/halftone-mark",
+        "hero-page/phone-scroll-hero",
         "hero-page/prism-hero",
         "hero-page/scroll-morph-hero",
+        "marketing/phone-split-feature",
         "media/device-mockup"
       ]
     },
@@ -2851,6 +3005,7 @@
         "marketing/dithered-footer",
         "marketing/halftone-footer",
         "marketing/hills-footer",
+        "marketing/integration-grid",
         "marketing/product-rail",
         "marketing/reveal-footer",
         "media/deck"
@@ -2869,6 +3024,7 @@
       "components": [
         "data-display/folder-card",
         "marketing/feature",
+        "marketing/night-cta",
         "media/image-crop"
       ]
     },
@@ -2970,14 +3126,25 @@
         "app-interface/navigation-menu",
         "collaboration/collaborative-canvas",
         "hero-page/chapter-rail",
+        "hero-page/phone-scroll-hero",
         "hero-page/scroll-morph-hero",
         "marketing/bento-grid",
+        "marketing/chat-testimonials",
         "marketing/display-cards",
+        "marketing/faq-stack",
         "marketing/feature",
+        "marketing/inline-image-headline",
+        "marketing/integration-grid",
         "marketing/logo-cloud",
+        "marketing/night-cta",
+        "marketing/ops-landing",
+        "marketing/phone-feature-tabs",
+        "marketing/phone-split-feature",
         "marketing/pill-navbar",
         "marketing/pricing",
         "marketing/product-navbar",
+        "marketing/scroll-pill-header",
+        "marketing/setup-steps",
         "marketing/stats-band",
         "marketing/testimonial-globe",
         "marketing/waitlist-split",
@@ -3022,6 +3189,7 @@
         "data-display/org-tree",
         "data-display/table",
         "marketing/changelog",
+        "marketing/faq-stack",
         "planning/checklist-01",
         "planning/checklist-02",
         "planning/checklist-03",
@@ -3066,6 +3234,7 @@
       "description": "Displays a brand mark",
       "components": [
         "hero-page/halftone-mark",
+        "marketing/integration-grid",
         "marketing/logo-cloud"
       ]
     },
@@ -3097,16 +3266,26 @@
         "hero-page/chapter-rail",
         "marketing/bento-grid",
         "marketing/changelog",
+        "marketing/chat-testimonials",
         "marketing/dithered-footer",
+        "marketing/faq-stack",
         "marketing/feature",
         "marketing/halftone-footer",
         "marketing/hills-footer",
+        "marketing/inline-image-headline",
+        "marketing/integration-grid",
         "marketing/logo-cloud",
+        "marketing/night-cta",
+        "marketing/ops-landing",
+        "marketing/phone-feature-tabs",
+        "marketing/phone-split-feature",
         "marketing/pill-navbar",
         "marketing/pricing",
         "marketing/product-navbar",
         "marketing/product-rail",
         "marketing/reveal-footer",
+        "marketing/scroll-pill-header",
+        "marketing/setup-steps",
         "marketing/sky-footer",
         "marketing/stats-band",
         "marketing/stats-showcase",
@@ -3181,6 +3360,7 @@
         "hero-page/prism-hero",
         "marketing/pill-navbar",
         "marketing/product-navbar",
+        "marketing/scroll-pill-header",
         "planning/mini-calendar",
         "workspace/note-outline"
       ]
@@ -12874,6 +13054,49 @@
       ]
     },
     {
+      "id": "hero-page/phone-scroll-hero",
+      "category": "hero-page",
+      "slug": "phone-scroll-hero",
+      "path": "components/hero-page/phone-scroll-hero",
+      "name": "Phone Scroll Hero",
+      "summary": "A tall hero with a day or night sky, a laurel badge and headline, and a pinned phone whose chat and brief play in step by step as the page scrolls, while four source cards connect to it.",
+      "tags": [
+        "hero",
+        "animation",
+        "landing page",
+        "chat"
+      ],
+      "useWhen": [
+        "A landing page opens by showing an app screen working, step by step, as the visitor scrolls",
+        "A product gathers data from several sources and the hero should show them feeding one phone screen"
+      ],
+      "avoidWhen": [
+        "The hero must stay one screen tall, because the section pins for several screens while it scrolls; use a plain hero such as `hero-page/prism-hero` instead",
+        "The story is about tiles or images rather than one app screen; use `hero-page/scroll-morph-hero` instead"
+      ],
+      "dependencies": [
+        "lenis",
+        "lucide-react"
+      ],
+      "shadcn": [],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "custom-screen",
+        "default"
+      ],
+      "previews": [
+        "components/hero-page/phone-scroll-hero/previews/custom-screen.desktop.dark.png",
+        "components/hero-page/phone-scroll-hero/previews/custom-screen.desktop.light.png",
+        "components/hero-page/phone-scroll-hero/previews/custom-screen.mobile.dark.png",
+        "components/hero-page/phone-scroll-hero/previews/custom-screen.mobile.light.png",
+        "components/hero-page/phone-scroll-hero/previews/default.desktop.dark.png",
+        "components/hero-page/phone-scroll-hero/previews/default.desktop.light.png",
+        "components/hero-page/phone-scroll-hero/previews/default.mobile.dark.png",
+        "components/hero-page/phone-scroll-hero/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "hero-page/prism-hero",
       "category": "hero-page",
       "slug": "prism-hero",
@@ -13048,6 +13271,41 @@
       ]
     },
     {
+      "id": "marketing/chat-testimonials",
+      "category": "marketing",
+      "slug": "chat-testimonials",
+      "path": "components/marketing/chat-testimonials",
+      "name": "Chat Testimonials",
+      "summary": "A testimonial carousel of chat-bubble quotes with a speech tail, author line and company badge, driven by prev/next chevrons, arrow keys and swipe on a 600ms translating track.",
+      "tags": [
+        "landing page",
+        "marketing",
+        "feedback",
+        "chat",
+        "cards",
+        "animation"
+      ],
+      "useWhen": [
+        "A landing page wants customer quotes shown as chat messages",
+        "Quotes of varying length should scroll sideways with chevron controls"
+      ],
+      "avoidWhen": [
+        "Quotes should be arranged in a grid or globe; use marketing/testimonial-globe"
+      ],
+      "dependencies": [],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/chat-testimonials/previews/default.desktop.dark.png",
+        "components/marketing/chat-testimonials/previews/default.desktop.light.png",
+        "components/marketing/chat-testimonials/previews/default.mobile.dark.png",
+        "components/marketing/chat-testimonials/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "marketing/display-cards",
       "category": "marketing",
       "slug": "display-cards",
@@ -13126,6 +13384,40 @@
         "components/marketing/dithered-footer/previews/default.desktop.light.png",
         "components/marketing/dithered-footer/previews/default.mobile.dark.png",
         "components/marketing/dithered-footer/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/faq-stack",
+      "category": "marketing",
+      "slug": "faq-stack",
+      "path": "components/marketing/faq-stack",
+      "name": "FAQ Stack",
+      "summary": "A centred single-open FAQ list on a soft gradient band: bold questions with a plus that collapses to a minus, answers revealed by a grid-rows height animation, instant when driven from the keyboard.",
+      "tags": [
+        "landing page",
+        "marketing",
+        "animation",
+        "heading",
+        "list"
+      ],
+      "useWhen": [
+        "A landing page ends with a short list of frequently asked questions",
+        "Only one answer should be open at a time"
+      ],
+      "avoidWhen": [
+        "Several answers should stay open; use the shadcn accordion"
+      ],
+      "dependencies": [],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/faq-stack/previews/default.desktop.dark.png",
+        "components/marketing/faq-stack/previews/default.desktop.light.png",
+        "components/marketing/faq-stack/previews/default.mobile.dark.png",
+        "components/marketing/faq-stack/previews/default.mobile.light.png"
       ]
     },
     {
@@ -13250,6 +13542,81 @@
       ]
     },
     {
+      "id": "marketing/inline-image-headline",
+      "category": "marketing",
+      "slug": "inline-image-headline",
+      "path": "components/marketing/inline-image-headline",
+      "name": "Inline Image Headline",
+      "summary": "A large statement whose words light up with scroll progress, with small illustrations embedded inside the running text that fade up in a stagger, followed by a looping row of icon pills.",
+      "tags": [
+        "landing page",
+        "marketing",
+        "animation",
+        "chip"
+      ],
+      "useWhen": [
+        "A landing page needs a big manifesto or intro sentence with icons woven into the text",
+        "Words should read from muted to full contrast as the visitor scrolls",
+        "A row of category chips should drift sideways under a headline"
+      ],
+      "avoidWhen": [
+        "The headline is short and static; a plain heading is enough",
+        "Text must be fully visible without scrolling; the reveal dims unread words"
+      ],
+      "dependencies": [],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/inline-image-headline/previews/default.desktop.dark.png",
+        "components/marketing/inline-image-headline/previews/default.desktop.light.png",
+        "components/marketing/inline-image-headline/previews/default.mobile.dark.png",
+        "components/marketing/inline-image-headline/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/integration-grid",
+      "category": "marketing",
+      "slug": "integration-grid",
+      "path": "components/marketing/integration-grid",
+      "name": "Integration Grid",
+      "summary": "A 3D-tilted 8x3 grid of rounded integration tiles with a staggered rise-in reveal, spring-like hover lift, click ripples that spread across neighbours, idle pulses and a bottom fade mask; scales to fit from desktop to 390px.",
+      "tags": [
+        "logo",
+        "landing page",
+        "marketing",
+        "animation",
+        "hover"
+      ],
+      "useWhen": [
+        "A landing page wants to show the tools or services a product connects with",
+        "A logo wall should feel tactile with hover lift and ripple feedback"
+      ],
+      "avoidWhen": [
+        "A flat marquee of logos is enough",
+        "Each integration needs a detailed card with description"
+      ],
+      "dependencies": [],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "no-blur"
+      ],
+      "previews": [
+        "components/marketing/integration-grid/previews/default.desktop.dark.png",
+        "components/marketing/integration-grid/previews/default.desktop.light.png",
+        "components/marketing/integration-grid/previews/default.mobile.dark.png",
+        "components/marketing/integration-grid/previews/default.mobile.light.png",
+        "components/marketing/integration-grid/previews/no-blur.desktop.dark.png",
+        "components/marketing/integration-grid/previews/no-blur.desktop.light.png",
+        "components/marketing/integration-grid/previews/no-blur.mobile.dark.png",
+        "components/marketing/integration-grid/previews/no-blur.mobile.light.png"
+      ]
+    },
+    {
       "id": "marketing/logo-cloud",
       "category": "marketing",
       "slug": "logo-cloud",
@@ -13286,6 +13653,169 @@
         "components/marketing/logo-cloud/previews/default.desktop.light.png",
         "components/marketing/logo-cloud/previews/default.mobile.dark.png",
         "components/marketing/logo-cloud/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/night-cta",
+      "category": "marketing",
+      "slug": "night-cta",
+      "path": "components/marketing/night-cta",
+      "name": "Night CTA",
+      "summary": "A closing call-to-action card over a dawn skyline with a winged proof badge, big headline and pill buttons, whose background crop keeps a focal point in view on narrow screens, followed by an optional footer with wordmark, tagline, link columns with social icons and a legal line.",
+      "tags": [
+        "landing page",
+        "marketing",
+        "call to action",
+        "badge",
+        "background",
+        "image"
+      ],
+      "useWhen": [
+        "A landing page needs a closing CTA card with a proof badge and two buttons",
+        "The background photo has an important subject that must stay visible when cropped on mobile"
+      ],
+      "avoidWhen": [
+        "Only a footer is needed; use one of the footer components in marketing/"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/night-cta/previews/default.desktop.dark.png",
+        "components/marketing/night-cta/previews/default.desktop.light.png",
+        "components/marketing/night-cta/previews/default.mobile.dark.png",
+        "components/marketing/night-cta/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/ops-landing",
+      "category": "marketing",
+      "slug": "ops-landing",
+      "path": "components/marketing/ops-landing",
+      "name": "Ops Landing",
+      "summary": "A complete marketing page for an operations assistant: scroll-pill header, phone scroll hero, inline-image headline, phone feature tabs, integration grid, two phone split sections, chat testimonials, setup steps, FAQ and a night CTA footer, each overridable by props.",
+      "tags": [
+        "landing page",
+        "marketing",
+        "animation"
+      ],
+      "useWhen": [
+        "A full product landing page is needed in one import, with sections in a proven order",
+        "Starting point for a page where each section's copy is swapped through props"
+      ],
+      "avoidWhen": [
+        "Only one or two sections are needed; use the section components directly",
+        "A different section order or a non-phone product story is required"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "composes": [
+        "marketing/scroll-pill-header",
+        "hero-page/phone-scroll-hero",
+        "marketing/inline-image-headline",
+        "marketing/phone-feature-tabs",
+        "marketing/phone-split-feature",
+        "marketing/setup-steps",
+        "marketing/integration-grid",
+        "marketing/chat-testimonials",
+        "marketing/faq-stack",
+        "marketing/night-cta"
+      ],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/ops-landing/previews/default.desktop.dark.png",
+        "components/marketing/ops-landing/previews/default.desktop.light.png",
+        "components/marketing/ops-landing/previews/default.mobile.dark.png",
+        "components/marketing/ops-landing/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/phone-feature-tabs",
+      "category": "marketing",
+      "slug": "phone-feature-tabs",
+      "path": "components/marketing/phone-feature-tabs",
+      "name": "Phone Feature Tabs",
+      "summary": "An expandable list of capabilities (plus icon, active row grows with a description) synced to a carousel of phone screens with prev/next chevrons; FLIP row transitions, sliding phone poses with a peeking rear phone, and a chip, expand and summary layout on narrow screens.",
+      "tags": [
+        "landing page",
+        "marketing",
+        "animation",
+        "chat"
+      ],
+      "useWhen": [
+        "A product page shows several capabilities, each with its own app screen",
+        "Phone screens should be real React content rather than screenshots"
+      ],
+      "avoidWhen": [
+        "Only one screenshot is needed; use a plain phone mockup",
+        "Content is long-form documentation rather than short capability blurbs"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/phone-feature-tabs/previews/default.desktop.dark.png",
+        "components/marketing/phone-feature-tabs/previews/default.desktop.light.png",
+        "components/marketing/phone-feature-tabs/previews/default.mobile.dark.png",
+        "components/marketing/phone-feature-tabs/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/phone-split-feature",
+      "category": "marketing",
+      "slug": "phone-split-feature",
+      "path": "components/marketing/phone-split-feature",
+      "name": "Phone Split Feature",
+      "summary": "A split feature section with a headline, supporting text, three icon bullets and a button beside a gradient panel holding a phone whose screen is any node; the phone drifts with scroll, the content staggers in once, and the side can be reversed.",
+      "tags": [
+        "landing page",
+        "marketing",
+        "animation",
+        "hero",
+        "call to action"
+      ],
+      "useWhen": [
+        "A product page explains one capability with a short bullet list next to an app screenshot or mock",
+        "Two such sections should alternate sides down the page",
+        "The visual should drift gently as the reader scrolls"
+      ],
+      "avoidWhen": [
+        "The visual is a wide desktop screenshot; use marketing/feature",
+        "A section needs many features or tabs; use marketing/product-rail"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "reversed"
+      ],
+      "previews": [
+        "components/marketing/phone-split-feature/previews/default.desktop.dark.png",
+        "components/marketing/phone-split-feature/previews/default.desktop.light.png",
+        "components/marketing/phone-split-feature/previews/default.mobile.dark.png",
+        "components/marketing/phone-split-feature/previews/default.mobile.light.png",
+        "components/marketing/phone-split-feature/previews/reversed.desktop.dark.png",
+        "components/marketing/phone-split-feature/previews/reversed.desktop.light.png",
+        "components/marketing/phone-split-feature/previews/reversed.mobile.dark.png",
+        "components/marketing/phone-split-feature/previews/reversed.mobile.light.png"
       ]
     },
     {
@@ -13511,6 +14041,82 @@
         "components/marketing/reveal-footer/previews/default.desktop.light.png",
         "components/marketing/reveal-footer/previews/default.mobile.dark.png",
         "components/marketing/reveal-footer/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/scroll-pill-header",
+      "category": "marketing",
+      "slug": "scroll-pill-header",
+      "path": "components/marketing/scroll-pill-header",
+      "name": "Scroll Pill Header",
+      "summary": "A full-width transparent top header that, once a boundary element (the hero) scrolls out of view, hands over to a floating blurred glass pill that drops in from above with a springy ease-out; pill links stay on narrow screens.",
+      "tags": [
+        "navigation",
+        "landing page",
+        "marketing",
+        "animation"
+      ],
+      "useWhen": [
+        "A landing page with a hero wants a minimal header that becomes a floating pill after the hero",
+        "Navigation should reappear compactly without a full sticky bar"
+      ],
+      "avoidWhen": [
+        "Rich dropdown menus are needed; use marketing/pill-navbar",
+        "A persistent full-width sticky bar is wanted; use marketing/product-navbar"
+      ],
+      "dependencies": [],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default",
+        "pill"
+      ],
+      "previews": [
+        "components/marketing/scroll-pill-header/previews/default.desktop.dark.png",
+        "components/marketing/scroll-pill-header/previews/default.desktop.light.png",
+        "components/marketing/scroll-pill-header/previews/default.mobile.dark.png",
+        "components/marketing/scroll-pill-header/previews/default.mobile.light.png",
+        "components/marketing/scroll-pill-header/previews/pill.desktop.dark.png",
+        "components/marketing/scroll-pill-header/previews/pill.desktop.light.png",
+        "components/marketing/scroll-pill-header/previews/pill.mobile.dark.png",
+        "components/marketing/scroll-pill-header/previews/pill.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/setup-steps",
+      "category": "marketing",
+      "slug": "setup-steps",
+      "path": "components/marketing/setup-steps",
+      "name": "Setup Steps",
+      "summary": "A three-card onboarding section on gradient art: a keycap grid of connected tools, a list of toggleable checks, and a summary brief card, each with a staggered scroll entrance.",
+      "tags": [
+        "landing page",
+        "marketing",
+        "animation",
+        "cards",
+        "checklist"
+      ],
+      "useWhen": [
+        "A landing page explains how onboarding works in three short steps with a visual each",
+        "The steps are 'connect', 'configure', 'get your first result'"
+      ],
+      "avoidWhen": [
+        "Steps are many or need a long timeline; use a changelog or timeline component",
+        "A single feature needs a large visual; use marketing/phone-split-feature"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "source": "moonin.ai (layout and motion reference)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/setup-steps/previews/default.desktop.dark.png",
+        "components/marketing/setup-steps/previews/default.desktop.light.png",
+        "components/marketing/setup-steps/previews/default.mobile.dark.png",
+        "components/marketing/setup-steps/previews/default.mobile.light.png"
       ]
     },
     {

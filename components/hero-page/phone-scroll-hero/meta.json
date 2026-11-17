@@ -1,0 +1,17 @@
+{
+  "name": "Phone Scroll Hero",
+  "summary": "A tall hero with a day or night sky, a laurel badge and headline, and a pinned phone whose chat and brief play in step by step as the page scrolls, while four source cards connect to it.",
+  "tags": ["hero", "animation", "landing page", "chat"],
+  "useWhen": [
+    "A landing page opens by showing an app screen working, step by step, as the visitor scrolls",
+    "A product gathers data from several sources and the hero should show them feeding one phone screen"
+  ],
+  "avoidWhen": [
+    "The hero must stay one screen tall, because the section pins for several screens while it scrolls; use a plain hero such as `hero-page/prism-hero` instead",
+    "The story is about tiles or images rather than one app screen; use `hero-page/scroll-morph-hero` instead"
+  ],
+  "dependencies": ["lenis", "lucide-react"],
+  "shadcn": [],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

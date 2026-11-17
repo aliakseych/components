@@ -11,7 +11,8 @@
         "marketing/product-navbar/default",
         "marketing/product-navbar/open",
         "marketing/pill-navbar/default",
-        "marketing/pill-navbar/open"
+        "marketing/pill-navbar/open",
+        "marketing/scroll-pill-header/default"
       ]
     },
     {
@@ -21,7 +22,8 @@
       "options": [
         "hero-page/prism-hero/default",
         "hero-page/scroll-morph-hero/default",
-        "hero-page/beam-grid-hero/default"
+        "hero-page/beam-grid-hero/default",
+        "hero-page/phone-scroll-hero/default"
       ]
     },
     {
@@ -43,7 +45,13 @@
         "marketing/display-cards/default",
         "marketing/product-rail/default",
         "media/device-mockup/default",
-        "hero-page/chapter-rail/story"
+        "hero-page/chapter-rail/story",
+        "marketing/inline-image-headline/default",
+        "marketing/phone-feature-tabs/default",
+        "marketing/phone-split-feature/default",
+        "marketing/phone-split-feature/reversed",
+        "marketing/setup-steps/default",
+        "marketing/integration-grid/default"
       ]
     },
     {
@@ -60,7 +68,8 @@
       "label": "Social proof",
       "description": "What customers say",
       "options": [
-        "marketing/testimonial-globe/default"
+        "marketing/testimonial-globe/default",
+        "marketing/chat-testimonials/default"
       ]
     },
     {
@@ -80,7 +89,16 @@
         "marketing/halftone-footer/default",
         "marketing/dithered-footer/default",
         "marketing/sky-footer/default",
-        "marketing/reveal-footer/default"
+        "marketing/reveal-footer/default",
+        "marketing/night-cta/default"
+      ]
+    },
+    {
+      "id": "faq",
+      "label": "FAQ",
+      "description": "Common questions",
+      "options": [
+        "marketing/faq-stack/default"
       ]
     },
     {

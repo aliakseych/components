@@ -1,0 +1,17 @@
+{
+  "name": "Inline Image Headline",
+  "summary": "A large statement whose words light up with scroll progress, with small illustrations embedded inside the running text that fade up in a stagger, followed by a looping row of icon pills.",
+  "tags": ["landing page", "marketing", "animation", "chip"],
+  "useWhen": [
+    "A landing page needs a big manifesto or intro sentence with icons woven into the text",
+    "Words should read from muted to full contrast as the visitor scrolls",
+    "A row of category chips should drift sideways under a headline"
+  ],
+  "avoidWhen": [
+    "The headline is short and static; a plain heading is enough",
+    "Text must be fully visible without scrolling; the reveal dims unread words"
+  ],
+  "dependencies": [],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

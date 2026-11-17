@@ -1,0 +1,16 @@
+{
+  "name": "Scroll Pill Header",
+  "summary": "A full-width transparent top header that, once a boundary element (the hero) scrolls out of view, hands over to a floating blurred glass pill that drops in from above with a springy ease-out; pill links stay on narrow screens.",
+  "tags": ["navigation", "landing page", "marketing", "animation"],
+  "useWhen": [
+    "A landing page with a hero wants a minimal header that becomes a floating pill after the hero",
+    "Navigation should reappear compactly without a full sticky bar"
+  ],
+  "avoidWhen": [
+    "Rich dropdown menus are needed; use marketing/pill-navbar",
+    "A persistent full-width sticky bar is wanted; use marketing/product-navbar"
+  ],
+  "dependencies": [],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

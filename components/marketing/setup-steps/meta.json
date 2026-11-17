@@ -1,0 +1,16 @@
+{
+  "name": "Setup Steps",
+  "summary": "A three-card onboarding section on gradient art: a keycap grid of connected tools, a list of toggleable checks, and a summary brief card, each with a staggered scroll entrance.",
+  "tags": ["landing page", "marketing", "animation", "cards", "checklist"],
+  "useWhen": [
+    "A landing page explains how onboarding works in three short steps with a visual each",
+    "The steps are 'connect', 'configure', 'get your first result'"
+  ],
+  "avoidWhen": [
+    "Steps are many or need a long timeline; use a changelog or timeline component",
+    "A single feature needs a large visual; use marketing/phone-split-feature"
+  ],
+  "dependencies": ["lucide-react"],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

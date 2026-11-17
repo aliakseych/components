@@ -1,0 +1,16 @@
+{
+  "name": "Integration Grid",
+  "summary": "A 3D-tilted 8x3 grid of rounded integration tiles with a staggered rise-in reveal, spring-like hover lift, click ripples that spread across neighbours, idle pulses and a bottom fade mask; scales to fit from desktop to 390px.",
+  "tags": ["logo", "landing page", "marketing", "animation", "hover"],
+  "useWhen": [
+    "A landing page wants to show the tools or services a product connects with",
+    "A logo wall should feel tactile with hover lift and ripple feedback"
+  ],
+  "avoidWhen": [
+    "A flat marquee of logos is enough",
+    "Each integration needs a detailed card with description"
+  ],
+  "dependencies": [],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Chat Testimonials",
+  "summary": "A testimonial carousel of chat-bubble quotes with a speech tail, author line and company badge, driven by prev/next chevrons, arrow keys and swipe on a 600ms translating track.",
+  "tags": ["landing page", "marketing", "feedback", "chat", "cards", "animation"],
+  "useWhen": [
+    "A landing page wants customer quotes shown as chat messages",
+    "Quotes of varying length should scroll sideways with chevron controls"
+  ],
+  "avoidWhen": [
+    "Quotes should be arranged in a grid or globe; use marketing/testimonial-globe"
+  ],
+  "dependencies": [],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

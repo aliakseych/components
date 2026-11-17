@@ -1,0 +1,15 @@
+{
+  "name": "Night CTA",
+  "summary": "A closing call-to-action card over a dawn skyline with a winged proof badge, big headline and pill buttons, whose background crop keeps a focal point in view on narrow screens, followed by an optional footer with wordmark, tagline, link columns with social icons and a legal line.",
+  "tags": ["landing page", "marketing", "call to action", "badge", "background", "image"],
+  "useWhen": [
+    "A landing page needs a closing CTA card with a proof badge and two buttons",
+    "The background photo has an important subject that must stay visible when cropped on mobile"
+  ],
+  "avoidWhen": [
+    "Only a footer is needed; use one of the footer components in marketing/"
+  ],
+  "dependencies": ["lucide-react"],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

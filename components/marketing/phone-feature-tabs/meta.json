@@ -1,0 +1,16 @@
+{
+  "name": "Phone Feature Tabs",
+  "summary": "An expandable list of capabilities (plus icon, active row grows with a description) synced to a carousel of phone screens with prev/next chevrons; FLIP row transitions, sliding phone poses with a peeking rear phone, and a chip, expand and summary layout on narrow screens.",
+  "tags": ["landing page", "marketing", "animation", "chat"],
+  "useWhen": [
+    "A product page shows several capabilities, each with its own app screen",
+    "Phone screens should be real React content rather than screenshots"
+  ],
+  "avoidWhen": [
+    "Only one screenshot is needed; use a plain phone mockup",
+    "Content is long-form documentation rather than short capability blurbs"
+  ],
+  "dependencies": ["lucide-react"],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

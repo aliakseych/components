@@ -1,0 +1,28 @@
+{
+  "name": "Ops Landing",
+  "summary": "A complete marketing page for an operations assistant: scroll-pill header, phone scroll hero, inline-image headline, phone feature tabs, integration grid, two phone split sections, chat testimonials, setup steps, FAQ and a night CTA footer, each overridable by props.",
+  "tags": ["landing page", "marketing", "animation"],
+  "useWhen": [
+    "A full product landing page is needed in one import, with sections in a proven order",
+    "Starting point for a page where each section's copy is swapped through props"
+  ],
+  "avoidWhen": [
+    "Only one or two sections are needed; use the section components directly",
+    "A different section order or a non-phone product story is required"
+  ],
+  "dependencies": ["lucide-react"],
+  "composes": [
+    "marketing/scroll-pill-header",
+    "hero-page/phone-scroll-hero",
+    "marketing/inline-image-headline",
+    "marketing/phone-feature-tabs",
+    "marketing/phone-split-feature",
+    "marketing/setup-steps",
+    "marketing/integration-grid",
+    "marketing/chat-testimonials",
+    "marketing/faq-stack",
+    "marketing/night-cta"
+  ],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "FAQ Stack",
+  "summary": "A centred single-open FAQ list on a soft gradient band: bold questions with a plus that collapses to a minus, answers revealed by a grid-rows height animation, instant when driven from the keyboard.",
+  "tags": ["landing page", "marketing", "animation", "heading", "list"],
+  "useWhen": [
+    "A landing page ends with a short list of frequently asked questions",
+    "Only one answer should be open at a time"
+  ],
+  "avoidWhen": [
+    "Several answers should stay open; use the shadcn accordion"
+  ],
+  "dependencies": [],
+  "source": "moonin.ai (layout and motion reference)",
+  "status": "experimental"
+}
