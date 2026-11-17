@@ -27,7 +27,7 @@ export interface ScrollPillHeaderProps {
 }
 
 const linkBase =
-  "inline-flex items-center whitespace-nowrap rounded-full border-0 bg-transparent px-4 pb-2 pt-[7px] text-[15px] leading-5 tracking-[-0.23px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[380px]:text-[13px]";
+  "inline-flex items-center whitespace-nowrap rounded-full border-0 bg-transparent px-4 pb-2 pt-[7px] text-[15px] leading-5 tracking-[-0.23px] transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[380px]:text-[13px]";
 
 function Item({ item, className }: { item: ScrollPillHeaderLink; className: string }) {
   if (item.href) return <a href={item.href} onClick={item.onClick} className={className}>{item.label}</a>;
@@ -94,7 +94,7 @@ export function ScrollPillHeader({
     cn(linkBase, onDark ? "text-[#f0f0f0] hover:text-white focus-visible:text-white" : "text-foreground/65 hover:text-foreground", i > 0 && "max-[800px]:hidden");
   const pillLink = cn(linkBase, "h-8 text-[#272228]/65 hover:text-[#111214] max-[800px]:px-2 max-[380px]:px-1 dark:text-[#f5f5f7]/65 dark:hover:text-[#f5f5f7]");
   const headerCta = cn(
-    "inline-flex min-h-9 items-center justify-center whitespace-nowrap rounded-full px-[18px] py-2 text-[15px] font-[590] leading-5 tracking-[-0.23px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[380px]:px-3 max-[380px]:text-[13px]",
+    "inline-flex min-h-9 items-center justify-center whitespace-nowrap rounded-full px-[18px] py-2 text-[15px] font-[590] leading-5 tracking-[-0.23px] transition-colors motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[380px]:px-3 max-[380px]:text-[13px]",
   );
   const headerCtaTone = onDark ? "bg-[rgba(240,240,240,.25)] text-white hover:bg-[rgba(240,240,240,.38)]" : "bg-muted text-foreground hover:bg-muted/70";
 

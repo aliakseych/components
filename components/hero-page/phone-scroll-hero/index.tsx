@@ -731,7 +731,7 @@ export function PhoneScrollHero({
             ref={stageRef}
             className="sticky top-[var(--psh-offset,64px)] isolate h-[max(calc(var(--psh-vh,100svh)-var(--psh-offset,64px)),var(--phone-height,932.267px))] max-[700px]:h-[var(--phone-height,700px)] motion-reduce:relative motion-reduce:top-0 motion-reduce:!h-full"
           >
-            <div className="absolute top-0 left-1/2 z-[4] w-[min(456px,calc(100%-48px))] -translate-x-1/2 max-[800px]:w-[min(390px,calc(100%-48px))] max-[700px]:w-[min(390px,calc((var(--psh-vh,100svh)-88px)*.48913),calc(100%-48px))]">
+            <div className="absolute top-0 left-1/2 z-[4] w-[min(456px,calc(100%-48px),calc((100%-120px-712px*min(.9,var(--scene-scale,1)))/.895))] -translate-x-1/2 max-[800px]:w-[min(390px,calc(100%-48px))] max-[700px]:w-[min(390px,calc((var(--psh-vh,100svh)-88px)*.48913),calc(100%-48px))]">
               <div ref={phoneRef} className="relative aspect-[456/932.267]">
                 {/* Screen cutout of the frame image: 407.4 by 887.7 at 24, 23 in a 456 wide phone, 62px radius. */}
                 <div className="absolute top-[2.467%] left-[5.263%] h-[95.219%] w-[89.342%] overflow-hidden rounded-[15.22%/6.984%] bg-background">
@@ -777,13 +777,13 @@ export function PhoneScrollHero({
                           i < 2 ? "top-[calc(163.5px*var(--scene-scale,1))]" : "top-[calc(505.5px*var(--scene-scale,1))]",
                         )}
                       >
-                        <div className="mx-auto mb-4 flex h-[60px] w-max items-center justify-center gap-3 rounded-full bg-white/45 py-2 pr-5 pl-4 text-[20px] leading-[25px] font-semibold tracking-[-0.45px] text-neutral-900 shadow-[1.25px_0_0_-.75px_#d0d0d0,-1.25px_0_0_-.75px_#d0d0d0,0_0_0_.5px_#e8e8e8,0_8px_15px_#00000005] backdrop-blur-[16px] [&_svg]:size-7 [&_svg]:text-neutral-800">
+                        <div className="mx-auto mb-4 flex h-[60px] w-max items-center justify-center gap-3 rounded-full bg-white/45 py-2 pr-5 pl-4 text-[20px] leading-[25px] font-semibold tracking-[-0.45px] text-neutral-900 shadow-[1.25px_0_0_-.75px_#d0d0d0,-1.25px_0_0_-.75px_#d0d0d0,0_0_0_.5px_#e8e8e8,0_8px_15px_#00000005] backdrop-blur-[16px] dark:bg-[#161618]/60 dark:text-[#f5f5f7] dark:shadow-[0_0_0_1px_rgb(255_255_255/.1),0_8px_20px_rgb(0_0_0/.25)] [&_svg]:size-7 [&_svg]:text-neutral-800 dark:[&_svg]:text-[#f5f5f7]">
                           {source.icon}
                           <span>{source.label}</span>
                         </div>
-                        <div className="w-[356px] rounded-[36px] bg-white/80 px-7 py-6">
-                          <h3 className="m-0 text-[22px] leading-[28px] font-bold tracking-[-0.26px] text-neutral-900">{source.title}</h3>
-                          <p className="mt-1 text-[20px] leading-[25px] tracking-[-0.45px] text-neutral-600">
+                        <div className="w-[356px] rounded-[36px] bg-white/80 px-7 py-6 dark:bg-[#1c1c1e]/80 dark:shadow-[0_0_0_1px_rgb(255_255_255/.1),0_12px_32px_rgb(0_0_0/.25)] dark:backdrop-blur-[16px]">
+                          <h3 className="m-0 text-[22px] leading-[28px] font-bold tracking-[-0.26px] text-neutral-900 dark:text-[#f5f5f7]">{source.title}</h3>
+                          <p className="mt-1 text-[20px] leading-[25px] tracking-[-0.45px] text-neutral-600 dark:text-[#a1a1a6]">
                             {source.lines.map((line, j) => (
                               <span key={j}>
                                 {line}

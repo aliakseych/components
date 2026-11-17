@@ -147,18 +147,27 @@ export function IntegrationGrid({ title, items, blurBottom = true, blurHeight, c
       on("blur", () => { tile.focus = false; wake(); });
       on("click", () => ripple(tile, 0.6));
     });
-    demo.classList.add("motion-enabled");
+    // Tiles stay visible until the first scroll; only a grid still below the trigger line gets the staggered reveal.
+    const arm = () => {
+      if (!reduced.matches && viewport.getBoundingClientRect().top >= innerHeight * 0.65) demo.classList.add("motion-enabled");
+    };
+    document.addEventListener("scroll", arm, { capture: true, once: true, passive: true });
     const io = new IntersectionObserver((entries) => {
       inView = entries[0].isIntersecting && entries[0].intersectionRatio >= 0.35;
-      demo.classList.toggle("is-visible", inView || reduced.matches);
+      if (inView || reduced.matches) demo.classList.add("is-visible");
       updateActivity();
     }, { threshold: [0, 0.35] });
     io.observe(viewport);
+    // Once-only reveal: a grid scrolled past in one jump (never 35% in view) still shows its tiles.
+    const passed = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) demo.classList.add("is-visible");
+    }, { threshold: 0, rootMargin: "100000px 0px -35% 0px" });
+    passed.observe(viewport);
     document.addEventListener("visibilitychange", updateActivity);
     const onReduced = () => {
       pulses = [];
       tiles.forEach((t) => { t.level = 0; paint(t); });
-      demo.classList.toggle("is-visible", inView || reduced.matches);
+      if (inView || reduced.matches) demo.classList.add("is-visible");
       updateActivity();
     };
     reduced.addEventListener("change", onReduced);
@@ -169,7 +178,9 @@ export function IntegrationGrid({ title, items, blurBottom = true, blurHeight, c
       stopIdle();
       ro.disconnect();
       io.disconnect();
+      passed.disconnect();
       document.removeEventListener("visibilitychange", updateActivity);
+      document.removeEventListener("scroll", arm, { capture: true });
       reduced.removeEventListener("change", onReduced);
       cleanups.forEach((fn) => fn());
       demo.classList.remove("motion-enabled", "is-visible");

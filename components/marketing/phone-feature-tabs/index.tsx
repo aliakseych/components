@@ -82,7 +82,6 @@ export function PhoneFeatureTabs({ items, heading, defaultIndex = 0, className }
   useIsoLayoutEffect(() => {
     if (reducedMotion() || !("IntersectionObserver" in window)) return;
     const targets: [HTMLElement | null, boolean][] = [[headingRef.current, false], [panelRef.current, true]];
-    targets.forEach(([el]) => el && (el.style.opacity = "0"));
     const io = new IntersectionObserver(
       (entries) =>
         entries.forEach(({ target, isIntersecting }) => {
@@ -96,10 +95,23 @@ export function PhoneFeatureTabs({ items, heading, defaultIndex = 0, className }
             { duration: card ? 1000 : 800, easing: "cubic-bezier(.25,.1,.25,1)", fill: "backwards" },
           );
         }),
-      { threshold: 0, rootMargin: `0px 0px -${Math.round(window.innerHeight * 0.35)}px 0px` },
+      { threshold: 0, rootMargin: `100000px 0px -${Math.round(window.innerHeight * 0.35)}px 0px` },
     );
-    targets.forEach(([el]) => el && io.observe(el));
-    return () => io.disconnect();
+    // Visible by default; the first scroll hides only targets still below the trigger line.
+    const arm = () => {
+      const line = window.innerHeight * 0.65;
+      targets.forEach(([el]) => {
+        if (!el || el.getBoundingClientRect().top < line) return;
+        el.style.opacity = "0";
+        io.observe(el);
+      });
+    };
+    document.addEventListener("scroll", arm, { capture: true, once: true, passive: true });
+    return () => {
+      io.disconnect();
+      document.removeEventListener("scroll", arm, { capture: true });
+      targets.forEach(([el]) => el?.style.removeProperty("opacity"));
+    };
   }, []);
 
   // Scale the phone track to the stage.

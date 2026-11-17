@@ -43,14 +43,10 @@ function usePrefersReducedMotion() {
 /** One-shot fade-up when the element crosses 35% of the viewport from the bottom (800ms, site easing). */
 function useReveal<T extends HTMLElement>(reduced: boolean) {
   const ref = useRef<T>(null);
-  const [pending, setPending] = useState(true);
+  const [pending, setPending] = useState(false);
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (reduced) {
-      setPending(false);
-      return;
-    }
+    if (!el || reduced) return;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -64,24 +60,29 @@ function useReveal<T extends HTMLElement>(reduced: boolean) {
           { duration: 800, easing: EASE, fill: "backwards" },
         );
       },
-      { threshold: 0, rootMargin: `0px 0px -${Math.round(innerHeight * 0.35)}px 0px` },
+      { threshold: 0, rootMargin: `100000px 0px -${Math.round(innerHeight * 0.35)}px 0px` },
     );
-    io.observe(el);
-    return () => io.disconnect();
+    // Visible until the first scroll; then only elements still below the trigger line are hidden.
+    const arm = () => {
+      if (el.getBoundingClientRect().top < innerHeight * 0.65) return;
+      setPending(true);
+      io.observe(el);
+    };
+    document.addEventListener("scroll", arm, { capture: true, once: true, passive: true });
+    return () => {
+      io.disconnect();
+      document.removeEventListener("scroll", arm, { capture: true });
+    };
   }, [reduced]);
-  return { ref, pending: pending && !reduced };
+  return { ref, pending };
 }
 
 function Attachment({ visuals, stacked, children, reduced }: { visuals: ReactNode[]; stacked: boolean; children: ReactNode; reduced: boolean }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [pending, setPending] = useState(true);
+  const [pending, setPending] = useState(false);
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (reduced) {
-      setPending(false);
-      return;
-    }
+    if (!el || reduced) return;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -97,14 +98,22 @@ function Attachment({ visuals, stacked, children, reduced }: { visuals: ReactNod
           ),
         );
       },
-      { threshold: 0, rootMargin: "0px 0px -25% 0px" },
+      { threshold: 0, rootMargin: "100000px 0px -25% 0px" },
     );
-    io.observe(el);
-    return () => io.disconnect();
+    const arm = () => {
+      if (el.getBoundingClientRect().top < innerHeight * 0.75) return;
+      setPending(true);
+      io.observe(el);
+    };
+    document.addEventListener("scroll", arm, { capture: true, once: true, passive: true });
+    return () => {
+      io.disconnect();
+      document.removeEventListener("scroll", arm, { capture: true });
+    };
   }, [reduced]);
 
   return (
-    <span ref={ref} className="inline-flex items-center gap-2 whitespace-nowrap align-middle max-[800px]:gap-[5px]">
+    <span ref={ref} className="-my-2 inline-flex items-center gap-2 whitespace-nowrap align-middle max-[800px]:gap-[5px]">
       <span className={cn("relative isolate inline-flex shrink-0", stacked && "[&>*:not(:last-child)]:-mr-2 max-[800px]:[&>*:not(:last-child)]:-mr-1.5")}>
         {visuals.map((v, i) => (
           <span

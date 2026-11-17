@@ -23,7 +23,7 @@ function Tail() {
     <svg
       aria-hidden
       viewBox="0 0 49 31"
-      className="absolute -bottom-0.5 -left-[25px] h-auto w-[49px] max-w-none text-card"
+      className="absolute -bottom-0.5 -left-[25px] h-auto w-[49px] max-w-none text-card dark:text-[#1c1c1e]"
     >
       <path d="M49 0v31H10c12-3 15-13 15-23V0z" fill="currentColor" />
     </svg>
@@ -97,10 +97,10 @@ export function ChatTestimonials({ title, items, ariaLabel = "Testimonials", cla
   };
 
   const btn =
-    "grid size-[52px] flex-none place-items-center rounded-full bg-card text-foreground transition-[color,background-color,opacity,transform] [transition-duration:200ms,200ms,200ms,300ms] [transition-timing-function:ease,ease,ease,cubic-bezier(.22,1,.36,1)] hover:-translate-y-0.5 hover:bg-foreground/10 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground disabled:pointer-events-none disabled:opacity-40";
+    "grid size-[52px] flex-none place-items-center rounded-full bg-card text-foreground dark:bg-[#1c1c1e] dark:text-[#f5f5f7] dark:ring-1 dark:ring-white/10 transition-[color,background-color,opacity,transform] [transition-duration:200ms,200ms,200ms,300ms] [transition-timing-function:ease,ease,ease,cubic-bezier(.22,1,.36,1)] hover:-translate-y-0.5 hover:bg-foreground/10 dark:hover:bg-[#2c2c2e] active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground disabled:pointer-events-none disabled:opacity-40";
 
   return (
-    <section className={cn("overflow-hidden bg-[#f5f5f7] pt-32 pb-24 text-[#1a1a1a] max-[800px]:pt-20 max-[800px]:pb-16 dark:bg-[#161617] dark:text-[#f5f5f7]", className)}>
+    <section className={cn("overflow-hidden bg-[#f5f5f7] pt-32 pb-24 text-[#1a1a1a] max-[800px]:pt-20 max-[800px]:pb-16 dark:bg-[#161618] dark:text-[#f5f5f7]", className)}>
       <div className="mx-auto w-full max-w-[1296px] px-12 max-[1199px]:px-8 max-[800px]:px-6 max-[380px]:px-5">
         <h2 className="text-left text-[56px] leading-[1.08] font-[590] tracking-[-0.23px] max-[1199px]:text-[42px] max-[800px]:text-[clamp(32px,7vw,44px)]">
           {title}
@@ -132,17 +132,17 @@ export function ChatTestimonials({ title, items, ariaLabel = "Testimonials", cla
                 key={i}
                 className="min-w-0 flex-none basis-[596px] select-none max-[800px]:max-w-[540px] max-[800px]:basis-[calc(100%-16px)]"
               >
-                <div className="relative flex flex-col justify-center gap-4 rounded-[36px] bg-card px-12 py-9 max-[800px]:min-h-[258px] max-[800px]:rounded-[28px] max-[800px]:p-7">
+                <div className="relative flex flex-col justify-center gap-4 rounded-[36px] bg-card dark:bg-[#1c1c1e] dark:ring-1 dark:ring-white/10 px-12 py-9 max-[800px]:min-h-[258px] max-[800px]:rounded-[28px] max-[800px]:p-7">
                   <blockquote className="text-[30px] leading-[1.18] font-[590] tracking-[0.4px] text-pretty max-[800px]:text-2xl max-[800px]:leading-[1.22] max-[800px]:tracking-normal">
                     {t.quote}
                   </blockquote>
-                  <p className="text-[22px] leading-7 tracking-[-0.26px] text-[#8c8c8c] max-[800px]:text-base max-[800px]:leading-[22px]">
+                  <p className="text-[22px] leading-7 tracking-[-0.26px] text-[#8c8c8c] dark:text-[#a1a1a6] max-[800px]:text-base max-[800px]:leading-[22px]">
                     {t.author}
                   </p>
                   <Tail />
                 </div>
                 <div className="mt-6 flex items-center gap-2 px-12 text-xl leading-7 font-[590] uppercase max-[800px]:px-7 max-[800px]:text-base">
-                  <span className="grid size-8 flex-none place-items-center overflow-hidden rounded-full bg-card text-sm">
+                  <span className="grid size-8 flex-none place-items-center overflow-hidden rounded-full bg-card text-sm dark:bg-[#1c1c1e] dark:ring-1 dark:ring-white/10">
                     {t.logo ?? t.company.charAt(0)}
                   </span>
                   <span>{t.company}</span>

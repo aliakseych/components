@@ -105,10 +105,8 @@ function useEntrance(root: React.RefObject<HTMLElement | null>) {
         { duration: card ? 1000 : 800, delay: Number(item.dataset.delay ?? 0), easing: EASE, fill: "backwards" },
       );
     };
-    items.forEach((i) => {
-      i.dataset.pending = "1";
-      i.style.opacity = "0";
-    });
+    // Content is visible by default so a never-scrolled render (full-page capture) shows everything.
+    // The first scroll arms the reveal: only items still below the trigger line are hidden and replayed.
     const io = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => {
@@ -116,14 +114,25 @@ function useEntrance(root: React.RefObject<HTMLElement | null>) {
           io.unobserve(e.target);
           e.target.querySelectorAll<HTMLElement>("[data-reveal]").forEach(play);
         }),
-      { threshold: 0, rootMargin: `0px 0px -${Math.round(innerHeight * 0.35)}px 0px` },
+      // The huge top margin also counts elements already scrolled past, so a jump over a section still reveals it.
+      { threshold: 0, rootMargin: `100000px 0px -${Math.round(innerHeight * 0.35)}px 0px` },
     );
-    el.querySelectorAll("[data-reveal-root]").forEach((r) => io.observe(r));
+    const arm = () => {
+      const line = innerHeight * 0.65;
+      items.forEach((i) => {
+        if (i.getBoundingClientRect().top < line) return;
+        i.dataset.pending = "1";
+        i.style.opacity = "0";
+      });
+      el.querySelectorAll("[data-reveal-root]").forEach((r) => io.observe(r));
+    };
+    document.addEventListener("scroll", arm, { capture: true, once: true, passive: true });
     const onFocus = (ev: FocusEvent) => items.forEach((i) => i.contains(ev.target as Node) && play(i));
     el.addEventListener("focusin", onFocus);
     return () => {
       io.disconnect();
       el.removeEventListener("focusin", onFocus);
+      document.removeEventListener("scroll", arm, { capture: true });
       items.forEach((i) => {
         delete i.dataset.pending;
         i.style.opacity = "";
@@ -139,7 +148,7 @@ function Keycaps({ tools }: { tools: SetupTool[] }) {
         <li
           key={label}
           title={label}
-          className="flex aspect-square items-center justify-center rounded-[22%] bg-gradient-to-b from-white to-neutral-100 text-neutral-700 shadow-[inset_0_1px_0_#fff,0_2px_0_rgba(0,0,0,.1),0_14px_22px_-8px_rgba(20,30,60,.35)] ring-1 ring-black/5"
+          className="flex aspect-square items-center justify-center rounded-[22%] bg-gradient-to-b from-white to-neutral-100 text-neutral-700 shadow-[inset_0_1px_0_#fff,0_2px_0_rgba(0,0,0,.1),0_14px_22px_-8px_rgba(20,30,60,.35)] ring-1 ring-black/5 dark:from-[#2c2c2e] dark:to-[#1c1c1e] dark:text-[#e5e5ea] dark:shadow-[inset_0_1px_0_rgba(255,255,255,.12),0_2px_0_rgba(0,0,0,.5),0_14px_22px_-8px_rgba(0,0,0,.6)] dark:ring-white/10"
         >
           <Glyph className="size-[38%]" />
           <span className="sr-only">{label}</span>
@@ -159,7 +168,7 @@ function Switch({ on, onToggle, label }: { on: boolean; onToggle: () => void; la
       onClick={onToggle}
       className={cn(
         "relative block h-7 w-16 flex-none rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring min-[801px]:max-[1199px]:h-6 min-[801px]:max-[1199px]:w-12 max-[380px]:h-6 max-[380px]:w-12",
-        on ? "bg-[#34c759]" : "bg-muted-foreground/30",
+        on ? "bg-[#34c759]" : "bg-muted-foreground/30 dark:bg-white/20",
       )}
     >
       <span
@@ -176,11 +185,11 @@ function Switch({ on, onToggle, label }: { on: boolean; onToggle: () => void; la
 function Checks({ checks }: { checks: SetupCheck[] }) {
   const [state, setState] = useState(() => checks.map((c) => c.defaultOn ?? true));
   return (
-    <div className="absolute top-1/2 right-[8.633%] left-[8.633%] flex -translate-y-1/2 flex-col gap-px overflow-hidden rounded-[20px] bg-[#eaeaea] min-[801px]:rounded-3xl dark:bg-[#3a3a3c]">
+    <div className="absolute top-1/2 right-[8.633%] left-[8.633%] flex -translate-y-1/2 flex-col gap-px overflow-hidden rounded-[20px] bg-[#eaeaea] min-[801px]:rounded-3xl dark:bg-white/10">
       {checks.map((c, i) => (
         <div
           key={c.label}
-          className="flex min-h-[60px] items-center justify-between gap-2 bg-card py-4 pr-3.5 pl-[18px] text-[15px] leading-5 tracking-[-.23px] text-[#595959] min-[801px]:max-[1199px]:px-3 min-[801px]:max-[1199px]:text-[clamp(11px,1.2vw,15px)] max-[380px]:px-2.5 max-[380px]:py-[13px] max-[380px]:text-xs dark:text-[#a3a3a8]"
+          className="flex min-h-[60px] items-center justify-between gap-2 bg-card dark:bg-[#1c1c1e] py-4 pr-3.5 pl-[18px] text-[15px] leading-5 tracking-[-.23px] text-[#595959] min-[801px]:max-[1199px]:px-3 min-[801px]:max-[1199px]:text-[clamp(11px,1.2vw,15px)] max-[380px]:px-2.5 max-[380px]:py-[13px] max-[380px]:text-xs dark:text-[#a1a1a6]"
         >
           {c.label}
           <Switch label={c.label} on={state[i]} onToggle={() => setState((s) => s.map((v, j) => (j === i ? !v : v)))} />
@@ -194,16 +203,16 @@ const toneDot = { ok: "bg-emerald-500", warn: "bg-amber-500", bad: "bg-red-500" 
 
 function BriefCard({ brief }: { brief: SetupBrief }) {
   return (
-    <div className="absolute top-1/2 left-1/2 w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-[6cqw] bg-card p-[5cqw] text-card-foreground shadow-[0_0_20px_rgba(255,255,255,.25),0_18px_40px_-12px_rgba(20,30,60,.35)]">
-      <p className="m-0 text-[3cqw] leading-none font-medium tracking-wide text-muted-foreground uppercase">{brief.eyebrow}</p>
-      <p className="mt-[2cqw] mb-[3.4cqw] text-[5cqw] leading-tight font-semibold tracking-tight text-foreground">{brief.title}</p>
+    <div className="absolute top-1/2 left-1/2 w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-[6cqw] bg-card p-[5cqw] text-card-foreground shadow-[0_0_20px_rgba(255,255,255,.25),0_18px_40px_-12px_rgba(20,30,60,.35)] dark:bg-[#1c1c1e] dark:text-[#f5f5f7] dark:shadow-[0_0_0_1px_rgba(255,255,255,.1),0_18px_40px_-12px_rgba(0,0,0,.6)]">
+      <p className="m-0 text-[3cqw] leading-none font-medium tracking-wide text-muted-foreground uppercase dark:text-[#a1a1a6]">{brief.eyebrow}</p>
+      <p className="mt-[2cqw] mb-[3.4cqw] text-[5cqw] leading-tight font-semibold tracking-tight text-foreground dark:text-[#f5f5f7]">{brief.title}</p>
       <ul className="m-0 flex list-none flex-col gap-[2.2cqw] p-0">
         {brief.items.map((it) => (
-          <li key={it.title} className="flex items-start gap-[2.6cqw] rounded-[3.4cqw] bg-muted px-[3cqw] py-[2.6cqw]">
+          <li key={it.title} className="flex items-start gap-[2.6cqw] rounded-[3.4cqw] bg-muted dark:bg-white/[.07] px-[3cqw] py-[2.6cqw]">
             <span className={cn("mt-[1.4cqw] size-[2.4cqw] flex-none rounded-full", toneDot[it.tone ?? "ok"])} />
             <span className="min-w-0">
-              <span className="block text-[3.4cqw] leading-tight font-medium text-foreground">{it.title}</span>
-              <span className="block text-[2.9cqw] leading-tight text-muted-foreground">{it.detail}</span>
+              <span className="block text-[3.4cqw] leading-tight font-medium text-foreground dark:text-[#f5f5f7]">{it.title}</span>
+              <span className="block text-[2.9cqw] leading-tight text-muted-foreground dark:text-[#a1a1a6]">{it.detail}</span>
             </span>
           </li>
         ))}
@@ -258,7 +267,7 @@ export function SetupSteps({
         <p
           data-reveal
           data-delay="80"
-          className="mx-auto mt-4 max-w-[520px] text-[18px] leading-[25px] tracking-[-.26px] text-[#595959] min-[801px]:max-w-none min-[801px]:text-[22px] min-[801px]:leading-7 dark:text-[#a3a3a8]"
+          className="mx-auto mt-4 max-w-[520px] text-[18px] leading-[25px] tracking-[-.26px] text-[#595959] min-[801px]:max-w-none min-[801px]:text-[22px] min-[801px]:leading-7 dark:text-[#a1a1a6]"
         >
           {description}
         </p>
@@ -271,15 +280,16 @@ export function SetupSteps({
               data-card="1"
               data-delay="0"
               style={{ containerType: "inline-size" }}
-              className={cn("relative isolate mb-6 aspect-square w-full overflow-hidden rounded-3xl bg-[#eaeaea] dark:bg-[#2c2c2e]", backgrounds[i])}
+              className={cn("relative isolate mb-6 aspect-square w-full overflow-hidden rounded-3xl bg-[#eaeaea] dark:bg-[#1c1c1e] dark:ring-1 dark:ring-white/10", backgrounds[i])}
             >
               <div aria-hidden className={cn("absolute inset-0", shades[i])} />
+              <div aria-hidden className="absolute inset-0 hidden bg-black/35 dark:block" />
               {visuals[i]}
             </div>
             <h3 data-reveal data-delay="80" className="mt-0 mb-3 text-[22px] leading-7 font-bold tracking-[-.26px]">
               {step.title}
             </h3>
-            <p data-reveal data-delay="160" className="m-0 text-[20px] leading-[25px] tracking-[-.45px] text-[#595959] min-[801px]:max-[1199px]:text-[18px] dark:text-[#a3a3a8]">
+            <p data-reveal data-delay="160" className="m-0 text-[20px] leading-[25px] tracking-[-.45px] text-[#595959] min-[801px]:max-[1199px]:text-[18px] dark:text-[#a1a1a6]">
               {step.description}
             </p>
           </article>

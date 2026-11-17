@@ -48,10 +48,8 @@ function useEntrance(root: React.RefObject<HTMLElement | null>) {
         { duration: card ? 1000 : 800, delay: Number(item.dataset.delay ?? 0), easing: EASE, fill: "backwards" },
       );
     };
-    items.forEach((item) => {
-      item.dataset.pending = "1";
-      item.style.opacity = "0";
-    });
+    // Visible by default (never-scrolled renders stay complete); the first scroll hides only items
+    // still below the trigger line and replays them as they enter.
     const io = new IntersectionObserver(
       (entries) =>
         entries.forEach((e) => {
@@ -61,13 +59,24 @@ function useEntrance(root: React.RefObject<HTMLElement | null>) {
           (e.target as HTMLElement).querySelectorAll<HTMLElement>("[data-reveal]").forEach(play);
           play(e.target as HTMLElement);
         }),
-      { threshold: 0, rootMargin: `0px 0px -${Math.round(innerHeight * 0.35)}px 0px` },
+      // The huge top margin also counts elements already scrolled past, so a jump over a section still reveals it.
+      { threshold: 0, rootMargin: `100000px 0px -${Math.round(innerHeight * 0.35)}px 0px` },
     );
-    el.querySelectorAll("[data-reveal-root]").forEach((r) => io.observe(r));
+    const arm = () => {
+      const line = innerHeight * 0.65;
+      items.forEach((item) => {
+        if (item.getBoundingClientRect().top < line) return;
+        item.dataset.pending = "1";
+        item.style.opacity = "0";
+      });
+      el.querySelectorAll("[data-reveal-root]").forEach((r) => io.observe(r));
+    };
+    document.addEventListener("scroll", arm, { capture: true, once: true, passive: true });
     const onFocus = (ev: FocusEvent) => items.forEach((i) => i.contains(ev.target as Node) && play(i));
     el.addEventListener("focusin", onFocus);
     return () => {
       io.disconnect();
+      document.removeEventListener("scroll", arm, { capture: true });
       el.removeEventListener("focusin", onFocus);
       items.forEach((i) => {
         delete i.dataset.pending;

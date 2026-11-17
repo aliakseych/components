@@ -12,17 +12,17 @@ import { FaqStack } from "@/components/marketing/faq-stack";
 import { NightCta } from "@/components/marketing/night-cta";
 
 export interface OpsLandingProps {
-  header?: ComponentProps<typeof ScrollPillHeader>;
-  hero?: ComponentProps<typeof PhoneScrollHero>;
-  intro?: ComponentProps<typeof InlineImageHeadline>;
-  features?: ComponentProps<typeof PhoneFeatureTabs>;
-  integrations?: ComponentProps<typeof IntegrationGrid>;
-  splitPrimary?: ComponentProps<typeof PhoneSplitFeature>;
-  splitSecondary?: ComponentProps<typeof PhoneSplitFeature>;
-  testimonials?: ComponentProps<typeof ChatTestimonials>;
-  setup?: ComponentProps<typeof SetupSteps>;
-  faq?: ComponentProps<typeof FaqStack>;
-  cta?: ComponentProps<typeof NightCta>;
+  header?: Partial<ComponentProps<typeof ScrollPillHeader>>;
+  hero?: Partial<ComponentProps<typeof PhoneScrollHero>>;
+  intro?: Partial<ComponentProps<typeof InlineImageHeadline>>;
+  features?: Partial<ComponentProps<typeof PhoneFeatureTabs>>;
+  integrations?: Partial<ComponentProps<typeof IntegrationGrid>>;
+  splitPrimary?: Partial<ComponentProps<typeof PhoneSplitFeature>>;
+  splitSecondary?: Partial<ComponentProps<typeof PhoneSplitFeature>>;
+  testimonials?: Partial<ComponentProps<typeof ChatTestimonials>>;
+  setup?: Partial<ComponentProps<typeof SetupSteps>>;
+  faq?: Partial<ComponentProps<typeof FaqStack>>;
+  cta?: Partial<ComponentProps<typeof NightCta>>;
   /** Brand name used in the header, pill, copy and footer. Default "Relay". */
   brandName?: string;
   className?: string;
@@ -95,7 +95,7 @@ const cta = { label: "Book a call", href: "#book" };
 export function OpsLanding({ header, hero, intro, features, integrations, splitPrimary, splitSecondary, testimonials, setup, faq, cta: ctaProps, brandName = "Relay", className }: OpsLandingProps) {
   const endRef = useRef<HTMLDivElement>(null);
   return (
-    <div className={className ?? "w-full bg-background text-foreground"}>
+    <div className={className ?? "w-full bg-background text-foreground dark:bg-[#0b0b0c] dark:text-[#f5f5f7]"}>
       <ScrollPillHeader boundary={endRef} onDark brand={<span className="text-xl font-semibold tracking-tight">{brandName}</span>} brandLabel="Home" links={[{ label: "Products", href: "#products" }, { label: "FAQ", href: "#faq" }]} cta={cta} {...header} />
       <div className="-mt-[82px] max-[800px]:-mt-[76px]">
         <PhoneScrollHero endRef={endRef} cta={cta} {...hero} />
@@ -111,7 +111,7 @@ export function OpsLanding({ header, hero, intro, features, integrations, splitP
         ]}
         {...intro}
       />
-      <section id="products" className="w-full bg-[#f5f5f7] py-32 max-[800px]:py-20 dark:bg-[#161617]">
+      <section id="products" className="w-full bg-[#f5f5f7] py-32 max-[800px]:py-20 dark:bg-[#161618]">
         <div className="mx-auto w-full max-w-[1296px] px-6 min-[801px]:px-12">
           <PhoneFeatureTabs heading={<>One assistant across<br />every part of the business.</>} items={featureItems} defaultIndex={1} {...features} />
         </div>

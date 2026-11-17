@@ -4115,6 +4115,59 @@
       ]
     },
     {
+      "id": "templates/ops-landing",
+      "slug": "ops-landing",
+      "path": "templates/ops-landing",
+      "name": "Ops Assistant Landing",
+      "summary": "Full marketing landing for an operations assistant, rebuilt section by section from a reference site: scroll-pill header, sky hero with a phone that scrolls through a chat, inline-image headline, phone feature tabs, integration grid, two phone split sections, chat testimonials, setup steps, FAQ, night CTA with footer, and a torn-paper manifesto dialog.",
+      "kind": "landing",
+      "viewport": "responsive",
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "tags": [
+        "landing page",
+        "marketing",
+        "animation"
+      ],
+      "useWhen": [
+        "Starting a product landing page for an assistant or B2B tool with a phone-first story",
+        "Needing the whole page with scroll motion, header pill and a manifesto dialog already wired"
+      ],
+      "avoidWhen": [
+        "Only one or two sections are needed; use the marketing components directly",
+        "A dashboard or app shell rather than a marketing page"
+      ],
+      "stack": [
+        "React 19",
+        "Vite",
+        "Tailwind CSS 4",
+        "lenis",
+        "lucide-react"
+      ],
+      "screens": [
+        {
+          "id": "home",
+          "title": "Home",
+          "path": "/"
+        },
+        {
+          "id": "manifesto",
+          "title": "Manifesto",
+          "path": "/?manifesto=1"
+        }
+      ],
+      "source": "moonin.ai (layout, spacing and motion reference); copy, brand and imagery replaced with neutral placeholders",
+      "status": "experimental",
+      "previews": [
+        "templates/ops-landing/previews/home.mobile.dark.png",
+        "templates/ops-landing/previews/home.mobile.light.png",
+        "templates/ops-landing/previews/manifesto.mobile.dark.png",
+        "templates/ops-landing/previews/manifesto.mobile.light.png"
+      ]
+    },
+    {
       "id": "templates/telegram-app",
       "slug": "telegram-app",
       "path": "templates/telegram-app",
