@@ -17,3 +17,4 @@ Text column (heading, description, divider-separated icon bullets, pill button) 
 - `parallax` (default 24) is the max px the phone drifts: scroll progress is eased 12% per frame.
 - Entrance: heading 0ms, description 80ms, bullets 160ms + 60ms each, button 340ms (800ms, 18px rise); the panel takes 1000ms with a 32px rise and 0.96 scale; fires once at 35% from the viewport bottom. Reduced motion disables the entrance and the parallax.
 - `PhoneListScreen` is an optional ready-made screen scaled with container units.
+- The phone is the frame image `assets/iphone-frame.webp` (ratio 1800:3680, 72.8% of the panel width); `phone` fills its screen cutout, under the frame's island.

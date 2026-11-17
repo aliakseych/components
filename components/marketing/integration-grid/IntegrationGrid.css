@@ -1,4 +1,5 @@
-.ig{--grid-angle:40deg;--ig-edge:var(--border);position:relative;width:min(calc(100vw - 64px),1216px);left:50%;transform:translateX(-50%);margin-top:48px}
+.ig{--grid-angle:40deg;--ig-edge:#ddd;position:relative;width:min(calc(100vw - 64px),1216px);left:50%;transform:translateX(-50%);margin-top:48px}
+.dark .ig{--ig-edge:#3a3a3c}
 .ig-viewport{position:relative;width:calc(100% + 64px);margin-inline:-32px;height:320px;overflow:visible;isolation:isolate;mask-image:linear-gradient(#000 0% 62%,transparent 100%);-webkit-mask-image:linear-gradient(#000 0% 62%,transparent 100%)}
 .ig-viewport.ig-nomask{mask-image:none;-webkit-mask-image:none}
 .ig-perspective{position:absolute;inset:0 48px;display:flex;justify-content:center;align-items:flex-end;perspective:1200px;perspective-origin:calc(50% + 12px) 100%}

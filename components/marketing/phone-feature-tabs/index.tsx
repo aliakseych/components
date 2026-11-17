@@ -2,12 +2,13 @@ import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type 
 import { flushSync } from "react-dom";
 import { ChevronLeft, ChevronRight, Plus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import frame from "./assets/iphone-frame.webp";
 
 export type PhoneFeatureItem = {
   title: string;
   /** Shown under the active title (desktop) and in the summary (mobile). */
   description: string;
-  /** Content of the phone screen; it is laid out in a 313 x 640 box. */
+  /** Content of the phone screen; it fills the 280 x 609 cutout of the 313 x 640 phone frame. */
   screen: ReactNode;
 };
 
@@ -256,7 +257,7 @@ export function PhoneFeatureTabs({ items, heading, defaultIndex = 0, className }
         outgoing.removeAttribute("data-description");
         outgoing.setAttribute("data-departing", "");
         outgoing.setAttribute("aria-hidden", "true");
-        outgoing.className = "pointer-events-none absolute left-7 top-14 block w-[300px] max-w-none text-[20px] leading-[25px] tracking-[-.45px] text-muted-foreground";
+        outgoing.className = "pointer-events-none absolute left-7 top-14 block w-[300px] max-w-none text-[20px] leading-[25px] tracking-[-.45px] text-[#595959] dark:text-[#a3a3a8]";
         prev.appendChild(outgoing);
         outgoing.animate([{ opacity: 1 }, { opacity: 0, transform: "translateY(-4px)" }], { duration: 260, easing: EASE, fill: "forwards" }).onfinish = () => outgoing.remove();
       }
@@ -314,15 +315,15 @@ export function PhoneFeatureTabs({ items, heading, defaultIndex = 0, className }
     "grid size-[52px] shrink-0 place-items-center rounded-full bg-muted text-foreground transition-[background-color,transform] duration-200 hover:bg-accent active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring max-[800px]:size-11 motion-reduce:transition-none";
 
   return (
-    <section className={cn("w-full text-foreground", className)}>
+    <section className={cn("w-full text-[#1a1a1a] dark:text-[#f5f5f7]", className)}>
       {heading ? (
-        <h2 ref={headingRef} className="text-center text-[clamp(32px,7vw,44px)] font-semibold leading-[1.08] tracking-[-.23px] min-[801px]:text-[56px]">{heading}</h2>
+        <h2 ref={headingRef} className="text-center text-[clamp(32px,7vw,44px)] font-[590] leading-[1.08] tracking-[-.23px] min-[801px]:text-[56px]">{heading}</h2>
       ) : null}
       <div
         ref={panelRef}
         className={cn(
           "relative mt-10 overflow-hidden bg-card text-card-foreground min-[801px]:mt-16",
-          "max-[800px]:grid max-[800px]:min-h-[620px] max-[800px]:grid-cols-[minmax(0,1fr)] max-[800px]:grid-rows-[44px_minmax(0,1fr)_auto] max-[800px]:gap-5 max-[800px]:rounded-[28px] max-[800px]:px-3 max-[800px]:pb-6 max-[800px]:pt-4 max-[380px]:min-h-[570px]",
+          "max-[800px]:grid max-[800px]:min-h-[620px] max-[800px]:grid-cols-[minmax(0,1fr)] max-[800px]:grid-rows-[44px_minmax(0,1fr)_auto] max-[800px]:gap-6 max-[800px]:rounded-[28px] max-[800px]:px-3 max-[800px]:pb-6 max-[800px]:pt-4 max-[380px]:min-h-[570px]",
           "min-[801px]:flex min-[801px]:h-[756px] min-[801px]:items-start min-[801px]:gap-8 min-[801px]:rounded-[36px] min-[801px]:p-10 min-[1051px]:gap-12 min-[1200px]:gap-[84px] min-[1200px]:p-12",
         )}
       >
@@ -367,12 +368,12 @@ export function PhoneFeatureTabs({ items, heading, defaultIndex = 0, className }
                   onClick={(e) => select(i, undefined, e.detail === 0)}
                   onKeyDown={(e) => onKey(e, i)}
                   className={cn(
-                    "relative block w-max max-w-full cursor-pointer select-none overflow-hidden rounded-[32px] bg-muted py-3.5 pl-3.5 pr-8 text-left text-foreground focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-ring",
+                    "relative block w-max max-w-full cursor-pointer select-none overflow-hidden rounded-[32px] bg-[#f5f5f7] py-3.5 pl-3.5 pr-8 text-left text-[#1a1a1a] focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-ring dark:bg-[#2c2c2e] dark:text-[#f5f5f7]",
                     isActive && "px-7 py-6 max-[1199px]:px-7 max-[380px]:p-[22px]",
                     mobile && "max-w-none flex-none py-3.5 pl-3.5 pr-5",
                   )}
                 >
-                  <span className={cn("flex items-center gap-3 whitespace-nowrap text-[20px] font-semibold leading-[25px] tracking-[-.45px]", isActive && "text-[22px] font-bold leading-7 tracking-[-.26px] max-[1199px]:text-[20px]")}>
+                  <span className={cn("flex items-center gap-3 whitespace-nowrap text-[20px] font-[590] leading-[25px] tracking-[-.45px]", isActive && "text-[22px] font-bold leading-7 tracking-[-.26px] max-[1199px]:text-[20px]")}>
                     {!isActive ? (
                       <span className="flex size-6 flex-none items-center justify-center" aria-hidden>
                         <Plus className="size-6" strokeWidth={1.75} />
@@ -384,7 +385,7 @@ export function PhoneFeatureTabs({ items, heading, defaultIndex = 0, className }
                     id={`${uid}-desc-${i}`}
                     data-description
                     className={cn(
-                      "mt-1 w-[300px] max-w-full whitespace-normal text-[20px] font-normal leading-[25px] tracking-[-.45px] text-muted-foreground max-[1199px]:text-[18px]",
+                      "mt-1 w-[300px] max-w-full whitespace-normal text-[20px] font-normal leading-[25px] tracking-[-.45px] text-[#595959] max-[1199px]:text-[18px] dark:text-[#a3a3a8]",
                       isActive ? "block" : "hidden",
                     )}
                   >
@@ -455,15 +456,9 @@ export function PhoneFeatureTabs({ items, heading, defaultIndex = 0, className }
                   }}
                   className="absolute inset-0 h-[640px] w-[313px] will-change-[opacity]"
                 >
-                  {/* Device: 6px transparent margin, 9px black bezel, 46px outer radius, metal rim, drop shadow. */}
-                  <div className="absolute inset-[6px] overflow-hidden rounded-[46px] bg-card">
-                    <div className="absolute -left-[6px] -top-[6px] h-[640px] w-[313px]">{item.screen}</div>
-                  </div>
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute inset-[6px] rounded-[46px] border-[9px] border-[#0e0e10] shadow-[0_0_0_1.5px_#7a7a80,inset_0_0_0_1px_rgb(255_255_255/.14),0_22px_40px_-16px_rgb(0_0_0/.38)]"
-                  />
-                  <div aria-hidden className="pointer-events-none absolute left-1/2 top-[17px] h-[25px] w-[88px] -translate-x-1/2 rounded-full bg-[#0e0e10]" />
+                  {/* Screen cutout of the frame image. */}
+                  <div className="absolute top-[2.467%] left-[5.263%] h-[95.219%] w-[89.342%] overflow-hidden rounded-[15.22%/6.984%] bg-card">{item.screen}</div>
+                  <img src={frame} alt="" aria-hidden draggable={false} className="pointer-events-none absolute inset-0 size-full select-none" />
                 </div>
               </div>
             ))}

@@ -92,9 +92,9 @@ export function ScrollPillHeader({
 
   const headerLink = (i: number) =>
     cn(linkBase, onDark ? "text-[#f0f0f0] hover:text-white focus-visible:text-white" : "text-foreground/65 hover:text-foreground", i > 0 && "max-[800px]:hidden");
-  const pillLink = cn(linkBase, "h-8 text-foreground/65 hover:text-foreground max-[800px]:px-2 max-[380px]:px-1");
+  const pillLink = cn(linkBase, "h-8 text-[#272228]/65 hover:text-[#111214] max-[800px]:px-2 max-[380px]:px-1 dark:text-[#f5f5f7]/65 dark:hover:text-[#f5f5f7]");
   const headerCta = cn(
-    "inline-flex min-h-9 items-center justify-center whitespace-nowrap rounded-full px-[18px] py-2 text-[15px] font-semibold leading-5 tracking-[-0.23px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[380px]:px-3 max-[380px]:text-[13px]",
+    "inline-flex min-h-9 items-center justify-center whitespace-nowrap rounded-full px-[18px] py-2 text-[15px] font-[590] leading-5 tracking-[-0.23px] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring max-[380px]:px-3 max-[380px]:text-[13px]",
   );
   const headerCtaTone = onDark ? "bg-[rgba(240,240,240,.25)] text-white hover:bg-[rgba(240,240,240,.38)]" : "bg-muted text-foreground hover:bg-muted/70";
 
@@ -115,7 +115,7 @@ export function ScrollPillHeader({
         aria-hidden={!visible}
         inert={!visible}
         className={cn(
-          "fixed left-1/2 top-[18px] z-[900] flex w-max max-w-[calc(100vw-32px)] items-center gap-6 rounded-[45px] border border-white/45 bg-background/60 py-3 pl-[22px] pr-3 text-foreground backdrop-blur-[16px]",
+          "fixed left-1/2 top-[18px] z-[900] flex w-max max-w-[calc(100vw-32px)] items-center gap-6 rounded-[45px] border border-[#f0f0f0]/45 bg-white/60 py-3 pl-[22px] pr-3 text-[#111214] backdrop-blur-[16px] dark:border-white/10 dark:bg-[#1c1c1e]/60 dark:text-[#f5f5f7]",
           "shadow-[0_134px_18.5px_rgba(240,240,240,0),0_86px_17px_rgba(240,240,240,.03),0_48px_14.5px_rgba(240,240,240,.11),0_21px_10.5px_rgba(240,240,240,.19),0_5px_6px_rgba(240,240,240,.22)] dark:shadow-[0_134px_18.5px_rgba(0,0,0,0),0_86px_17px_rgba(0,0,0,.03),0_48px_14.5px_rgba(0,0,0,.1),0_21px_10.5px_rgba(0,0,0,.16),0_5px_6px_rgba(0,0,0,.2)]",
           "transition-[transform,opacity,visibility] [transition-duration:380ms,260ms,380ms] [transition-timing-function:cubic-bezier(.4,0,.2,1)] motion-reduce:transition-none",
           "max-[800px]:w-[calc(100vw-32px)] max-[800px]:gap-2.5 max-[800px]:py-2.5 max-[800px]:pl-[18px] max-[800px]:pr-2.5 max-[380px]:gap-1.5 max-[380px]:pl-3.5",
@@ -128,7 +128,7 @@ export function ScrollPillHeader({
         <nav aria-label="Secondary" className="flex w-64 min-w-0 justify-end max-[800px]:w-auto max-[800px]:flex-1">
           {links.map((l) => <Item key={l.label} item={l} className={pillLink} />)}
         </nav>
-        <Item item={cta} className={cn(headerCta, "bg-foreground text-background hover:bg-foreground/85 max-[800px]:px-3.5")} />
+        <Item item={cta} className={cn(headerCta, "bg-[#111214] text-white hover:bg-[#111214]/85 max-[800px]:px-3.5 dark:bg-[#f5f5f7] dark:text-[#111214] dark:hover:bg-[#f5f5f7]/85")} />
       </header>
     </div>
   );

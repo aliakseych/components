@@ -100,7 +100,7 @@ export function ChatTestimonials({ title, items, ariaLabel = "Testimonials", cla
     "grid size-[52px] flex-none place-items-center rounded-full bg-card text-foreground transition-[color,background-color,opacity,transform] [transition-duration:200ms,200ms,200ms,300ms] [transition-timing-function:ease,ease,ease,cubic-bezier(.22,1,.36,1)] hover:-translate-y-0.5 hover:bg-foreground/10 active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-foreground disabled:pointer-events-none disabled:opacity-40";
 
   return (
-    <section className={cn("overflow-hidden bg-muted pt-32 pb-24 text-foreground max-[800px]:pt-20 max-[800px]:pb-16", className)}>
+    <section className={cn("overflow-hidden bg-[#f5f5f7] pt-32 pb-24 text-[#1a1a1a] max-[800px]:pt-20 max-[800px]:pb-16 dark:bg-[#161617] dark:text-[#f5f5f7]", className)}>
       <div className="mx-auto w-full max-w-[1296px] px-12 max-[1199px]:px-8 max-[800px]:px-6 max-[380px]:px-5">
         <h2 className="text-left text-[56px] leading-[1.08] font-[590] tracking-[-0.23px] max-[1199px]:text-[42px] max-[800px]:text-[clamp(32px,7vw,44px)]">
           {title}
@@ -136,7 +136,7 @@ export function ChatTestimonials({ title, items, ariaLabel = "Testimonials", cla
                   <blockquote className="text-[30px] leading-[1.18] font-[590] tracking-[0.4px] text-pretty max-[800px]:text-2xl max-[800px]:leading-[1.22] max-[800px]:tracking-normal">
                     {t.quote}
                   </blockquote>
-                  <p className="text-[22px] leading-7 tracking-[-0.26px] text-muted-foreground max-[800px]:text-base max-[800px]:leading-[22px]">
+                  <p className="text-[22px] leading-7 tracking-[-0.26px] text-[#8c8c8c] max-[800px]:text-base max-[800px]:leading-[22px]">
                     {t.author}
                   </p>
                   <Tail />

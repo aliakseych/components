@@ -30,6 +30,8 @@ const end = useRef<HTMLDivElement>(null);
 
 The hero finds its scroll container on its own: the nearest overflow ancestor, otherwise the window. A custom screen can read progress with `useHeroStore()` from `./progress`.
 
+The phone is the frame image `assets/iphone-frame.webp` (456×932 at full size) with the screen laid over its cutout; the island is part of the frame.
+
 ## Theming
 
 The phone UI, the cards and the text use theme tokens. Only the sky stops are raw colors, and you pass them in as data. The hero paints no page background.

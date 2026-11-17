@@ -111,7 +111,7 @@ export function OpsLanding({ header, hero, intro, features, integrations, splitP
         ]}
         {...intro}
       />
-      <section id="products" className="w-full bg-muted py-16">
+      <section id="products" className="w-full bg-[#f5f5f7] py-32 max-[800px]:py-20 dark:bg-[#161617]">
         <div className="mx-auto w-full max-w-[1296px] px-6 min-[801px]:px-12">
           <PhoneFeatureTabs heading={<>One assistant across<br />every part of the business.</>} items={featureItems} defaultIndex={1} {...features} />
         </div>

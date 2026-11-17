@@ -10,6 +10,6 @@ Expandable capability list synced to a carousel of 313x640 phone screens. Deskto
 />
 ```
 
-- `items[].screen` is any ReactNode, laid out in a 313x640 box (clipped inside a CSS phone bezel).
+- `items[].screen` is any ReactNode. It fills the 280x609 screen cutout of the 313x640 phone frame image (`assets/iphone-frame.webp`); the frame's island covers the top centre, so keep about 48px of top padding.
 - `heading` is optional; the component fills its container width.
 - The panel and heading fade up once on scroll (heading 800ms/18px, panel 1000ms/32px with scale .96, `cubic-bezier(.25,.1,.25,1)`, trigger 35% above viewport bottom); skipped under reduced motion.

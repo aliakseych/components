@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import frame from "./assets/iphone-frame.webp";
 
 export type PhoneSplitBullet = { icon?: ReactNode; text: ReactNode };
 
@@ -165,7 +166,7 @@ export function PhoneSplitFeature({
     <section
       ref={root}
       className={cn(
-        "mx-auto flex w-full max-w-[1296px] flex-col items-stretch gap-10 px-5 py-20 text-foreground min-[381px]:px-6 min-[801px]:flex-row min-[801px]:items-end min-[801px]:gap-12 min-[801px]:px-8 min-[801px]:py-[144px] min-[1200px]:gap-[84px] min-[1200px]:px-12",
+        "mx-auto flex w-full max-w-[1296px] flex-col items-stretch gap-10 px-5 py-20 text-[#1a1a1a] min-[381px]:px-6 min-[801px]:flex-row min-[801px]:items-end min-[801px]:gap-12 min-[801px]:px-8 min-[801px]:py-[144px] min-[1200px]:gap-[84px] min-[1200px]:px-12 dark:text-[#f5f5f7]",
         className,
       )}
     >
@@ -182,7 +183,7 @@ export function PhoneSplitFeature({
             <p
               data-reveal
               data-delay="80"
-              className="mt-4 text-[18px] leading-[25px] tracking-[-.26px] text-pretty text-muted-foreground min-[801px]:text-[20px] min-[1200px]:text-[22px] min-[1200px]:leading-7"
+              className="mt-4 text-[18px] leading-[25px] tracking-[-.26px] text-pretty text-[#595959] min-[801px]:text-[20px] min-[1200px]:text-[22px] min-[1200px]:leading-7 dark:text-[#a3a3a8]"
             >
               {description}
             </p>
@@ -195,7 +196,7 @@ export function PhoneSplitFeature({
                 key={i}
                 data-reveal
                 data-delay={160 + i * 60}
-                className="relative flex items-center gap-3 py-[18px] text-[18px] leading-[25px] tracking-[-.45px] text-muted-foreground first:pt-0 last:pb-0 min-[801px]:text-[20px] not-last:after:absolute not-last:after:inset-x-0 not-last:after:bottom-0 not-last:after:h-px not-last:after:bg-border"
+                className="relative flex items-center gap-3 py-[18px] text-[18px] leading-[25px] tracking-[-.45px] text-[#595959] first:pt-0 last:pb-0 min-[801px]:text-[20px] not-last:after:absolute not-last:after:inset-x-0 not-last:after:bottom-0 not-last:after:h-px not-last:after:bg-[#dadada] dark:text-[#a3a3a8] dark:not-last:after:bg-[#3a3a3c]"
               >
                 {b.icon && <span aria-hidden className="flex size-6 flex-none items-center justify-center [&>svg]:size-6">{b.icon}</span>}
                 {b.text}
@@ -208,7 +209,7 @@ export function PhoneSplitFeature({
             data-reveal
             data-delay="340"
             href={cta.href}
-            className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-foreground px-8 py-3 text-[17px] leading-[22px] font-[590] tracking-[-.43px] whitespace-nowrap text-background transition-[background-color,transform] duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:bg-foreground/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 motion-reduce:[@media(hover:hover)_and_(pointer:fine)]:hover:translate-y-0"
+            className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-[#1a1a1a] px-8 py-3 text-[17px] leading-[22px] font-[590] tracking-[-.43px] whitespace-nowrap text-white transition-[background-color,transform] duration-300 ease-[cubic-bezier(.22,1,.36,1)] hover:bg-[#1a1a1a]/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none dark:bg-[#f5f5f7] dark:text-[#1a1a1a] dark:hover:bg-[#f5f5f7]/80 [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 motion-reduce:[@media(hover:hover)_and_(pointer:fine)]:hover:translate-y-0"
           >
             {cta.label}
           </a>
@@ -231,29 +232,16 @@ export function PhoneSplitFeature({
           role={phoneLabel ? "img" : undefined}
           aria-label={phoneLabel}
           className={cn(
-            "absolute left-1/2 w-[72.807%] will-change-transform",
-            phonePosition === "top" ? "top-[12.2807%] aspect-[332/680]" : "top-[-59.376%] aspect-[332/680]",
+            "absolute left-1/2 aspect-[1800/3680] w-[72.807%] will-change-transform",
+            phonePosition === "top" ? "top-[12.2807%]" : "top-[-59.376%]",
           )}
           style={{ transform: "translate3d(-50%,0,0)" }}
         >
-          <div
-            className={cn(
-              "absolute inset-0 overflow-hidden bg-neutral-900 p-[2.4%] shadow-[0_24px_60px_-12px_rgba(0,0,0,.45)] ring-1 ring-white/15",
-              phonePosition === "top" ? "rounded-t-[14%] pb-0" : "rounded-b-[14%] pt-0",
-            )}
-          >
-            <div
-              className={cn(
-                "h-full w-full overflow-hidden bg-card text-card-foreground",
-                phonePosition === "top" ? "rounded-t-[12%]" : "rounded-b-[12%]",
-              )}
-            >
-              {phone}
-            </div>
+          {/* Screen cutout of the frame image. */}
+          <div className="absolute top-[2.467%] left-[5.263%] h-[95.219%] w-[89.342%] overflow-hidden rounded-[15.22%/6.984%] bg-card text-card-foreground">
+            {phone}
           </div>
-          {phonePosition === "top" && (
-            <span aria-hidden className="absolute top-[2.6%] left-1/2 z-10 h-[2.6%] w-[26%] -translate-x-1/2 rounded-full bg-neutral-900" />
-          )}
+          <img src={frame} alt="" aria-hidden draggable={false} className="pointer-events-none absolute inset-0 size-full select-none" />
         </div>
       </div>
     </section>

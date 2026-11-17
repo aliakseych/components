@@ -82,7 +82,7 @@ export function NightCta({ badge, title, actions, image, focalX = 0.744, footer,
   }, [bg, focalX]);
 
   return (
-    <div className={cn("bg-background text-foreground", className)}>
+    <div className={cn("bg-background text-[#1a1a1a] dark:text-[#f5f5f7]", className)}>
       <section className="mx-auto w-full max-w-[1296px] py-16 max-[1199px]:px-8 max-[800px]:px-6 max-[800px]:py-12 max-[380px]:px-5">
         <div
           ref={card}
@@ -130,7 +130,7 @@ export function NightCta({ badge, title, actions, image, focalX = 0.744, footer,
 
 function Footer({ footer }: { footer: NightCtaFooter }) {
   const link =
-    "flex h-[18px] items-center gap-2 text-left text-[15px] leading-5 tracking-[-0.23px] text-muted-foreground transition-[color,background-color,opacity,transform] [transition-duration:200ms,200ms,200ms,300ms] [transition-timing-function:ease,ease,ease,cubic-bezier(.22,1,.36,1)] hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground";
+    "flex h-[18px] items-center gap-2 text-left text-[15px] leading-5 tracking-[-0.23px] text-[#272228]/65 transition-[color,background-color,opacity,transform] [transition-duration:200ms,200ms,200ms,300ms] [transition-timing-function:ease,ease,ease,cubic-bezier(.22,1,.36,1)] hover:text-[#1a1a1a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current dark:text-[#f5f5f7]/65 dark:hover:text-[#f5f5f7]";
   return (
     <footer className="mx-auto w-full max-w-[1296px] px-12 py-[18px] max-[1199px]:px-8 max-[800px]:px-6 max-[380px]:px-5">
       <div className="grid grid-cols-[minmax(193px,1fr)_repeat(3,156px)] items-start gap-[84px] max-[1199px]:grid-cols-[minmax(193px,1fr)_repeat(3,minmax(110px,140px))] max-[1199px]:gap-8 max-[800px]:grid-cols-2 max-[800px]:gap-x-6 max-[800px]:gap-y-10">
@@ -139,7 +139,7 @@ function Footer({ footer }: { footer: NightCtaFooter }) {
             {footer.brand}
           </a>
           {footer.tagline ? (
-            <div className="text-[15px] leading-5 tracking-[-0.23px] text-muted-foreground">{footer.tagline}</div>
+            <div className="text-[15px] leading-5 tracking-[-0.23px] text-[#272228]/65 dark:text-[#f5f5f7]/65">{footer.tagline}</div>
           ) : null}
         </div>
         {footer.columns.map((col) => (
@@ -168,7 +168,7 @@ function Footer({ footer }: { footer: NightCtaFooter }) {
         ))}
       </div>
       {footer.legal ? (
-        <div className="mt-[156px] text-center text-[15px] leading-5 tracking-[-0.23px] text-muted-foreground max-[800px]:mt-20">
+        <div className="mt-[156px] text-center text-[15px] leading-5 tracking-[-0.23px] text-[#272228]/65 max-[800px]:mt-20 dark:text-[#f5f5f7]/65">
           {footer.legal}
         </div>
       ) : null}

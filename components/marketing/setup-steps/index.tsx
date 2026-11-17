@@ -176,11 +176,11 @@ function Switch({ on, onToggle, label }: { on: boolean; onToggle: () => void; la
 function Checks({ checks }: { checks: SetupCheck[] }) {
   const [state, setState] = useState(() => checks.map((c) => c.defaultOn ?? true));
   return (
-    <div className="absolute top-1/2 right-[8.633%] left-[8.633%] flex -translate-y-1/2 flex-col gap-px overflow-hidden rounded-[20px] bg-border min-[801px]:rounded-3xl">
+    <div className="absolute top-1/2 right-[8.633%] left-[8.633%] flex -translate-y-1/2 flex-col gap-px overflow-hidden rounded-[20px] bg-[#eaeaea] min-[801px]:rounded-3xl dark:bg-[#3a3a3c]">
       {checks.map((c, i) => (
         <div
           key={c.label}
-          className="flex min-h-[60px] items-center justify-between gap-2 bg-card py-4 pr-3.5 pl-[18px] text-[15px] leading-5 tracking-[-.23px] text-muted-foreground min-[801px]:max-[1199px]:px-3 min-[801px]:max-[1199px]:text-[clamp(11px,1.2vw,15px)] max-[380px]:px-2.5 max-[380px]:py-[13px] max-[380px]:text-xs"
+          className="flex min-h-[60px] items-center justify-between gap-2 bg-card py-4 pr-3.5 pl-[18px] text-[15px] leading-5 tracking-[-.23px] text-[#595959] min-[801px]:max-[1199px]:px-3 min-[801px]:max-[1199px]:text-[clamp(11px,1.2vw,15px)] max-[380px]:px-2.5 max-[380px]:py-[13px] max-[380px]:text-xs dark:text-[#a3a3a8]"
         >
           {c.label}
           <Switch label={c.label} on={state[i]} onToggle={() => setState((s) => s.map((v, j) => (j === i ? !v : v)))} />
@@ -243,7 +243,7 @@ export function SetupSteps({
     <section
       ref={root}
       className={cn(
-        "mx-auto w-full max-w-[1296px] px-5 py-20 text-foreground min-[381px]:px-6 min-[801px]:px-8 min-[801px]:py-32 min-[1200px]:px-12",
+        "mx-auto w-full max-w-[1296px] px-5 py-20 text-[#1a1a1a] min-[381px]:px-6 min-[801px]:px-8 min-[801px]:py-32 min-[1200px]:px-12 dark:text-[#f5f5f7]",
         className,
       )}
     >
@@ -258,7 +258,7 @@ export function SetupSteps({
         <p
           data-reveal
           data-delay="80"
-          className="mx-auto mt-4 max-w-[520px] text-[18px] leading-[25px] tracking-[-.26px] text-muted-foreground min-[801px]:max-w-none min-[801px]:text-[22px] min-[801px]:leading-7"
+          className="mx-auto mt-4 max-w-[520px] text-[18px] leading-[25px] tracking-[-.26px] text-[#595959] min-[801px]:max-w-none min-[801px]:text-[22px] min-[801px]:leading-7 dark:text-[#a3a3a8]"
         >
           {description}
         </p>
@@ -271,7 +271,7 @@ export function SetupSteps({
               data-card="1"
               data-delay="0"
               style={{ containerType: "inline-size" }}
-              className={cn("relative isolate mb-6 aspect-square w-full overflow-hidden rounded-3xl bg-muted", backgrounds[i])}
+              className={cn("relative isolate mb-6 aspect-square w-full overflow-hidden rounded-3xl bg-[#eaeaea] dark:bg-[#2c2c2e]", backgrounds[i])}
             >
               <div aria-hidden className={cn("absolute inset-0", shades[i])} />
               {visuals[i]}
@@ -279,7 +279,7 @@ export function SetupSteps({
             <h3 data-reveal data-delay="80" className="mt-0 mb-3 text-[22px] leading-7 font-bold tracking-[-.26px]">
               {step.title}
             </h3>
-            <p data-reveal data-delay="160" className="m-0 text-[20px] leading-[25px] tracking-[-.45px] text-muted-foreground min-[801px]:max-[1199px]:text-[18px]">
+            <p data-reveal data-delay="160" className="m-0 text-[20px] leading-[25px] tracking-[-.45px] text-[#595959] min-[801px]:max-[1199px]:text-[18px] dark:text-[#a3a3a8]">
               {step.description}
             </p>
           </article>

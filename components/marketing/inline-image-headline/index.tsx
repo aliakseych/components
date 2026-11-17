@@ -171,14 +171,14 @@ export function InlineImageHeadline({ segments, pills = [], pillSpeed = 24, clas
       .map((w) => {
         const i = index++;
         return (
-          <span key={i} className={cn("transition-colors duration-[160ms] ease-linear motion-reduce:transition-none", i < read ? "text-foreground" : "text-muted-foreground")}>
+          <span key={i} className={cn("transition-colors duration-[160ms] ease-linear motion-reduce:transition-none", i < read ? "text-[#111214] dark:text-[#f5f5f7]" : "text-[#8c8c8c] dark:text-[#6e6e73]")}>
             {w}{" "}
           </span>
         );
       });
 
   return (
-    <section className={cn("overflow-hidden bg-background py-24 text-foreground min-[801px]:py-[196px]", className)}>
+    <section className={cn("overflow-hidden bg-background py-24 text-[#111214] min-[801px]:py-[196px] dark:text-[#f5f5f7]", className)}>
       <div className="mx-auto w-full max-w-[1296px] px-6 min-[801px]:px-12">
         <div ref={statementReveal.ref} className={cn(statementReveal.pending && "opacity-0")}>
           <h2
@@ -198,12 +198,13 @@ export function InlineImageHeadline({ segments, pills = [], pillSpeed = 24, clas
             })}
           </h2>
         </div>
-        {pills.length > 0 && (
-          <div ref={pillsReveal.ref} className={cn(pillsReveal.pending && "opacity-0")}>
-            <PillMarquee pills={pills} speed={pillSpeed} reduced={reduced} />
-          </div>
-        )}
       </div>
+      {/* The pill row is full-bleed: it runs edge to edge under the padded statement. */}
+      {pills.length > 0 && (
+        <div ref={pillsReveal.ref} className={cn(pillsReveal.pending && "opacity-0")}>
+          <PillMarquee pills={pills} speed={pillSpeed} reduced={reduced} />
+        </div>
+      )}
     </section>
   );
 }
@@ -268,7 +269,7 @@ function PillMarquee({ pills, speed, reduced }: { pills: HeadlinePill[]; speed: 
             {pills.map((p) => (
               <li
                 key={p.label}
-                className="flex h-[52px] shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-b from-muted via-card via-60% to-card py-1.5 pl-2.5 pr-3.5 text-[17px] font-[590] leading-[25px] tracking-[-.45px] text-card-foreground shadow-[1.25px_0_0_-.75px_var(--border),-1.25px_0_0_-.75px_var(--border),0_0_0_.5px_var(--border),0_8px_15px_#00000005] min-[801px]:h-[60px] min-[801px]:gap-2 min-[801px]:py-2 min-[801px]:pl-4 min-[801px]:pr-5 min-[801px]:text-xl"
+                className="flex h-[52px] shrink-0 items-center gap-1.5 rounded-full bg-gradient-to-b from-[#e9e9eb] via-[#fafafa] via-60% to-white py-1.5 pl-2.5 pr-3.5 text-[17px] font-[590] leading-[25px] tracking-[-.45px] text-[#1a1a1a] shadow-[1.25px_0_0_-.75px_#d0d0d0,-1.25px_0_0_-.75px_#d0d0d0,0_0_0_.5px_#e8e8e8,0_8px_15px_#00000005] min-[801px]:h-[60px] min-[801px]:gap-2 min-[801px]:py-2 min-[801px]:pl-4 min-[801px]:pr-5 min-[801px]:text-xl dark:from-[#2c2c2e] dark:via-[#232325] dark:to-[#1c1c1e] dark:text-[#f5f5f7] dark:shadow-[1.25px_0_0_-.75px_#48484a,-1.25px_0_0_-.75px_#48484a,0_0_0_.5px_#3a3a3c,0_8px_15px_#00000005]"
               >
                 <span aria-hidden className="inline-flex h-9 items-center min-[801px]:h-11 [&>svg]:h-full [&>svg]:w-auto">
                   {p.image}

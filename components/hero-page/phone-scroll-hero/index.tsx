@@ -12,6 +12,7 @@ import {
   type RefObject,
 } from "react";
 import { cn } from "@/lib/utils";
+import frame from "./assets/iphone-frame.webp";
 import { ChatScreen } from "./chat-screen";
 import {
   HeroProgressContext,
@@ -705,12 +706,12 @@ export function PhoneScrollHero({
       </div>
 
       <section className="px-12 pt-16 pb-6 text-center max-[800px]:px-6 max-[800px]:pt-12">
-        <div className="mb-3 flex h-[43px] items-center justify-center gap-1.5 text-[20px] leading-[25px] font-semibold tracking-[-0.45px] text-white/95 max-[800px]:text-[17px] max-[800px]:leading-[22px]">
+        <div className="mb-3 flex h-[43px] items-center justify-center gap-1.5 text-[20px] leading-[25px] font-[590] tracking-[-0.45px] text-[#f5f5f5] max-[800px]:text-[17px] max-[800px]:leading-[22px]">
           <Laurel flip />
           <span>{badge}</span>
           <Laurel />
         </div>
-        <h1 className="m-0 text-[80px] leading-[1.08] font-semibold tracking-[-0.23px] text-balance max-[800px]:text-[clamp(34px,7.4vw,56px)]">
+        <h1 className="m-0 text-[80px] leading-[1.08] font-[590] tracking-[-0.23px] text-balance max-[800px]:text-[clamp(34px,7.4vw,56px)]">
           {heading}
         </h1>
         <p className="mx-auto mt-4 mb-9 max-w-[620px] text-[22px] leading-[28px] text-pretty text-white/85 max-[800px]:max-w-[600px] max-[800px]:text-[18px] max-[800px]:leading-[25px]">
@@ -719,7 +720,7 @@ export function PhoneScrollHero({
         {cta && (
           <a
             href={cta.href}
-            className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-white px-6 py-3 text-[17px] leading-[22px] font-semibold tracking-[-0.43px] whitespace-nowrap text-neutral-900 transition-transform duration-300 ease-[var(--psh-ease)] hover:scale-[1.03] focus-visible:outline-3 focus-visible:outline-offset-[5px] focus-visible:outline-sky-300"
+            className="inline-flex min-h-[46px] items-center justify-center rounded-full bg-white px-6 py-3 text-[17px] leading-[22px] font-[590] tracking-[-0.43px] whitespace-nowrap text-[#111214] transition-transform duration-300 ease-[var(--psh-ease)] hover:scale-[1.03] focus-visible:outline-3 focus-visible:outline-offset-[5px] focus-visible:outline-sky-300"
           >
             {cta.label}
           </a>
@@ -731,8 +732,9 @@ export function PhoneScrollHero({
             className="sticky top-[var(--psh-offset,64px)] isolate h-[max(calc(var(--psh-vh,100svh)-var(--psh-offset,64px)),var(--phone-height,932.267px))] max-[700px]:h-[var(--phone-height,700px)] motion-reduce:relative motion-reduce:top-0 motion-reduce:!h-full"
           >
             <div className="absolute top-0 left-1/2 z-[4] w-[min(456px,calc(100%-48px))] -translate-x-1/2 max-[800px]:w-[min(390px,calc(100%-48px))] max-[700px]:w-[min(390px,calc((var(--psh-vh,100svh)-88px)*.48913),calc(100%-48px))]">
-              <div ref={phoneRef} className="relative aspect-[456/932.267] rounded-[15%/7.3%] bg-neutral-950 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.45),inset_0_0_0_2px_rgb(255_255_255/0.14)]">
-                <div className="absolute inset-[3%_5.9%] overflow-hidden rounded-[12.4%/5.7%] bg-background">
+              <div ref={phoneRef} className="relative aspect-[456/932.267]">
+                {/* Screen cutout of the frame image: 407.4 by 887.7 at 24, 23 in a 456 wide phone, 62px radius. */}
+                <div className="absolute top-[2.467%] left-[5.263%] h-[95.219%] w-[89.342%] overflow-hidden rounded-[15.22%/6.984%] bg-background">
                   <div
                     ref={screenRef}
                     className="absolute top-0 left-0 origin-top-left text-foreground"
@@ -740,8 +742,8 @@ export function PhoneScrollHero({
                   >
                     <HeroProgressContext.Provider value={store}>{children ?? <ChatScreen />}</HeroProgressContext.Provider>
                   </div>
-                  <div aria-hidden className="pointer-events-none absolute top-[1.3%] left-1/2 z-20 h-[4.2%] w-[31%] -translate-x-1/2 rounded-full bg-neutral-950" />
                 </div>
+                <img src={frame} alt="" aria-hidden draggable={false} className="pointer-events-none absolute inset-0 z-20 size-full select-none" />
               </div>
             </div>
 

@@ -179,7 +179,7 @@ export function IntegrationGrid({ title, items, blurBottom = true, blurHeight, c
   const slots = Array.from({ length: ROWS * COLS }, (_, i) => items.length ? items[i % items.length] : null);
 
   return (
-    <section className={cn("w-full overflow-hidden bg-background px-4 pb-6 pt-20 text-foreground min-[801px]:px-8 min-[801px]:pb-12 min-[801px]:pt-36", className)}>
+    <section className={cn("w-full overflow-hidden bg-background px-6 pb-6 pt-20 text-[#1a1a1a] min-[801px]:px-8 min-[801px]:pb-12 min-[801px]:pt-36 dark:text-[#f5f5f7]", className)}>
       {title ? (
         <h2 style={{ fontFamily: HEADING_FONT }} className="mx-auto max-w-5xl text-center font-[590] text-[clamp(32px,7vw,44px)] leading-[1.08] tracking-[-0.23px] min-[1025px]:text-[56px]">{title}</h2>
       ) : null}
