@@ -6,6 +6,18 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["run", "dev"],
       "port": 5199
+    },
+    {
+      "name": "serve (cli)",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "pnpm run build && PORT=8091 pnpm run serve"],
+      "port": 8091
+    },
+    {
+      "name": "serve (docker)",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "docker rm -f local-components >/dev/null 2>&1; docker run --rm --name local-components -p 8090:8080 ghcr.io/aliakseych/components:latest"],
+      "port": 8090
     }
   ]
 }
