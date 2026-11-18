@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@source ".";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Light matches the reference surface; dark is the reference's own dark surface. */
+:root {
+  --background: hsl(60 24% 96%);
+  --foreground: hsl(80 15% 8%);
+  --page: var(--color-olive-100);
+  /* Surface of the mock product UIs inside the gradient frames. */
+  --panel: hsl(60 24% 96%);
+  --panel-line: rgb(0 0 0 / 0.08);
+  --font-sans-stack: "Söhne", "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif-stack: "Iowan Old Style", "Newsreader", "Palatino Linotype", ui-serif, Georgia, Cambria, "Times New Roman", serif;
+  color-scheme: light;
+}
+.dark {
+  --background: hsl(80 15% 8%);
+  --foreground: hsl(60 24% 96%);
+  --page: #0c0c09;
+  --panel: hsl(80 12% 11%);
+  --panel-line: rgb(255 255 255 / 0.09);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-page: var(--page);
+  --color-panel: var(--panel);
+  --color-panel-line: var(--panel-line);
+  --font-sans: var(--font-sans-stack);
+  --font-serif: var(--font-serif-stack);
+}
+
+html {
+  scroll-padding-top: 5.25rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--page);
+}
+body {
+  margin: 0;
+}
+
+/* Film-grain overlay for the gradient frames. */
+.oatmeal-noise {
+  mix-blend-mode: overlay;
+  background-position: 50%;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250' viewBox='0 0 100 100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='turbulence' baseFrequency='1.4' numOctaves='1' seed='2' stitchTiles='stitch' result='n'/%3E%3CfeComponentTransfer result='g'%3E%3CfeFuncR type='linear' slope='4' intercept='1'/%3E%3CfeFuncG type='linear' slope='4' intercept='1'/%3E%3CfeFuncB type='linear' slope='4' intercept='1'/%3E%3C/feComponentTransfer%3E%3CfeColorMatrix type='saturate' values='0' in='g'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes landing-marquee {
+  0% { transform: translate(0); }
+  to { transform: translate(-50%); }
+}
+.landing-marquee-track {
+  will-change: transform;
+  width: max-content;
+  animation: 40s linear infinite landing-marquee;
+  display: flex;
+}
+.landing-marquee-mask:hover .landing-marquee-track,
+.landing-marquee-mask:focus-within .landing-marquee-track {
+  animation-play-state: paused;
+}
+.landing-marquee-mask {
+  -webkit-mask-image: linear-gradient(90deg, #0000 0, #000 8% 92%, #0000 100%);
+  mask-image: linear-gradient(90deg, #0000 0, #000 8% 92%, #0000 100%);
+}
+.school-logo { opacity: 0.9; transition: opacity 0.2s; }
+.school-logo:hover { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0s !important; animation-duration: 0s !important; }
+  .landing-marquee-track { animation: none !important; }
+  .landing-marquee-track > [data-marquee-clone] { display: none; }
+  .landing-marquee-mask { overscroll-behavior-x: contain; scrollbar-width: none; overflow-x: auto; }
+  .landing-marquee-mask::-webkit-scrollbar { display: none; }
+}
+@media (prefers-reduced-motion: reduce) and (min-width: 640px) {
+  .landing-marquee-track { flex-wrap: wrap; justify-content: center; row-gap: 2rem; width: auto; }
+  .landing-marquee-mask { overflow-x: hidden; -webkit-mask-image: none; mask-image: none; }
+}
+
+dialog.menu-dialog::backdrop { background: rgb(0 0 0 / 0.2); }

@@ -1,0 +1,23 @@
+{
+  "name": "Admissions Assistant Landing",
+  "summary": "Warm olive marketing landing for an application assistant: sticky header with keyboard dropdown menus and a mobile menu dialog, serif hero with a code-built dashboard in a noise-gradient frame, scrolling wordmark marquee, six feature cards with live mock UIs (timeline, scholarships, essay review, sample essay, rewrite, final read ring), FAQ accordion, centred CTA and a six-column footer.",
+  "kind": "landing",
+  "viewport": "responsive",
+  "themes": ["light", "dark"],
+  "tags": ["landing page", "marketing", "ai", "hero"],
+  "useWhen": [
+    "Starting a calm, editorial landing page for an education or writing product",
+    "Needing feature cards that show small product UIs instead of screenshots"
+  ],
+  "avoidWhen": [
+    "A motion-heavy or dark-first launch page",
+    "A dashboard or app shell rather than a marketing page"
+  ],
+  "stack": ["React 19", "Vite", "Tailwind CSS 4", "lucide-react"],
+  "screens": [
+    { "id": "home", "title": "Home", "path": "/" },
+    { "id": "menu", "title": "Mobile menu", "path": "/?menu=1" }
+  ],
+  "source": "kolly.ai (layout, spacing, type and motion reference); copy, brand, school logos and imagery replaced with neutral placeholders",
+  "status": "experimental"
+}
