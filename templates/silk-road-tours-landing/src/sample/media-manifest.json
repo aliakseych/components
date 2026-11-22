@@ -1,0 +1,352 @@
+{
+  "cities/tashkent/hazrat-imam": {
+    "file": "cities/tashkent/hazrat-imam.jpg",
+    "w": 3840,
+    "h": 2693,
+    "author": "LBM1948",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hazrat_Imam_01.jpg",
+    "kind": "historical"
+  },
+  "cities/tashkent/kukeldash": {
+    "file": "cities/tashkent/kukeldash.jpg",
+    "w": 3840,
+    "h": 2560,
+    "author": "Adam Harangozó",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kukeldash_Madrasah_in_Tashkent.jpg",
+    "kind": "historical"
+  },
+  "cities/tashkent/chimgan": {
+    "file": "cities/tashkent/chimgan.jpg",
+    "w": 3648,
+    "h": 2736,
+    "author": "Dan Lundberg",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Uzbekistan_Chimgan_Mountains.jpg",
+    "kind": "natural"
+  },
+  "cities/tashkent/charvak": {
+    "file": "cities/tashkent/charvak.jpg",
+    "w": 4000,
+    "h": 3000,
+    "author": "Muzaffar Murodovich",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Charvak_Reservoir_(2).jpg",
+    "kind": "natural"
+  },
+  "cities/fergana/khudayar-palace": {
+    "file": "cities/fergana/khudayar-palace.jpg",
+    "w": 3840,
+    "h": 2277,
+    "author": "Bgag",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Palace_of_Khudayar_Khan.jpg",
+    "kind": "historical"
+  },
+  "cities/fergana/margilan-silk": {
+    "file": "cities/fergana/margilan-silk.jpg",
+    "w": 3358,
+    "h": 2011,
+    "author": "Bgag",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Silk_factory_in_Margilan.jpg",
+    "kind": "craft"
+  },
+  "cities/fergana/shohimardon": {
+    "file": "cities/fergana/shohimardon.jpg",
+    "w": 3840,
+    "h": 2880,
+    "author": "Diwikiped",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Shohimardon_qishlog%CA%BBining_yuqoridan_ko%CA%BBrinishi.jpg",
+    "kind": "natural"
+  },
+  "cities/samarkand/registan": {
+    "file": "cities/samarkand/registan.jpg",
+    "w": 3840,
+    "h": 1711,
+    "author": "Bernard Gagnon",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Registan_01.jpg",
+    "kind": "historical"
+  },
+  "cities/samarkand/shah-i-zinda": {
+    "file": "cities/samarkand/shah-i-zinda.jpg",
+    "w": 3840,
+    "h": 2508,
+    "author": "Bgag",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Shah-i-Zinda_01.jpg",
+    "kind": "historical"
+  },
+  "cities/samarkand/bibi-khanym": {
+    "file": "cities/samarkand/bibi-khanym.jpg",
+    "w": 3840,
+    "h": 2105,
+    "author": "Bgag",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Bibi-Khanym_Mosque,_Samarkand.jpg",
+    "kind": "historical"
+  },
+  "cities/samarkand/zaamin": {
+    "file": "cities/samarkand/zaamin.jpg",
+    "w": 3984,
+    "h": 2656,
+    "author": "Humoyun Mehridinov",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Zaamin_Mountain_Landscape.jpg",
+    "kind": "natural"
+  },
+  "cities/bukhara/poi-kalyan": {
+    "file": "cities/bukhara/poi-kalyan.jpg",
+    "w": 3840,
+    "h": 2560,
+    "author": "Nassima Chahboun",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Poi_Kalan_complex_04.jpg",
+    "kind": "historical"
+  },
+  "cities/bukhara/ark": {
+    "file": "cities/bukhara/ark.jpg",
+    "w": 3840,
+    "h": 2533,
+    "author": "Petar Milošević",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Ark_of_Bukhara_(%D0%A6%D0%B8%D1%82%D0%B0%D0%B4%D0%B5%D0%BB%D1%8C_%D0%90%D1%80%D0%BA._Buxoro_arki).jpg",
+    "kind": "historical"
+  },
+  "cities/bukhara/lyabi-hauz": {
+    "file": "cities/bukhara/lyabi-hauz.jpg",
+    "w": 3840,
+    "h": 1730,
+    "author": "BeshevI",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:45_Lab-i_Hauz_complex_1810.jpg",
+    "kind": "historical"
+  },
+  "cities/bukhara/kyzylkum": {
+    "file": "cities/bukhara/kyzylkum.jpg",
+    "w": 3792,
+    "h": 2175,
+    "author": "Bgag",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Kyzylkum_Desert_in_Uzbekistan.jpg",
+    "kind": "natural"
+  },
+  "cities/khiva/itchan-kala-wall": {
+    "file": "cities/khiva/itchan-kala-wall.jpg",
+    "w": 3632,
+    "h": 2125,
+    "author": "Bgag",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Itchan_Kala_wall_01.jpg",
+    "kind": "historical"
+  },
+  "cities/khiva/kalta-minor": {
+    "file": "cities/khiva/kalta-minor.jpg",
+    "w": 3330,
+    "h": 2088,
+    "author": "Bgag",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Kalta_Minor_01.jpg",
+    "kind": "historical"
+  },
+  "cities/khiva/west-gate": {
+    "file": "cities/khiva/west-gate.jpg",
+    "w": 3327,
+    "h": 2040,
+    "author": "Bgag",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Itchan_Kala_west_gate.jpg",
+    "kind": "historical"
+  },
+  "cities/khiva/yurts": {
+    "file": "cities/khiva/yurts.jpg",
+    "w": 3840,
+    "h": 2561,
+    "author": "Carsten Siegel",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kazakh_yurts_at_night_in_the_Kyzylkum_desert,_Uzbekistan.jpg",
+    "kind": "natural"
+  },
+  "cities/nukus/hero": {
+    "file": "cities/nukus/hero.jpg",
+    "w": 1920,
+    "h": 2880,
+    "author": "Ayzadarich",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:The_Karakalpakstan_State_Museum_of_Art_named_after_I.V._Savitsky.jpg",
+    "kind": "historical"
+  },
+  "cities/andijan/hero": {
+    "file": "cities/andijan/hero.jpg",
+    "w": 3436,
+    "h": 2574,
+    "author": "Petar Milošević",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Devonaboy_Jome_Mosque,_Andijan,_Uzbekistan.jpg",
+    "kind": "historical"
+  },
+  "cities/gulistan/hero": {
+    "file": "cities/gulistan/hero.jpg",
+    "w": 3456,
+    "h": 2304,
+    "author": "Sardor tadj",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%D0%93%D0%BE%D1%80%D0%BE%D0%B4_%D0%93%D1%83%D0%BB%D0%B8%D1%81%D1%82%D0%B0%D0%BD.jpg",
+    "kind": "historical"
+  },
+  "cities/jizzakh/hero": {
+    "file": "cities/jizzakh/hero.jpg",
+    "w": 2560,
+    "h": 1536,
+    "author": "LunaticLone1",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Jizzax.jpg",
+    "kind": "historical"
+  },
+  "cities/kokand/hero": {
+    "file": "cities/kokand/hero.jpg",
+    "w": 3840,
+    "h": 2847,
+    "author": "Екатерина Борисова",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:%D0%9A%D0%BE%D0%BA%D0%B0%D0%BD%D0%B4._%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%BE-%D0%90%D0%B7%D0%B8%D0%B0%D1%82%D1%81%D0%BA%D0%B8%D0%B9_%D0%B1%D0%B0%D0%BD%D0%BA_01.jpg",
+    "kind": "historical"
+  },
+  "cities/namangan/hero": {
+    "file": "cities/namangan/hero.jpg",
+    "w": 2576,
+    "h": 1932,
+    "author": "Jamshid Nurkulov",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mulla_Qirg%CA%BBiz_madrasasi_04.jpg",
+    "kind": "historical"
+  },
+  "cities/navoi/hero": {
+    "file": "cities/navoi/hero.jpg",
+    "w": 3840,
+    "h": 2880,
+    "author": "Alpasli",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Navoiy_shahridagi_Yoshlik_ko%CA%BBli_456.jpg",
+    "kind": "historical"
+  },
+  "cities/karshi/hero": {
+    "file": "cities/karshi/hero.jpg",
+    "w": 3840,
+    "h": 2571,
+    "author": "Darvaza",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Kok-Gumbaz_mosque_in_Qarshi,_front_view.jpg",
+    "kind": "historical"
+  },
+  "cities/shahrisabz/hero": {
+    "file": "cities/shahrisabz/hero.jpg",
+    "w": 3000,
+    "h": 2000,
+    "author": "xiquinhosilva",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Complex_of_Dorut_Tilavat_-_55474294886.jpg",
+    "kind": "historical"
+  },
+  "cities/termez/hero": {
+    "file": "cities/termez/hero.jpg",
+    "w": 3840,
+    "h": 2560,
+    "author": "Farkhod Sayd",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "source": "https://commons.wikimedia.org/wiki/File:Sulton_Saodat_Komplex.jpg",
+    "kind": "historical"
+  },
+  "cities/urgench/hero": {
+    "file": "cities/urgench/hero.jpg",
+    "w": 3264,
+    "h": 2448,
+    "author": "Carpodacus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Waterfront_of_Shavat_canal_in_Urganch.jpg",
+    "kind": "historical"
+  },
+  "cities/aydarkul/hero": {
+    "file": "cities/aydarkul/hero.jpg",
+    "w": 1600,
+    "h": 1200,
+    "author": "DAVID HOLT",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Aydar_Lake.jpg",
+    "kind": "natural"
+  },
+  "cities/muynak/hero": {
+    "file": "cities/muynak/hero.jpg",
+    "w": 3840,
+    "h": 2550,
+    "author": "Aleksandr Zykov from Russia",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Muynak_(8599792831).jpg",
+    "kind": "natural"
+  },
+  "cities/nurata/hero": {
+    "file": "cities/nurata/hero.jpg",
+    "w": 3264,
+    "h": 2448,
+    "author": "Carpodacus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Nurata_fortress.jpg",
+    "kind": "natural"
+  },
+  "cities/baysun/hero": {
+    "file": "cities/baysun/hero.jpg",
+    "w": 3840,
+    "h": 2560,
+    "author": "Iaa2023",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Boysun_bahori_darvozasi.jpg",
+    "kind": "natural"
+  },
+  "cities/sarmishsay/hero": {
+    "file": "cities/sarmishsay/hero.jpg",
+    "w": 3840,
+    "h": 2560,
+    "author": "Relisa Granovskaya",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:2023.03.20_Sarmishsay_003.jpg",
+    "kind": "natural"
+  }
+}

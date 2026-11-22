@@ -1,0 +1,23 @@
+{
+  "name": "Silk Road Tours Landing",
+  "summary": "Uzbek national-style tour operator landing: sunrise logo intro that flies into a glass nav pill, adras hero, full-screen interactive globe that zooms into Uzbekistan's cities with photo panels, climate chart and attraction viewer, ikat and arch dividers, plan-your-trip doors, legal documents block and a contacts footer with photo credits.",
+  "kind": "landing",
+  "viewport": "responsive",
+  "themes": ["light", "dark"],
+  "tags": ["landing page", "marketing", "animation", "map", "hero", "navigation"],
+  "useWhen": [
+    "Building a travel agency or tour operator site with a route across several cities",
+    "Needing a whole page with an intro, an interactive map of places and a trust/legal block already wired"
+  ],
+  "avoidWhen": [
+    "Only a map or a hero is needed; take that part alone",
+    "An app or booking flow rather than a marketing page"
+  ],
+  "stack": ["React 19", "Vite", "Tailwind CSS 4", "d3-geo", "lenis", "lucide-react", "@fontsource-variable/manrope"],
+  "screens": [
+    { "id": "home", "title": "Home", "path": "/" },
+    { "id": "intro", "title": "Intro", "path": "/?intro=1" }
+  ],
+  "source": "Owner's own Uzbek tour-operator site; brand, logo, contacts, staff and legal documents replaced with neutral placeholders",
+  "status": "experimental"
+}
