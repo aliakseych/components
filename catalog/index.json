@@ -7723,6 +7723,7 @@
       "status": "stable",
       "demos": [
         "default",
+        "dense",
         "popover-open",
         "world"
       ],
@@ -7731,6 +7732,10 @@
         "components/analytics/interactive-globe/previews/default.desktop.light.png",
         "components/analytics/interactive-globe/previews/default.mobile.dark.png",
         "components/analytics/interactive-globe/previews/default.mobile.light.png",
+        "components/analytics/interactive-globe/previews/dense.desktop.dark.png",
+        "components/analytics/interactive-globe/previews/dense.desktop.light.png",
+        "components/analytics/interactive-globe/previews/dense.mobile.dark.png",
+        "components/analytics/interactive-globe/previews/dense.mobile.light.png",
         "components/analytics/interactive-globe/previews/popover-open.desktop.dark.png",
         "components/analytics/interactive-globe/previews/popover-open.desktop.light.png",
         "components/analytics/interactive-globe/previews/popover-open.mobile.dark.png",

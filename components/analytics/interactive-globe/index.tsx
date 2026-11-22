@@ -37,6 +37,8 @@ export interface GlobeMarker {
   image?: string | { src: string; alt: string };
   /** Adds a link at the bottom of the popover. */
   href?: string;
+  /** When pins overlap, higher priority stays visible and the rest hide until zoomed in. Defaults to 0; ties keep array order. */
+  priority?: number;
 }
 
 /** A camera position. `zoom` 1 fits the whole globe in the box; 2 doubles its radius. */
@@ -136,9 +138,12 @@ function satelliteBounds(shapes: HighlightShape[], view?: GlobeView): GeoBounds 
   return [-180, -85, 180, 85];
 }
 
+const NO_MARKERS: GlobeMarker[] = [];
+const NO_HIGHLIGHT: GlobeHighlight[] = [];
+
 export function InteractiveGlobe({
-  markers = [],
-  highlight = [],
+  markers = NO_MARKERS,
+  highlight = NO_HIGHLIGHT,
   initialView,
   zoomTo,
   maxZoom = 24,
@@ -245,7 +250,7 @@ export function InteractiveGlobe({
     [sat?.src, maxZoom],
   );
   useLayoutEffect(
-    () => engine.current?.setMarkers(markers.map(({ id, lat, lng }) => ({ id, lat, lng }))),
+    () => engine.current?.setMarkers(markers.map(({ id, lat, lng, priority }) => ({ id, lat, lng, priority }))),
     [markers, maxZoom],
   );
   useLayoutEffect(() => {
@@ -310,9 +315,9 @@ export function InteractiveGlobe({
           aria-controls={m.id === selected ? popoverId : undefined}
           onClick={() => select(m.id === selected ? null : m.id, { focusPopover: m.id !== selected })}
           style={{ transform: "translate(-999px, -999px)" }}
-          className="group/pin absolute top-0 left-0 -mt-3 -ml-3 grid size-6 place-items-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="group/pin absolute top-0 left-0 -mt-3 -ml-3 grid size-6 place-items-center rounded-full outline-none transition-opacity duration-200 focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none"
         >
-          <span className="size-3 rounded-full bg-(--interactive-globe-marker) shadow-[0_1px_4px_rgb(0_0_0/0.35)] ring-2 ring-background transition-transform group-hover/pin:scale-125 group-aria-expanded/pin:scale-150 motion-reduce:transition-none" />
+          <span className="size-[calc(0.75rem*var(--pin-s,1))] rounded-full bg-(--interactive-globe-marker) shadow-[0_1px_4px_rgb(0_0_0/0.35)] ring-2 ring-background transition-transform group-hover/pin:scale-125 group-aria-expanded/pin:scale-150 motion-reduce:transition-none" />
           <span
             className={cn(
               glass,

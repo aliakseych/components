@@ -18,6 +18,8 @@ export interface EngineMarker {
   id: string;
   lng: number;
   lat: number;
+  /** Higher wins when pins overlap; ties keep input order. */
+  priority?: number;
 }
 export interface EngineTarget {
   /** Centre and zoom; `fit` overrides both with a fit to these shapes. */
@@ -290,61 +292,47 @@ export function createGlobe(o: EngineOptions): GlobeEngine {
     }
   }
 
-  // ---------- Pins: projected, back-facing ones hidden, overlapping ones pushed apart with a leader line ----------
-  type Placed = { el: HTMLElement; id: string; ax: number; ay: number; x: number; y: number };
+  // ---------- Pins: back-facing ones hidden, overlapping lower-priority ones hidden, faded while moving ----------
+  type Placed = { el: HTMLElement; id: string; x: number; y: number; pr: number; order: number };
   const facing = (ll: LonLat) => geoDistance(ll, cam.c) < Math.PI / 2 - 0.08;
   const anchors = new Map<string, { x: number; y: number; on: boolean }>();
-  function declutter(list: Placed[], gap: number) {
-    for (let it = 0; it < 60; it++) {
-      let moved = false;
-      for (let i = 0; i < list.length; i++)
-        for (let j = i + 1; j < list.length; j++) {
-          const a = list[i];
-          const b = list[j];
-          let dx = b.x - a.x;
-          let dy = b.y - a.y;
-          let d = Math.hypot(dx, dy);
-          const min = 2 * PIN_R + gap;
-          if (d >= min) continue;
-          if (d < 0.01) {
-            dx = 1;
-            dy = 0.3;
-            d = Math.hypot(dx, dy);
-          }
-          const push = (min - d) / 2;
-          a.x -= (dx / d) * push;
-          a.y -= (dy / d) * push;
-          b.x += (dx / d) * push;
-          b.y += (dy / d) * push;
-          moved = true;
-        }
-      if (!moved) break;
-    }
-  }
-  function placePins() {
+  /** Dot scale: small dots on the whole globe, full size once zoomed in on a region. */
+  const pinScale = (k: number) => 0.45 + 0.55 * clamp((k - 1) / 4);
+  function placePins(moving: boolean) {
+    const s = pinScale(cam.k);
+    // Dot radius (6px × scale) plus its 2px ring and a little air.
+    const min = 2 * (6 * s + 2) + 4;
     const placed: Placed[] = [];
     anchors.clear();
-    for (const m of markers) {
+    markers.forEach((m, order) => {
       const el = o.pin(m.id);
-      if (!el) continue;
+      if (!el) return;
       const ll: LonLat = [m.lng, m.lat];
       const p = proj(ll);
       const on = Boolean(p) && facing(ll) && p![0] > -PIN_R && p![0] < W + PIN_R && p![1] > -PIN_R && p![1] < H + PIN_R;
-      el.hidden = !on;
-      if (on) placed.push({ el, id: m.id, ax: p![0], ay: p![1], x: p![0], y: p![1] });
-    }
-    declutter(placed, 4);
+      if (!on) {
+        el.hidden = true;
+        return;
+      }
+      // The selected pin always wins so its popover keeps an anchor.
+      const pr = m.id === selected ? Infinity : (m.priority ?? 0);
+      placed.push({ el, id: m.id, x: p![0], y: p![1], pr, order });
+    });
+    // Declutter: keep pins in priority order and hide any that would overlap one already kept.
+    placed.sort((a, b) => b.pr - a.pr || a.order - b.order);
+    const kept: Placed[] = [];
     for (const p of placed) {
+      const clash = kept.some((q) => Math.hypot(p.x - q.x, p.y - q.y) < min);
+      p.el.hidden = clash;
+      if (clash) continue;
+      kept.push(p);
       p.el.style.transform = `translate(${p.x.toFixed(1)}px, ${p.y.toFixed(1)}px)`;
+      p.el.style.setProperty("--pin-s", s.toFixed(3));
+      // Pins fade out while the globe spins or is dragged; the selected one stays with its popover.
+      const fade = moving && p.id !== selected;
+      p.el.style.opacity = fade ? "0" : "";
+      p.el.style.pointerEvents = fade ? "none" : "";
       anchors.set(p.id, { x: p.x, y: p.y, on: true });
-      if (Math.hypot(p.x - p.ax, p.y - p.ay) < PIN_R) continue;
-      ctx.beginPath();
-      ctx.moveTo(p.ax, p.ay);
-      ctx.lineTo(p.x, p.y);
-      stroke(C.outline, 1.5, 0.7);
-      ctx.beginPath();
-      ctx.arc(p.ax, p.ay, 3, 0, Math.PI * 2);
-      fill(C.outline);
     }
   }
 
@@ -391,7 +379,7 @@ export function createGlobe(o: EngineOptions): GlobeEngine {
     proj.rotate([-cam.c[0], -cam.c[1]]).scale(R0 * cam.k).translate([cam.x, cam.y]);
     ctx.clearRect(0, 0, W, H);
     drawMap(now);
-    placePins();
+    placePins(moving || canvas.hasAttribute("data-dragging"));
     placePopover();
     syncZoom();
     // Preload right away so the imagery is ready when the fly-in ends; it is only drawn once zoomed in.
@@ -468,7 +456,10 @@ export function createGlobe(o: EngineOptions): GlobeEngine {
   };
   const onUp = (e: PointerEvent) => {
     touches.delete(e.pointerId);
-    if (!touches.size) delete canvas.dataset.dragging;
+    if (!touches.size && canvas.hasAttribute("data-dragging")) {
+      delete canvas.dataset.dragging;
+      request(); // bring the faded pins back
+    }
   };
   const onClick = () => {
     if (dragged <= 6) o.onBackgroundClick();
