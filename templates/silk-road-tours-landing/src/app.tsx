@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 import "@fontsource-variable/manrope";
-import { Journey } from "@/components/landing/journey";
+import { Globe } from "@/components/globe";
 import { Intro } from "@/components/landing/intro";
 import { Documents, Footer, Hero, Nav, PlanLinks } from "@/components/landing/page";
 import { config } from "@/template.config";
@@ -22,7 +22,7 @@ export function App({ intro = true }: { intro?: boolean }) {
       <Nav />
       <main id="main">
         <Hero />
-        <Journey journey={journey} media={mediaUrl} asset={assetUrl} strings={journeyStrings} />
+        <Globe journey={journey} media={mediaUrl} asset={assetUrl} strings={journeyStrings} />
         <PlanLinks />
         <Documents />
       </main>

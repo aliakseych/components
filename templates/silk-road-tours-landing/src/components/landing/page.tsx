@@ -41,6 +41,9 @@ export function Nav() {
   const [menu, setMenu] = useState<"lang" | "menu" | null>(null);
   const close = useCallback(() => setMenu(null), []);
   useEffect(() => {
+    // Chromium also refracts the backdrop through the SVG displacement filter below.
+    const brands = (navigator as Navigator & { userAgentData?: { brands: { brand: string }[] } }).userAgentData?.brands;
+    if (brands?.some((b) => b.brand === "Chromium")) document.documentElement.classList.add("yn-refract");
     const update = () => setScrolled(scrollY > (document.getElementById("top")?.offsetHeight ?? innerHeight) * 0.7);
     update();
     addEventListener("scroll", update, { passive: true });
@@ -67,6 +70,12 @@ export function Nav() {
       <Popover open={menu === "menu"} onClose={close} label={copy.nav.sections} className="yn-pop--menu">
         <ul className="yn-list">{copy.nav.links.map((l) => <li key={l.href}><a href={l.href} className="yn-item yn-item--lg" onClick={close}>{l.label}</a></li>)}</ul>
       </Popover>
+      <svg width="0" height="0" aria-hidden="true" focusable="false" className="yn-defs">
+        <filter id="yn-refract" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="7" result="n" />
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </svg>
     </header>
   );
 }

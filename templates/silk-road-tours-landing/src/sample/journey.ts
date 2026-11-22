@@ -2,7 +2,7 @@
 // ./media-manifest.json, listed in the footer's "Photos used" dialog). Replace journey.json, ./media and ./data with your own.
 import raw from "./journey.json";
 import manifest from "./media-manifest.json";
-import { parseJourney } from "./schema";
+import { parseJourney } from "@/components/globe/schema";
 
 const photos = import.meta.glob<string>("./media/**/*.webp", { eager: true, query: "?url", import: "default" });
 

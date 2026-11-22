@@ -11,7 +11,7 @@ pnpm install && pnpm dev
 - **Intro**: the sun rises, its rays grow, the wordmark wipes in and the lockup flies into the nav; the adras curtain lifts. Any key, click or scroll skips it.
 - **Nav**: glass pill with section links, a language sheet and a mobile menu.
 - **Hero** (`#top`): headline and two CTAs on the adras texture.
-- **Journey** (`#journey`): full-screen library `InteractiveGlobe` (`src/components/interactive-globe/`, wired in `src/components/landing/journey.tsx`) zooming into Uzbekistan on Sentinel-2 imagery; each city flies in on its own satellite tile and opens a panel with craft cutout, photo, highlights, best-time chart and attractions; an attraction opens a photo slider and full-size viewer.
+- **Journey** (`#journey`): full-screen canvas globe copied from the live site (`src/components/globe/`: `globe.ts` draws, `render.ts` builds pins and panels, `index.tsx` mounts it) zooming into Uzbekistan on Sentinel-2 imagery; each city flies in on its own satellite tile and opens a panel with craft cutout, photo, highlights, best-time chart and attractions; an attraction opens a photo slider and full-size viewer.
 - **Plan** (`#plan`): two doors to your travel-info and contacts pages.
 - **Legal** (`#trust`): three document cards (placeholder sheets) and a link to all documents.
 - **Footer**: company details, staff contacts, links, languages and the photo credits dialog.

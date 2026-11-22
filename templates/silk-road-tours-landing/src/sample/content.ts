@@ -1,5 +1,5 @@
 // Page copy (English). Brand and contacts live in src/template.config.tsx.
-import type { JourneyStrings } from "@/components/landing/journey";
+import type { JourneyStrings } from "@/components/globe";
 
 export const copy = {
   skip: "Skip to content",
@@ -59,23 +59,31 @@ export const copy = {
 
 export const journeyStrings: JourneyStrings = {
   heading: "Across Uzbekistan, city by city",
-  label: "Map of Uzbekistan with the stops Tashkent, Fergana, Samarkand, Bukhara, Khiva",
-  imageryCredit: "© EOX Sentinel-2 cloudless 2016",
+  mapLabel: "Map of Uzbekistan with the stops Tashkent, Fergana, Samarkand, Bukhara, Khiva",
+  citiesLabel: "Cities on the route",
+  chooseCity: "Choose a city",
   back: "Back",
   close: "Close",
-  photos: "Photos",
-  prev: "Previous photo",
-  next: "Next photo",
-  highlights: "Highlights",
-  bestTime: "Best time to go",
-  highsLabel: "Average daily high, °C",
-  goodMonth: "a good month to go",
-  attractions: "Places to see",
-  stopOf: (n, total) => `Stop ${n} of ${total}`,
-  leg: (hours, mode) => {
-    const h = Math.floor(hours), m = Math.round((hours - h) * 60);
-    return `≈ ${h} h${m ? ` ${m} min` : ""} ${{ train: "by train", road: "by road", flight: "by plane" }[mode]}`;
+  zoomIn: "Zoom in",
+  zoomOut: "Zoom out",
+  imageryCredit: "© EOX Sentinel-2 cloudless 2016",
+  // {placeholders} are filled by render.ts.
+  labels: {
+    stopOf: "Stop {n} of {total}",
+    highlightsLabel: "Highlights",
+    bestTime: "Best time to go",
+    highsLabel: "Average daily high, °C",
+    goodMonth: "a good month to go",
+    source: "Source: {host}",
+    legTime: "{time} {mode}",
+    hours: "≈ {h} h",
+    hoursMinutes: "≈ {h} h {m} min",
+    photos: "Photos",
+    enlarge: "Enlarge photo: {name}",
+    prev: "Previous photo",
+    next: "Next photo",
+    hl: { knownFor: "Known for", taste: "Taste", dontMiss: "Don’t miss" },
+    mode: { train: "by train", road: "by road", flight: "by plane" },
+    kind: { historical: "Historical", natural: "Nature", craft: "Craft", food: "Food", modern: "Modern" },
   },
-  hl: { knownFor: "Known for", taste: "Taste", dontMiss: "Don’t miss" },
-  kind: { historical: "Historical", natural: "Nature", craft: "Craft", food: "Food", modern: "Modern" },
 };
