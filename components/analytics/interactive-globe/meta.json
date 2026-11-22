@@ -1,0 +1,26 @@
+{
+  "name": "Interactive Globe",
+  "summary": "A canvas globe that flies in to highlighted countries or regions, with satellite imagery, focusable markers and a liquid glass popover per marker.",
+  "tags": [
+    "map",
+    "overlay",
+    "animation"
+  ],
+  "useWhen": [
+    "Showing a handful of places on a world map with details on click",
+    "Introducing a country or region with a zoom-in from the whole globe",
+    "Travel, office or event locations where geography is the story"
+  ],
+  "avoidWhen": [
+    "Street-level maps, routing or many hundreds of points",
+    "Measured values per country, where analytics/geo-01 to geo-04 fit better",
+    "Exact boundary work: borders are Natural Earth 1:110m"
+  ],
+  "dependencies": [
+    "d3-geo",
+    "lucide-react"
+  ],
+  "shadcn": [],
+  "source": "yairatour",
+  "status": "stable"
+}

@@ -278,6 +278,7 @@
         "analytics/insights-02",
         "analytics/insights-03",
         "analytics/insights-04",
+        "analytics/interactive-globe",
         "analytics/kpi-01",
         "analytics/kpi-02",
         "analytics/kpi-03",
@@ -2227,6 +2228,7 @@
         "actions/magnetic-button",
         "ai-chat/live-orb",
         "ai-chat/prompt-bar",
+        "analytics/interactive-globe",
         "app-interface/cloudlet-toaster",
         "app-interface/sidebar-glass",
         "app-interface/tree",
@@ -3244,7 +3246,8 @@
         "analytics/geo-01",
         "analytics/geo-02",
         "analytics/geo-03",
-        "analytics/geo-04"
+        "analytics/geo-04",
+        "analytics/interactive-globe"
       ]
     },
     "markdown": {
@@ -3401,6 +3404,7 @@
       "components": [
         "actions/dropdown-menu",
         "ai-chat/context",
+        "analytics/interactive-globe",
         "app-interface/cloudlet-toaster",
         "app-interface/drawer",
         "app-interface/floating-menu",
@@ -4218,6 +4222,64 @@
         "templates/ops-landing/previews/home.mobile.light.png",
         "templates/ops-landing/previews/manifesto.mobile.dark.png",
         "templates/ops-landing/previews/manifesto.mobile.light.png"
+      ]
+    },
+    {
+      "id": "templates/silk-road-tours-landing",
+      "slug": "silk-road-tours-landing",
+      "path": "templates/silk-road-tours-landing",
+      "name": "Silk Road Tours Landing",
+      "summary": "Uzbek national-style tour operator landing: sunrise logo intro that flies into a glass nav pill, adras hero, full-screen interactive globe that zooms into Uzbekistan's cities with photo panels, climate chart and attraction viewer, ikat and arch dividers, plan-your-trip doors, legal documents block and a contacts footer with photo credits.",
+      "kind": "landing",
+      "viewport": "responsive",
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "tags": [
+        "landing page",
+        "marketing",
+        "animation",
+        "map",
+        "hero",
+        "navigation"
+      ],
+      "useWhen": [
+        "Building a travel agency or tour operator site with a route across several cities",
+        "Needing a whole page with an intro, an interactive map of places and a trust/legal block already wired"
+      ],
+      "avoidWhen": [
+        "Only a map or a hero is needed; take that part alone",
+        "An app or booking flow rather than a marketing page"
+      ],
+      "stack": [
+        "React 19",
+        "Vite",
+        "Tailwind CSS 4",
+        "d3-geo",
+        "lenis",
+        "lucide-react",
+        "@fontsource-variable/manrope"
+      ],
+      "screens": [
+        {
+          "id": "home",
+          "title": "Home",
+          "path": "/"
+        },
+        {
+          "id": "intro",
+          "title": "Intro",
+          "path": "/?intro=1"
+        }
+      ],
+      "source": "Owner's own Uzbek tour-operator site; brand, logo, contacts, staff and legal documents replaced with neutral placeholders",
+      "status": "experimental",
+      "previews": [
+        "templates/silk-road-tours-landing/previews/home.mobile.dark.png",
+        "templates/silk-road-tours-landing/previews/home.mobile.light.png",
+        "templates/silk-road-tours-landing/previews/intro.mobile.dark.png",
+        "templates/silk-road-tours-landing/previews/intro.mobile.light.png"
       ]
     },
     {
@@ -7628,6 +7690,55 @@
         "components/analytics/insights-04/previews/default.desktop.light.png",
         "components/analytics/insights-04/previews/default.mobile.dark.png",
         "components/analytics/insights-04/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "analytics/interactive-globe",
+      "category": "analytics",
+      "slug": "interactive-globe",
+      "path": "components/analytics/interactive-globe",
+      "name": "Interactive Globe",
+      "summary": "A canvas globe that flies in to highlighted countries or regions, with satellite imagery, focusable markers and a liquid glass popover per marker.",
+      "tags": [
+        "map",
+        "overlay",
+        "animation"
+      ],
+      "useWhen": [
+        "Showing a handful of places on a world map with details on click",
+        "Introducing a country or region with a zoom-in from the whole globe",
+        "Travel, office or event locations where geography is the story"
+      ],
+      "avoidWhen": [
+        "Street-level maps, routing or many hundreds of points",
+        "Measured values per country, where analytics/geo-01 to geo-04 fit better",
+        "Exact boundary work: borders are Natural Earth 1:110m"
+      ],
+      "dependencies": [
+        "d3-geo",
+        "lucide-react"
+      ],
+      "shadcn": [],
+      "source": "yairatour",
+      "status": "stable",
+      "demos": [
+        "default",
+        "popover-open",
+        "world"
+      ],
+      "previews": [
+        "components/analytics/interactive-globe/previews/default.desktop.dark.png",
+        "components/analytics/interactive-globe/previews/default.desktop.light.png",
+        "components/analytics/interactive-globe/previews/default.mobile.dark.png",
+        "components/analytics/interactive-globe/previews/default.mobile.light.png",
+        "components/analytics/interactive-globe/previews/popover-open.desktop.dark.png",
+        "components/analytics/interactive-globe/previews/popover-open.desktop.light.png",
+        "components/analytics/interactive-globe/previews/popover-open.mobile.dark.png",
+        "components/analytics/interactive-globe/previews/popover-open.mobile.light.png",
+        "components/analytics/interactive-globe/previews/world.desktop.dark.png",
+        "components/analytics/interactive-globe/previews/world.desktop.light.png",
+        "components/analytics/interactive-globe/previews/world.mobile.dark.png",
+        "components/analytics/interactive-globe/previews/world.mobile.light.png"
       ]
     },
     {
