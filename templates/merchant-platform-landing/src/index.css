@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@source ".";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("./assets/inter-latin.woff2") format("woff2");
+}
+
+/* Fixed brand palette: sections that are dark in both themes. */
+@theme {
+  --color-ink: #02090a;
+  --color-smoke: #141a1a;
+  --color-night: #101828;
+  --color-deep: #003a6a;
+  --color-sky: #89cff1;
+  --font-display: "SF Pro Display", "SF Pro", -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Themed tokens: light matches the reference, dark is our own palette for the white sections. */
+:root {
+  --page: #ffffff;
+  --fg: #101828;
+  --fg-body: #535862;
+  --fg-muted: #475467;
+  --line: #e9eaeb;
+  --mist: #f8f9fb;
+  --cream: #f6f6f2;
+  --panel: #f5f5f7;
+  --field: #ffffff;
+  --field-line: #e5e7eb;
+  color-scheme: light;
+}
+.dark {
+  --page: #0a1019;
+  --fg: #f2f4f7;
+  --fg-body: #a4acb8;
+  --fg-muted: #98a2b3;
+  --line: #1f2a37;
+  --mist: #0e1621;
+  --cream: #0c131c;
+  --panel: #111a26;
+  --field: #0e1621;
+  --field-line: #2a3646;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-page: var(--page);
+  --color-fg: var(--fg);
+  --color-body-gray: var(--fg-body);
+  --color-muted: var(--fg-muted);
+  --color-line: var(--line);
+  --color-mist: var(--mist);
+  --color-cream: var(--cream);
+  --color-panel: var(--panel);
+  --color-field: var(--field);
+  --color-field-line: var(--field-line);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: #020202;
+    color: var(--fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+}
+
+.container-own { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: 24px; }
+@media (min-width: 768px) { .container-own { padding-inline: 90px; } }
+.marquee-mask {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, #0000, #000 12% 88%, #0000);
+  mask-image: linear-gradient(90deg, #0000, #000 12% 88%, #0000);
+}
+.glow-azure {
+  filter: blur(80px);
+  background: radial-gradient(circle, #0047ff8c 0%, #1b62f559 30%, #6db1d61f 62%, #0000 78%);
+}

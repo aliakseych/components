@@ -1,0 +1,23 @@
+{
+  "name": "Merchant Platform Landing",
+  "summary": "Full marketing landing for an e-commerce platform, rebuilt section by section from a reference site: hiding header with mobile menu, rotating-eyebrow hero with floating collage, theme fan strip, animated product and payment demos, integrations with logo marquee, advantage grid, testimonial wipe, comparison table, blog, FAQ accordion, lead form, footer and consent banner.",
+  "kind": "landing",
+  "viewport": "responsive",
+  "themes": ["light", "dark"],
+  "tags": ["landing page", "marketing", "animation"],
+  "useWhen": [
+    "Starting a landing page for a storefront or e-commerce platform with product demo animations",
+    "Needing the whole page with GSAP scroll motion, comparison table and lead form already wired"
+  ],
+  "avoidWhen": [
+    "Only one or two sections are needed; use the marketing components directly",
+    "A dashboard or app shell rather than a marketing page"
+  ],
+  "stack": ["React 19", "Vite", "Tailwind CSS 4", "gsap", "lucide-react"],
+  "screens": [
+    { "id": "home", "title": "Home", "path": "/" },
+    { "id": "consent", "title": "Consent banner", "path": "/?consent=1" }
+  ],
+  "source": "own.uz/en (layout, spacing and motion reference); brand, copy, logos and imagery replaced with neutral placeholders",
+  "status": "experimental"
+}
