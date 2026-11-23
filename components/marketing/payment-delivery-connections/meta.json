@@ -1,0 +1,17 @@
+{
+  "name": "Payment & Delivery Connections",
+  "summary": "A centred headline over three alternating image-and-text rows (payment, logistics, marketplaces with a roadmap badge) and an endlessly scrolling, hover-paused partner logo marquee, with staggered scroll-in reveals.",
+  "tags": ["animation", "landing page", "marketing", "billing"],
+  "useWhen": [
+    "Showing which payment, courier and marketplace partners a product connects to, with a logo strip underneath",
+    "A white marketing section that needs partner rows with a status badge for what is still on the roadmap"
+  ],
+  "avoidWhen": [
+    "You only need a logo wall; use a simple logo cloud instead of the three-row layout",
+    "Partners must link out or be interactive; the rows and marquee are static content"
+  ],
+  "dependencies": ["gsap"],
+  "shadcn": [],
+  "source": "own.uz (layout and motion reproduced, neutral brand)",
+  "status": "experimental"
+}

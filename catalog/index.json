@@ -126,7 +126,9 @@
       "components": [
         "marketing/bento-grid",
         "marketing/changelog",
+        "marketing/channel-advantages",
         "marketing/chat-testimonials",
+        "marketing/checkout-phone-showcase",
         "marketing/display-cards",
         "marketing/dithered-footer",
         "marketing/faq-stack",
@@ -138,6 +140,7 @@
         "marketing/logo-cloud",
         "marketing/night-cta",
         "marketing/ops-landing",
+        "marketing/payment-delivery-connections",
         "marketing/phone-feature-tabs",
         "marketing/phone-split-feature",
         "marketing/pill-navbar",
@@ -2242,7 +2245,9 @@
         "hero-page/phone-scroll-hero",
         "hero-page/scroll-morph-hero",
         "marketing/bento-grid",
+        "marketing/channel-advantages",
         "marketing/chat-testimonials",
+        "marketing/checkout-phone-showcase",
         "marketing/display-cards",
         "marketing/dithered-footer",
         "marketing/faq-stack",
@@ -2251,6 +2256,7 @@
         "marketing/inline-image-headline",
         "marketing/integration-grid",
         "marketing/ops-landing",
+        "marketing/payment-delivery-connections",
         "marketing/phone-feature-tabs",
         "marketing/phone-split-feature",
         "marketing/pill-navbar",
@@ -2354,7 +2360,9 @@
         "business/usage-meter-05",
         "business/usage-meter-06",
         "business/usage-meter-07",
-        "business/usage-meter-08"
+        "business/usage-meter-08",
+        "marketing/checkout-phone-showcase",
+        "marketing/payment-delivery-connections"
       ]
     },
     "button": {
@@ -2408,6 +2416,7 @@
         "data-display/folder-card",
         "hero-page/scroll-morph-hero",
         "marketing/bento-grid",
+        "marketing/channel-advantages",
         "marketing/chat-testimonials",
         "marketing/display-cards",
         "marketing/pricing",
@@ -3131,7 +3140,9 @@
         "hero-page/phone-scroll-hero",
         "hero-page/scroll-morph-hero",
         "marketing/bento-grid",
+        "marketing/channel-advantages",
         "marketing/chat-testimonials",
+        "marketing/checkout-phone-showcase",
         "marketing/display-cards",
         "marketing/faq-stack",
         "marketing/feature",
@@ -3140,6 +3151,7 @@
         "marketing/logo-cloud",
         "marketing/night-cta",
         "marketing/ops-landing",
+        "marketing/payment-delivery-connections",
         "marketing/phone-feature-tabs",
         "marketing/phone-split-feature",
         "marketing/pill-navbar",
@@ -3269,7 +3281,9 @@
         "hero-page/chapter-rail",
         "marketing/bento-grid",
         "marketing/changelog",
+        "marketing/channel-advantages",
         "marketing/chat-testimonials",
+        "marketing/checkout-phone-showcase",
         "marketing/dithered-footer",
         "marketing/faq-stack",
         "marketing/feature",
@@ -3280,6 +3294,7 @@
         "marketing/logo-cloud",
         "marketing/night-cta",
         "marketing/ops-landing",
+        "marketing/payment-delivery-connections",
         "marketing/phone-feature-tabs",
         "marketing/phone-split-feature",
         "marketing/pill-navbar",
@@ -4169,6 +4184,59 @@
         "templates/invest-app/previews/pool.mobile.light.png",
         "templates/invest-app/previews/portfolio.mobile.light.png",
         "templates/invest-app/previews/register.mobile.light.png"
+      ]
+    },
+    {
+      "id": "templates/merchant-platform-landing",
+      "slug": "merchant-platform-landing",
+      "path": "templates/merchant-platform-landing",
+      "name": "Merchant Platform Landing",
+      "summary": "Full marketing landing for an e-commerce platform, rebuilt section by section from a reference site: hiding header with mobile menu, rotating-eyebrow hero with floating collage, theme fan strip, animated product and payment demos, integrations with logo marquee, advantage grid, testimonial wipe, comparison table, blog, FAQ accordion, lead form, footer and consent banner.",
+      "kind": "landing",
+      "viewport": "responsive",
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "tags": [
+        "landing page",
+        "marketing",
+        "animation"
+      ],
+      "useWhen": [
+        "Starting a landing page for a storefront or e-commerce platform with product demo animations",
+        "Needing the whole page with GSAP scroll motion, comparison table and lead form already wired"
+      ],
+      "avoidWhen": [
+        "Only one or two sections are needed; use the marketing components directly",
+        "A dashboard or app shell rather than a marketing page"
+      ],
+      "stack": [
+        "React 19",
+        "Vite",
+        "Tailwind CSS 4",
+        "gsap",
+        "lucide-react"
+      ],
+      "screens": [
+        {
+          "id": "home",
+          "title": "Home",
+          "path": "/"
+        },
+        {
+          "id": "consent",
+          "title": "Consent banner",
+          "path": "/?consent=1"
+        }
+      ],
+      "source": "own.uz/en (layout, spacing and motion reference); brand, copy, logos and imagery replaced with neutral placeholders",
+      "status": "experimental",
+      "previews": [
+        "templates/merchant-platform-landing/previews/consent.mobile.dark.png",
+        "templates/merchant-platform-landing/previews/consent.mobile.light.png",
+        "templates/merchant-platform-landing/previews/home.mobile.dark.png",
+        "templates/merchant-platform-landing/previews/home.mobile.light.png"
       ]
     },
     {
@@ -13493,6 +13561,43 @@
       ]
     },
     {
+      "id": "marketing/channel-advantages",
+      "category": "marketing",
+      "slug": "channel-advantages",
+      "path": "components/marketing/channel-advantages",
+      "name": "Channel Advantages",
+      "summary": "A dark benefits section: eyebrow, large headline and lead, a three-column grid of six icon benefits, a blurred blue corner glow and three gradient stat tiles that overlap a light footer band, all revealing on scroll.",
+      "tags": [
+        "animation",
+        "landing page",
+        "marketing",
+        "cards"
+      ],
+      "useWhen": [
+        "Listing six product benefits with round icons on a dark landing section",
+        "Ending a section with three commercial terms (fee, scope, handover) as large tiles"
+      ],
+      "avoidWhen": [
+        "You need fewer than three benefits or an interactive comparison; use a bento grid or a feature list",
+        "The page has no light section after it; the stat tiles are designed to straddle into a light background"
+      ],
+      "dependencies": [
+        "gsap"
+      ],
+      "shadcn": [],
+      "source": "own.uz (layout and motion reproduced, neutral brand)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/channel-advantages/previews/default.desktop.dark.png",
+        "components/marketing/channel-advantages/previews/default.desktop.light.png",
+        "components/marketing/channel-advantages/previews/default.mobile.dark.png",
+        "components/marketing/channel-advantages/previews/default.mobile.light.png"
+      ]
+    },
+    {
       "id": "marketing/chat-testimonials",
       "category": "marketing",
       "slug": "chat-testimonials",
@@ -13525,6 +13630,43 @@
         "components/marketing/chat-testimonials/previews/default.desktop.light.png",
         "components/marketing/chat-testimonials/previews/default.mobile.dark.png",
         "components/marketing/chat-testimonials/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/checkout-phone-showcase",
+      "category": "marketing",
+      "slug": "checkout-phone-showcase",
+      "path": "components/marketing/checkout-phone-showcase",
+      "name": "Checkout Phone Showcase",
+      "summary": "A dark marketing block with a headline and an 8-second looping scene: a product row, one item lifted into an add-to-cart card, a pay card, then a phone rising with a sale notification, with scroll-in rise, scroll parallax and play-on-view.",
+      "tags": [
+        "animation",
+        "landing page",
+        "marketing",
+        "billing"
+      ],
+      "useWhen": [
+        "Explaining how simple it is for a shop to take a payment, with a phone showing the seller's notification",
+        "A dark landing section that needs a hero-sized looping product story instead of a screenshot or video file"
+      ],
+      "avoidWhen": [
+        "You need real footage or a different story; the scene is a fixed four-product sequence",
+        "The section must stay light-themed; the stage is intentionally black"
+      ],
+      "dependencies": [
+        "gsap"
+      ],
+      "shadcn": [],
+      "source": "own.uz (layout and motion reproduced, neutral brand)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/checkout-phone-showcase/previews/default.desktop.dark.png",
+        "components/marketing/checkout-phone-showcase/previews/default.desktop.light.png",
+        "components/marketing/checkout-phone-showcase/previews/default.mobile.dark.png",
+        "components/marketing/checkout-phone-showcase/previews/default.mobile.light.png"
       ]
     },
     {
@@ -13959,6 +14101,43 @@
         "components/marketing/ops-landing/previews/default.desktop.light.png",
         "components/marketing/ops-landing/previews/default.mobile.dark.png",
         "components/marketing/ops-landing/previews/default.mobile.light.png"
+      ]
+    },
+    {
+      "id": "marketing/payment-delivery-connections",
+      "category": "marketing",
+      "slug": "payment-delivery-connections",
+      "path": "components/marketing/payment-delivery-connections",
+      "name": "Payment & Delivery Connections",
+      "summary": "A centred headline over three alternating image-and-text rows (payment, logistics, marketplaces with a roadmap badge) and an endlessly scrolling, hover-paused partner logo marquee, with staggered scroll-in reveals.",
+      "tags": [
+        "animation",
+        "landing page",
+        "marketing",
+        "billing"
+      ],
+      "useWhen": [
+        "Showing which payment, courier and marketplace partners a product connects to, with a logo strip underneath",
+        "A white marketing section that needs partner rows with a status badge for what is still on the roadmap"
+      ],
+      "avoidWhen": [
+        "You only need a logo wall; use a simple logo cloud instead of the three-row layout",
+        "Partners must link out or be interactive; the rows and marquee are static content"
+      ],
+      "dependencies": [
+        "gsap"
+      ],
+      "shadcn": [],
+      "source": "own.uz (layout and motion reproduced, neutral brand)",
+      "status": "experimental",
+      "demos": [
+        "default"
+      ],
+      "previews": [
+        "components/marketing/payment-delivery-connections/previews/default.desktop.dark.png",
+        "components/marketing/payment-delivery-connections/previews/default.desktop.light.png",
+        "components/marketing/payment-delivery-connections/previews/default.mobile.dark.png",
+        "components/marketing/payment-delivery-connections/previews/default.mobile.light.png"
       ]
     },
     {

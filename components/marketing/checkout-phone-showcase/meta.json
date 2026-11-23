@@ -1,0 +1,17 @@
+{
+  "name": "Checkout Phone Showcase",
+  "summary": "A dark marketing block with a headline and an 8-second looping scene: a product row, one item lifted into an add-to-cart card, a pay card, then a phone rising with a sale notification, with scroll-in rise, scroll parallax and play-on-view.",
+  "tags": ["animation", "landing page", "marketing", "billing"],
+  "useWhen": [
+    "Explaining how simple it is for a shop to take a payment, with a phone showing the seller's notification",
+    "A dark landing section that needs a hero-sized looping product story instead of a screenshot or video file"
+  ],
+  "avoidWhen": [
+    "You need real footage or a different story; the scene is a fixed four-product sequence",
+    "The section must stay light-themed; the stage is intentionally black"
+  ],
+  "dependencies": ["gsap"],
+  "shadcn": [],
+  "source": "own.uz (layout and motion reproduced, neutral brand)",
+  "status": "experimental"
+}

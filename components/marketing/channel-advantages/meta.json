@@ -1,0 +1,17 @@
+{
+  "name": "Channel Advantages",
+  "summary": "A dark benefits section: eyebrow, large headline and lead, a three-column grid of six icon benefits, a blurred blue corner glow and three gradient stat tiles that overlap a light footer band, all revealing on scroll.",
+  "tags": ["animation", "landing page", "marketing", "cards"],
+  "useWhen": [
+    "Listing six product benefits with round icons on a dark landing section",
+    "Ending a section with three commercial terms (fee, scope, handover) as large tiles"
+  ],
+  "avoidWhen": [
+    "You need fewer than three benefits or an interactive comparison; use a bento grid or a feature list",
+    "The page has no light section after it; the stat tiles are designed to straddle into a light background"
+  ],
+  "dependencies": ["gsap"],
+  "shadcn": [],
+  "source": "own.uz (layout and motion reproduced, neutral brand)",
+  "status": "experimental"
+}
